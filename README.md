@@ -49,4 +49,3 @@ See [LICENSE](LICENSE) for details.
 ## Links
 
 - Website: https://astrogods.it
-- Android: [Google Play Store](https://play.google.com/store/apps/details?id=com.astrogods.app)
