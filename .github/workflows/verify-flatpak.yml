@@ -1,0 +1,42 @@
+name: Verify Flatpak
+
+on:
+  workflow_run:
+    workflows: ["Build and release"]
+    types:
+      - completed
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify-flatpak:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-latest
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Flatpak
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak dbus-x11
+          flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak install -y --user flathub org.flatpak.Builder
+
+      - name: Build Flatpak
+        run: dbus-run-session flatpak run --command=flathub-build org.flatpak.Builder flatpak/it.astrogods.AstroGods.json
+
+      - name: Lint manifest
+        run: flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest flatpak/it.astrogods.AstroGods.json
+
+      - name: Lint repo
+        run: flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo
