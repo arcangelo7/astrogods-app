@@ -32,7 +32,7 @@ jobs:
           fi
           echo "$GITHUB_WORKSPACE/flutter/bin" >> $GITHUB_PATH
 
-      - name: Create .env.flutter.prod
+      - name: Create .env files
         run: |
           cat > .env.flutter.prod << EOF
           API_BASE_URL=${{ secrets.API_BASE_URL }}
@@ -40,6 +40,9 @@ jobs:
           GOOGLE_OAUTH_CLIENT_ID=${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
           GOOGLE_OAUTH_CLIENT_SECRET=${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
           EOF
+          cp .env.flutter.prod .env.flutter.mobile
+          cp .env.flutter.prod .env.flutter.desktop
+          cp .env.flutter.prod .env.flutter.web
 
       - name: Install dependencies
         run: |
