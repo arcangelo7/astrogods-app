@@ -1,0 +1,190 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  build-linux-x64:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.5'
+          channel: 'stable'
+          cache: true
+
+      - name: Create .env.flutter.prod
+        run: |
+          cat > .env.flutter.prod << EOF
+          API_BASE_URL=${{ secrets.API_BASE_URL }}
+          APP_VERSION=${{ github.ref_name }}
+          GOOGLE_OAUTH_CLIENT_ID=${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_CLIENT_SECRET=${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+          EOF
+
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Build Linux release
+        run: |
+          flutter pub get
+          flutter build linux --release
+
+      - name: Package Linux build
+        run: |
+          cd build/linux/x64/release
+          mv bundle linux-x64-${{ github.ref_name }}
+          tar -czf ../../../../linux-x64-${{ github.ref_name }}.tar.gz linux-x64-${{ github.ref_name }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-x64-build
+          path: linux-x64-${{ github.ref_name }}.tar.gz
+
+  build-linux-arm64:
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.5'
+          channel: 'stable'
+          cache: true
+
+      - name: Create .env.flutter.prod
+        run: |
+          cat > .env.flutter.prod << EOF
+          API_BASE_URL=${{ secrets.API_BASE_URL }}
+          APP_VERSION=${{ github.ref_name }}
+          GOOGLE_OAUTH_CLIENT_ID=${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_CLIENT_SECRET=${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+          EOF
+
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Build Linux release
+        run: |
+          flutter pub get
+          flutter build linux --release
+
+      - name: Package Linux build
+        run: |
+          cd build/linux/arm64/release
+          mv bundle linux-arm64-${{ github.ref_name }}
+          tar -czf ../../../../linux-arm64-${{ github.ref_name }}.tar.gz linux-arm64-${{ github.ref_name }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-arm64-build
+          path: linux-arm64-${{ github.ref_name }}.tar.gz
+
+  release:
+    needs: [build-linux-x64, build-linux-arm64]
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Move artifacts to root
+        run: |
+          mv artifacts/linux-x64-build/linux-x64-${{ github.ref_name }}.tar.gz .
+          mv artifacts/linux-arm64-build/linux-arm64-${{ github.ref_name }}.tar.gz .
+
+      - name: Update Flatpak manifest with checksums
+        run: |
+          VERSION=${{ github.ref_name }}
+          CHECKSUM_X64=$(sha256sum linux-x64-${VERSION}.tar.gz | cut -d' ' -f1)
+          CHECKSUM_ARM64=$(sha256sum linux-arm64-${VERSION}.tar.gz | cut -d' ' -f1)
+          URL_BASE="https://github.com/arcangelo7/astrogods-app/releases/download/${VERSION}"
+
+          jq --arg url_x64 "${URL_BASE}/linux-x64-${VERSION}.tar.gz" \
+             --arg sha_x64 "${CHECKSUM_X64}" \
+             --arg url_arm64 "${URL_BASE}/linux-arm64-${VERSION}.tar.gz" \
+             --arg sha_arm64 "${CHECKSUM_ARM64}" \
+             '.modules[0].sources[0].url = $url_x64 |
+              .modules[0].sources[0].sha256 = $sha_x64 |
+              .modules[0].sources[1].url = $url_arm64 |
+              .modules[0].sources[1].sha256 = $sha_arm64' \
+             flatpak/it.astrogods.AstroGods.json > flatpak/tmp.json
+          mv flatpak/tmp.json flatpak/it.astrogods.AstroGods.json
+
+      - name: Commit updated manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add flatpak/it.astrogods.AstroGods.json
+          git commit -m "chore: update Flatpak manifest checksums for ${{ github.ref_name }}" || echo "No changes"
+          git push origin main
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create ${{ github.ref_name }} \
+            linux-x64-${{ github.ref_name }}.tar.gz \
+            linux-arm64-${{ github.ref_name }}.tar.gz \
+            --title "AstroGods ${{ github.ref_name }}" \
+            --notes "Linux release for Flatpak distribution (x64 and arm64)"
+
+  verify-flatpak:
+    needs: release
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-latest
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Install Flatpak
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak
+
+      - name: Add Flathub remote
+        run: flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+      - name: Install Flatpak Builder
+        run: flatpak install -y --user flathub org.flatpak.Builder
+
+      - name: Build Flatpak (${{ matrix.arch }})
+        run: |
+          flatpak run --command=flathub-build org.flatpak.Builder flatpak/it.astrogods.AstroGods.json
+
+      - name: Lint manifest
+        run: |
+          flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest flatpak/it.astrogods.AstroGods.json
+
+      - name: Lint repo
+        run: |
+          flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo
