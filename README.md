@@ -21,7 +21,13 @@ This repository contains the Flatpak manifest for publishing AstroGods on Flathu
 
 ### Flatpak
 
-AstroGods has been submitted to [Flathub](https://flathub.org) and is pending review. Track the progress in [PR #7474](https://github.com/flathub/flathub/pull/7474).
+<a href="https://flathub.org/apps/it.astrogods.AstroGods">
+  <img src="https://flathub.org/api/badge?svg&locale=en" alt="Download on Flathub" />
+</a>
+
+```bash
+flatpak install flathub it.astrogods.AstroGods
+```
 
 ## License
 
