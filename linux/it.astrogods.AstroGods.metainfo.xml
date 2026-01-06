@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>it.astrogods.AstroGods</id>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>LicenseRef-proprietary</project_license>
+  <project_license>AGPL-3.0-only</project_license>
   <name>AstroGods</name>
   <name xml:lang="it">AstroGods</name>
   <summary>Explore your birth chart and understand yourself more deeply</summary>
@@ -58,6 +58,11 @@
   </screenshots>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="4.7.2" date="2026-01-06">
+      <description>
+        <p>Open sourced frontend and added aarch64 support</p>
+      </description>
+    </release>
     <release version="4.7.1" date="2026-01-06">
       <description>
         <p>Connection error messages now translated</p>
