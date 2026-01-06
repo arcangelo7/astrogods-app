@@ -4,6 +4,8 @@ id: it.astrogods.AstroGods
 runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.llvm20
 command: astrogods
 finish-args:
   - --share=ipc
@@ -15,11 +17,10 @@ modules:
   - name: astrogods
     buildsystem: simple
     build-options:
+      append-path: /usr/lib/sdk/llvm20/bin
       env:
         PATH: /var/lib/flutter/bin:/app/bin:/usr/bin
         PUB_CACHE: /run/build/astrogods/.pub-cache
-        CC: gcc
-        CXX: g++
       arch:
         x86_64:
           env:
