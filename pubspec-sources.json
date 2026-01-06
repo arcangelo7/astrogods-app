@@ -282,6 +282,20 @@
     {
         "type": "archive",
         "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/cli_util-0.4.2.tar.gz",
+        "sha256": "ff6785f7e9e3c38ac98b2fb035701789de90154024a75b6cb926445e83197d1c",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/cli_util-0.4.2"
+    },
+    {
+        "type": "inline",
+        "contents": "ff6785f7e9e3c38ac98b2fb035701789de90154024a75b6cb926445e83197d1c",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "cli_util-0.4.2.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
         "url": "https://pub.dev/api/archives/clock-1.1.2.tar.gz",
         "sha256": "fddb70d9b5277016c77a80201021d40a2247104d9f4aa7bab7157b7e3f05b84b",
         "strip-components": 0,
@@ -296,16 +310,16 @@
     {
         "type": "archive",
         "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/code_builder-4.11.0.tar.gz",
-        "sha256": "11654819532ba94c34de52ff5feb52bd81cba1de00ef2ed622fd50295f9d4243",
+        "url": "https://pub.dev/api/archives/code_builder-4.11.1.tar.gz",
+        "sha256": "6a6cab2ba4680d6423f34a9b972a4c9a94ebe1b62ecec4e1a1f2cba91fd1319d",
         "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/code_builder-4.11.0"
+        "dest": ".pub-cache/hosted/pub.dev/code_builder-4.11.1"
     },
     {
         "type": "inline",
-        "contents": "11654819532ba94c34de52ff5feb52bd81cba1de00ef2ed622fd50295f9d4243",
+        "contents": "6a6cab2ba4680d6423f34a9b972a4c9a94ebe1b62ecec4e1a1f2cba91fd1319d",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "code_builder-4.11.0.sha256"
+        "dest-filename": "code_builder-4.11.1.sha256"
     },
     {
         "type": "archive",
@@ -320,6 +334,20 @@
         "contents": "2f5709ae4d3d59dd8f7cd309b4e023046b57d8a6c82130785d2b0e5868084e76",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
         "dest-filename": "collection-1.19.1.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/console-4.1.0.tar.gz",
+        "sha256": "e04e7824384c5b39389acdd6dc7d33f3efe6b232f6f16d7626f194f6a01ad69a",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/console-4.1.0"
+    },
+    {
+        "type": "inline",
+        "contents": "e04e7824384c5b39389acdd6dc7d33f3efe6b232f6f16d7626f194f6a01ad69a",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "console-4.1.0.sha256"
     },
     {
         "type": "archive",
@@ -716,6 +744,20 @@
     {
         "type": "archive",
         "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/get_it-8.3.0.tar.gz",
+        "sha256": "ae78de7c3f2304b8d81f2bb6e320833e5e81de942188542328f074978cc0efa9",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/get_it-8.3.0"
+    },
+    {
+        "type": "inline",
+        "contents": "ae78de7c3f2304b8d81f2bb6e320833e5e81de942188542328f074978cc0efa9",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "get_it-8.3.0.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
         "url": "https://pub.dev/api/archives/glob-2.1.3.tar.gz",
         "sha256": "c3f1ee72c96f8f78935e18aa8cecced9ab132419e8625dc187e1c2408efc20de",
         "strip-components": 0,
@@ -814,16 +856,16 @@
     {
         "type": "archive",
         "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/google_sign_in_all_platforms_mobile-0.2.0.tar.gz",
-        "sha256": "65b1e71356db2fbdc4ea78a76e4b5ec40740694955af903a75a3fe5e319030e4",
+        "url": "https://pub.dev/api/archives/google_sign_in_all_platforms_mobile-0.2.1.tar.gz",
+        "sha256": "4d09eaf2676bf44925550fc9346ea8e6ff3a32c9885c566025bf0e90feab2aee",
         "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/google_sign_in_all_platforms_mobile-0.2.0"
+        "dest": ".pub-cache/hosted/pub.dev/google_sign_in_all_platforms_mobile-0.2.1"
     },
     {
         "type": "inline",
-        "contents": "65b1e71356db2fbdc4ea78a76e4b5ec40740694955af903a75a3fe5e319030e4",
+        "contents": "4d09eaf2676bf44925550fc9346ea8e6ff3a32c9885c566025bf0e90feab2aee",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "google_sign_in_all_platforms_mobile-0.2.0.sha256"
+        "dest-filename": "google_sign_in_all_platforms_mobile-0.2.1.sha256"
     },
     {
         "type": "archive",
@@ -1314,6 +1356,20 @@
         "contents": "41a20518f0cb1256669420fdba0cd90d21561e560ac240f26ef8322e45bb7ed6",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
         "dest-filename": "mime-2.0.0.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/msix-3.16.12.tar.gz",
+        "sha256": "f88033fcb9e0dd8de5b18897cbebbd28ea30596810f4a7c86b12b0c03ace87e5",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/msix-3.16.12"
+    },
+    {
+        "type": "inline",
+        "contents": "f88033fcb9e0dd8de5b18897cbebbd28ea30596810f4a7c86b12b0c03ace87e5",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "msix-3.16.12.sha256"
     },
     {
         "type": "archive",
@@ -2630,6 +2686,20 @@
         "contents": "5865a34983367f6884e8311f67d9ae459945b99bad20c0e66484a1aae7feaae0",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
         "dest-filename": "code_assets-0.19.7.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/code_builder-4.11.0.tar.gz",
+        "sha256": "11654819532ba94c34de52ff5feb52bd81cba1de00ef2ed622fd50295f9d4243",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/code_builder-4.11.0"
+    },
+    {
+        "type": "inline",
+        "contents": "11654819532ba94c34de52ff5feb52bd81cba1de00ef2ed622fd50295f9d4243",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "code_builder-4.11.0.sha256"
     },
     {
         "type": "archive",
