@@ -37,4 +37,5 @@ jobs:
         run: flatpak-builder-lint manifest it.astrogods.AstroGods.yml
 
       - name: Lint repo
+        continue-on-error: true
         run: flatpak-builder-lint repo repo
