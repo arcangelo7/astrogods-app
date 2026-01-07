@@ -1,5 +1,7 @@
 # AstroGods
 
+[![Snap](https://snapcraft.io/astrogods/badge.svg)](https://snapcraft.io/astrogods)
+
 Open source Flutter frontend for [AstroGods](https://astrogods.it).
 
 AstroGods is a modern, beautifully designed Astrology app focused on self-knowledge. It provides in-depth birth chart interpretations using Egyptian astrology (Equal house system with Vehlow domification), synastry analysis for relationships, and daily and monthly transit readings. Available in English and Italian.
@@ -27,6 +29,16 @@ This repository contains the source code and Flatpak configuration for AstroGods
 
 ```bash
 flatpak install flathub it.astrogods.AstroGods
+```
+
+### Snap
+
+<a href="https://snapcraft.io/astrogods">
+  <img alt="Get it from the Snap Store" src="https://snapcraft.io/en/dark/install.svg" />
+</a>
+
+```bash
+snap install astrogods
 ```
 
 ## License
