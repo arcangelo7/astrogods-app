@@ -29,10 +29,14 @@ jobs:
           run-id: ${{ inputs.verify_run_id || github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Find snap file
+        id: find-snap
+        run: echo "snap_file=$(ls astrogods_*.snap)" >> $GITHUB_OUTPUT
+
       - name: Publish to Snap Store
         uses: snapcore/action-publish@v1
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         with:
-          snap: astrogods_*.snap
+          snap: ${{ steps.find-snap.outputs.snap_file }}
           release: stable
