@@ -8,6 +8,10 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      verify_run_id:
+        description: 'Verify Snap workflow run ID'
+        required: true
 
 jobs:
   publish:
@@ -22,7 +26,7 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: snap-${{ matrix.arch }}
-          run-id: ${{ github.event.workflow_run.id }}
+          run-id: ${{ inputs.verify_run_id || github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to Snap Store

@@ -6,6 +6,10 @@ on:
     types:
       - completed
   workflow_dispatch:
+    inputs:
+      build_run_id:
+        description: 'Build Snap workflow run ID'
+        required: true
 
 jobs:
   verify-snap:
@@ -26,7 +30,7 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: snap-${{ matrix.arch }}
-          run-id: ${{ github.event.workflow_run.id }}
+          run-id: ${{ inputs.build_run_id || github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install review-tools
@@ -39,3 +43,9 @@ jobs:
         run: |
           sudo snap install --dangerous astrogods_*.snap
           snap list astrogods
+
+      - name: Re-upload snap artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: snap-${{ matrix.arch }}
+          path: astrogods_*.snap
