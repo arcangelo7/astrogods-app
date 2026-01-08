@@ -20,9 +20,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
+
       - name: Build snap
-        uses: snapcore/action-build@v1
         id: build
+        run: |
+          sudo snapcraft --destructive-mode
+          echo "snap=$(ls *.snap)" >> $GITHUB_OUTPUT
 
       - name: Upload snap artifact
         uses: actions/upload-artifact@v6
