@@ -1,5 +1,7 @@
 # AstroGods
 
+[![PWA](https://img.shields.io/badge/PWA-Install-5A0FC8?logo=pwa&logoColor=white)](https://astrogods.it)
+[![Flathub](https://img.shields.io/flathub/v/it.astrogods.AstroGods?logo=flathub&logoColor=white)](https://flathub.org/apps/it.astrogods.AstroGods)
 [![Snap](https://snapcraft.io/astrogods/badge.svg)](https://snapcraft.io/astrogods)
 
 Open source Flutter frontend for [AstroGods](https://astrogods.it).
