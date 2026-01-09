@@ -3182,6 +3182,23 @@ class AppLocalizationsEn extends AppLocalizations {
       'No. Astrological elements have multiple symbolic meanings, and interpreting them within a specific energetic constitution requires an exchange between souls, hearts, and sensibilities. An expert astrologer can use AstroGods to simplify their work, but through personal exchange they will be better able to bring out deeper meanings. Furthermore, AstroGods does not yet consider the entire astrological spectrum: the expert astrologer remains irreplaceable.';
 
   @override
+  String get faqSeriousSectionTitle => 'Serious stuff';
+
+  @override
+  String get faqNotSeriousSectionTitle => 'Not serious stuff';
+
+  @override
+  String get faqRefundQuestion =>
+      'I didn\'t like the service, can I get a refund?';
+
+  @override
+  String get faqRefundAnswerBefore => 'Yes. Email ';
+
+  @override
+  String get faqRefundAnswerAfter =>
+      ' and we\'ll refund you. We\'ll ask what went wrong because we want to improve, but you don\'t have to answer.';
+
+  @override
   String get viewChart => 'View chart';
 
   @override
@@ -3209,6 +3226,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String version(Object version) {
     return 'Version $version';
   }
+
+  @override
+  String get releaseNotes_4_8_0 =>
+      'New app icon. Optimized starry night background.';
 
   @override
   String get releaseNotes_4_7_7 =>

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -110,10 +109,10 @@ class MainNavigationWrapper extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          SvgPicture.asset(
-                            'assets/images/logos/astrogods_logo.svg',
-                            width: 64,
-                            height: 64,
+                          Image.asset(
+                            'assets/images/logos/astrogods_logo_80.webp',
+                            width: 80,
+                            height: 80,
                           ),
                           const SizedBox(height: 8),
                           Text(

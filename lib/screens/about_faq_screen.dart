@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
@@ -450,7 +451,11 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
       Icons.help_outline,
       l10n.faqSectionTitle,
       Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 8),
+          _buildFaqSubsectionHeader(context, l10n.faqSeriousSectionTitle),
+          const SizedBox(height: 24),
           _buildFaqItem(context, l10n.faq1Question, l10n.faq1Answer),
           _buildFaqItem(context, l10n.faq2Question, l10n.faq2Answer),
           _buildFaqItem(context, l10n.faq3Question, l10n.faq3Answer),
@@ -458,9 +463,83 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
           _buildFaqItem(context, l10n.faq5Question, l10n.faq5Answer),
           _buildFaqItem(context, l10n.faq6Question, l10n.faq6Answer),
           _buildFaqItem(context, l10n.faq7Question, l10n.faq7Answer),
+          const SizedBox(height: 32),
+          _buildFaqSubsectionHeader(context, l10n.faqNotSeriousSectionTitle),
+          const SizedBox(height: 24),
+          _buildRefundFaqItem(context, l10n),
         ],
       ),
     );
+  }
+
+  Widget _buildFaqSubsectionHeader(BuildContext context, String title) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        border: Border(
+          left: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 3,
+          ),
+        ),
+        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+      ),
+      child: Text(
+        title,
+        style: AppTextStyles.getH4Style(context),
+      ),
+    );
+  }
+
+  Widget _buildRefundFaqItem(BuildContext context, AppLocalizations l10n) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.faqRefundQuestion,
+            style: AppTextStyles.getH5Style(context)
+                .copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 12),
+          Text.rich(
+            TextSpan(
+              style: AppTextStyles.getBodyStyle(context),
+              children: [
+                TextSpan(text: l10n.faqRefundAnswerBefore),
+                WidgetSpan(
+                  alignment: PlaceholderAlignment.baseline,
+                  baseline: TextBaseline.alphabetic,
+                  child: GestureDetector(
+                    onTap: () => _launchEmail('contact@astrogods.it'),
+                    child: Text(
+                      'contact@astrogods.it',
+                      style: AppTextStyles.getBodyStyle(context).copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
+                TextSpan(text: l10n.faqRefundAnswerAfter),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Divider(
+            color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _launchEmail(String email) async {
+    final uri = Uri.parse('mailto:$email');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    }
   }
 
   Widget _buildFaqItem(BuildContext context, String question, String answer) {

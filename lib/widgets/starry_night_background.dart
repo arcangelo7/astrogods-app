@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import '../constants/colors.dart';
 
 class StarryNightBackground extends StatefulWidget {
@@ -18,9 +20,67 @@ class StarryNightBackground extends StatefulWidget {
   State<StarryNightBackground> createState() => _StarryNightBackgroundState();
 }
 
+class _StarLayer {
+  final Float32List basePositions;
+  final double starSize;
+  final Color color;
+  final double speedMultiplier;
+  final double phaseOffset;
+
+  _StarLayer({
+    required int count,
+    required this.starSize,
+    required this.color,
+    required this.speedMultiplier,
+    required this.phaseOffset,
+    required int seed,
+    required Size size,
+    required bool subtle,
+  }) : basePositions = _generatePositions(count, seed, size, subtle);
+
+  static Float32List _generatePositions(
+    int count,
+    int seed,
+    Size size,
+    bool subtle,
+  ) {
+    final random = math.Random(seed);
+    final positions = Float32List(count * 2);
+    final widthMultiplier = subtle ? 1.0 : 1.6;
+    final heightMultiplier = subtle ? 1.0 : 2.0;
+
+    for (int i = 0; i < count; i++) {
+      positions[i * 2] = random.nextDouble() * size.width * widthMultiplier;
+      positions[i * 2 + 1] = random.nextDouble() * size.height * heightMultiplier;
+    }
+    return positions;
+  }
+}
+
+class _PlanetGeometry {
+  static const double horizonApexFactor = 0.30;
+  static const double radiusFactor = 1.8;
+
+  static double getHorizonApexY(Size size) => size.height * horizonApexFactor;
+  static double getPlanetRadius(Size size) => size.width * radiusFactor;
+  static Offset getCenter(Size size) {
+    final horizonApexY = getHorizonApexY(size);
+    final planetRadius = getPlanetRadius(size);
+    return Offset(size.width / 2, planetRadius + horizonApexY);
+  }
+}
+
 class _StarryNightBackgroundState extends State<StarryNightBackground>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
+  List<_StarLayer>? _starLayers;
+  Size? _lastSize;
+  bool? _lastIsDark;
+
+  ui.Image? _cachedPlanetImage;
+  Size? _cachedImageSize;
+  bool? _cachedImageIsDark;
+  bool _isRenderingCache = false;
 
   @override
   void initState() {
@@ -35,236 +95,309 @@ class _StarryNightBackgroundState extends State<StarryNightBackground>
       vsync: this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        _animationController.repeat();
-      }
-    });
+    if (!widget.subtle) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _animationController.repeat();
+        }
+      });
+    }
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    _cachedPlanetImage?.dispose();
     super.dispose();
   }
 
-  double _getLayerValue(int layer) {
-    final base = _animationController.value;
-    switch (layer) {
-      case 1:
-        return base;
-      case 2:
-        return (base * 0.5 + 0.33) % 1.0;
-      case 3:
-        return (base * 0.33 + 0.66) % 1.0;
-      default:
-        return base;
+  List<Color> _getBackgroundColors(bool isDark) {
+    if (isDark) {
+      return widget.subtle
+          ? [Colors.black, Colors.black]
+          : [AppColors.darkBackground, AppColors.darkBackground];
     }
+    return [
+      AppColors.auroraTop,
+      AppColors.auroraMiddle,
+      AppColors.lightBackground,
+    ];
+  }
+
+  void _initializeStarLayers(Size size, bool isDark) {
+    if (_lastSize == size && _lastIsDark == isDark) return;
+    _lastSize = size;
+    _lastIsDark = isDark;
+
+    _starLayers = [
+      _StarLayer(
+        count: widget.subtle ? 60 : 100,
+        starSize: widget.subtle ? 0.6 : 1.0,
+        color: isDark
+            ? (widget.subtle
+                ? Colors.white.withValues(alpha: 0.12)
+                : Colors.white)
+            : AppColors.lightSecondary.withValues(alpha: 0.4),
+        speedMultiplier: 1.0,
+        phaseOffset: 0.0,
+        seed: 1,
+        size: size,
+        subtle: widget.subtle,
+      ),
+      _StarLayer(
+        count: widget.subtle ? 35 : 30,
+        starSize: widget.subtle ? 1.0 : 1.5,
+        color: isDark
+            ? (widget.subtle
+                ? Colors.white.withValues(alpha: 0.18)
+                : Colors.white)
+            : AppColors.lightSecondary.withValues(alpha: 0.5),
+        speedMultiplier: 0.5,
+        phaseOffset: 0.33,
+        seed: 2,
+        size: size,
+        subtle: widget.subtle,
+      ),
+      _StarLayer(
+        count: widget.subtle ? 20 : 20,
+        starSize: widget.subtle ? 1.4 : 3.0,
+        color: isDark
+            ? (widget.subtle
+                ? Colors.white.withValues(alpha: 0.25)
+                : Colors.white)
+            : AppColors.lightSecondary.withValues(alpha: 0.6),
+        speedMultiplier: 0.33,
+        phaseOffset: 0.66,
+        seed: 3,
+        size: size,
+        subtle: widget.subtle,
+      ),
+    ];
+  }
+
+  Future<void> _renderPlanetCache(Size size, bool isDark, double dpr) async {
+    if (_isRenderingCache) return;
+    if (_cachedImageSize == size && _cachedImageIsDark == isDark && _cachedPlanetImage != null) {
+      return;
+    }
+
+    _isRenderingCache = true;
+
+    final imageWidth = (size.width * dpr).ceil();
+    final imageHeight = (size.height * dpr).ceil();
+
+    final recorder = ui.PictureRecorder();
+    final canvas = Canvas(
+      recorder,
+      Rect.fromLTWH(0, 0, imageWidth.toDouble(), imageHeight.toDouble()),
+    );
+
+    canvas.scale(dpr);
+
+    _paintBackground(canvas, size, isDark);
+
+    if (widget.showPlanet) {
+      PlanetHorizonPainter(isDark: isDark).paint(canvas, size);
+    }
+
+    final picture = recorder.endRecording();
+    final image = await picture.toImage(imageWidth, imageHeight);
+    picture.dispose();
+
+    if (mounted) {
+      final oldImage = _cachedPlanetImage;
+      setState(() {
+        _cachedPlanetImage = image;
+        _cachedImageSize = size;
+        _cachedImageIsDark = isDark;
+        _isRenderingCache = false;
+      });
+      oldImage?.dispose();
+    } else {
+      image.dispose();
+      _isRenderingCache = false;
+    }
+  }
+
+  void _paintBackground(Canvas canvas, Size size, bool isDark) {
+    final gradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: _getBackgroundColors(isDark),
+    );
+
+    final paint = Paint()
+      ..shader = gradient.createShader(Rect.fromLTWH(0, 0, size.width, size.height));
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
   }
 
   @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final dpr = MediaQuery.of(context).devicePixelRatio;
 
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: isDark
-              ? (widget.subtle
-                    ? [Colors.black, Colors.black]
-                    : [AppColors.darkBackground, AppColors.darkBackground])
-              : [
-                  // Aurora effect background
-                  AppColors.auroraTop, // Aurora cyan at top
-                  AppColors.auroraMiddle, // Golden aurora middle
-                  AppColors.lightBackground, // Light background at bottom
-                ],
-        ),
-      ),
-      child: Stack(
-        children: [
-          // Wrap star layers in RepaintBoundary to isolate repaints
-          RepaintBoundary(
-            child: Stack(
-              children: [
-                // Stars layer 1
-                Positioned.fill(
-                  child: AnimatedBuilder(
-                    animation: _animationController,
-                    builder: (context, child) {
-                      return CustomPaint(
-                        isComplex: true,
-                        painter: StarPainter(
-                          animationValue: _getLayerValue(1),
-                          starSize: widget.subtle ? 0.6 : 1.0,
-                          starCount: widget.subtle ? 60 : 100,
-                          seed: 1,
-                          starColor: isDark
-                              ? (widget.subtle
-                                    ? Colors.white.withValues(alpha: 0.12)
-                                    : Colors.white)
-                              : AppColors.lightSecondary.withValues(alpha: 0.4),
-                          subtle: widget.subtle,
-                        ),
-                      );
-                    },
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final size = Size(constraints.maxWidth, constraints.maxHeight);
+        _initializeStarLayers(size, isDark);
+
+        final needsCacheUpdate = _cachedImageSize != size ||
+            _cachedImageIsDark != isDark ||
+            _cachedPlanetImage == null;
+
+        if (needsCacheUpdate && !_isRenderingCache) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              _renderPlanetCache(size, isDark, dpr);
+            }
+          });
+        }
+
+        return Stack(
+          children: [
+            if (_cachedPlanetImage != null)
+              RawImage(
+                image: _cachedPlanetImage,
+                width: size.width,
+                height: size.height,
+                fit: BoxFit.fill,
+              )
+            else
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: _getBackgroundColors(isDark),
                   ),
                 ),
-                // Stars layer 2
-                Positioned.fill(
-                  child: AnimatedBuilder(
-                    animation: _animationController,
-                    builder: (context, child) {
-                      return CustomPaint(
+                child: widget.showPlanet
+                    ? CustomPaint(
+                        size: size,
                         isComplex: true,
-                        painter: StarPainter(
-                          animationValue: _getLayerValue(2),
-                          starSize: widget.subtle ? 1.0 : 1.5,
-                          starCount: widget.subtle ? 35 : 30,
-                          seed: 2,
-                          starColor: isDark
-                              ? (widget.subtle
-                                    ? Colors.white.withValues(alpha: 0.18)
-                                    : Colors.white)
-                              : AppColors.lightSecondary.withValues(alpha: 0.5),
-                          subtle: widget.subtle,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                // Stars layer 3
-                Positioned.fill(
-                  child: AnimatedBuilder(
-                    animation: _animationController,
-                    builder: (context, child) {
-                      return CustomPaint(
-                        isComplex: true,
-                        painter: StarPainter(
-                          animationValue: _getLayerValue(3),
-                          starSize: widget.subtle ? 1.4 : 3.0,
-                          starCount: widget.subtle ? 20 : 20,
-                          seed: 3,
-                          starColor: isDark
-                              ? (widget.subtle
-                                    ? Colors.white.withValues(alpha: 0.25)
-                                    : Colors.white)
-                              : AppColors.lightSecondary.withValues(alpha: 0.6),
-                          subtle: widget.subtle,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                if (widget.showPlanet)
-                  Positioned.fill(
-                    child: CustomPaint(
-                      isComplex: true,
-                      willChange: false,
-                      painter: PlanetHorizonPainter(isDark: isDark),
+                        willChange: false,
+                        painter: PlanetHorizonPainter(isDark: isDark),
+                      )
+                    : null,
+              ),
+            if (_starLayers != null)
+              RepaintBoundary(
+                key: ValueKey('stars_$isDark'),
+                child: ClipPath(
+                  clipper: widget.showPlanet ? _PlanetExclusionClipper() : null,
+                  child: CustomPaint(
+                    size: size,
+                    isComplex: true,
+                    willChange: !widget.subtle,
+                    painter: _OptimizedStarPainter(
+                      layers: _starLayers!,
+                      controller: widget.subtle ? null : _animationController,
+                      canvasSize: size,
+                      subtle: widget.subtle,
                     ),
                   ),
-              ],
-            ),
-          ),
-          // Child widget (outside RepaintBoundary to avoid repainting with stars)
-          if (widget.child != null) widget.child!,
-        ],
-      ),
+                ),
+              ),
+            if (widget.child != null) widget.child!,
+          ],
+        );
+      },
     );
   }
 }
 
-class StarPainter extends CustomPainter {
-  final double animationValue;
-  final double starSize;
-  final int starCount;
-  final int seed;
-  final Color starColor;
+class _PlanetExclusionClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final planetRadius = _PlanetGeometry.getPlanetRadius(size);
+    final center = _PlanetGeometry.getCenter(size);
+
+    final screenPath = Path()..addRect(Rect.fromLTWH(0, 0, size.width, size.height));
+    final planetPath = Path()..addOval(Rect.fromCircle(center: center, radius: planetRadius));
+
+    return Path.combine(PathOperation.difference, screenPath, planetPath);
+  }
+
+  @override
+  bool shouldReclip(_PlanetExclusionClipper oldClipper) => false;
+}
+
+class _OptimizedStarPainter extends CustomPainter {
+  final List<_StarLayer> layers;
+  final AnimationController? controller;
+  final Size canvasSize;
   final bool subtle;
 
-  // Cached MaskFilters to avoid recreation on every paint call
-  late final MaskFilter _outerGlowFilter;
-  late final MaskFilter _innerGlowFilter;
-
-  StarPainter({
-    required this.animationValue,
-    required this.starSize,
-    required this.starCount,
-    required this.seed,
-    this.starColor = Colors.white,
-    this.subtle = false,
-  })  : _outerGlowFilter = MaskFilter.blur(BlurStyle.normal, starSize * 2),
-        _innerGlowFilter = MaskFilter.blur(BlurStyle.normal, starSize * 0.8);
+  _OptimizedStarPainter({
+    required this.layers,
+    required this.controller,
+    required this.canvasSize,
+    required this.subtle,
+  }) : super(repaint: controller);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = starColor
-      ..style = PaintingStyle.fill;
+    final animationValue = controller?.value ?? 0.0;
 
-    final random = math.Random(seed);
+    for (final layer in layers) {
+      final layerAnimValue = subtle
+          ? 0.0
+          : (animationValue * layer.speedMultiplier + layer.phaseOffset) % 1.0;
 
-    for (int i = 0; i < starCount; i++) {
-      final baseX = random.nextDouble() * size.width * (subtle ? 1.0 : 1.6);
-      final baseY = random.nextDouble() * size.height * (subtle ? 1.0 : 2);
+      final visiblePositions = _computeVisiblePositions(layer, layerAnimValue);
+      if (visiblePositions.isEmpty) continue;
 
-      final x = subtle
-          ? baseX + (math.sin(animationValue * 2 * math.pi + i * 0.1) * 2)
-          : baseX;
-      final y = subtle
-          ? baseY + (math.cos(animationValue * 2 * math.pi + i * 0.15) * 1.5)
-          : (baseY - (animationValue * size.height * 2)) % (size.height * 2);
+      final paint = Paint()
+        ..style = PaintingStyle.fill
+        ..color = layer.color;
 
-      if (y >= -starSize &&
-          y <= size.height + starSize &&
-          x >= -starSize &&
-          x <= size.width + starSize) {
-        final shouldGlow = subtle ? (i + seed) % 15 < 2 : (i + seed) % 10 < 3;
-
-        if (shouldGlow) {
-          final glowIntensity =
-              0.5 + (0.5 * math.sin(animationValue * 2 * math.pi + i * 0.2));
-          final glowAlpha = subtle ? 0.15 : 0.3;
-          final innerGlowAlpha = subtle ? 0.35 : 0.6;
-
-          final glowPaint = Paint()
-            ..color = starColor.withValues(alpha: glowAlpha * glowIntensity)
-            ..style = PaintingStyle.fill
-            ..maskFilter = _outerGlowFilter;
-
-          canvas.drawCircle(Offset(x, y), starSize * 3, glowPaint);
-
-          final innerGlowPaint = Paint()
-            ..color = starColor.withValues(
-              alpha: innerGlowAlpha * glowIntensity,
-            )
-            ..style = PaintingStyle.fill
-            ..maskFilter = _innerGlowFilter;
-
-          canvas.drawCircle(Offset(x, y), starSize * 1.5, innerGlowPaint);
-        }
-
-        paint.color = starColor;
-        canvas.drawCircle(Offset(x, y), starSize, paint);
+      for (int i = 0; i < visiblePositions.length ~/ 2; i++) {
+        canvas.drawCircle(
+          Offset(visiblePositions[i * 2], visiblePositions[i * 2 + 1]),
+          layer.starSize,
+          paint,
+        );
       }
     }
   }
 
+  Float32List _computeVisiblePositions(_StarLayer layer, double layerAnimValue) {
+    final yOffset = layerAnimValue * canvasSize.height * 2;
+    final visible = <double>[];
+    final starSize = layer.starSize;
+    final heightBound = canvasSize.height * 2;
+
+    for (int i = 0; i < layer.basePositions.length ~/ 2; i++) {
+      final x = layer.basePositions[i * 2];
+      var y = layer.basePositions[i * 2 + 1] - yOffset;
+
+      if (y < 0) y += heightBound;
+
+      if (y >= -starSize &&
+          y <= canvasSize.height + starSize &&
+          x >= -starSize &&
+          x <= canvasSize.width + starSize) {
+        visible.add(x);
+        visible.add(y);
+      }
+    }
+    return Float32List.fromList(visible);
+  }
+
   @override
-  bool shouldRepaint(StarPainter oldDelegate) {
-    return oldDelegate.animationValue != animationValue;
+  bool shouldRepaint(_OptimizedStarPainter oldDelegate) {
+    return oldDelegate.layers != layers ||
+        oldDelegate.canvasSize != canvasSize ||
+        oldDelegate.subtle != subtle;
   }
 }
 
 class _PlanetTheme {
-  final Color primaryGlow; // Used for halos and most rim effects
-  final Color
-  secondaryGlow; // Used for secondary halo (only different in light theme)
+  final Color primaryGlow;
+  final Color secondaryGlow;
   final Color planetColor;
-  final Color trailColor; // Used for trail effects
+  final Color trailColor;
   final double haloAlpha1;
   final double haloAlpha2;
   final double trailAlpha1;
@@ -295,18 +428,14 @@ class PlanetHorizonPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Calculate common planet parameters
-    final double horizonApexFactor = 0.30;
-    final double horizonApexY = size.height * horizonApexFactor;
-    final double planetRadius = size.width * 1.8;
-    final Offset center = Offset(size.width / 2, planetRadius + horizonApexY);
+    final planetRadius = _PlanetGeometry.getPlanetRadius(size);
+    final center = _PlanetGeometry.getCenter(size);
     final double minDim = math.min(size.width, size.height);
 
-    // Theme-specific colors
     final _PlanetTheme theme = isDark
         ? _PlanetTheme(
-            primaryGlow: AppColors.cyanBlue, // Used for most glow effects
-            secondaryGlow: AppColors.mysticalPurple, // Used for outer halo
+            primaryGlow: AppColors.cyanBlue,
+            secondaryGlow: AppColors.mysticalPurple,
             planetColor: Colors.black,
             trailColor: AppColors.cyanBlue,
             haloAlpha1: 0.5,
@@ -318,63 +447,46 @@ class PlanetHorizonPainter extends CustomPainter {
             frontRimAlpha: 0.5,
           )
         : _PlanetTheme(
-            primaryGlow: AppColors.goldenGlow, // Golden aurora glow
-            secondaryGlow: AppColors.amberGlow, // Amber aurora warmth
-            planetColor: AppColors.emeraldGreen, // Emerald green planet
-            trailColor: AppColors.goldenGlow, // Golden trails
-            haloAlpha1: 0.7, // Strong aurora halo
-            haloAlpha2: 0.6, // Strong aurora halo
-            trailAlpha1: 0.5, // Aurora trails
-            trailAlpha2: 0.4, // Aurora trails
-            rimAlpha: 0.8, // Very visible aurora rim
-            innerShadowAlpha: 0.9, // Strong aurora inner glow
-            frontRimAlpha: 0.7, // Strong aurora front rim
+            primaryGlow: AppColors.goldenGlow,
+            secondaryGlow: AppColors.amberGlow,
+            planetColor: AppColors.emeraldGreen,
+            trailColor: AppColors.goldenGlow,
+            haloAlpha1: 1.0,
+            haloAlpha2: 1.0,
+            trailAlpha1: 1.0,
+            trailAlpha2: 0.8,
+            rimAlpha: 1.0,
+            innerShadowAlpha: 1.0,
+            frontRimAlpha: 1.0,
           );
 
-    // 1) Atmospheric bloom
     _paintAtmosphericHalos(canvas, size, center, planetRadius, minDim, theme);
-
-    // 2) Rim glow
     _paintRimGlow(canvas, center, planetRadius, theme);
 
-    // 3) Planet with gradient effect (light theme only)
     if (isDark) {
       final Paint planetPaint = Paint()
         ..style = PaintingStyle.fill
         ..color = theme.planetColor;
       canvas.drawCircle(center, planetRadius, planetPaint);
     } else {
-      // Create dramatic gradient for light theme planet - positioned for visible hemisphere
       final Paint planetPaint = Paint()
         ..style = PaintingStyle.fill
         ..shader = RadialGradient(
-          center: const Alignment(
-            0.0,
-            -0.8,
-          ), // Light source at top of visible hemisphere
-          radius: 0.6, // Smaller radius to concentrate effect on visible part
+          center: const Alignment(0.0, -0.8),
+          radius: 0.6,
           colors: [
-            AppColors.lightGreen, // Bright light green at top
-            AppColors.emeraldGreen, // Emerald green
-            AppColors.cobaltBlue, // Cobalt blue
-            AppColors.navyBlue, // Deep navy at middle
-            AppColors.navyBlue, // Very dark - already reached at middle
+            AppColors.lightGreen,
+            AppColors.emeraldGreen,
+            AppColors.cobaltBlue,
+            AppColors.navyBlue,
+            AppColors.navyBlue,
           ],
-          stops: const [
-            0.0,
-            0.2,
-            0.35,
-            0.5,
-            0.5,
-          ], // All transition complete by 50%
+          stops: const [0.0, 0.2, 0.35, 0.5, 0.5],
         ).createShader(Rect.fromCircle(center: center, radius: planetRadius));
       canvas.drawCircle(center, planetRadius, planetPaint);
     }
 
-    // 4) Inner shadow
     _paintInnerShadow(canvas, center, planetRadius, minDim, theme);
-
-    // 5) Foreground rim
     _paintForegroundRim(canvas, center, planetRadius, minDim, theme);
   }
 
@@ -398,7 +510,6 @@ class PlanetHorizonPainter extends CustomPainter {
     );
     canvas.clipPath(outsidePlanet);
 
-    // Outer halo
     final double haloThickness = minDim * 0.08;
     final Paint outerHaloPaint = Paint()
       ..style = PaintingStyle.stroke
@@ -412,7 +523,6 @@ class PlanetHorizonPainter extends CustomPainter {
       outerHaloPaint,
     );
 
-    // Mid halo
     final double midThickness = minDim * 0.045;
     final Paint midHaloPaint = Paint()
       ..style = PaintingStyle.stroke
@@ -422,7 +532,6 @@ class PlanetHorizonPainter extends CustomPainter {
       ..blendMode = BlendMode.screen;
     canvas.drawCircle(center, planetRadius + midThickness * 0.30, midHaloPaint);
 
-    // Trail halos
     final double trailThickness1 = minDim * 0.12;
     final Paint trailHaloPaint1 = Paint()
       ..style = PaintingStyle.stroke

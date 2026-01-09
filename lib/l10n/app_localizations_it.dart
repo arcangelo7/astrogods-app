@@ -3211,6 +3211,23 @@ class AppLocalizationsIt extends AppLocalizations {
       'No. Gli elementi astrologici hanno molteplici significati simbolici, e declinarli nell\'ambito di una determinata costituzione energetica richiede uno scambio tra anime, cuori e sensibilità. Un astrologo esperto può utilizzare AstroGods per semplificarsi il lavoro, ma da uno scambio personale sarà più in grado di far emergere i significati profondi. Inoltre, AstroGods al momento non tiene in considerazione tutto lo scibile astrologico: l\'astrologo esperto rimane insostituibile.';
 
   @override
+  String get faqSeriousSectionTitle => 'Cose serie';
+
+  @override
+  String get faqNotSeriousSectionTitle => 'Cose non serie';
+
+  @override
+  String get faqRefundQuestion =>
+      'Non mi è piaciuto il servizio, posso ottenere un rimborso?';
+
+  @override
+  String get faqRefundAnswerBefore => 'Sì. Scrivi a ';
+
+  @override
+  String get faqRefundAnswerAfter =>
+      ' e ti rimborsiamo. Ti chiederemo cosa è andato storto perché vogliamo migliorare, ma non sei obbligato a rispondere.';
+
+  @override
   String get viewChart => 'Visualizza grafico';
 
   @override
@@ -3238,6 +3255,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String version(Object version) {
     return 'Versione $version';
   }
+
+  @override
+  String get releaseNotes_4_8_0 =>
+      'Nuova icona dell\'app. Ottimizzato lo sfondo del cielo stellato.';
 
   @override
   String get releaseNotes_4_7_7 =>

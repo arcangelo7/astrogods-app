@@ -5642,6 +5642,36 @@ abstract class AppLocalizations {
   /// **'No. Astrological elements have multiple symbolic meanings, and interpreting them within a specific energetic constitution requires an exchange between souls, hearts, and sensibilities. An expert astrologer can use AstroGods to simplify their work, but through personal exchange they will be better able to bring out deeper meanings. Furthermore, AstroGods does not yet consider the entire astrological spectrum: the expert astrologer remains irreplaceable.'**
   String get faq7Answer;
 
+  /// No description provided for @faqSeriousSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Serious stuff'**
+  String get faqSeriousSectionTitle;
+
+  /// No description provided for @faqNotSeriousSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Not serious stuff'**
+  String get faqNotSeriousSectionTitle;
+
+  /// No description provided for @faqRefundQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn\'t like the service, can I get a refund?'**
+  String get faqRefundQuestion;
+
+  /// No description provided for @faqRefundAnswerBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes. Email '**
+  String get faqRefundAnswerBefore;
+
+  /// No description provided for @faqRefundAnswerAfter.
+  ///
+  /// In en, this message translates to:
+  /// **' and we\'ll refund you. We\'ll ask what went wrong because we want to improve, but you don\'t have to answer.'**
+  String get faqRefundAnswerAfter;
+
   /// No description provided for @viewChart.
   ///
   /// In en, this message translates to:
@@ -5695,6 +5725,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version {version}'**
   String version(Object version);
+
+  /// No description provided for @releaseNotes_4_8_0.
+  ///
+  /// In en, this message translates to:
+  /// **'New app icon. Optimized starry night background.'**
+  String get releaseNotes_4_8_0;
 
   /// No description provided for @releaseNotes_4_7_7.
   ///
