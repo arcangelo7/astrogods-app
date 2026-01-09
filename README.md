@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="branding/logos/circular/astrogods_logo_256.png" alt="AstroGods Logo" width="128" />
+  <img src="branding/logos/circular/astrogods_logo_256.png" alt="AstroGods Logo" width="192" />
 </p>
 
 # AstroGods
@@ -15,12 +15,12 @@ AstroGods is a modern, beautifully designed Astrology app focused on self-knowle
 https://github.com/user-attachments/assets/27aaa5fc-46b9-4fa5-90dc-c4479c725b5e
 
 <p align="center">
-  <img src="branding/screenshots/2446x1380/home_dark_en.png" width="45%" alt="Homepage" />
-  <img src="branding/screenshots/2446x1380/birth_chart_reading_dark_en.png" width="45%" alt="Birth Chart Reading" />
+  <img src="branding/screenshots/flathub/optimized/birth_chart_reading_light_en.png" width="45%" alt="Birth Chart Reading (Light)" />
+  <img src="branding/screenshots/flathub/optimized/birth_chart_reading_dark_en.png" width="45%" alt="Birth Chart Reading (Dark)" />
 </p>
 <p align="center">
-  <img src="branding/screenshots/2446x1380/birth_chart_dark_en.png" width="45%" alt="Birth Chart" />
-  <img src="branding/screenshots/2446x1380/settings_dark_en.png" width="45%" alt="Settings" />
+  <img src="branding/screenshots/flathub/optimized/birth_chart_zoom_light_en.png" width="45%" alt="Birth Chart Zoom" />
+  <img src="branding/screenshots/flathub/optimized/birth_chart_details_light_en.png" width="45%" alt="Birth Chart Details" />
 </p>
 
 ## Installation
