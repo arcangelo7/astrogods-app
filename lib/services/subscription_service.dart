@@ -56,9 +56,9 @@ class SubscriptionService {
 
       if (kIsWeb) {
         final uri = Uri.parse(url);
-        if (await canLaunchUrl(uri)) {
-          await launchUrl(uri, mode: LaunchMode.externalApplication);
-        } else {
+        final launched =
+            await launchUrl(uri, mode: LaunchMode.externalApplication);
+        if (!launched) {
           throw Exception('Cannot open URL');
         }
       } else if (isDesktop) {
@@ -80,13 +80,11 @@ class SubscriptionService {
     LoopbackServer server,
   ) async {
     final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
+    final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!launched) {
       await server.close();
       throw Exception('Cannot open URL');
     }
-
     await server.waitForCallback();
   }
 
