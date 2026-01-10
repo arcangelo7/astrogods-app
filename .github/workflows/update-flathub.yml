@@ -48,10 +48,11 @@ jobs:
         if: steps.check.outputs.skip == 'false'
         run: |
           cp it.astrogods.AstroGods.yml flathub-repo/
-          cp pubspec-sources.json flathub-repo/
-          cp flutter-sdk-*.json flathub-repo/
           cp flutter-shared.sh.patch flathub-repo/
           cp -r printing flathub-repo/
+          mkdir -p flathub-repo/generated/sources flathub-repo/generated/modules
+          cp generated/sources/pubspec.json flathub-repo/generated/sources/
+          cp generated/modules/flutter-sdk-*.json flathub-repo/generated/modules/
 
       - name: Create PR on Flathub
         if: steps.check.outputs.skip == 'false'
