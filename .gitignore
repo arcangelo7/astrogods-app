@@ -9,3 +9,9 @@ build/
 .vscode/
 *.iml
 .flatpak-builder/
+
+# Android
+android/.gradle/
+android/app/keystore.jks
+*.keystore
+*.jks

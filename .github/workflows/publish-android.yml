@@ -1,0 +1,45 @@
+name: Publish Android
+
+on:
+  workflow_run:
+    workflows: ["Verify Android"]
+    types:
+      - completed
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      verify_run_id:
+        description: 'Verify Android workflow run ID'
+        required: true
+
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download AAB artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: android-aab
+          run-id: ${{ inputs.verify_run_id || github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download release notes
+        uses: actions/download-artifact@v7
+        with:
+          name: whatsnew
+          run-id: ${{ inputs.verify_run_id || github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: whatsnew/
+
+      - name: Upload to Google Play Console
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: it.astrogods.AstroGods
+          releaseFiles: app-release.aab
+          track: production
+          status: completed
+          whatsNewDirectory: whatsnew/

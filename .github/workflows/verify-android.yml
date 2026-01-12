@@ -1,0 +1,64 @@
+name: Verify Android
+
+on:
+  workflow_run:
+    workflows: ["Build Android"]
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      build_run_id:
+        description: 'Build Android workflow run ID'
+        required: true
+
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download AAB artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: android-aab
+          run-id: ${{ inputs.build_run_id || github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify AAB exists
+        run: |
+          if [ ! -f app-release.aab ]; then
+            echo "AAB file not found"
+            exit 1
+          fi
+          ls -la app-release.aab
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Verify AAB with bundletool
+        run: |
+          wget -q https://github.com/google/bundletool/releases/download/1.17.2/bundletool-all-1.17.2.jar -O bundletool.jar
+          java -jar bundletool.jar validate --bundle=app-release.aab
+
+      - name: Re-upload AAB artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: android-aab
+          path: app-release.aab
+
+      - name: Download release notes artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: whatsnew
+          run-id: ${{ inputs.build_run_id || github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: whatsnew/
+
+      - name: Re-upload release notes artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: whatsnew
+          path: whatsnew/
