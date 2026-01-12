@@ -2057,9 +2057,29 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Proprietary Standard Content
           _buildSubSectionTitle(context, l10n.proprietaryContentStandard),
-          Text(
-            l10n.proprietaryContentStandardText,
-            style: AppTextStyles.getBodyStyle(context),
+          Text.rich(
+            TextSpan(
+              style: AppTextStyles.getBodyStyle(context),
+              children: [
+                TextSpan(text: l10n.proprietaryContentStandardTextBefore),
+                WidgetSpan(
+                  alignment: PlaceholderAlignment.baseline,
+                  baseline: TextBaseline.alphabetic,
+                  child: InkWell(
+                    onTap: () => _launchExternalUrl('https://github.com/arcangelo7/astrogods-app'),
+                    mouseCursor: SystemMouseCursors.click,
+                    child: Text(
+                      'github.com/arcangelo7/astrogods-app',
+                      style: AppTextStyles.getBodyStyle(context).copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
+                TextSpan(text: l10n.proprietaryContentStandardTextAfter),
+              ],
+            ),
           ),
 
           const SizedBox(height: 24),
@@ -2174,9 +2194,9 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           const SizedBox(height: 24),
 
           // AI Generated Interpretations
-          _buildSubSectionTitle(context, l10n.aiGeneratedInterpretations),
+          _buildSubSectionTitle(context, l10n.astrologicalInterpretations),
           Text(
-            l10n.aiGeneratedInterpretationsText,
+            l10n.astrologicalInterpretationsText,
             style: AppTextStyles.getBodyStyle(context),
           ),
         ],

@@ -110,7 +110,10 @@ class AppRouter {
             GoRoute(
               path: '/personality',
               name: 'personality',
-              builder: (context, state) => const PersonalityScreen(),
+              builder: (context, state) {
+                final prefillData = state.extra as Map<String, dynamic>?;
+                return PersonalityScreen(prefillData: prefillData);
+              },
             ),
             GoRoute(
               path: '/relationships',

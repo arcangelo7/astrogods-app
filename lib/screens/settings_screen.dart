@@ -126,7 +126,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _showDeleteAccountDialog(BuildContext context) async {
     final l10n = AppLocalizations.of(context)!;
     final TextEditingController confirmController = TextEditingController();
-    bool isDeleting = false;
 
     final result = await showDialog<bool>(
       context: context,
@@ -173,50 +172,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     style: AppTextStyles.getBodyStyle(context),
-                    enabled: !isDeleting,
                     onChanged: (value) {
-                      setState(() {
-                        // Force rebuild to update button state
-                      });
+                      setState(() {});
                     },
                   ),
                 ],
               ),
               actions: [
                 TextButton(
-                  onPressed: isDeleting
-                      ? null
-                      : () => Navigator.of(dialogContext).pop(false),
+                  onPressed: () => Navigator.of(dialogContext).pop(false),
                   child: Text(
                     l10n.cancel,
                     style: AppTextStyles.getButtonStyle(context),
                   ),
                 ),
                 TextButton(
-                  onPressed:
-                      isDeleting ||
-                          (confirmController.text.trim().toUpperCase() !=
-                              l10n.deleteConfirmationWord.toUpperCase())
+                  onPressed: confirmController.text.trim().toUpperCase() !=
+                          l10n.deleteConfirmationWord.toUpperCase()
                       ? null
-                      : () async {
-                          setState(() => isDeleting = true);
+                      : () {
                           Navigator.of(dialogContext).pop(true);
                         },
-                  child: isDeleting
-                      ? SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Theme.of(context).colorScheme.error,
-                          ),
-                        )
-                      : Text(
-                          l10n.delete,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.error,
-                          ),
-                        ),
+                  child: Text(
+                    l10n.delete,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ),
                 ),
               ],
             );
@@ -229,7 +211,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       await _deleteAccount(context);
     }
 
-    confirmController.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      confirmController.dispose();
+    });
   }
 
   Future<void> _deleteAccount(BuildContext context) async {

@@ -25,6 +25,7 @@ RegisterRequest _$RegisterRequestFromJson(Map<String, dynamic> json) =>
       birthLatitude: (json['birth_latitude'] as num?)?.toDouble(),
       birthLongitude: (json['birth_longitude'] as num?)?.toDouble(),
       birthPlace: json['birth_place'] as String?,
+      birthPlaceId: json['birth_place_id'] as String?,
       unknownTime: json['unknown_time'] as bool?,
     );
 
@@ -39,6 +40,7 @@ Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
       'birth_latitude': instance.birthLatitude,
       'birth_longitude': instance.birthLongitude,
       'birth_place': instance.birthPlace,
+      'birth_place_id': instance.birthPlaceId,
       'unknown_time': instance.unknownTime,
     };
 

@@ -19,7 +19,9 @@ import '../utils/session_utils.dart';
 import '../providers/auth_provider.dart';
 
 class PersonalityScreen extends StatefulWidget {
-  const PersonalityScreen({super.key});
+  final Map<String, dynamic>? prefillData;
+
+  const PersonalityScreen({super.key, this.prefillData});
 
   @override
   State<PersonalityScreen> createState() => _PersonalityScreenState();
@@ -45,6 +47,43 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
   void initState() {
     super.initState();
     _birthChartService = BirthChartService(context: context);
+    _applyPrefillData();
+  }
+
+  void _applyPrefillData() {
+    final prefillData = widget.prefillData;
+    if (prefillData == null) return;
+
+    if (prefillData['givenName'] != null) {
+      _firstNameController.text = prefillData['givenName'] as String;
+    }
+    if (prefillData['familyName'] != null) {
+      _lastNameController.text = prefillData['familyName'] as String;
+    }
+    if (prefillData['birthDate'] != null) {
+      _selectedDate = DateTime.parse(prefillData['birthDate'] as String);
+      _birthDateController.text =
+          '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
+    }
+    if (prefillData['birthTimeHour'] != null && prefillData['birthTimeMinute'] != null) {
+      final hour = prefillData['birthTimeHour'] as int;
+      final minute = prefillData['birthTimeMinute'] as int;
+      _selectedTime = TimeOfDay(hour: hour, minute: minute);
+      _birthTimeController.text =
+          '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
+    }
+    if (prefillData['birthPlace'] != null && prefillData['birthPlaceId'] != null) {
+      final birthPlace = prefillData['birthPlace'] as String;
+      _birthPlaceController.text = birthPlace;
+      _selectedLocation = PlaceDetails(
+        placeId: prefillData['birthPlaceId'] as String,
+        name: birthPlace,
+        formattedAddress: birthPlace,
+      );
+    }
+    if (prefillData['unknownTime'] == true) {
+      _dontKnowBirthTime = true;
+    }
   }
 
   @override

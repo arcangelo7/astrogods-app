@@ -1356,7 +1356,7 @@ class AppLocalizationsIt extends AppLocalizations {
       'Benvenuto nella privacy policy di AstroGods. Questa policy ti aiuterà a comprendere quali dati raccogliamo, perché li raccogliamo e quali sono i tuoi diritti in merito.';
 
   @override
-  String get lastModified => 'Ultima modifica: 7 settembre 2025';
+  String get lastModified => 'Ultima modifica: 10 gennaio 2026';
 
   @override
   String get summary => 'Sommario';
@@ -1430,6 +1430,15 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get deviceInformation => 'informazioni sul dispositivo';
+
+  @override
+  String get deviceIdentifiers => 'identificatori del dispositivo';
+
+  @override
+  String get phoneNumber => 'numero di telefono';
+
+  @override
+  String get profilePhoto => 'foto profilo';
 
   @override
   String get trackingTools => 'strumenti di tracciamento';
@@ -1636,7 +1645,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get definitionsContent =>
-      'Termini chiave e relativi significati utilizzati in questo documento';
+      '### Dati Personali (o Dati)\n\nQualunque informazione che, direttamente o indirettamente, anche in collegamento con qualsiasi altra informazione, renda identificata o identificabile una persona fisica.\n\n### Dati di Utilizzo\n\nSono le informazioni raccolte automaticamente attraverso AstroGods (anche da applicazioni di parti terze integrate in AstroGods), tra cui: gli indirizzi IP o i nomi a dominio dei computer utilizzati dall\'Utente che si connette con AstroGods, gli indirizzi in notazione URI (Uniform Resource Identifier), l\'orario della richiesta, il metodo utilizzato nell\'inoltrare la richiesta al server, la dimensione del file ottenuto in risposta, il codice numerico indicante lo stato della risposta dal server (buon fine, errore, ecc.), il paese di provenienza, le caratteristiche del browser e del sistema operativo utilizzati dal visitatore, le varie connotazioni temporali della visita (ad esempio il tempo di permanenza su ciascuna pagina) e i dettagli relativi all\'itinerario seguito all\'interno dell\'Applicazione, con particolare riferimento alla sequenza delle pagine consultate, ai parametri relativi al sistema operativo e all\'ambiente informatico dell\'Utente.\n\n### Utente\n\nL\'individuo che utilizza AstroGods che, salvo ove diversamente specificato, coincide con l\'Interessato.\n\n### Interessato\n\nLa persona fisica cui si riferiscono i Dati Personali.\n\n### Responsabile del Trattamento (o Responsabile)\n\nLa persona fisica, giuridica, la pubblica amministrazione e qualsiasi altro ente che tratta dati personali per conto del Titolare, secondo quanto esposto nella presente privacy policy.\n\n### Titolare del Trattamento (o Titolare)\n\nLa persona fisica o giuridica, l\'autorità pubblica, il servizio o altro organismo che, singolarmente o insieme ad altri, determina le finalità e i mezzi del trattamento di dati personali e gli strumenti adottati, ivi comprese le misure di sicurezza relative al funzionamento ed alla fruizione di AstroGods. Il Titolare del Trattamento, salvo quanto diversamente specificato, è il titolare di AstroGods.\n\n### AstroGods (o questa Applicazione)\n\nLo strumento hardware o software mediante il quale sono raccolti e trattati i Dati Personali degli Utenti.\n\n### Servizio\n\nIl Servizio fornito da AstroGods così come definito nei relativi termini (se presenti) e su questo sito/applicazione.\n\n### Unione Europea (o UE)\n\nSalvo ove diversamente specificato, ogni riferimento all\'Unione Europea contenuto in questo documento si intende esteso a tutti gli attuali stati membri dell\'Unione Europea e dello Spazio Economico Europeo.\n\n### Cookie\n\nI Cookie sono Strumenti di Tracciamento che consistono in piccole porzioni di dati conservate all\'interno del browser dell\'Utente.\n\n### Strumento di Tracciamento\n\nPer Strumento di Tracciamento s\'intende qualsiasi tecnologia (es. Cookie, identificativi univoci, web beacon, script integrati, e-tag e fingerprinting) che consenta di tracciare gli Utenti, per esempio raccogliendo o salvando informazioni sul dispositivo dell\'Utente.\n\n### Riferimenti legali\n\nQuesta informativa privacy riguarda esclusivamente AstroGods, se non diversamente indicato in questo documento.';
 
   @override
   String get errorOpeningUrl => 'Errore nell\'aprire l\'URL';
@@ -2306,7 +2315,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get consumerDefinitionTitle => 'Consumatore';
 
   @override
-  String get lastModifiedTerms => 'Ultima modifica: 7 settembre 2025';
+  String get lastModifiedTerms => 'Ultima modifica: 10 gennaio 2026';
 
   @override
   String get termsTableOfContents => 'Indice';
@@ -2771,11 +2780,15 @@ class AppLocalizationsIt extends AppLocalizations {
       'I contenuti di AstroGods sono soggetti a tre regimi di licenza distinti:';
 
   @override
-  String get proprietaryContentStandard => 'A) Contenuti proprietari standard';
+  String get proprietaryContentStandard => 'A) Licenza del software';
 
   @override
-  String get proprietaryContentStandardText =>
-      'L\'interfaccia dell\'applicazione, gli algoritmi, il software, i marchi, il database degli utenti e tutti gli elementi tecnici rimangono di proprietà esclusiva del Titolare con tutti i diritti riservati.';
+  String get proprietaryContentStandardTextBefore =>
+      'Il codice sorgente dell\'applicazione (frontend) è rilasciato sotto licenza GNU Affero General Public License v3.0 (AGPL-3.0) ed è disponibile su ';
+
+  @override
+  String get proprietaryContentStandardTextAfter =>
+      '. Il backend, gli algoritmi, i marchi, il database degli utenti e tutti gli elementi lato server rimangono di proprietà esclusiva del Titolare con tutti i diritti riservati.';
 
   @override
   String get codexCreativeCommons =>
@@ -2805,12 +2818,11 @@ class AppLocalizationsIt extends AppLocalizations {
       'Laddove i contenuti del Codex incorporino materiali di terze parti soggetti a licenze più restrittive, prevalgono i termini della licenza più restrittiva. Gli utenti devono identificare e rispettare tutti i requisiti di licenza applicabili, inclusa l\'attribuzione alle fonti originali.';
 
   @override
-  String get aiGeneratedInterpretations =>
-      'C) Interpretazioni personalizzate generate dall\'intelligenza artificiale';
+  String get astrologicalInterpretations => 'C) Interpretazioni astrologiche';
 
   @override
-  String get aiGeneratedInterpretationsText =>
-      'Le interpretazioni astrologiche personalizzate generate dal servizio possono essere liberamente riutilizzate dagli utenti per qualsiasi scopo, purché accompagnate dalla dicitura: \"Interpretazione generata da AstroGods (astrogods.it)\"';
+  String get astrologicalInterpretationsText =>
+      'Le interpretazioni astrologiche generate dal servizio possono essere liberamente riutilizzate dagli utenti per qualsiasi scopo, purché accompagnate dalla dicitura: \"Interpretazione generata da AstroGods (astrogods.it)\"';
 
   @override
   String get startFreeSevenDays => 'INIZIA GRATIS - 7 GIORNI';
@@ -3255,6 +3267,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String version(Object version) {
     return 'Versione $version';
   }
+
+  @override
+  String get releaseNotes_4_9_0 =>
+      'Aggiornati termini e condizioni e informativa sulla privacy. Risolto un problema di registrazione con email e password. Il tema natale viene ora generato automaticamente dopo la registrazione.';
 
   @override
   String get releaseNotes_4_8_0 =>

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/language_provider.dart';
 import '../../models/auth_request.dart';
+import '../../models/location.dart';
+import '../../services/birth_chart_service.dart';
 import '../../widgets/starry_night_background.dart';
 import '../../widgets/gradient_button.dart';
 import '../../widgets/location_search_field.dart';
@@ -41,6 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   DateTime? _birthDate;
   TimeOfDay? _birthTime;
   bool _unknownTime = false;
+  PlaceDetails? _selectedLocation;
 
   @override
   void dispose() {
@@ -183,20 +187,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    String? birthDateTimeString;
-    if (_birthDate != null) {
-      DateTime birthDateTime = _birthDate!;
-      if (_birthTime != null && !_unknownTime) {
-        birthDateTime = DateTime(
-          _birthDate!.year,
-          _birthDate!.month,
-          _birthDate!.day,
-          _birthTime!.hour,
-          _birthTime!.minute,
-        );
-      }
-      birthDateTimeString = birthDateTime.toIso8601String();
-    }
+    final birthDateTimeString = _birthDate != null
+        ? _buildBirthDateTime().toIso8601String()
+        : null;
 
     final request = RegisterRequest(
       email: _emailController.text.trim(),
@@ -214,6 +207,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       birthPlace: _birthPlaceController.text.trim().isNotEmpty
           ? _birthPlaceController.text.trim()
           : null,
+      birthPlaceId: _selectedLocation?.placeId,
       unknownTime: _unknownTime,
     );
 
@@ -238,10 +232,87 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<void> _handlePostRegistrationRedirect() async {
-    // Close registration screen - redirect will be handled by HomeScreen
-    if (mounted) {
-      Navigator.of(context).pop();
+    final hasCompleteBirthData = _birthDate != null &&
+        _selectedLocation != null &&
+        (_birthTime != null || _unknownTime);
+
+    if (hasCompleteBirthData) {
+      await _createBirthChartAndNavigate();
+    } else {
+      _navigateToPersonalityWithPrefill();
     }
+  }
+
+  Future<void> _createBirthChartAndNavigate() async {
+    final birthChartService = BirthChartService(context: context);
+
+    try {
+      final birthChart = await birthChartService.createBirthChart(
+        givenName: _givenNameController.text.trim(),
+        familyName: _familyNameController.text.trim(),
+        date: _buildBirthDateTime(),
+        placeId: _selectedLocation!.placeId,
+        place: _birthPlaceController.text.trim(),
+        unknownTime: _unknownTime,
+      );
+
+      await birthChartService.calculateBirthChart(birthChart.id);
+
+      if (mounted) {
+        context.go(
+          '/birth-chart-reading/${birthChart.id}',
+          extra: {'birthChart': birthChart.toJson()},
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        _navigateToPersonalityWithPrefill();
+      }
+    } finally {
+      birthChartService.dispose();
+    }
+  }
+
+  DateTime _buildBirthDateTime() {
+    if (_birthTime != null && !_unknownTime) {
+      return DateTime(
+        _birthDate!.year,
+        _birthDate!.month,
+        _birthDate!.day,
+        _birthTime!.hour,
+        _birthTime!.minute,
+      );
+    }
+    return _birthDate!;
+  }
+
+  void _navigateToPersonalityWithPrefill() {
+    if (!mounted) return;
+
+    final prefillData = <String, dynamic>{};
+
+    if (_givenNameController.text.trim().isNotEmpty) {
+      prefillData['givenName'] = _givenNameController.text.trim();
+    }
+    if (_familyNameController.text.trim().isNotEmpty) {
+      prefillData['familyName'] = _familyNameController.text.trim();
+    }
+    if (_birthDate != null) {
+      prefillData['birthDate'] = _birthDate!.toIso8601String();
+    }
+    if (_birthTime != null) {
+      prefillData['birthTimeHour'] = _birthTime!.hour;
+      prefillData['birthTimeMinute'] = _birthTime!.minute;
+    }
+    if (_selectedLocation != null) {
+      prefillData['birthPlace'] = _birthPlaceController.text.trim();
+      prefillData['birthPlaceId'] = _selectedLocation!.placeId;
+    }
+    if (_unknownTime) {
+      prefillData['unknownTime'] = true;
+    }
+
+    context.go('/personality', extra: prefillData.isNotEmpty ? prefillData : null);
   }
 
   Widget _buildAccountInfoPage(bool isDark) {
@@ -434,6 +505,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         LocationSearchField(
           controller: _birthPlaceController,
           labelText: l10n.birthPlace,
+          onLocationSelected: (PlaceDetails? location) {
+            setState(() {
+              _selectedLocation = location;
+            });
+          },
         ),
       ],
     );

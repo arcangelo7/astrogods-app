@@ -1333,7 +1333,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Welcome to AstroGods privacy policy. This policy will help you understand what data we collect, why we collect it, and what your rights are regarding it.';
 
   @override
-  String get lastModified => 'Last modified: September 7, 2025';
+  String get lastModified => 'Last modified: January 10, 2026';
 
   @override
   String get summary => 'Summary';
@@ -1406,6 +1406,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deviceInformation => 'device information';
+
+  @override
+  String get deviceIdentifiers => 'device identifiers';
+
+  @override
+  String get phoneNumber => 'phone number';
+
+  @override
+  String get profilePhoto => 'profile photo';
 
   @override
   String get trackingTools => 'tracking tools';
@@ -1611,7 +1620,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get definitionsContent =>
-      'Key terms and their meanings as used in this document';
+      '### Personal Data (or Data)\n\nAny information that directly, indirectly, or in connection with other information allows for the identification or identifiability of a natural person.\n\n### Usage Data\n\nInformation collected automatically through AstroGods (or third-party services employed in AstroGods), which can include: the IP addresses or domain names of the computers utilized by the Users who use AstroGods, the URI addresses (Uniform Resource Identifier), the time of the request, the method utilized to submit the request to the server, the size of the file received in response, the numerical code indicating the status of the server\'s answer (successful outcome, error, etc.), the country of origin, the features of the browser and the operating system utilized by the User, the various time details per visit (e.g., the time spent on each page within the Application) and the details about the path followed within the Application with special reference to the sequence of pages visited, and other parameters about the device operating system and/or the User\'s IT environment.\n\n### User\n\nThe individual using AstroGods who, unless otherwise specified, coincides with the Data Subject.\n\n### Data Subject\n\nThe natural person to whom the Personal Data refers.\n\n### Data Processor (or Processor)\n\nThe natural or legal person, public authority, agency or other body which processes Personal Data on behalf of the Controller, as described in this privacy policy.\n\n### Data Controller (or Owner)\n\nThe natural or legal person, public authority, agency or other body which, alone or jointly with others, determines the purposes and means of the processing of Personal Data, including the security measures concerning the operation and use of AstroGods. The Data Controller, unless otherwise specified, is the Owner of AstroGods.\n\n### AstroGods (or this Application)\n\nThe means by which the Personal Data of the User is collected and processed.\n\n### Service\n\nThe service provided by AstroGods as described in the relative terms (if available) and on this site/application.\n\n### European Union (or EU)\n\nUnless otherwise specified, all references made within this document to the European Union include all current member states to the European Union and the European Economic Area.\n\n### Cookie\n\nCookies are Trackers consisting of small sets of data stored in the User\'s browser.\n\n### Tracker\n\nTracker indicates any technology (e.g., Cookies, unique identifiers, web beacons, embedded scripts, e-tags and fingerprinting) that enables the tracking of Users, for example by accessing or storing information on the User\'s device.\n\n### Legal information\n\nThis privacy policy relates solely to AstroGods, if not stated otherwise within this document.';
 
   @override
   String get errorOpeningUrl => 'Error opening URL';
@@ -2278,7 +2287,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get consumerDefinitionTitle => 'Consumer';
 
   @override
-  String get lastModifiedTerms => 'Last modified: September 7, 2025';
+  String get lastModifiedTerms => 'Last modified: January 10, 2026';
 
   @override
   String get termsTableOfContents => 'Table of Contents';
@@ -2743,11 +2752,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'The contents of AstroGods are subject to three distinct licensing regimes:';
 
   @override
-  String get proprietaryContentStandard => 'A) Proprietary standard content';
+  String get proprietaryContentStandard => 'A) Software licensing';
 
   @override
-  String get proprietaryContentStandardText =>
-      'The application interface, algorithms, software, trademarks, user database and all technical elements remain the exclusive property of the Owner with all rights reserved.';
+  String get proprietaryContentStandardTextBefore =>
+      'The application source code (frontend) is released under the GNU Affero General Public License v3.0 (AGPL-3.0) and is available at ';
+
+  @override
+  String get proprietaryContentStandardTextAfter =>
+      '. The backend, algorithms, trademarks, user database, and all server-side elements remain the exclusive property of the Owner with all rights reserved.';
 
   @override
   String get codexCreativeCommons =>
@@ -2777,12 +2790,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Where Codex content incorporates third-party materials subject to more restrictive licenses, the terms of the more restrictive license shall prevail. Users must identify and comply with all applicable license requirements, including attribution to original sources.';
 
   @override
-  String get aiGeneratedInterpretations =>
-      'C) AI-generated personalized interpretations';
+  String get astrologicalInterpretations => 'C) Astrological interpretations';
 
   @override
-  String get aiGeneratedInterpretationsText =>
-      'The personalized astrological interpretations generated by the service may be freely reused by users for any purpose, provided they are accompanied by the statement: \"Interpretation generated by AstroGods (astrogods.it)\"';
+  String get astrologicalInterpretationsText =>
+      'The astrological interpretations generated by the service may be freely reused by users for any purpose, provided they are accompanied by the statement: \"Interpretation generated by AstroGods (astrogods.it)\"';
 
   @override
   String get startFreeSevenDays => 'START FREE - 7 DAYS';
@@ -3226,6 +3238,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String version(Object version) {
     return 'Version $version';
   }
+
+  @override
+  String get releaseNotes_4_9_0 =>
+      'Updated terms and conditions and privacy policy. Fixed a registration issue with email and password. Birth chart is now automatically generated after registration.';
 
   @override
   String get releaseNotes_4_8_0 =>

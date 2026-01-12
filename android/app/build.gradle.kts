@@ -12,6 +12,15 @@ val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+} else {
+    keystoreProperties["storeFile"] = System.getenv("KEYSTORE_FILE")
+        ?: throw GradleException("KEYSTORE_FILE environment variable not set")
+    keystoreProperties["storePassword"] = System.getenv("KEYSTORE_PASSWORD")
+        ?: throw GradleException("KEYSTORE_PASSWORD environment variable not set")
+    keystoreProperties["keyAlias"] = System.getenv("KEY_ALIAS")
+        ?: throw GradleException("KEY_ALIAS environment variable not set")
+    keystoreProperties["keyPassword"] = System.getenv("KEY_PASSWORD")
+        ?: throw GradleException("KEY_PASSWORD environment variable not set")
 }
 
 android {

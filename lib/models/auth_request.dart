@@ -33,6 +33,8 @@ class RegisterRequest {
   final double? birthLongitude;
   @JsonKey(name: 'birth_place')
   final String? birthPlace;
+  @JsonKey(name: 'birth_place_id')
+  final String? birthPlaceId;
   @JsonKey(name: 'unknown_time')
   final bool? unknownTime;
 
@@ -46,6 +48,7 @@ class RegisterRequest {
     this.birthLatitude,
     this.birthLongitude,
     this.birthPlace,
+    this.birthPlaceId,
     this.unknownTime,
   });
 
