@@ -5,6 +5,7 @@
 # AstroGods
 
 [![PWA](https://img.shields.io/badge/PWA-Install-5A0FC8?logo=pwa&logoColor=white)](https://astrogods.it)
+[![Google Play](https://img.shields.io/badge/Google_Play-Install-414141?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.astrogods.app)
 [![Flathub](https://img.shields.io/flathub/v/it.astrogods.AstroGods?logo=flathub&logoColor=white)](https://flathub.org/apps/it.astrogods.AstroGods)
 [![Snap](https://snapcraft.io/astrogods/badge.svg)](https://snapcraft.io/astrogods)
 [![Microsoft Store](https://img.shields.io/badge/Microsoft_Store-Install-0078D4?logo=microsoft&logoColor=white)](https://apps.microsoft.com/detail/9mttm2qdm94v)
@@ -25,6 +26,12 @@ https://github.com/user-attachments/assets/27aaa5fc-46b9-4fa5-90dc-c4479c725b5e
 </p>
 
 ## Installation
+
+### Android
+
+<a href="https://play.google.com/store/apps/details?id=com.astrogods.app">
+  <img src="https://raw.githubusercontent.com/steverichey/google-play-badge-svg/master/img/en_get.svg" alt="Get it on Google Play" height="56" />
+</a>
 
 ### Linux
 
