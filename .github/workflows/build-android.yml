@@ -44,19 +44,36 @@ jobs:
       - name: Extract release notes from commit
         id: release_notes
         run: |
-          NOTES=$(git log -1 --pretty=format:"%b")
-          if [ -z "$NOTES" ]; then
-            NOTES="Release ${{ github.ref_name }}"
+          BODY=$(git log -1 --pretty=format:"%b")
+
+          if [ -z "$BODY" ]; then
+            NOTES_EN="Release ${{ github.ref_name }}"
+            NOTES_IT="Release ${{ github.ref_name }}"
+          elif echo "$BODY" | grep -q '^---EN---$'; then
+            NOTES_EN=$(echo "$BODY" | sed -n '/^---EN---$/,/^---IT---$/p' | grep -v '^---' || echo "$BODY" | sed -n '/^---EN---$/,$p' | grep -v '^---')
+            NOTES_IT=$(echo "$BODY" | sed -n '/^---IT---$/,$p' | grep -v '^---')
+
+            [ -z "$NOTES_EN" ] && NOTES_EN="Release ${{ github.ref_name }}"
+            [ -z "$NOTES_IT" ] && NOTES_IT="Release ${{ github.ref_name }}"
+          else
+            NOTES_EN="$BODY"
+            NOTES_IT="$BODY"
           fi
-          echo "notes<<EOF" >> $GITHUB_OUTPUT
-          echo "$NOTES" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+
+          {
+            echo "notes_en<<EOF"
+            echo "$NOTES_EN"
+            echo "EOF"
+            echo "notes_it<<EOF"
+            echo "$NOTES_IT"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
 
       - name: Create whatsnew directory
         run: |
           mkdir -p whatsnew
-          echo "${{ steps.release_notes.outputs.notes }}" > whatsnew/whatsnew-en-US
-          echo "${{ steps.release_notes.outputs.notes }}" > whatsnew/whatsnew-it-IT
+          echo "${{ steps.release_notes.outputs.notes_en }}" > whatsnew/whatsnew-en-US
+          echo "${{ steps.release_notes.outputs.notes_it }}" > whatsnew/whatsnew-it-IT
 
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v6
