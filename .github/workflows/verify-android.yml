@@ -38,10 +38,19 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Cache bundletool
+        id: cache-bundletool
+        uses: actions/cache@v5
+        with:
+          path: bundletool.jar
+          key: bundletool-1.18.3
+
+      - name: Download bundletool
+        if: steps.cache-bundletool.outputs.cache-hit != 'true'
+        run: wget -q https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -O bundletool.jar
+
       - name: Verify AAB with bundletool
-        run: |
-          wget -q https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -O bundletool.jar
-          java -jar bundletool.jar validate --bundle=app-release.aab
+        run: java -jar bundletool.jar validate --bundle=app-release.aab
 
       - name: Re-upload AAB artifact
         uses: actions/upload-artifact@v6
