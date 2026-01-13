@@ -10,8 +10,6 @@
 [![Snap](https://snapcraft.io/astrogods/badge.svg)](https://snapcraft.io/astrogods)
 [![Microsoft Store](https://img.shields.io/badge/Microsoft_Store-Install-0078D4?logo=microsoft&logoColor=white)](https://apps.microsoft.com/detail/9mttm2qdm94v)
 
-Open source Flutter frontend for [AstroGods](https://astrogods.it).
-
 AstroGods is a modern, beautifully designed Astrology app focused on self-knowledge. It provides in-depth birth chart interpretations using Egyptian astrology (Equal house system with Vehlow domification), synastry analysis for relationships, and daily and monthly transit readings. Available in English and Italian.
 
 https://github.com/user-attachments/assets/27aaa5fc-46b9-4fa5-90dc-c4479c725b5e
