@@ -51,39 +51,44 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: flutter build appbundle --release
 
-      - name: Extract release notes from commit
-        id: release_notes
+      - name: Extract commit body to file
+        run: git log -1 --pretty=format:"%b" > /tmp/release-notes.xml
+
+      - name: Check for release notes
+        id: check_notes
         run: |
-          BODY=$(git log -1 --pretty=format:"%b")
-
-          if [ -z "$BODY" ]; then
-            NOTES_EN="Release ${{ github.ref_name }}"
-            NOTES_IT="Release ${{ github.ref_name }}"
-          elif echo "$BODY" | grep -q '^---EN---$'; then
-            NOTES_EN=$(echo "$BODY" | sed -n '/^---EN---$/,/^---IT---$/p' | grep -v '^---' || echo "$BODY" | sed -n '/^---EN---$/,$p' | grep -v '^---')
-            NOTES_IT=$(echo "$BODY" | sed -n '/^---IT---$/,$p' | grep -v '^---')
-
-            [ -z "$NOTES_EN" ] && NOTES_EN="Release ${{ github.ref_name }}"
-            [ -z "$NOTES_IT" ] && NOTES_IT="Release ${{ github.ref_name }}"
+          if grep -q '<release-notes>' /tmp/release-notes.xml; then
+            echo "has_notes=true" >> $GITHUB_OUTPUT
           else
-            NOTES_EN="$BODY"
-            NOTES_IT="$BODY"
+            echo "has_notes=false" >> $GITHUB_OUTPUT
           fi
 
-          {
-            echo "notes_en<<EOF"
-            echo "$NOTES_EN"
-            echo "EOF"
-            echo "notes_it<<EOF"
-            echo "$NOTES_IT"
-            echo "EOF"
-          } >> $GITHUB_OUTPUT
+      - name: Extract EN release notes
+        if: steps.check_notes.outputs.has_notes == 'true'
+        id: en_notes
+        uses: mavrosxristoforos/get-xml-info@2.0
+        with:
+          xml-file: /tmp/release-notes.xml
+          xpath: //en-US
+
+      - name: Extract IT release notes
+        if: steps.check_notes.outputs.has_notes == 'true'
+        id: it_notes
+        uses: mavrosxristoforos/get-xml-info@2.0
+        with:
+          xml-file: /tmp/release-notes.xml
+          xpath: //it-IT
 
       - name: Create whatsnew directory
         run: |
           mkdir -p whatsnew
-          echo "${{ steps.release_notes.outputs.notes_en }}" > whatsnew/whatsnew-en-US
-          echo "${{ steps.release_notes.outputs.notes_it }}" > whatsnew/whatsnew-it-IT
+          if [ "${{ steps.check_notes.outputs.has_notes }}" == "true" ]; then
+            echo "${{ steps.en_notes.outputs.info }}" > whatsnew/whatsnew-en-US
+            echo "${{ steps.it_notes.outputs.info }}" > whatsnew/whatsnew-it-IT
+          else
+            echo "Release ${{ github.ref_name }}" > whatsnew/whatsnew-en-US
+            echo "Release ${{ github.ref_name }}" > whatsnew/whatsnew-it-IT
+          fi
 
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v6
