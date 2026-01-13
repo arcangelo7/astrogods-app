@@ -1,0 +1,32 @@
+name: Build Windows
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build MSIX
+        run: dart run msix:create --store
+
+      - name: Upload MSIX artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-msix
+          path: build/windows/x64/runner/Release/*.msix

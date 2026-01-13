@@ -1,0 +1,41 @@
+name: Verify Windows
+
+on:
+  workflow_run:
+    workflows: ["Build Windows"]
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      build_run_id:
+        description: 'Build Windows workflow run ID'
+        required: true
+
+permissions:
+  checks: write
+
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: windows-latest
+
+    steps:
+      - name: Download MSIX artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: windows-msix
+          run-id: ${{ inputs.build_run_id || github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Windows App Certification Kit
+        uses: ChristopheLav/wack-certification@v1
+        with:
+          name: 'WACK Certification'
+          package-path: '*.msix'
+          report-name: 'certification-report.xml'
+
+      - name: Re-upload MSIX artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-msix
+          path: "*.msix"
