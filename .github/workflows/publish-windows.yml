@@ -23,6 +23,7 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: windows-msix
+          path: msix
           run-id: ${{ inputs.verify_run_id || github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -39,4 +40,8 @@ jobs:
             --clientSecret ${{ secrets.AZURE_AD_CLIENT_SECRET }}
 
       - name: Publish to Microsoft Store
-        run: msstore publish *.msix
+        shell: pwsh
+        run: |
+          $msixFile = (Get-ChildItem -Path msix -Filter "*.msix" | Select-Object -First 1).FullName
+          Write-Host "Publishing: $msixFile"
+          msstore publish $msixFile
