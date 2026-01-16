@@ -24,6 +24,7 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: windows-msix
+          path: msix
           run-id: ${{ inputs.build_run_id || github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -31,11 +32,11 @@ jobs:
         uses: ChristopheLav/wack-certification@v1
         with:
           name: 'WACK Certification'
-          package-path: '*.msix'
+          package-path: 'msix/*.msix'
           report-name: 'certification-report.xml'
 
       - name: Re-upload MSIX artifact
         uses: actions/upload-artifact@v6
         with:
           name: windows-msix
-          path: "*.msix"
+          path: "msix/*.msix"

@@ -52,12 +52,12 @@ jobs:
         run: flutter build appbundle --release
 
       - name: Extract commit body to file
-        run: git log -1 --pretty=format:"%b" > /tmp/release-notes.xml
+        run: git log -1 --pretty=format:"%b" > release-notes.xml
 
       - name: Check for release notes
         id: check_notes
         run: |
-          if grep -q '<release-notes>' /tmp/release-notes.xml; then
+          if grep -q '<release-notes>' release-notes.xml; then
             echo "has_notes=true" >> $GITHUB_OUTPUT
           else
             echo "has_notes=false" >> $GITHUB_OUTPUT
@@ -68,7 +68,7 @@ jobs:
         id: en_notes
         uses: mavrosxristoforos/get-xml-info@2.0
         with:
-          xml-file: /tmp/release-notes.xml
+          xml-file: release-notes.xml
           xpath: //en-US
 
       - name: Extract IT release notes
@@ -76,7 +76,7 @@ jobs:
         id: it_notes
         uses: mavrosxristoforos/get-xml-info@2.0
         with:
-          xml-file: /tmp/release-notes.xml
+          xml-file: release-notes.xml
           xpath: //it-IT
 
       - name: Create whatsnew directory
