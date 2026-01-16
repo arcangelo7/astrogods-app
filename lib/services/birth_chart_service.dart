@@ -17,6 +17,7 @@ class BirthChartService {
     required String placeId,
     String? place,
     bool unknownTime = false,
+    bool chartOnly = false,
   }) async {
     try {
       final response = await _apiClient.post(
@@ -28,20 +29,13 @@ class BirthChartService {
           'place_id': placeId,
           'place': place,
           'unknown_time': unknownTime,
+          'chart_only': chartOnly,
         },
       );
 
       return BirthChart.fromJson(response['birth_chart']);
     } catch (e) {
-      if (e is ApiException) {
-        if (e.statusCode == 403) {
-          throw SubscriptionRequiredException(
-            e.message,
-            errorType: 'subscription_required',
-          );
-        }
-          rethrow;
-      }
+      if (e is ApiException) rethrow;
       throw BirthChartException(
         'Failed to create birth chart: ${e.toString()}',
       );
@@ -163,7 +157,7 @@ class BirthChartService {
         isComplete: true,
         error: apiException.message,
         errorKey: apiException.errorKey,
-        isSubscriptionRequired: apiException.statusCode == 403,
+        isSubscriptionRequired: apiException.isSubscriptionError,
       );
     }
   }
@@ -254,13 +248,4 @@ class BirthChartException implements Exception {
 
   @override
   String toString() => 'BirthChartException: $message';
-}
-
-class SubscriptionRequiredException extends BirthChartException {
-  final String errorType;
-
-  const SubscriptionRequiredException(super.message, {required this.errorType});
-
-  @override
-  String toString() => 'SubscriptionRequiredException: $message';
 }

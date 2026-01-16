@@ -9,17 +9,8 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get previewDescription => 'Preview of your birth chart analysis';
-
-  @override
-  String get fullPersonalityAnalysis => 'Full personality analysis';
-
-  @override
-  String get detailedPlanetaryInterpretation =>
-      'Detailed planetary interpretation';
-
-  @override
-  String get personalizedInsights => 'Personalized insights';
+  String get previewDescription =>
+      'Sign in or create an account to access your complete reading';
 
   @override
   String get getFullReading => 'Get full reading';
@@ -195,10 +186,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get readingGeneratedSuccessfully => 'Reading generated successfully!';
-
-  @override
-  String get subscriptionRequiredMessage =>
-      'You need an active subscription to generate readings after your free reading. Subscribe to continue exploring other birth charts.';
 
   @override
   String get discoverHeartOfRelationship =>
@@ -482,6 +469,13 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get deleteFreeReadingTitle => 'Delete your only reading?';
+
+  @override
+  String get deleteFreeReadingWarning =>
+      'This is your only saved reading. An active subscription is required to generate new readings.';
+
+  @override
   String get remove => 'Remove';
 
   @override
@@ -651,12 +645,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get monthly => 'Monthly';
 
   @override
-  String get dailyPredictionsContent =>
-      'Your personalized daily astrological predictions.';
+  String get dailyPredictionsContent => 'Your daily astrological predictions.';
 
   @override
   String get monthlyPredictionsContent =>
-      'Your detailed monthly astrological predictions.';
+      'Your monthly astrological predictions.';
 
   @override
   String get pleaseEnterFirstName => 'Please enter first name';
@@ -755,10 +748,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginRequiredForFullReading =>
-      'Please login to get your complete personalized reading';
+      'Please login to get your complete reading';
 
   @override
-  String get previewTitle => 'Your birth chart is ready!';
+  String get previewTitle => 'Your birth chart awaits';
 
   @override
   String get backToForm => 'Back to form';
@@ -1536,7 +1529,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get backendApiDescription =>
-      'AstroGods uses third-party APIs to process user requests and provide personalized content.';
+      'AstroGods uses third-party APIs to process user requests and provide content.';
 
   @override
   String get authenticationTitle => 'Registration and authentication';
@@ -1695,7 +1688,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get consequencesOfBlockingContent =>
-      'If you choose to block or delete cookies, some features of our website may not work properly. You may experience reduced functionality and a less personalized experience.';
+      'If you choose to block or delete cookies, some features of our website may not work properly.';
 
   @override
   String get complianceSection => 'Compliance';
@@ -2192,7 +2185,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get productDefinition =>
-      'A good or service available through AstroGods, including specifically: personalized astrological interpretations, birth chart analyses, astrological predictions and forecasts, compatibility reports, astrological educational content, and any other astrological service or digital content defined separately in this document.';
+      'A good or service available through AstroGods, including specifically: astrological interpretations, birth chart analyses, astrological predictions and forecasts, compatibility reports, astrological educational content, and any other astrological service or digital content defined separately in this document.';
 
   @override
   String get serviceDefinition =>
@@ -2466,7 +2459,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get productDescriptionInfo =>
-      'Prices, descriptions and availability of astrological Products (including personalized birth chart readings, compatibility analyses, daily and monthly predictions, relationship insights, and travel astrology recommendations) are specified in the respective sections of AstroGods and are subject to change without notice.';
+      'Prices, descriptions and availability of astrological Products (including birth chart readings, compatibility analyses, daily and monthly predictions, relationship insights, and travel astrology recommendations) are specified in the respective sections of AstroGods and are subject to change without notice.';
 
   @override
   String get productRepresentationDisclaimer =>
@@ -2649,7 +2642,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get digitalContentDeliveryDetails =>
-      'Unless otherwise specified, astrological content purchased on AstroGods consists of textual interpretations and analyses (including birth chart analyses, personalized interpretations, predictions, and compatibility reports) delivered digitally through the online application interface. AstroGods functions primarily as an online service accessible through web browsers and mobile applications.';
+      'Unless otherwise specified, astrological content purchased on AstroGods consists of textual interpretations and analyses (including birth chart analyses, predictions, and compatibility reports) delivered digitally through the online application interface. AstroGods functions primarily as an online service accessible through web browsers and mobile applications.';
 
   @override
   String get deviceRequirements =>
@@ -3240,6 +3233,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes_4_10_0 =>
+      'You can now regenerate readings in your preferred language. Saved transits now appear in saved analyses. Fixed authentication workflow bugs.';
+
+  @override
   String get releaseNotes_4_9_0 =>
       'Updated terms and conditions and privacy policy. Fixed a registration issue with email and password. Birth chart is now automatically generated after registration.';
 
@@ -3320,4 +3317,79 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get portalReturnMessage =>
       'You can close this window and return to the app.';
+
+  @override
+  String readingGeneratedIn(Object language) {
+    return 'This reading was generated in $language';
+  }
+
+  @override
+  String regenerateInLanguage(Object language) {
+    return 'Regenerate in $language';
+  }
+
+  @override
+  String get subscriptionRequiredForRegeneration =>
+      'To regenerate this reading in another language you need a subscription (standard is enough)';
+
+  @override
+  String get premiumRequiredForRegeneration =>
+      'To regenerate this reading in another language you need a premium subscription';
+
+  @override
+  String get languageItalian => 'Italian';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get birthChartsFilter => 'Birth charts';
+
+  @override
+  String get synastriesFilter => 'Synastries';
+
+  @override
+  String get dailyTransitsFilter => 'Daily transits';
+
+  @override
+  String get monthlyTransitsFilter => 'Monthly transits';
+
+  @override
+  String get dailyTransitsCountSingular => '1 saved daily transit';
+
+  @override
+  String dailyTransitsCountPlural(Object count) {
+    return '$count saved daily transits';
+  }
+
+  @override
+  String get monthlyTransitsCountSingular => '1 saved monthly transit';
+
+  @override
+  String monthlyTransitsCountPlural(Object count) {
+    return '$count saved monthly transits';
+  }
+
+  @override
+  String get searchDailyTransits => 'Search daily transits...';
+
+  @override
+  String get searchMonthlyTransits => 'Search monthly transits...';
+
+  @override
+  String get transitRemovedFromSaved => 'Transit removed from saved';
+
+  @override
+  String get noSavedDailyTransits => 'No saved daily transits';
+
+  @override
+  String get noSavedDailyTransitsDescription =>
+      'Daily transits you generate will appear here.';
+
+  @override
+  String get noSavedMonthlyTransits => 'No saved monthly transits';
+
+  @override
+  String get noSavedMonthlyTransitsDescription =>
+      'Monthly transits you generate will appear here.';
 }

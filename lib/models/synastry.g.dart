@@ -23,6 +23,7 @@ Synastry _$SynastryFromJson(Map<String, dynamic> json) => Synastry(
   readingVersion: json['reading_version'] as String?,
   readingOutdated: json['reading_outdated'] as bool?,
   currentVersion: json['current_version'] as String?,
+  readingLanguage: json['reading_language'] as String?,
 );
 
 Map<String, dynamic> _$SynastryToJson(Synastry instance) => <String, dynamic>{
@@ -37,5 +38,6 @@ Map<String, dynamic> _$SynastryToJson(Synastry instance) => <String, dynamic>{
   'reading_version': instance.readingVersion,
   'reading_outdated': instance.readingOutdated,
   'current_version': instance.currentVersion,
+  'reading_language': instance.readingLanguage,
   'user_id': instance.userId,
 };

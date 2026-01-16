@@ -278,10 +278,6 @@ class ApiClient {
 
       final response = await _client.send(request);
 
-      if (response.statusCode == 403) {
-        throw ApiException('Subscription required', statusCode: 403);
-      }
-
       if (response.statusCode < 200 || response.statusCode >= 300) {
         final body = await response.stream.bytesToString();
         Map<String, dynamic> errorData = {};
@@ -291,8 +287,10 @@ class ApiClient {
           // Body is not JSON
         }
         throw ApiException(
-          errorData['error']!,
+          errorData['error'] as String,
           statusCode: response.statusCode,
+          errorType: errorData['error_type'] as String?,
+          errorKey: errorData['error_key'] as String?,
         );
       }
 
@@ -400,6 +398,7 @@ class ApiClient {
           topic: data['topic'] ?? '',
           isComplete: true,
           readingId: data['reading_id'],
+          language: data['language'],
         );
       } else if (type == 'error') {
         yield ReadingChunk(
@@ -490,6 +489,8 @@ class ApiException implements Exception {
   });
 
   String get userMessage => message;
+
+  bool get isSubscriptionError => errorKey?.startsWith('subscription.') == true;
 
   @override
   String toString() =>

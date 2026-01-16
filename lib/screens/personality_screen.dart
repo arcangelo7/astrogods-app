@@ -132,21 +132,19 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
         placeId: _selectedLocation!.placeId,
         place: _selectedLocation!.formattedAddress,
         unknownTime: _dontKnowBirthTime,
+        chartOnly: _chartOnly,
       );
 
       await _birthChartService.calculateBirthChart(birthChart.id);
 
       if (mounted) {
         final authProvider = Provider.of<AuthProvider>(context, listen: false);
-
-        if (authProvider.isAuthenticated) {
-          // User is authenticated, go directly to full reading
+        if (_chartOnly || authProvider.isAuthenticated) {
           context.push(
             '/birth-chart-reading/${birthChart.id}',
             extra: {'birthChart': birthChart.toJson(), 'chartOnly': _chartOnly},
           );
         } else {
-          // User is not authenticated, go to preview
           context.push(
             '/birth-chart-preview/${birthChart.id}',
             extra: birthChart.toJson(),
@@ -155,18 +153,17 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
       }
     } catch (e) {
       if (mounted) {
-        if (e is SubscriptionRequiredException) {
-          SnackbarUtils.showInfo(
-            context,
-            AppLocalizations.of(context)!.subscriptionRequiredMessage,
-          );
-          context.push('/subscription-plans');
-        } else if (e is ApiException) {
-          SessionUtils.handleApiException(
-            context,
-            e,
-            (message) => SnackbarUtils.showCopyableErrorSnackBar(context, message),
-          );
+        if (e is ApiException) {
+          if (e.isSubscriptionError) {
+            SnackbarUtils.showInfo(context, e.message);
+            context.go('/subscription-plans');
+          } else {
+            SessionUtils.handleApiException(
+              context,
+              e,
+              (message) => SnackbarUtils.showCopyableErrorSnackBar(context, message),
+            );
+          }
         }
       }
     } finally {

@@ -29,6 +29,8 @@ class BirthChart {
   final bool? readingOutdated;
   @JsonKey(name: 'current_version')
   final String? currentVersion;
+  @JsonKey(name: 'reading_language')
+  final String? readingLanguage;
 
   const BirthChart({
     required this.id,
@@ -46,6 +48,7 @@ class BirthChart {
     this.readingVersion,
     this.readingOutdated,
     this.currentVersion,
+    this.readingLanguage,
   });
 
   factory BirthChart.fromJson(Map<String, dynamic> json) =>
@@ -68,6 +71,7 @@ class BirthChart {
     String? readingVersion,
     bool? readingOutdated,
     String? currentVersion,
+    String? readingLanguage,
   }) {
     return BirthChart(
       id: id ?? this.id,
@@ -85,6 +89,7 @@ class BirthChart {
       readingVersion: readingVersion ?? this.readingVersion,
       readingOutdated: readingOutdated ?? this.readingOutdated,
       currentVersion: currentVersion ?? this.currentVersion,
+      readingLanguage: readingLanguage ?? this.readingLanguage,
     );
   }
 

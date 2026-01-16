@@ -242,11 +242,16 @@ class _StarryNightBackgroundState extends State<StarryNightBackground>
         final size = Size(constraints.maxWidth, constraints.maxHeight);
         _initializeStarLayers(size, isDark);
 
+        final hasValidConstraints = constraints.maxWidth.isFinite &&
+            constraints.maxHeight.isFinite &&
+            constraints.maxWidth > 0 &&
+            constraints.maxHeight > 0;
+
         final needsCacheUpdate = _cachedImageSize != size ||
             _cachedImageIsDark != isDark ||
             _cachedPlanetImage == null;
 
-        if (needsCacheUpdate && !_isRenderingCache) {
+        if (needsCacheUpdate && !_isRenderingCache && hasValidConstraints) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (mounted) {
               _renderPlanetCache(size, isDark, dpr);

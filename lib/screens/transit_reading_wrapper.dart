@@ -148,6 +148,8 @@ class _TransitReadingWrapperState extends State<TransitReadingWrapper> {
     final birthChart = BirthChart.fromJson(birthChartData);
     final location = _transitData!['location'] as Map<String, dynamic>;
 
+    final readingLanguage = _transitData!['reading_language'] as String?;
+
     if (widget.transitType == 'daily') {
       final dateStr = _transitData!['date'] as String;
       final date = DateTime.parse(dateStr);
@@ -158,6 +160,7 @@ class _TransitReadingWrapperState extends State<TransitReadingWrapper> {
         date: date,
         location: location,
         existingReading: _transitData!['reading'] as String?,
+        readingLanguage: readingLanguage,
         readingId: widget.readingId,
         chartOnly: widget.chartOnly,
       );
@@ -172,6 +175,7 @@ class _TransitReadingWrapperState extends State<TransitReadingWrapper> {
         month: month,
         location: location,
         existingReading: _transitData!['reading'] as String?,
+        readingLanguage: readingLanguage,
         readingId: widget.readingId,
         chartOnly: widget.chartOnly,
       );

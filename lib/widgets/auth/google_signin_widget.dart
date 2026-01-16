@@ -12,16 +12,15 @@ import '../../utils/snackbar_utils.dart';
 import '../../services/auth_service.dart';
 import '../../services/google_sign_in_native_service.dart';
 import '../../services/google_sign_in_desktop_service.dart';
+import '../../utils/auth_navigation_utils.dart';
 import 'google_signin_button.dart';
 
 class GoogleSignInWidget extends StatefulWidget {
   final bool isRegisterMode;
-  final VoidCallback? onSuccess;
 
   const GoogleSignInWidget({
     super.key,
     this.isRegisterMode = false,
-    this.onSuccess,
   });
 
   @override
@@ -31,7 +30,10 @@ class GoogleSignInWidget extends StatefulWidget {
 class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
   final GoogleSignInNativeService _googleNativeService =
       GoogleSignInNativeService();
-  StreamSubscription<GoogleSignInAuthenticationEvent>? _authEventSubscription;
+  // Static subscription ensures only one listener exists across all widget instances
+  static StreamSubscription<GoogleSignInAuthenticationEvent>? _authEventSubscription;
+  static _GoogleSignInWidgetState? _activeInstance;
+  static bool _isHandlingSignIn = false;
   bool _isInitialized = false;
   bool _isInitializing = false;
   String? _initError;
@@ -84,15 +86,28 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
 
   @override
   void dispose() {
-    _authEventSubscription?.cancel();
+    if (_activeInstance == this) {
+      _authEventSubscription?.cancel();
+      _authEventSubscription = null;
+      _activeInstance = null;
+      _isHandlingSignIn = false;
+    }
     super.dispose();
   }
 
   void _setupWebAuthListener() {
+    _authEventSubscription?.cancel();
+    _activeInstance = this;
+
     _authEventSubscription =
         GoogleSignIn.instance.authenticationEvents.listen((event) {
       if (event is GoogleSignInAuthenticationEventSignIn) {
-        _handleWebSignInComplete(event.user);
+        // Prevent handling duplicate events
+        if (_isHandlingSignIn) return;
+        if (_activeInstance == this && mounted) {
+          _isHandlingSignIn = true;
+          _handleWebSignInComplete(event.user);
+        }
       }
     });
   }
@@ -109,14 +124,7 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
 
       if (mounted) {
         if (success) {
-          final l10n = AppLocalizations.of(context)!;
-          SnackbarUtils.showSuccess(
-            context,
-            widget.isRegisterMode
-                ? l10n.googleSignUpSuccessful
-                : l10n.googleSignInSuccessful,
-          );
-          widget.onSuccess?.call();
+          await navigateAfterAuth();
         } else {
           SnackbarUtils.showCopyableErrorSnackBar(
             context,
@@ -155,14 +163,7 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
 
         if (mounted) {
           if (success) {
-            final l10n = AppLocalizations.of(context)!;
-            SnackbarUtils.showSuccess(
-              context,
-              widget.isRegisterMode
-                  ? l10n.googleSignUpSuccessful
-                  : l10n.googleSignInSuccessful,
-            );
-            widget.onSuccess?.call();
+            await navigateAfterAuth();
           } else {
             SnackbarUtils.showCopyableErrorSnackBar(
               context,

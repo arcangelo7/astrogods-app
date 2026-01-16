@@ -21,6 +21,7 @@ class ReadingContent extends StatelessWidget {
   final Reading? readingModel;
   final DailyTransitReading? dailyTransit;
   final MonthlyTransitReading? monthlyTransit;
+  final bool isSubscriptionRequired;
 
   const ReadingContent({
     super.key,
@@ -37,6 +38,7 @@ class ReadingContent extends StatelessWidget {
     this.readingModel,
     this.dailyTransit,
     this.monthlyTransit,
+    this.isSubscriptionRequired = false,
   });
 
   Widget _buildPdfDownloadWidget() {
@@ -81,7 +83,7 @@ class ReadingContent extends StatelessWidget {
         !isGenerating &&
         !hasError) {
       return emptyStateWidget ?? const SizedBox.shrink();
-    } else if (hasError && !isGenerating) {
+    } else if (hasError && !isGenerating && !isSubscriptionRequired) {
       return errorStateBuilder(error!);
     } else {
       return Column(

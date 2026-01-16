@@ -13,7 +13,7 @@ import '../../constants/text_styles.dart';
 import '../../utils/snackbar_utils.dart';
 import '../../utils/auth_validators.dart';
 import '../../utils/error_utils.dart';
-import 'register_screen.dart';
+import '../../utils/auth_navigation_utils.dart';
 
 class LoginScreen extends StatefulWidget {
   final String? error;
@@ -87,16 +87,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handlePostLoginRedirect() async {
-    // Simply go to home - the redirect will be handled by HomeScreen
-    if (mounted) {
-      context.go('/');
-    }
+    await navigateAfterAuth();
   }
 
   void _navigateToRegister() {
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (context) => const RegisterScreen()));
+    context.go('/register');
   }
 
   @override
@@ -222,7 +217,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               GoogleSignInWidget(
                                 isRegisterMode: false,
-                                onSuccess: () => context.go('/'),
                               ),
                             ],
                           ),

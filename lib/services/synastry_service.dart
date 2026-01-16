@@ -52,15 +52,7 @@ class SynastryService {
 
       return Synastry.fromJson(response['synastry']);
     } catch (e) {
-      if (e is ApiException) {
-        if (e.statusCode == 403) {
-          throw SubscriptionRequiredException(
-            e.message,
-            errorType: 'subscription_required',
-          );
-        }
-        rethrow;
-      }
+      if (e is ApiException) rethrow;
       throw SynastryException('Failed to create synastry: ${e.toString()}');
     }
   }
@@ -68,10 +60,15 @@ class SynastryService {
   Future<Reading?> getSynastryReading(int synastryId) async {
     try {
       final response = await _apiClient.get('/synastry/$synastryId/reading');
+
+      if (response['status'] == 'outdated') {
+        return null;
+      }
+
       return Reading.fromJson(response['reading']);
     } catch (e) {
       if (e is ApiException && e.statusCode == 404) {
-        return null; // Reading not found
+        return null;
       }
       throw SynastryException(
         'Failed to get synastry reading: ${e.toString()}',
@@ -151,7 +148,7 @@ class SynastryService {
         isComplete: true,
         error: apiException.message,
         errorKey: apiException.errorKey,
-        isSubscriptionRequired: apiException.statusCode == 403,
+        isSubscriptionRequired: apiException.isSubscriptionError,
       );
     }
   }
@@ -166,12 +163,4 @@ class SynastryException implements Exception {
   const SynastryException(this.message);
   @override
   String toString() => 'SynastryException: $message';
-}
-
-class SubscriptionRequiredException extends SynastryException {
-  final String errorType;
-  const SubscriptionRequiredException(super.message, {required this.errorType});
-
-  @override
-  String toString() => 'SubscriptionRequiredException: $message';
 }

@@ -94,3 +94,56 @@ Map<String, dynamic> _$TransitRequestToJson(TransitRequest instance) =>
       'month': instance.month,
       'location': instance.location,
     };
+
+DailyTransitSummary _$DailyTransitSummaryFromJson(Map<String, dynamic> json) =>
+    DailyTransitSummary(
+      id: (json['id'] as num).toInt(),
+      date: DateTime.parse(json['date'] as String),
+      place: json['place'] as String,
+      birthChartName: json['birth_chart_name'] as String?,
+      birthChartId: (json['birth_chart_id'] as num).toInt(),
+      hasReading: json['has_reading'] as bool,
+      readingLanguage: json['reading_language'] as String?,
+      createdOn: DateTime.parse(json['created_on'] as String),
+    );
+
+Map<String, dynamic> _$DailyTransitSummaryToJson(
+  DailyTransitSummary instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'date': instance.date.toIso8601String(),
+  'place': instance.place,
+  'birth_chart_name': instance.birthChartName,
+  'birth_chart_id': instance.birthChartId,
+  'has_reading': instance.hasReading,
+  'reading_language': instance.readingLanguage,
+  'created_on': instance.createdOn.toIso8601String(),
+};
+
+MonthlyTransitSummary _$MonthlyTransitSummaryFromJson(
+  Map<String, dynamic> json,
+) => MonthlyTransitSummary(
+  id: (json['id'] as num).toInt(),
+  year: (json['year'] as num).toInt(),
+  month: (json['month'] as num).toInt(),
+  place: json['place'] as String,
+  birthChartName: json['birth_chart_name'] as String?,
+  birthChartId: (json['birth_chart_id'] as num).toInt(),
+  hasReading: json['has_reading'] as bool,
+  readingLanguage: json['reading_language'] as String?,
+  createdOn: DateTime.parse(json['created_on'] as String),
+);
+
+Map<String, dynamic> _$MonthlyTransitSummaryToJson(
+  MonthlyTransitSummary instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'year': instance.year,
+  'month': instance.month,
+  'place': instance.place,
+  'birth_chart_name': instance.birthChartName,
+  'birth_chart_id': instance.birthChartId,
+  'has_reading': instance.hasReading,
+  'reading_language': instance.readingLanguage,
+  'created_on': instance.createdOn.toIso8601String(),
+};

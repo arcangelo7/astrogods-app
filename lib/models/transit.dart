@@ -98,3 +98,69 @@ class TransitRequest {
       _$TransitRequestFromJson(json);
   Map<String, dynamic> toJson() => _$TransitRequestToJson(this);
 }
+
+@JsonSerializable()
+class DailyTransitSummary {
+  final int id;
+  final DateTime date;
+  final String place;
+  @JsonKey(name: 'birth_chart_name')
+  final String? birthChartName;
+  @JsonKey(name: 'birth_chart_id')
+  final int birthChartId;
+  @JsonKey(name: 'has_reading')
+  final bool hasReading;
+  @JsonKey(name: 'reading_language')
+  final String? readingLanguage;
+  @JsonKey(name: 'created_on')
+  final DateTime createdOn;
+
+  const DailyTransitSummary({
+    required this.id,
+    required this.date,
+    required this.place,
+    this.birthChartName,
+    required this.birthChartId,
+    required this.hasReading,
+    this.readingLanguage,
+    required this.createdOn,
+  });
+
+  factory DailyTransitSummary.fromJson(Map<String, dynamic> json) =>
+      _$DailyTransitSummaryFromJson(json);
+  Map<String, dynamic> toJson() => _$DailyTransitSummaryToJson(this);
+}
+
+@JsonSerializable()
+class MonthlyTransitSummary {
+  final int id;
+  final int year;
+  final int month;
+  final String place;
+  @JsonKey(name: 'birth_chart_name')
+  final String? birthChartName;
+  @JsonKey(name: 'birth_chart_id')
+  final int birthChartId;
+  @JsonKey(name: 'has_reading')
+  final bool hasReading;
+  @JsonKey(name: 'reading_language')
+  final String? readingLanguage;
+  @JsonKey(name: 'created_on')
+  final DateTime createdOn;
+
+  const MonthlyTransitSummary({
+    required this.id,
+    required this.year,
+    required this.month,
+    required this.place,
+    this.birthChartName,
+    required this.birthChartId,
+    required this.hasReading,
+    this.readingLanguage,
+    required this.createdOn,
+  });
+
+  factory MonthlyTransitSummary.fromJson(Map<String, dynamic> json) =>
+      _$MonthlyTransitSummaryFromJson(json);
+  Map<String, dynamic> toJson() => _$MonthlyTransitSummaryToJson(this);
+}

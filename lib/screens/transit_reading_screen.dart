@@ -2,15 +2,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../mixins/subscription_loader_mixin.dart';
 import '../models/birth_chart.dart';
 import '../models/transit.dart';
 import '../models/reading_chunk.dart';
 import '../providers/theme_provider.dart';
 import '../services/transit_service.dart' as transit;
+import '../services/api_client.dart';
+import '../services/reading_state_service.dart';
 import '../utils/snackbar_utils.dart';
 import '../widgets/reading_screen_layout.dart';
 import '../widgets/transit_header.dart';
 import '../widgets/reading_content.dart';
+import '../widgets/reading_language_banner.dart';
 import '../widgets/pdf_download_widget.dart';
 import '../constants/text_styles.dart';
 import '../l10n/app_localizations.dart';
@@ -23,6 +27,7 @@ class TransitReadingScreen extends StatefulWidget {
   final int? month;
   final Map<String, dynamic> location;
   final String? existingReading;
+  final String? readingLanguage;
   final int? readingId;
   final bool chartOnly;
 
@@ -35,6 +40,7 @@ class TransitReadingScreen extends StatefulWidget {
     this.year,
     this.month,
     this.existingReading,
+    this.readingLanguage,
     this.readingId,
     this.chartOnly = false,
   });
@@ -43,13 +49,17 @@ class TransitReadingScreen extends StatefulWidget {
   State<TransitReadingScreen> createState() => _TransitReadingScreenState();
 }
 
-class _TransitReadingScreenState extends State<TransitReadingScreen> {
+class _TransitReadingScreenState extends State<TransitReadingScreen>
+    with SubscriptionLoaderMixin {
   late final transit.TransitService _service;
+  late final ReadingStateService _readingStateService;
   bool _isGenerating = false;
   bool _hasError = false;
+  bool _isSubscriptionRequired = false;
   String? _errorMessage;
   String _generatedContent = '';
   StreamSubscription<ReadingChunk>? _subscription;
+  String? _currentReadingLanguage;
 
   Timer? _updateTimer;
   bool _hasPendingUpdate = false;
@@ -78,18 +88,29 @@ class _TransitReadingScreenState extends State<TransitReadingScreen> {
   void initState() {
     super.initState();
     _service = transit.TransitService(context: context);
+    _readingStateService = ReadingStateService();
 
     if (widget.chartOnly) return;
+
+    loadSubscriptionStatus();
 
     // If we have an existing reading, use it
     if (widget.existingReading != null) {
       _generatedContent = widget.existingReading!;
+      _currentReadingLanguage = widget.readingLanguage;
     } else {
       // Start generation immediately like synastry does
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _generateReading();
       });
     }
+  }
+
+  void _handleRegenerate() {
+    startRegeneration(
+      () => setState(() { _generatedContent = ''; }),
+      _generateReading,
+    );
   }
 
   @override
@@ -202,6 +223,8 @@ class _TransitReadingScreenState extends State<TransitReadingScreen> {
       _flushUpdate();
     } else if (chunk.isComplete) {
       _isGenerating = false;
+      _currentReadingLanguage = chunk.language;
+      _readingStateService.readingCompletedNotifier.value++;
       _flushUpdate();
     } else {
       _generatedContent += chunk.content;
@@ -213,15 +236,16 @@ class _TransitReadingScreenState extends State<TransitReadingScreen> {
     if (!mounted) return;
 
     _hasError = true;
-    _errorMessage = error.toString();
     _isGenerating = false;
+    onRegenerationError();
+    final apiError = error as ApiException;
+    _isSubscriptionRequired = apiError.isSubscriptionError;
+    _errorMessage = apiError.message;
     _flushUpdate();
 
-    if (error is transit.SubscriptionRequiredException) {
-      SnackbarUtils.showError(
-        context,
-        AppLocalizations.of(context)!.subscriptionRequiredMessage,
-      );
+    if (_isSubscriptionRequired) {
+      SnackbarUtils.showInfo(context, _errorMessage!);
+      context.go('/subscription-plans');
     } else {
       SnackbarUtils.showError(context, _errorMessage!);
     }
@@ -231,6 +255,7 @@ class _TransitReadingScreenState extends State<TransitReadingScreen> {
     if (!mounted) return;
 
     _isGenerating = false;
+    onRegenerationComplete();
     _flushUpdate();
   }
 
@@ -276,19 +301,41 @@ class _TransitReadingScreenState extends State<TransitReadingScreen> {
       return _buildChartOnlyContent();
     }
 
-    return ReadingContent(
-      reading: _generatedContent.isNotEmpty ? _generatedContent : null,
-      generatedContent: _generatedContent,
-      isGenerating: _isGenerating,
-      hasError: _hasError,
-      currentTopic: '',
-      error: _errorMessage,
-      emptyStateWidget: null,
-      errorStateBuilder: (error) => _buildErrorState(error),
-      birthChart: widget.birthChart,
-      readingModel: null,
-      dailyTransit: _dailyTransitReading,
-      monthlyTransit: _monthlyTransitReading,
+    final hasReading = _generatedContent.isNotEmpty || widget.existingReading != null;
+    final showBanner = hasReading &&
+        _currentReadingLanguage != null &&
+        !_isGenerating &&
+        !_hasError;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (showBanner)
+          ReadingLanguageBanner(
+            readingLanguage: _currentReadingLanguage!,
+            hasSubscription: subscriptionStatus?.hasActiveSubscription ?? false,
+            hasPremiumSubscription: subscriptionStatus?.hasPremiumSubscription ?? false,
+            requiresPremium: true,
+            isLoadingSubscription: subscriptionStatus == null,
+            onRegenerate: _handleRegenerate,
+            isRegenerating: isRegenerating,
+          ),
+        ReadingContent(
+          reading: _generatedContent.isNotEmpty ? _generatedContent : null,
+          generatedContent: _generatedContent,
+          isGenerating: _isGenerating,
+          hasError: _hasError,
+          currentTopic: '',
+          error: _errorMessage,
+          emptyStateWidget: null,
+          errorStateBuilder: (error) => _buildErrorState(error),
+          birthChart: widget.birthChart,
+          readingModel: null,
+          dailyTransit: _dailyTransitReading,
+          monthlyTransit: _monthlyTransitReading,
+          isSubscriptionRequired: _isSubscriptionRequired,
+        ),
+      ],
     );
   }
 

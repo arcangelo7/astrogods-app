@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../mixins/subscription_loader_mixin.dart';
 import '../models/birth_chart.dart';
 import '../providers/theme_provider.dart';
 import '../services/birth_chart_service.dart';
@@ -12,6 +13,7 @@ import '../utils/session_utils.dart';
 import '../widgets/birth_chart_header.dart';
 import '../widgets/reading_screen_layout.dart';
 import '../widgets/reading_content.dart';
+import '../widgets/reading_language_banner.dart';
 import '../widgets/pdf_download_widget.dart';
 import '../constants/text_styles.dart';
 import '../l10n/app_localizations.dart';
@@ -31,7 +33,8 @@ class BirthChartReadingScreen extends StatefulWidget {
       _BirthChartReadingScreenState();
 }
 
-class _BirthChartReadingScreenState extends State<BirthChartReadingScreen> {
+class _BirthChartReadingScreenState extends State<BirthChartReadingScreen>
+    with SubscriptionLoaderMixin {
   late final BirthChartService _service;
   late final ReadingStateService _readingStateService;
   bool _wasGenerating = false;
@@ -44,6 +47,8 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.chartOnly) return;
+
+      loadSubscriptionStatus();
 
       // If state says generating but SSE subscription is dead, reset and restart
       // Check BEFORE _loadExistingReading to avoid HTTP interference
@@ -60,10 +65,8 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen> {
       // Check if subscription is required and redirect immediately
       if (mounted &&
           _readingStateService.isSubscriptionRequired(widget.birthChart.id)) {
-        SnackbarUtils.showInfo(
-          context,
-          AppLocalizations.of(context)!.subscriptionRequiredMessage,
-        );
+        final error = _readingStateService.getError(widget.birthChart.id);
+        SnackbarUtils.showInfo(context, error!);
         context.push('/subscription-plans');
         return;
       }
@@ -87,7 +90,7 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen> {
     super.dispose();
   }
 
-  void _onReadingStateChanged() {
+  void _onReadingStateChanged() async {
     if (mounted) {
       final chartId = widget.birthChart.id;
       final isCurrentlyGenerating = _readingStateService.isGenerating(chartId);
@@ -95,11 +98,10 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen> {
       // Check for subscription errors first - always redirect automatically
       if (_readingStateService.hasError(chartId) &&
           _readingStateService.isSubscriptionRequired(chartId)) {
-        SnackbarUtils.showInfo(
-          context,
-          AppLocalizations.of(context)!.subscriptionRequiredMessage,
-        );
-        context.push('/subscription-plans');
+        final error = _readingStateService.getError(chartId);
+        if (!mounted) return;
+        SnackbarUtils.showInfo(context, error!);
+        context.go('/subscription-plans');
         return;
       }
 
@@ -115,7 +117,7 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen> {
           SnackbarUtils.showCopyableErrorSnackBar(context, error);
         }
         _wasGenerating = false;
-        setState(() {});
+        onRegenerationError();
         return;
       }
 
@@ -128,6 +130,7 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen> {
           context,
           AppLocalizations.of(context)!.readingGeneratedSuccessfully,
         );
+        onRegenerationComplete();
       }
 
       _wasGenerating = isCurrentlyGenerating;
@@ -144,6 +147,13 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen> {
     } catch (e) {
       // Reading doesn't exist or error loading - that's okay
     }
+  }
+
+  void _handleRegenerate() {
+    startRegeneration(
+      () => _readingStateService.clearReadingState(widget.birthChart.id),
+      _generateReading,
+    );
   }
 
   Future<void> _generateReading() async {
@@ -213,17 +223,38 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen> {
     final currentTopic = _readingStateService.getCurrentTopic(chartId);
     final error = _readingStateService.getError(chartId);
 
-    return ReadingContent(
-      reading: reading?.reading,
-      generatedContent: generatedContent,
-      isGenerating: isGenerating,
-      hasError: hasError,
-      currentTopic: currentTopic,
-      error: error,
-      emptyStateWidget: _buildEmptyState(),
-      errorStateBuilder: (error) => _buildErrorState(error),
-      birthChart: widget.birthChart,
-      readingModel: reading,
+    final showBanner = reading != null &&
+        reading.language != null &&
+        !isGenerating &&
+        !hasError;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (showBanner)
+          ReadingLanguageBanner(
+            readingLanguage: reading.language!,
+            hasSubscription: subscriptionStatus?.hasActiveSubscription ?? false,
+            hasPremiumSubscription: subscriptionStatus?.hasPremiumSubscription ?? false,
+            requiresPremium: false,
+            isLoadingSubscription: subscriptionStatus == null,
+            onRegenerate: _handleRegenerate,
+            isRegenerating: isRegenerating,
+          ),
+        ReadingContent(
+          reading: reading?.reading,
+          generatedContent: generatedContent,
+          isGenerating: isGenerating,
+          hasError: hasError,
+          currentTopic: currentTopic,
+          error: error,
+          emptyStateWidget: _buildEmptyState(),
+          errorStateBuilder: (error) => _buildErrorState(error),
+          birthChart: widget.birthChart,
+          readingModel: reading,
+          isSubscriptionRequired: _readingStateService.isSubscriptionRequired(chartId),
+        ),
+      ],
     );
   }
 

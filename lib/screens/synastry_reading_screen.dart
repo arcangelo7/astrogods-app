@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../mixins/subscription_loader_mixin.dart';
 import '../models/synastry.dart';
 import '../providers/theme_provider.dart';
 import '../services/synastry_service.dart';
@@ -10,6 +11,7 @@ import '../utils/snackbar_utils.dart';
 import '../widgets/reading_screen_layout.dart';
 import '../widgets/synastry_header.dart';
 import '../widgets/reading_content.dart';
+import '../widgets/reading_language_banner.dart';
 import '../widgets/pdf_download_widget.dart';
 import '../services/api_client.dart';
 import '../utils/session_utils.dart';
@@ -30,7 +32,8 @@ class SynastryReadingScreen extends StatefulWidget {
   State<SynastryReadingScreen> createState() => _SynastryReadingScreenState();
 }
 
-class _SynastryReadingScreenState extends State<SynastryReadingScreen> {
+class _SynastryReadingScreenState extends State<SynastryReadingScreen>
+    with SubscriptionLoaderMixin {
   late final SynastryService _service;
   late final ReadingStateService _readingStateService;
   bool _wasGenerating = false;
@@ -43,6 +46,8 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.chartOnly) return;
+
+      loadSubscriptionStatus();
 
       // If state says generating but SSE subscription is dead, reset and restart
       // Check BEFORE _loadExistingReading to avoid HTTP interference
@@ -84,10 +89,8 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen> {
         final error = _readingStateService.getError(synastryId);
 
         if (_readingStateService.isSubscriptionRequired(synastryId)) {
-          SnackbarUtils.showError(
-            context,
-            AppLocalizations.of(context)!.subscriptionRequiredMessage,
-          );
+          SnackbarUtils.showInfo(context, error!);
+          context.go('/subscription-plans');
         } else {
           final errorKey = _readingStateService.getErrorKey(widget.synastry.id);
           if (!SessionUtils.handleSessionExpirationByKey(
@@ -99,7 +102,7 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen> {
           }
         }
         _wasGenerating = false;
-        setState(() {});
+        onRegenerationError();
         return;
       }
 
@@ -107,6 +110,7 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen> {
           !isCurrentlyGenerating &&
           _readingStateService.getReading(synastryId) != null) {
         _wasGenerating = false;
+        onRegenerationComplete();
       }
 
       setState(() {});
@@ -127,6 +131,13 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen> {
     } catch (e) {
       // Reading doesn't exist yet, which is fine
     }
+  }
+
+  void _handleRegenerate() {
+    startRegeneration(
+      () => _readingStateService.clearReadingState(widget.synastry.id),
+      _generateReading,
+    );
   }
 
   Future<void> _generateReading() async {
@@ -199,17 +210,38 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen> {
     final currentTopic = _readingStateService.getCurrentTopic(synastryId);
     final error = _readingStateService.getError(synastryId);
 
-    return ReadingContent(
-      reading: reading?.reading,
-      generatedContent: generatedContent,
-      isGenerating: isGenerating,
-      hasError: hasError,
-      currentTopic: currentTopic,
-      error: error,
-      emptyStateWidget: _buildEmptyState(),
-      errorStateBuilder: (error) => _buildErrorState(error),
-      synastry: widget.synastry,
-      readingModel: reading,
+    final showBanner = reading != null &&
+        reading.language != null &&
+        !isGenerating &&
+        !hasError;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (showBanner)
+          ReadingLanguageBanner(
+            readingLanguage: reading.language!,
+            hasSubscription: subscriptionStatus?.hasActiveSubscription ?? false,
+            hasPremiumSubscription: subscriptionStatus?.hasPremiumSubscription ?? false,
+            requiresPremium: true,
+            isLoadingSubscription: subscriptionStatus == null,
+            onRegenerate: _handleRegenerate,
+            isRegenerating: isRegenerating,
+          ),
+        ReadingContent(
+          reading: reading?.reading,
+          generatedContent: generatedContent,
+          isGenerating: isGenerating,
+          hasError: hasError,
+          currentTopic: currentTopic,
+          error: error,
+          emptyStateWidget: _buildEmptyState(),
+          errorStateBuilder: (error) => _buildErrorState(error),
+          synastry: widget.synastry,
+          readingModel: reading,
+          isSubscriptionRequired: _readingStateService.isSubscriptionRequired(synastryId),
+        ),
+      ],
     );
   }
 

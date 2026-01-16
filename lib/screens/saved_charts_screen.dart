@@ -6,85 +6,19 @@ import '../widgets/accent_icon.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
 import '../l10n/app_localizations.dart';
+import '../models/analysis_item.dart';
 import '../models/birth_chart.dart';
-import '../models/synastry.dart';
 import '../services/birth_chart_service.dart';
 import '../services/synastry_service.dart';
+import '../services/transit_service.dart';
 import '../services/reading_state_service.dart';
+import '../services/subscription_service.dart';
 import '../services/api_client.dart';
 import '../utils/snackbar_utils.dart';
 import '../utils/session_utils.dart';
 import '../utils/date_utils.dart' as date_utils;
 import '../providers/auth_provider.dart';
 import '../widgets/edit_birth_chart_dialog.dart';
-
-enum AnalysisType { birthChart, synastry }
-
-abstract class AnalysisItem {
-  int get id;
-  String get title;
-  DateTime get sortDate;
-  bool? get hasReading;
-  bool? get readingOutdated;
-  AnalysisType get type;
-  String? get subtitle;
-}
-
-class BirthChartAnalysisItem implements AnalysisItem {
-  final BirthChart birthChart;
-
-  BirthChartAnalysisItem(this.birthChart);
-
-  @override
-  int get id => birthChart.id;
-
-  @override
-  String get title => birthChart.fullName;
-
-  @override
-  DateTime get sortDate => birthChart.createdOn ?? birthChart.date;
-
-  @override
-  bool? get hasReading => birthChart.hasReading;
-
-  @override
-  bool? get readingOutdated => birthChart.readingOutdated;
-
-  @override
-  AnalysisType get type => AnalysisType.birthChart;
-
-  @override
-  String? get subtitle => birthChart.place;
-
-  bool? get isPersonal => birthChart.isPersonal;
-}
-
-class SynastryAnalysisItem implements AnalysisItem {
-  final Synastry synastry;
-
-  SynastryAnalysisItem(this.synastry);
-
-  @override
-  int get id => synastry.id;
-
-  @override
-  String get title => synastry.relationshipTitle;
-
-  @override
-  DateTime get sortDate => synastry.createdOn;
-
-  @override
-  bool? get hasReading => synastry.hasReading;
-
-  @override
-  bool? get readingOutdated => synastry.readingOutdated;
-
-  @override
-  AnalysisType get type => AnalysisType.synastry;
-
-  @override
-  String? get subtitle => null;
-}
 
 class SavedChartsScreen extends StatefulWidget {
   const SavedChartsScreen({super.key});
@@ -96,13 +30,15 @@ class SavedChartsScreen extends StatefulWidget {
 class _SavedChartsScreenState extends State<SavedChartsScreen> {
   late final BirthChartService _birthChartService;
   late final SynastryService _synastryService;
+  late final TransitService _transitService;
   late final ReadingStateService _readingStateService;
+  late final SubscriptionService _subscriptionService;
   List<AnalysisItem> _savedAnalyses = [];
   List<AnalysisItem> _filteredAnalyses = [];
   bool _isLoading = true;
   String? _error;
   final TextEditingController _searchController = TextEditingController();
-  AnalysisType? _selectedFilter;
+  AnalysisType _selectedFilter = AnalysisType.birthChart;
   final Set<String> _deletingItems = {};
   Timer? _debounceTimer;
 
@@ -111,7 +47,9 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
     super.initState();
     _birthChartService = BirthChartService(context: context);
     _synastryService = SynastryService(context: context);
+    _transitService = TransitService(context: context);
     _readingStateService = ReadingStateService();
+    _subscriptionService = SubscriptionService(context: context);
     _readingStateService.readingCompletedNotifier.addListener(_onReadingCompleted);
     _loadSavedAnalyses();
   }
@@ -127,6 +65,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
     _searchController.dispose();
     _birthChartService.dispose();
     _synastryService.dispose();
+    _transitService.dispose();
     super.dispose();
   }
 
@@ -154,6 +93,18 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
       final synastries = await _synastryService.getSavedSynastries();
       analyses.addAll(
         synastries.map((synastry) => SynastryAnalysisItem(synastry)),
+      );
+
+      // Load daily transits
+      final dailyTransits = await _transitService.getSavedDailyTransits();
+      analyses.addAll(
+        dailyTransits.map((transit) => DailyTransitAnalysisItem(transit)),
+      );
+
+      // Load monthly transits
+      final monthlyTransits = await _transitService.getSavedMonthlyTransits();
+      analyses.addAll(
+        monthlyTransits.map((transit) => MonthlyTransitAnalysisItem(transit)),
       );
 
       if (mounted) {
@@ -209,6 +160,10 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
         await _birthChartService.deleteBirthChart(analysis.id);
       } else if (analysis is SynastryAnalysisItem) {
         await _synastryService.deleteSynastry(analysis.id);
+      } else if (analysis is DailyTransitAnalysisItem) {
+        await _transitService.deleteDailyTransit(analysis.id);
+      } else if (analysis is MonthlyTransitAnalysisItem) {
+        await _transitService.deleteMonthlyTransit(analysis.id);
       }
 
       if (mounted) {
@@ -221,9 +176,14 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
             (a) => a.id == analysis.id && a.type == analysis.type,
           );
         });
-        final successMessage = analysis is BirthChartAnalysisItem
-            ? l10n.chartRemovedFromSaved
-            : l10n.synastryRemovedFromSaved;
+        String successMessage;
+        if (analysis is BirthChartAnalysisItem) {
+          successMessage = l10n.chartRemovedFromSaved;
+        } else if (analysis is SynastryAnalysisItem) {
+          successMessage = l10n.synastryRemovedFromSaved;
+        } else {
+          successMessage = l10n.transitRemovedFromSaved;
+        }
         SnackbarUtils.showSuccess(context, successMessage);
       }
     } catch (e) {
@@ -316,12 +276,16 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
       context.push(
         '/birth-chart-reading/${analysis.id}',
         extra: {'birthChart': analysis.birthChart.toJson()},
-      );
+      ).then((_) => _loadSavedAnalyses());
     } else if (analysis is SynastryAnalysisItem) {
       context.push(
         '/synastry/${analysis.id}',
         extra: {'synastry': analysis.synastry.toJson()},
-      );
+      ).then((_) => _loadSavedAnalyses());
+    } else if (analysis is DailyTransitAnalysisItem) {
+      context.push('/daily-transit/${analysis.id}').then((_) => _loadSavedAnalyses());
+    } else if (analysis is MonthlyTransitAnalysisItem) {
+      context.push('/monthly-transit/${analysis.id}').then((_) => _loadSavedAnalyses());
     }
   }
 
@@ -330,12 +294,16 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
       context.push(
         '/birth-chart-reading/${analysis.id}',
         extra: {'birthChart': analysis.birthChart.toJson(), 'chartOnly': true},
-      );
+      ).then((_) => _loadSavedAnalyses());
     } else if (analysis is SynastryAnalysisItem) {
       context.push(
         '/synastry/${analysis.id}',
         extra: {'synastry': analysis.synastry.toJson(), 'chartOnly': true},
-      );
+      ).then((_) => _loadSavedAnalyses());
+    } else if (analysis is DailyTransitAnalysisItem) {
+      context.push('/daily-transit/${analysis.id}', extra: {'chartOnly': true}).then((_) => _loadSavedAnalyses());
+    } else if (analysis is MonthlyTransitAnalysisItem) {
+      context.push('/monthly-transit/${analysis.id}', extra: {'chartOnly': true}).then((_) => _loadSavedAnalyses());
     }
   }
 
@@ -444,8 +412,8 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
 
     setState(() {
       _filteredAnalyses = _savedAnalyses.where((analysis) {
-        // Filter by type if selected
-        if (_selectedFilter != null && analysis.type != _selectedFilter) {
+        // Filter by type
+        if (analysis.type != _selectedFilter) {
           return false;
         }
 
@@ -462,29 +430,52 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
   }
 
   String _getSubtitleText(AppLocalizations l10n, int count) {
-    if (_selectedFilter == AnalysisType.birthChart) {
-      return count == 1
-          ? l10n.birthChartsCountSingular
-          : l10n.birthChartsCountPlural(count);
-    } else if (_selectedFilter == AnalysisType.synastry) {
-      return count == 1
-          ? l10n.synastriesCountSingular
-          : l10n.synastriesCountPlural(count);
-    } else {
-      return count == 1
-          ? l10n.chartsCountSingular
-          : l10n.chartsCountPlural(count);
+    switch (_selectedFilter) {
+      case AnalysisType.birthChart:
+        return count == 1
+            ? l10n.birthChartsCountSingular
+            : l10n.birthChartsCountPlural(count);
+      case AnalysisType.synastry:
+        return count == 1
+            ? l10n.synastriesCountSingular
+            : l10n.synastriesCountPlural(count);
+      case AnalysisType.dailyTransit:
+        return count == 1
+            ? l10n.dailyTransitsCountSingular
+            : l10n.dailyTransitsCountPlural(count);
+      case AnalysisType.monthlyTransit:
+        return count == 1
+            ? l10n.monthlyTransitsCountSingular
+            : l10n.monthlyTransitsCountPlural(count);
     }
   }
 
   String _getSearchPlaceholder(AppLocalizations l10n) {
-    if (_selectedFilter == AnalysisType.birthChart) {
-      return l10n.searchBirthCharts;
-    } else if (_selectedFilter == AnalysisType.synastry) {
-      return l10n.searchSynastries;
-    } else {
-      return l10n.searchCharts;
+    switch (_selectedFilter) {
+      case AnalysisType.birthChart:
+        return l10n.searchBirthCharts;
+      case AnalysisType.synastry:
+        return l10n.searchSynastries;
+      case AnalysisType.dailyTransit:
+        return l10n.searchDailyTransits;
+      case AnalysisType.monthlyTransit:
+        return l10n.searchMonthlyTransits;
     }
+  }
+
+  Widget _buildFilterChip(String label, AnalysisType type) {
+    return FilterChip(
+      label: Text(label),
+      selected: _selectedFilter == type,
+      onSelected: (selected) {
+        if (selected) {
+          setState(() {
+            _selectedFilter = type;
+          });
+          _applyFilters();
+        }
+      },
+    );
   }
 
   Widget _buildSearchSection(AppLocalizations l10n, bool isDark) {
@@ -492,41 +483,14 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          // Filter chips
-          Row(
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
             children: [
-              FilterChip(
-                label: Text('Tutti'),
-                selected: _selectedFilter == null,
-                onSelected: (selected) {
-                  setState(() {
-                    _selectedFilter = null;
-                  });
-                  _applyFilters();
-                },
-              ),
-              const SizedBox(width: 8),
-              FilterChip(
-                label: Text('Temi natali'),
-                selected: _selectedFilter == AnalysisType.birthChart,
-                onSelected: (selected) {
-                  setState(() {
-                    _selectedFilter = selected ? AnalysisType.birthChart : null;
-                  });
-                  _applyFilters();
-                },
-              ),
-              const SizedBox(width: 8),
-              FilterChip(
-                label: Text('Sinastrie'),
-                selected: _selectedFilter == AnalysisType.synastry,
-                onSelected: (selected) {
-                  setState(() {
-                    _selectedFilter = selected ? AnalysisType.synastry : null;
-                  });
-                  _applyFilters();
-                },
-              ),
+              _buildFilterChip(l10n.birthChartsFilter, AnalysisType.birthChart),
+              _buildFilterChip(l10n.synastriesFilter, AnalysisType.synastry),
+              _buildFilterChip(l10n.dailyTransitsFilter, AnalysisType.dailyTransit),
+              _buildFilterChip(l10n.monthlyTransitsFilter, AnalysisType.monthlyTransit),
             ],
           ),
           const SizedBox(height: 16),
@@ -578,8 +542,29 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
     );
   }
 
-  void _showDeleteConfirmation(AnalysisItem analysis) {
+  bool _isOnlyBirthChartWithReading(AnalysisItem analysis) {
+    if (analysis is! BirthChartAnalysisItem) return false;
+    if (analysis.hasReading != true) return false;
+
+    final count = _savedAnalyses
+        .whereType<BirthChartAnalysisItem>()
+        .where((item) => item.hasReading == true)
+        .length;
+
+    return count == 1;
+  }
+
+  Future<void> _showDeleteConfirmation(AnalysisItem analysis) async {
     final l10n = AppLocalizations.of(context)!;
+
+    bool showFreeReadingWarning = false;
+    if (_isOnlyBirthChartWithReading(analysis)) {
+      final status = await _subscriptionService.getSubscriptionStatus();
+      showFreeReadingWarning = !status.hasActiveSubscription;
+    }
+
+    if (!mounted) return;
+
     showDialog(
       context: context,
       builder: (context) => StatefulBuilder(
@@ -590,11 +575,13 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
           return AlertDialog(
             backgroundColor: Theme.of(context).colorScheme.surface,
             title: Text(
-              l10n.removeChart,
+              showFreeReadingWarning ? l10n.deleteFreeReadingTitle : l10n.removeChart,
               style: AppTextStyles.getH6Style(context),
             ),
             content: Text(
-              l10n.removeChartConfirmation(analysis.title),
+              showFreeReadingWarning
+                  ? l10n.deleteFreeReadingWarning
+                  : l10n.removeChartConfirmation(analysis.title),
               style: AppTextStyles.getBodyStyle(context),
             ),
             actions: [
@@ -794,18 +781,23 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
       String description;
       IconData iconData;
 
-      if (_selectedFilter == AnalysisType.birthChart) {
-        title = l10n.noSavedBirthCharts;
-        description = l10n.noSavedBirthChartsDescription;
-        iconData = Icons.person;
-      } else if (_selectedFilter == AnalysisType.synastry) {
-        title = l10n.noSavedSynastries;
-        description = l10n.noSavedSynastriesDescription;
-        iconData = Icons.favorite;
-      } else {
-        title = l10n.noSavedAnalyses;
-        description = l10n.noSavedAnalysesDescription;
-        iconData = Icons.bookmark_border;
+      switch (_selectedFilter) {
+        case AnalysisType.birthChart:
+          title = l10n.noSavedBirthCharts;
+          description = l10n.noSavedBirthChartsDescription;
+          iconData = Icons.person;
+        case AnalysisType.synastry:
+          title = l10n.noSavedSynastries;
+          description = l10n.noSavedSynastriesDescription;
+          iconData = Icons.favorite;
+        case AnalysisType.dailyTransit:
+          title = l10n.noSavedDailyTransits;
+          description = l10n.noSavedDailyTransitsDescription;
+          iconData = Icons.today;
+        case AnalysisType.monthlyTransit:
+          title = l10n.noSavedMonthlyTransits;
+          description = l10n.noSavedMonthlyTransitsDescription;
+          iconData = Icons.calendar_month;
       }
 
       return Center(
@@ -934,9 +926,7 @@ class _AnalysisCard extends StatelessWidget {
                           children: [
                             // Type icon
                             Icon(
-                              analysis.type == AnalysisType.birthChart
-                                  ? Icons.person
-                                  : Icons.favorite,
+                              _getTypeIcon(analysis.type),
                               size: 16,
                               color: Theme.of(context).colorScheme.primary,
                             ),
@@ -1165,49 +1155,88 @@ class _AnalysisCard extends StatelessWidget {
                               );
                             },
                           ),
+                        ] else if (analysis is DailyTransitAnalysisItem) ...[
+                          // Daily transit info
+                          Text(
+                            date_utils.DateUtils.formatDate(
+                              context,
+                              (analysis as DailyTransitAnalysisItem).transitDate,
+                            ),
+                            style: AppTextStyles.getCaptionStyle(context),
+                          ),
+                          if (analysis.subtitle != null)
+                            Text(
+                              analysis.subtitle!,
+                              style: AppTextStyles.getCaptionStyle(context),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                        ] else if (analysis is MonthlyTransitAnalysisItem) ...[
+                          // Monthly transit info
+                          Text(
+                            _formatMonthYear(
+                              context,
+                              (analysis as MonthlyTransitAnalysisItem).year,
+                              (analysis as MonthlyTransitAnalysisItem).month,
+                            ),
+                            style: AppTextStyles.getCaptionStyle(context),
+                          ),
+                          if (analysis.subtitle != null)
+                            Text(
+                              analysis.subtitle!,
+                              style: AppTextStyles.getCaptionStyle(context),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                         ],
 
                         // Reading status
                         const SizedBox(height: 12),
-                        Row(
-                          children: [
-                            Icon(
-                              analysis.readingOutdated == true
-                                  ? Icons.refresh
-                                  : (analysis.hasReading == true
-                                        ? Icons.auto_stories
-                                        : Icons.auto_awesome),
-                              size: 16,
-                              color: analysis.readingOutdated == true
-                                  ? Theme.of(context).colorScheme.error
-                                  : (analysis.hasReading == true
-                                        ? Theme.of(
-                                            context,
-                                          ).colorScheme.secondary
-                                        : Theme.of(context).colorScheme.error),
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              analysis.readingOutdated == true
-                                  ? l10n.regenerateReading
-                                  : (analysis.hasReading == true
-                                        ? l10n.readingAvailable
-                                        : l10n.generateReadingAction),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: analysis.readingOutdated == true
-                                    ? Theme.of(context).colorScheme.error
-                                    : (analysis.hasReading == true
-                                          ? Theme.of(
-                                              context,
-                                            ).colorScheme.secondary
-                                          : Theme.of(
-                                              context,
-                                            ).colorScheme.error),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
+                        Builder(
+                          builder: (context) {
+                            final currentLang = Localizations.localeOf(context).languageCode;
+                            final showLangIndicator = analysis.hasReading == true &&
+                                analysis.readingLanguage != null &&
+                                analysis.readingLanguage != currentLang;
+                            final statusText = analysis.readingOutdated == true
+                                ? l10n.regenerateReading
+                                : (analysis.hasReading == true
+                                    ? (showLangIndicator
+                                        ? '${l10n.readingAvailable} (${analysis.readingLanguage!.toUpperCase()})'
+                                        : l10n.readingAvailable)
+                                    : l10n.generateReadingAction);
+
+                            return Row(
+                              children: [
+                                Icon(
+                                  analysis.readingOutdated == true
+                                      ? Icons.refresh
+                                      : (analysis.hasReading == true
+                                          ? Icons.auto_stories
+                                          : Icons.auto_awesome),
+                                  size: 16,
+                                  color: analysis.readingOutdated == true
+                                      ? Theme.of(context).colorScheme.error
+                                      : (analysis.hasReading == true
+                                          ? Theme.of(context).colorScheme.secondary
+                                          : Theme.of(context).colorScheme.error),
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  statusText,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: analysis.readingOutdated == true
+                                        ? Theme.of(context).colorScheme.error
+                                        : (analysis.hasReading == true
+                                            ? Theme.of(context).colorScheme.secondary
+                                            : Theme.of(context).colorScheme.error),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -1244,6 +1273,23 @@ class _AnalysisCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  IconData _getTypeIcon(AnalysisType type) {
+    switch (type) {
+      case AnalysisType.birthChart:
+        return Icons.person;
+      case AnalysisType.synastry:
+        return Icons.favorite;
+      case AnalysisType.dailyTransit:
+        return Icons.today;
+      case AnalysisType.monthlyTransit:
+        return Icons.calendar_month;
+    }
+  }
+
+  String _formatMonthYear(BuildContext context, int year, int month) {
+    return date_utils.DateUtils.formatMonthYear(context, month, year);
   }
 }
 

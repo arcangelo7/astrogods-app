@@ -13,6 +13,7 @@ class Reading {
   final DateTime? createdOn;
   @JsonKey(name: 'birth_chart_hash')
   final String? birthChartHash;
+  final String? language;
 
   const Reading({
     required this.id,
@@ -21,6 +22,7 @@ class Reading {
     this.version,
     this.createdOn,
     this.birthChartHash,
+    this.language,
   });
 
   factory Reading.fromJson(Map<String, dynamic> json) =>

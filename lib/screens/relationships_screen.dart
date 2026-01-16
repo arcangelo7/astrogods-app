@@ -127,18 +127,17 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
       setState(() {
         _isCreating = false;
       });
-      if (e is synastry.SubscriptionRequiredException) {
-        SnackbarUtils.showInfo(
-          context,
-          AppLocalizations.of(context)!.premiumRequiredForSynastry,
-        );
-        context.push('/subscription-plans');
-      } else if (e is ApiException) {
-        SessionUtils.handleApiException(
-          context,
-          e,
-          (message) => SnackbarUtils.showError(context, message),
-        );
+      if (e is ApiException) {
+        if (e.isSubscriptionError) {
+          SnackbarUtils.showInfo(context, e.message);
+          context.go('/subscription-plans');
+        } else {
+          SessionUtils.handleApiException(
+            context,
+            e,
+            (message) => SnackbarUtils.showError(context, message),
+          );
+        }
       }
     }
   }

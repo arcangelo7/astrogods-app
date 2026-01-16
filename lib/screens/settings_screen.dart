@@ -139,44 +139,46 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 l10n.deleteAccountTitle,
                 style: AppTextStyles.getH5Style(context),
               ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.deleteAccountWarning,
-                    style: AppTextStyles.getBodyStyle(context),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    l10n.deleteAccountConfirmation,
-                    style: AppTextStyles.getBodyStyle(
-                      context,
-                    ).copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: confirmController,
-                    decoration: InputDecoration(
-                      labelText: l10n.typeDeleteToConfirm,
-                      labelStyle: AppTextStyles.getCaptionStyle(context),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.deleteAccountWarning,
+                      style: AppTextStyles.getBodyStyle(context),
                     ),
-                    style: AppTextStyles.getBodyStyle(context),
-                    onChanged: (value) {
-                      setState(() {});
-                    },
-                  ),
-                ],
+                    const SizedBox(height: 16),
+                    Text(
+                      l10n.deleteAccountConfirmation,
+                      style: AppTextStyles.getBodyStyle(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: confirmController,
+                      decoration: InputDecoration(
+                        labelText: l10n.typeDeleteToConfirm,
+                        labelStyle: AppTextStyles.getCaptionStyle(context),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                      style: AppTextStyles.getBodyStyle(context),
+                      onChanged: (value) {
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
               ),
               actions: [
                 TextButton(
@@ -210,10 +212,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (result == true && context.mounted) {
       await _deleteAccount(context);
     }
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      confirmController.dispose();
-    });
   }
 
   Future<void> _deleteAccount(BuildContext context) async {

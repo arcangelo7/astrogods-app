@@ -15,6 +15,7 @@ Reading _$ReadingFromJson(Map<String, dynamic> json) => Reading(
       ? null
       : DateTime.parse(json['created_on'] as String),
   birthChartHash: json['birth_chart_hash'] as String?,
+  language: json['language'] as String?,
 );
 
 Map<String, dynamic> _$ReadingToJson(Reading instance) => <String, dynamic>{
@@ -24,4 +25,5 @@ Map<String, dynamic> _$ReadingToJson(Reading instance) => <String, dynamic>{
   'version': instance.version,
   'created_on': instance.createdOn?.toIso8601String(),
   'birth_chart_hash': instance.birthChartHash,
+  'language': instance.language,
 };

@@ -99,6 +99,11 @@
   </screenshots>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="4.10.0" date="2026-01-16">
+      <description>
+        <p>You can now regenerate readings in your preferred language. Saved transits now appear in saved analyses. Fixed authentication workflow bugs.</p>
+      </description>
+    </release>
     <release version="4.9.0" date="2026-01-12">
       <description>
         <p>Updated terms and conditions and privacy policy. Fixed a registration issue. Birth chart is now automatically generated after registration.</p>

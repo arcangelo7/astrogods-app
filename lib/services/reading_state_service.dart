@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import '../models/reading.dart';
+import 'api_client.dart';
 
 class ReadingStateService extends ChangeNotifier {
   static final ReadingStateService _instance = ReadingStateService._internal();
@@ -156,6 +157,8 @@ class ReadingStateService extends ChangeNotifier {
                       id: readingId,
                       reading: finalContent,
                       birthChartId: chartId,
+                      language: chunk.language,
+                      createdOn: DateTime.now(),
                     )
                   : null,
               generatedContent: finalContent,
@@ -177,8 +180,8 @@ class ReadingStateService extends ChangeNotifier {
           _readingStates[chartId] = state.copyWith(
             isGenerating: false,
             hasError: true,
-            error: error.toString(),
-            isSubscriptionRequired: error is SubscriptionRequiredException,
+            error: (error as ApiException).message,
+            isSubscriptionRequired: error.isSubscriptionError,
           );
         }
         _activeSubscription?.cancel();
@@ -286,9 +289,4 @@ class _ReadingState {
       isSubscriptionRequired: isSubscriptionRequired ?? this.isSubscriptionRequired,
     );
   }
-}
-
-class SubscriptionRequiredException implements Exception {
-  final String message;
-  SubscriptionRequiredException(this.message);
 }

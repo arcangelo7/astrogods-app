@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'dart:async';
 import '../l10n/app_localizations.dart';
 import '../widgets/starry_night_background.dart';
 import '../widgets/gradient_button.dart';
 import '../constants/text_styles.dart';
-import '../providers/auth_provider.dart';
-import '../models/birth_chart.dart';
-import 'dart:async';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onGetStarted;
@@ -45,16 +39,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
-    // Check for redirect on initialization
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
-
-      // Check if user is authenticated and has a pending redirect
-      if (authProvider.isAuthenticated) {
-        await _checkPendingRedirect();
-      }
-    });
 
     _letterSpacingController = AnimationController(
       duration: const Duration(seconds: 3),
@@ -152,48 +136,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         }
       });
     });
-  }
-
-  Future<void> _checkPendingRedirect() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final shouldRedirect = prefs.getBool('redirect_to_reading') ?? false;
-      
-      if (shouldRedirect) {
-        // Get saved birth chart data
-        final birthChartJson = prefs.getString('pending_birth_chart');
-        
-        if (birthChartJson != null && mounted) {
-          // Parse birth chart
-          final birthChart = BirthChart.fromJson(jsonDecode(birthChartJson));
-          
-          // Clear saved data
-          await prefs.remove('pending_birth_chart');
-          await prefs.remove('redirect_to_reading');
-          
-          // Navigate to birth chart reading with proper navigation stack
-          if (mounted) {
-            // Use push to maintain navigation stack
-            context.push(
-              '/birth-chart-reading/${birthChart.id}',
-              extra: {'birthChart': birthChart.toJson()},
-            );
-          }
-        } else {
-          // Clear redirect flag if data parsing failed
-          await prefs.remove('redirect_to_reading');
-        }
-      }
-    } catch (e) {
-      debugPrint('Error checking pending redirect: $e');
-      
-      // Clear any pending redirect data on error
-      try {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.remove('pending_birth_chart');
-        await prefs.remove('redirect_to_reading');
-      } catch (_) {}
-    }
   }
 
   @override

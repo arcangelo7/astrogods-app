@@ -91,11 +91,8 @@ class _CreateBirthChartDialogState extends State<CreateBirthChartDialog> {
       }
     } catch (e) {
       if (mounted) {
-        if (e is SubscriptionRequiredException) {
-          SnackbarUtils.showInfo(
-            context,
-            l10n.subscriptionRequiredMessage,
-          );
+        if (e is ApiException && e.isSubscriptionError) {
+          SnackbarUtils.showInfo(context, e.message);
         } else {
           final errorMessage = e is ApiException && e.message.isNotEmpty
               ? e.message

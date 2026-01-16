@@ -6,6 +6,7 @@ class ReadingChunk {
   final bool isTopicChange;
   final bool isReconnecting;
   final int? readingId;
+  final String? language;
   final String? error;
   final String? errorKey;
   final bool isSubscriptionRequired;
@@ -18,6 +19,7 @@ class ReadingChunk {
     this.isTopicChange = false,
     this.isReconnecting = false,
     this.readingId,
+    this.language,
     this.error,
     this.errorKey,
     this.isSubscriptionRequired = false,

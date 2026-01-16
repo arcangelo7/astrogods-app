@@ -24,6 +24,7 @@ BirthChart _$BirthChartFromJson(Map<String, dynamic> json) => BirthChart(
   readingVersion: json['reading_version'] as String?,
   readingOutdated: json['reading_outdated'] as bool?,
   currentVersion: json['current_version'] as String?,
+  readingLanguage: json['reading_language'] as String?,
 );
 
 Map<String, dynamic> _$BirthChartToJson(BirthChart instance) =>
@@ -43,4 +44,5 @@ Map<String, dynamic> _$BirthChartToJson(BirthChart instance) =>
       'reading_version': instance.readingVersion,
       'reading_outdated': instance.readingOutdated,
       'current_version': instance.currentVersion,
+      'reading_language': instance.readingLanguage,
     };

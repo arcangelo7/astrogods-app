@@ -6,7 +6,6 @@ import '../../providers/auth_provider.dart';
 import '../../providers/language_provider.dart';
 import '../../models/auth_request.dart';
 import '../../models/location.dart';
-import '../../services/birth_chart_service.dart';
 import '../../widgets/starry_night_background.dart';
 import '../../widgets/gradient_button.dart';
 import '../../widgets/location_search_field.dart';
@@ -18,6 +17,7 @@ import '../../constants/text_styles.dart';
 import '../../utils/snackbar_utils.dart';
 import '../../utils/auth_validators.dart';
 import '../../utils/error_utils.dart';
+import '../../utils/auth_navigation_utils.dart';
 import 'package:intl/intl.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -110,9 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               AppLocalizations.of(context)!.emailAlreadyExists,
               AppLocalizations.of(context)!.goToLogin,
               () {
-                Navigator.of(
-                  context,
-                ).pop(); // Close register screen and go back to login
+                context.go('/login');
               },
             );
           } else if (authProvider.errorMessage != null) {
@@ -211,66 +209,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
       unknownTime: _unknownTime,
     );
 
+    // Save registration data before calling register
+    await saveRegistrationDataForRedirect(_buildPrefillData());
+
+    if (!mounted) return;
+
     final success = await authProvider.register(request, context: context);
 
-    if (mounted) {
-      if (success) {
-        SnackbarUtils.showSuccess(
-          context,
-          AppLocalizations.of(context)!.registrationSuccessful,
-        );
-        
-        // Check if we need to redirect to birth chart reading
-        await _handlePostRegistrationRedirect();
-      } else {
-        SnackbarUtils.showCopyableErrorSnackBar(
-          context,
-          translateConnectionError(context, authProvider.errorMessage!),
-        );
-      }
-    }
-  }
+    if (!mounted) return;
 
-  Future<void> _handlePostRegistrationRedirect() async {
-    final hasCompleteBirthData = _birthDate != null &&
-        _selectedLocation != null &&
-        (_birthTime != null || _unknownTime);
-
-    if (hasCompleteBirthData) {
-      await _createBirthChartAndNavigate();
-    } else {
-      _navigateToPersonalityWithPrefill();
-    }
-  }
-
-  Future<void> _createBirthChartAndNavigate() async {
-    final birthChartService = BirthChartService(context: context);
-
-    try {
-      final birthChart = await birthChartService.createBirthChart(
-        givenName: _givenNameController.text.trim(),
-        familyName: _familyNameController.text.trim(),
-        date: _buildBirthDateTime(),
-        placeId: _selectedLocation!.placeId,
-        place: _birthPlaceController.text.trim(),
-        unknownTime: _unknownTime,
+    if (success) {
+      SnackbarUtils.showSuccess(
+        context,
+        AppLocalizations.of(context)!.registrationSuccessful,
       );
-
-      await birthChartService.calculateBirthChart(birthChart.id);
-
-      if (mounted) {
-        context.go(
-          '/birth-chart-reading/${birthChart.id}',
-          extra: {'birthChart': birthChart.toJson()},
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        _navigateToPersonalityWithPrefill();
-      }
-    } finally {
-      birthChartService.dispose();
+      await navigateAfterAuth();
+    } else {
+      SnackbarUtils.showCopyableErrorSnackBar(
+        context,
+        translateConnectionError(context, authProvider.errorMessage!),
+      );
     }
+  }
+
+  Map<String, dynamic> _buildPrefillData() {
+    final data = <String, dynamic>{};
+
+    if (_givenNameController.text.trim().isNotEmpty) {
+      data['givenName'] = _givenNameController.text.trim();
+    }
+    if (_familyNameController.text.trim().isNotEmpty) {
+      data['familyName'] = _familyNameController.text.trim();
+    }
+    if (_birthDate != null) {
+      data['birthDate'] = _birthDate!.toIso8601String();
+    }
+    if (_birthTime != null) {
+      data['birthTimeHour'] = _birthTime!.hour;
+      data['birthTimeMinute'] = _birthTime!.minute;
+    }
+    if (_selectedLocation != null) {
+      data['birthPlace'] = _birthPlaceController.text.trim();
+      data['birthPlaceId'] = _selectedLocation!.placeId;
+    }
+    if (_unknownTime) {
+      data['unknownTime'] = true;
+    }
+
+    return data;
   }
 
   DateTime _buildBirthDateTime() {
@@ -284,35 +270,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
     }
     return _birthDate!;
-  }
-
-  void _navigateToPersonalityWithPrefill() {
-    if (!mounted) return;
-
-    final prefillData = <String, dynamic>{};
-
-    if (_givenNameController.text.trim().isNotEmpty) {
-      prefillData['givenName'] = _givenNameController.text.trim();
-    }
-    if (_familyNameController.text.trim().isNotEmpty) {
-      prefillData['familyName'] = _familyNameController.text.trim();
-    }
-    if (_birthDate != null) {
-      prefillData['birthDate'] = _birthDate!.toIso8601String();
-    }
-    if (_birthTime != null) {
-      prefillData['birthTimeHour'] = _birthTime!.hour;
-      prefillData['birthTimeMinute'] = _birthTime!.minute;
-    }
-    if (_selectedLocation != null) {
-      prefillData['birthPlace'] = _birthPlaceController.text.trim();
-      prefillData['birthPlaceId'] = _selectedLocation!.placeId;
-    }
-    if (_unknownTime) {
-      prefillData['unknownTime'] = true;
-    }
-
-    context.go('/personality', extra: prefillData.isNotEmpty ? prefillData : null);
   }
 
   Widget _buildAccountInfoPage(bool isDark) {
@@ -672,7 +629,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (_currentPage == 0)
                                 GoogleSignInWidget(
                                   isRegisterMode: true,
-                                  onSuccess: () => Navigator.of(context).pop(),
                                 ),
                             ],
                           ),
@@ -690,7 +646,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             style: AppTextStyles.getCaptionStyle(context),
                           ),
                           TextButton(
-                            onPressed: () => Navigator.of(context).pop(),
+                            onPressed: () => context.go('/login'),
                             child: Text(
                               l10n.signIn,
                               style: TextStyle(

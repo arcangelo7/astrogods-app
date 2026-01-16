@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 import '../screens/home_screen.dart';
 import '../screens/personality_screen.dart';
@@ -57,11 +56,11 @@ class AppRouter {
   static const String aboutFaq = '/about-faq';
   static const String releaseNotes = '/release-notes';
 
-  static GoRouter createRouter() {
+  static GoRouter createRouter(AuthProvider authProvider) {
     _appRouter = GoRouter(
       initialLocation: '/',
-      redirect: (context, state) {
-        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      refreshListenable: authProvider,
+      redirect: (context, state) async {
         final isAuthRoute =
             state.fullPath == '/login' ||
             state.fullPath == '/register' ||
@@ -78,9 +77,8 @@ class AppRouter {
           return null;
         }
 
-        if (authProvider.isAuthenticated &&
-            isAuthRoute &&
-            !authProvider.isLoading) {
+        // Redirect authenticated users away from auth routes
+        if (authProvider.isAuthenticated && !authProvider.isLoading && isAuthRoute) {
           return '/';
         }
 

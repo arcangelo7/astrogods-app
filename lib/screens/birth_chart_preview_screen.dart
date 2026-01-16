@@ -113,114 +113,78 @@ class _BirthChartPreviewScreenState extends State<BirthChartPreviewScreen> {
   }
 
   Widget _buildPreviewContent() {
-    return Column(
-      children: [
-        const SizedBox(height: 8),
-        // Preview explanation
-        Container(
-          padding: const EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            color: Theme.of(
-              context,
-            ).colorScheme.surface.withValues(alpha: 0.85),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Theme.of(
-                context,
-              ).colorScheme.outline.withValues(alpha: 0.2),
-              width: 1,
-            ),
-          ),
-          child: Column(
-            children: [
-              Icon(
-                Icons.auto_awesome,
-                size: 48,
-                color: Theme.of(context).colorScheme.primary,
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 700),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.all(24.0),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.85),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.15),
+                  width: 1,
+                ),
               ),
-              const SizedBox(height: 16),
-              Text(
-                AppLocalizations.of(context)!.previewTitle,
-                style: AppTextStyles.getH4Style(context),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                AppLocalizations.of(context)!.previewDescription,
-                style: AppTextStyles.getBodyLargeStyle(context),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-
-              // Benefits list
-              Column(
+              child: Column(
                 children: [
-                  _buildFeatureBullet(
-                    context,
-                    Icons.psychology,
-                    AppLocalizations.of(context)!.fullPersonalityAnalysis,
+                  Icon(
+                    Icons.wb_twilight,
+                    size: 44,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    AppLocalizations.of(context)!.previewTitle,
+                    style: AppTextStyles.getH4Style(context),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 12),
-                  _buildFeatureBullet(
-                    context,
-                    Icons.nights_stay,
-                    AppLocalizations.of(
-                      context,
-                    )!.detailedPlanetaryInterpretation,
-                  ),
-                  const SizedBox(height: 12),
-                  _buildFeatureBullet(
-                    context,
-                    Icons.insights,
-                    AppLocalizations.of(context)!.personalizedInsights,
+                  Text(
+                    AppLocalizations.of(context)!.previewDescription,
+                    style: AppTextStyles.getBodyLargeStyle(context).copyWith(
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.75),
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 32),
-
-        // CTA Button
-        GradientButton(
-          text: AppLocalizations.of(context)!.getFullReading.toUpperCase(),
-          onPressed: _onGetFullReading,
-        ),
-
-        const SizedBox(height: 16),
-
-        // Secondary action
-        TextButton(
-          onPressed: () {
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            } else {
-              context.go('/personality');
-            }
-          },
-          child: Text(
-            AppLocalizations.of(context)!.backToForm,
-            style: AppTextStyles.getBodyLargeStyle(context).copyWith(
-              color: Theme.of(
-                context,
-              ).colorScheme.onSurface.withValues(alpha: 0.7),
             ),
-          ),
+
+            const SizedBox(height: 32),
+
+            GradientButton(
+              text: AppLocalizations.of(context)!.getFullReading.toUpperCase(),
+              onPressed: _onGetFullReading,
+            ),
+
+            const SizedBox(height: 16),
+
+            TextButton(
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                } else {
+                  context.go('/personality');
+                }
+              },
+              child: Text(
+                AppLocalizations.of(context)!.backToForm,
+                style: AppTextStyles.getBodyLargeStyle(context).copyWith(
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+          ],
         ),
-
-        const SizedBox(height: 24),
-      ],
+      ),
     );
   }
 
-  Widget _buildFeatureBullet(BuildContext context, IconData icon, String text) {
-    return Row(
-      children: [
-        Icon(icon, size: 20, color: Theme.of(context).colorScheme.primary),
-        const SizedBox(width: 12),
-        Expanded(child: Text(text, style: AppTextStyles.getBodyStyle(context))),
-      ],
-    );
-  }
 }

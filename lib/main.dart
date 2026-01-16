@@ -87,7 +87,7 @@ class AstroGodsApp extends StatefulWidget {
 }
 
 class _AstroGodsAppState extends State<AstroGodsApp> {
-  late final GoRouter _router;
+  GoRouter? _router;
 
   bool get _isMobile =>
       !kIsWeb &&
@@ -103,7 +103,6 @@ class _AstroGodsAppState extends State<AstroGodsApp> {
   @override
   void initState() {
     super.initState();
-    _router = AppRouter.createRouter();
 
     if (_isMobile) {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
@@ -143,8 +142,10 @@ class _AstroGodsAppState extends State<AstroGodsApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<LanguageProvider, ThemeProvider>(
-      builder: (context, languageProvider, themeProvider, child) {
+    return Consumer3<LanguageProvider, ThemeProvider, AuthProvider>(
+      builder: (context, languageProvider, themeProvider, authProvider, child) {
+        _router ??= AppRouter.createRouter(authProvider);
+
         if (_isMobile) {
           final isDark =
               themeProvider.themeMode == ThemeMode.dark ||

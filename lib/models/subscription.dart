@@ -104,4 +104,10 @@ class SubscriptionStatusResponse {
   bool get isFailedPayment => subscription?.isFailedPayment ?? false;
 
   bool get isExpired => hasSubscription && !isActive && !isFailedPayment;
+
+  bool get hasPremiumSubscription {
+    if (!hasActiveSubscription || subscription == null) return false;
+    final planName = subscription!.planName.toLowerCase();
+    return planName.contains('premium');
+  }
 }

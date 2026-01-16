@@ -101,26 +101,8 @@ abstract class AppLocalizations {
   /// No description provided for @previewDescription.
   ///
   /// In en, this message translates to:
-  /// **'Preview of your birth chart analysis'**
+  /// **'Sign in or create an account to access your complete reading'**
   String get previewDescription;
-
-  /// No description provided for @fullPersonalityAnalysis.
-  ///
-  /// In en, this message translates to:
-  /// **'Full personality analysis'**
-  String get fullPersonalityAnalysis;
-
-  /// No description provided for @detailedPlanetaryInterpretation.
-  ///
-  /// In en, this message translates to:
-  /// **'Detailed planetary interpretation'**
-  String get detailedPlanetaryInterpretation;
-
-  /// No description provided for @personalizedInsights.
-  ///
-  /// In en, this message translates to:
-  /// **'Personalized insights'**
-  String get personalizedInsights;
 
   /// No description provided for @getFullReading.
   ///
@@ -439,12 +421,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reading generated successfully!'**
   String get readingGeneratedSuccessfully;
-
-  /// No description provided for @subscriptionRequiredMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'You need an active subscription to generate readings after your free reading. Subscribe to continue exploring other birth charts.'**
-  String get subscriptionRequiredMessage;
 
   /// No description provided for @discoverHeartOfRelationship.
   ///
@@ -968,6 +944,18 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to remove \"{name}\" from saved charts?'**
   String removeChartConfirmation(Object name);
 
+  /// No description provided for @deleteFreeReadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your only reading?'**
+  String get deleteFreeReadingTitle;
+
+  /// No description provided for @deleteFreeReadingWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This is your only saved reading. An active subscription is required to generate new readings.'**
+  String get deleteFreeReadingWarning;
+
   /// No description provided for @remove.
   ///
   /// In en, this message translates to:
@@ -1289,13 +1277,13 @@ abstract class AppLocalizations {
   /// No description provided for @dailyPredictionsContent.
   ///
   /// In en, this message translates to:
-  /// **'Your personalized daily astrological predictions.'**
+  /// **'Your daily astrological predictions.'**
   String get dailyPredictionsContent;
 
   /// No description provided for @monthlyPredictionsContent.
   ///
   /// In en, this message translates to:
-  /// **'Your detailed monthly astrological predictions.'**
+  /// **'Your monthly astrological predictions.'**
   String get monthlyPredictionsContent;
 
   /// No description provided for @pleaseEnterFirstName.
@@ -1487,13 +1475,13 @@ abstract class AppLocalizations {
   /// No description provided for @loginRequiredForFullReading.
   ///
   /// In en, this message translates to:
-  /// **'Please login to get your complete personalized reading'**
+  /// **'Please login to get your complete reading'**
   String get loginRequiredForFullReading;
 
   /// No description provided for @previewTitle.
   ///
   /// In en, this message translates to:
-  /// **'Your birth chart is ready!'**
+  /// **'Your birth chart awaits'**
   String get previewTitle;
 
   /// No description provided for @backToForm.
@@ -2879,7 +2867,7 @@ abstract class AppLocalizations {
   /// No description provided for @backendApiDescription.
   ///
   /// In en, this message translates to:
-  /// **'AstroGods uses third-party APIs to process user requests and provide personalized content.'**
+  /// **'AstroGods uses third-party APIs to process user requests and provide content.'**
   String get backendApiDescription;
 
   /// No description provided for @authenticationTitle.
@@ -3149,7 +3137,7 @@ abstract class AppLocalizations {
   /// No description provided for @consequencesOfBlockingContent.
   ///
   /// In en, this message translates to:
-  /// **'If you choose to block or delete cookies, some features of our website may not work properly. You may experience reduced functionality and a less personalized experience.'**
+  /// **'If you choose to block or delete cookies, some features of our website may not work properly.'**
   String get consequencesOfBlockingContent;
 
   /// No description provided for @complianceSection.
@@ -3989,7 +3977,7 @@ abstract class AppLocalizations {
   /// No description provided for @productDefinition.
   ///
   /// In en, this message translates to:
-  /// **'A good or service available through AstroGods, including specifically: personalized astrological interpretations, birth chart analyses, astrological predictions and forecasts, compatibility reports, astrological educational content, and any other astrological service or digital content defined separately in this document.'**
+  /// **'A good or service available through AstroGods, including specifically: astrological interpretations, birth chart analyses, astrological predictions and forecasts, compatibility reports, astrological educational content, and any other astrological service or digital content defined separately in this document.'**
   String get productDefinition;
 
   /// No description provided for @serviceDefinition.
@@ -4445,7 +4433,7 @@ abstract class AppLocalizations {
   /// No description provided for @productDescriptionInfo.
   ///
   /// In en, this message translates to:
-  /// **'Prices, descriptions and availability of astrological Products (including personalized birth chart readings, compatibility analyses, daily and monthly predictions, relationship insights, and travel astrology recommendations) are specified in the respective sections of AstroGods and are subject to change without notice.'**
+  /// **'Prices, descriptions and availability of astrological Products (including birth chart readings, compatibility analyses, daily and monthly predictions, relationship insights, and travel astrology recommendations) are specified in the respective sections of AstroGods and are subject to change without notice.'**
   String get productDescriptionInfo;
 
   /// No description provided for @productRepresentationDisclaimer.
@@ -4727,7 +4715,7 @@ abstract class AppLocalizations {
   /// No description provided for @digitalContentDeliveryDetails.
   ///
   /// In en, this message translates to:
-  /// **'Unless otherwise specified, astrological content purchased on AstroGods consists of textual interpretations and analyses (including birth chart analyses, personalized interpretations, predictions, and compatibility reports) delivered digitally through the online application interface. AstroGods functions primarily as an online service accessible through web browsers and mobile applications.'**
+  /// **'Unless otherwise specified, astrological content purchased on AstroGods consists of textual interpretations and analyses (including birth chart analyses, predictions, and compatibility reports) delivered digitally through the online application interface. AstroGods functions primarily as an online service accessible through web browsers and mobile applications.'**
   String get digitalContentDeliveryDetails;
 
   /// No description provided for @deviceRequirements.
@@ -5750,6 +5738,12 @@ abstract class AppLocalizations {
   /// **'Version {version}'**
   String version(Object version);
 
+  /// No description provided for @releaseNotes_4_10_0.
+  ///
+  /// In en, this message translates to:
+  /// **'You can now regenerate readings in your preferred language. Saved transits now appear in saved analyses. Fixed authentication workflow bugs.'**
+  String get releaseNotes_4_10_0;
+
   /// No description provided for @releaseNotes_4_9_0.
   ///
   /// In en, this message translates to:
@@ -5887,6 +5881,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You can close this window and return to the app.'**
   String get portalReturnMessage;
+
+  /// No description provided for @readingGeneratedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'This reading was generated in {language}'**
+  String readingGeneratedIn(Object language);
+
+  /// No description provided for @regenerateInLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Regenerate in {language}'**
+  String regenerateInLanguage(Object language);
+
+  /// No description provided for @subscriptionRequiredForRegeneration.
+  ///
+  /// In en, this message translates to:
+  /// **'To regenerate this reading in another language you need a subscription (standard is enough)'**
+  String get subscriptionRequiredForRegeneration;
+
+  /// No description provided for @premiumRequiredForRegeneration.
+  ///
+  /// In en, this message translates to:
+  /// **'To regenerate this reading in another language you need a premium subscription'**
+  String get premiumRequiredForRegeneration;
+
+  /// No description provided for @languageItalian.
+  ///
+  /// In en, this message translates to:
+  /// **'Italian'**
+  String get languageItalian;
+
+  /// No description provided for @languageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageEnglish;
+
+  /// No description provided for @birthChartsFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth charts'**
+  String get birthChartsFilter;
+
+  /// No description provided for @synastriesFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Synastries'**
+  String get synastriesFilter;
+
+  /// No description provided for @dailyTransitsFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily transits'**
+  String get dailyTransitsFilter;
+
+  /// No description provided for @monthlyTransitsFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly transits'**
+  String get monthlyTransitsFilter;
+
+  /// No description provided for @dailyTransitsCountSingular.
+  ///
+  /// In en, this message translates to:
+  /// **'1 saved daily transit'**
+  String get dailyTransitsCountSingular;
+
+  /// No description provided for @dailyTransitsCountPlural.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} saved daily transits'**
+  String dailyTransitsCountPlural(Object count);
+
+  /// No description provided for @monthlyTransitsCountSingular.
+  ///
+  /// In en, this message translates to:
+  /// **'1 saved monthly transit'**
+  String get monthlyTransitsCountSingular;
+
+  /// No description provided for @monthlyTransitsCountPlural.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} saved monthly transits'**
+  String monthlyTransitsCountPlural(Object count);
+
+  /// No description provided for @searchDailyTransits.
+  ///
+  /// In en, this message translates to:
+  /// **'Search daily transits...'**
+  String get searchDailyTransits;
+
+  /// No description provided for @searchMonthlyTransits.
+  ///
+  /// In en, this message translates to:
+  /// **'Search monthly transits...'**
+  String get searchMonthlyTransits;
+
+  /// No description provided for @transitRemovedFromSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Transit removed from saved'**
+  String get transitRemovedFromSaved;
+
+  /// No description provided for @noSavedDailyTransits.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved daily transits'**
+  String get noSavedDailyTransits;
+
+  /// No description provided for @noSavedDailyTransitsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily transits you generate will appear here.'**
+  String get noSavedDailyTransitsDescription;
+
+  /// No description provided for @noSavedMonthlyTransits.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved monthly transits'**
+  String get noSavedMonthlyTransits;
+
+  /// No description provided for @noSavedMonthlyTransitsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly transits you generate will appear here.'**
+  String get noSavedMonthlyTransitsDescription;
 }
 
 class _AppLocalizationsDelegate

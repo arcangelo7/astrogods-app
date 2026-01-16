@@ -26,6 +26,8 @@ class Synastry {
   final bool? readingOutdated;
   @JsonKey(name: 'current_version')
   final String? currentVersion;
+  @JsonKey(name: 'reading_language')
+  final String? readingLanguage;
   @JsonKey(name: 'user_id')
   final int userId;
 
@@ -42,6 +44,7 @@ class Synastry {
     this.readingVersion,
     this.readingOutdated,
     this.currentVersion,
+    this.readingLanguage,
   });
 
   factory Synastry.fromJson(Map<String, dynamic> json) {
@@ -73,6 +76,7 @@ class Synastry {
     String? readingVersion,
     bool? readingOutdated,
     String? currentVersion,
+    String? readingLanguage,
   }) {
     return Synastry(
       id: id ?? this.id,
@@ -87,6 +91,7 @@ class Synastry {
       readingVersion: readingVersion ?? this.readingVersion,
       readingOutdated: readingOutdated ?? this.readingOutdated,
       currentVersion: currentVersion ?? this.currentVersion,
+      readingLanguage: readingLanguage ?? this.readingLanguage,
     );
   }
 

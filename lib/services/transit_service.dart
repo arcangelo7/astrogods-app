@@ -17,15 +17,7 @@ class TransitService {
         '/transits/daily/stream?transit_id=$transitId',
       );
     } catch (e) {
-      if (e is ApiException) {
-        if (e.statusCode == 403) {
-          throw SubscriptionRequiredException(
-            e.message,
-            errorType: 'subscription_required',
-          );
-        }
-        rethrow;
-      }
+      if (e is ApiException) rethrow;
       throw TransitException(e.toString());
     }
   }
@@ -36,15 +28,7 @@ class TransitService {
         '/transits/monthly/stream?transit_id=$transitId',
       );
     } catch (e) {
-      if (e is ApiException) {
-        if (e.statusCode == 403) {
-          throw SubscriptionRequiredException(
-            e.message,
-            errorType: 'subscription_required',
-          );
-        }
-        rethrow;
-      }
+      if (e is ApiException) rethrow;
       throw TransitException(e.toString());
     }
   }
@@ -126,15 +110,7 @@ class TransitService {
 
       return response['transit'];
     } catch (e) {
-      if (e is ApiException) {
-        if (e.statusCode == 403) {
-          throw SubscriptionRequiredException(
-            e.message,
-            errorType: 'subscription_required',
-          );
-        }
-        rethrow;
-      }
+      if (e is ApiException) rethrow;
       throw TransitException(e.toString());
     }
   }
@@ -170,15 +146,7 @@ class TransitService {
 
       return response['transit'];
     } catch (e) {
-      if (e is ApiException) {
-        if (e.statusCode == 403) {
-          throw SubscriptionRequiredException(
-            e.message,
-            errorType: 'subscription_required',
-          );
-        }
-        rethrow;
-      }
+      if (e is ApiException) rethrow;
       throw TransitException(e.toString());
     }
   }
@@ -294,6 +262,50 @@ class TransitService {
       throw TransitException(e.toString());
     }
   }
+
+  Future<List<DailyTransitSummary>> getSavedDailyTransits() async {
+    try {
+      final response = await _apiClient.get('/transits/daily/saved');
+      final transits = (response['transits'] as List)
+          .map((json) => DailyTransitSummary.fromJson(json))
+          .toList();
+      return transits;
+    } catch (e) {
+      if (e is ApiException) rethrow;
+      throw TransitException(e.toString());
+    }
+  }
+
+  Future<List<MonthlyTransitSummary>> getSavedMonthlyTransits() async {
+    try {
+      final response = await _apiClient.get('/transits/monthly/saved');
+      final transits = (response['transits'] as List)
+          .map((json) => MonthlyTransitSummary.fromJson(json))
+          .toList();
+      return transits;
+    } catch (e) {
+      if (e is ApiException) rethrow;
+      throw TransitException(e.toString());
+    }
+  }
+
+  Future<void> deleteDailyTransit(int transitId) async {
+    try {
+      await _apiClient.delete('/transits/daily/$transitId');
+    } catch (e) {
+      if (e is ApiException) rethrow;
+      throw TransitException(e.toString());
+    }
+  }
+
+  Future<void> deleteMonthlyTransit(int transitId) async {
+    try {
+      await _apiClient.delete('/transits/monthly/$transitId');
+    } catch (e) {
+      if (e is ApiException) rethrow;
+      throw TransitException(e.toString());
+    }
+  }
 }
 
 class TransitException implements Exception {
@@ -303,16 +315,4 @@ class TransitException implements Exception {
 
   @override
   String toString() => 'TransitException: $message';
-}
-
-class SubscriptionRequiredException extends TransitException {
-  final String? errorType;
-
-  SubscriptionRequiredException(
-    super.message, {
-    this.errorType,
-  });
-
-  @override
-  String toString() => 'SubscriptionRequiredException: $message';
 }
