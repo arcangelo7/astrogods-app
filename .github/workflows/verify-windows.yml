@@ -11,9 +11,6 @@ on:
         description: 'Build Windows workflow run ID'
         required: true
 
-permissions:
-  checks: write
-
 jobs:
   verify:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
@@ -28,22 +25,30 @@ jobs:
           run-id: ${{ inputs.build_run_id || github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Find MSIX file
-        id: find-msix
+      - name: Run Windows App Certification Kit
         shell: pwsh
         run: |
-          $msixFile = Get-ChildItem -Path msix -Filter "*.msix" | Select-Object -First 1
-          echo "MSIX_PATH=$($msixFile.FullName)" >> $env:GITHUB_OUTPUT
+          $appcert = "${env:ProgramFiles(x86)}\Windows Kits\10\App Certification Kit\appcert.exe"
+          $msixFile = (Get-ChildItem -Path msix -Filter "*.msix" | Select-Object -First 1).FullName
+          $reportPath = "$env:GITHUB_WORKSPACE\certification-report.xml"
 
-      - name: Run Windows App Certification Kit
-        uses: ChristopheLav/wack-certification@v1
-        with:
-          name: 'WACK Certification'
-          package-path: ${{ steps.find-msix.outputs.MSIX_PATH }}
-          report-name: 'certification-report.xml'
+          Write-Host "MSIX file: $msixFile"
+          Write-Host "Report path: $reportPath"
 
-      - name: Re-upload MSIX artifact
+          & $appcert reset
+          & $appcert test -appxpackagepath $msixFile -reportoutputpath $reportPath
+
+          [xml]$report = Get-Content $reportPath
+          $overallResult = $report.REPORT.OVERALL_RESULT
+          Write-Host "Overall result: $overallResult"
+
+          if ($overallResult -ne "PASS") {
+            Write-Host "::warning::WACK certification did not pass: $overallResult"
+          }
+
+      - name: Upload certification report
         uses: actions/upload-artifact@v6
+        if: always()
         with:
-          name: windows-msix
-          path: "msix/*.msix"
+          name: wack-certification-report
+          path: certification-report.xml
