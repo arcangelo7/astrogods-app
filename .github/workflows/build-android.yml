@@ -12,8 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        with:
-          fetch-depth: 2
 
       - name: Setup Java
         uses: actions/setup-java@v5
@@ -51,45 +49,6 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: flutter build appbundle --release
 
-      - name: Extract commit body to file
-        run: git log -1 --pretty=format:"%b" > release-notes.xml
-
-      - name: Check for release notes
-        id: check_notes
-        run: |
-          if grep -q '<release-notes>' release-notes.xml; then
-            echo "has_notes=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_notes=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Extract EN release notes
-        if: steps.check_notes.outputs.has_notes == 'true'
-        id: en_notes
-        uses: mavrosxristoforos/get-xml-info@2.0
-        with:
-          xml-file: release-notes.xml
-          xpath: //en-US
-
-      - name: Extract IT release notes
-        if: steps.check_notes.outputs.has_notes == 'true'
-        id: it_notes
-        uses: mavrosxristoforos/get-xml-info@2.0
-        with:
-          xml-file: release-notes.xml
-          xpath: //it-IT
-
-      - name: Create whatsnew directory
-        run: |
-          mkdir -p whatsnew
-          if [ "${{ steps.check_notes.outputs.has_notes }}" == "true" ]; then
-            echo "${{ steps.en_notes.outputs.info }}" > whatsnew/whatsnew-en-US
-            echo "${{ steps.it_notes.outputs.info }}" > whatsnew/whatsnew-it-IT
-          else
-            echo "Release ${{ github.ref_name }}" > whatsnew/whatsnew-en-US
-            echo "Release ${{ github.ref_name }}" > whatsnew/whatsnew-it-IT
-          fi
-
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v6
         with:
@@ -100,4 +59,4 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: whatsnew
-          path: whatsnew/
+          path: android/whatsnew/

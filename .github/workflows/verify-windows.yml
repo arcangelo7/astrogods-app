@@ -25,6 +25,14 @@ jobs:
           run-id: ${{ inputs.build_run_id || github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Download metadata artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: windows-metadata
+          path: metadata
+          run-id: ${{ inputs.build_run_id || github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Run Windows App Certification Kit
         shell: pwsh
         run: |
@@ -59,3 +67,9 @@ jobs:
         with:
           name: windows-msix
           path: msix/*.msix
+
+      - name: Re-upload metadata artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-metadata
+          path: metadata/metadata.json

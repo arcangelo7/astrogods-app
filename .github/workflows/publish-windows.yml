@@ -13,6 +13,9 @@ on:
         description: 'Verify Windows workflow run ID'
         required: true
 
+env:
+  APP_ID: 9MTTM2QDM94V
+
 jobs:
   publish:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
@@ -24,6 +27,14 @@ jobs:
         with:
           name: windows-msix
           path: msix
+          run-id: ${{ inputs.verify_run_id || github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download metadata artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: windows-metadata
+          path: metadata
           run-id: ${{ inputs.verify_run_id || github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -39,9 +50,23 @@ jobs:
             --clientId ${{ secrets.AZURE_AD_CLIENT_ID }} `
             --clientSecret ${{ secrets.AZURE_AD_CLIENT_SECRET }}
 
-      - name: Publish to Microsoft Store
+      - name: Upload package to submission
         shell: pwsh
         run: |
           $msixFile = (Get-ChildItem -Path msix -Filter "*.msix" | Select-Object -First 1).FullName
-          Write-Host "Publishing: $msixFile"
-          msstore publish $msixFile --appId 9MTTM2QDM94V
+          Write-Host "Uploading package: $msixFile"
+          msstore submission update $env:APP_ID $msixFile
+
+      - name: Update submission metadata
+        shell: pwsh
+        run: |
+          $metadata = Get-Content -Raw "metadata/metadata.json"
+          Write-Host "Updating metadata with release notes:"
+          Write-Host $metadata
+          msstore submission updateMetadata $env:APP_ID $metadata
+
+      - name: Publish submission
+        shell: pwsh
+        run: |
+          Write-Host "Publishing submission to Microsoft Store..."
+          msstore submission publish $env:APP_ID
