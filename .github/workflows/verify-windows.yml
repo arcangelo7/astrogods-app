@@ -43,7 +43,8 @@ jobs:
           Write-Host "Overall result: $overallResult"
 
           if ($overallResult -ne "PASS") {
-            Write-Host "::warning::WACK certification did not pass: $overallResult"
+            Write-Host "::error::WACK certification failed: $overallResult"
+            exit 1
           }
 
       - name: Upload certification report
@@ -52,3 +53,9 @@ jobs:
         with:
           name: wack-certification-report
           path: certification-report.xml
+
+      - name: Re-upload MSIX artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-msix
+          path: msix/*.msix
