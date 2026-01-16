@@ -44,4 +44,4 @@ jobs:
         run: |
           $msixFile = (Get-ChildItem -Path msix -Filter "*.msix" | Select-Object -First 1).FullName
           Write-Host "Publishing: $msixFile"
-          msstore publish $msixFile
+          msstore publish $msixFile --appId 9MTTM2QDM94V
