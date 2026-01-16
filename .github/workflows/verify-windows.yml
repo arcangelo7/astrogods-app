@@ -28,11 +28,18 @@ jobs:
           run-id: ${{ inputs.build_run_id || github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Find MSIX file
+        id: find-msix
+        shell: pwsh
+        run: |
+          $msixFile = Get-ChildItem -Path msix -Filter "*.msix" | Select-Object -First 1
+          echo "MSIX_PATH=$($msixFile.FullName)" >> $env:GITHUB_OUTPUT
+
       - name: Run Windows App Certification Kit
         uses: ChristopheLav/wack-certification@v1
         with:
           name: 'WACK Certification'
-          package-path: 'msix/*.msix'
+          package-path: ${{ steps.find-msix.outputs.MSIX_PATH }}
           report-name: 'certification-report.xml'
 
       - name: Re-upload MSIX artifact
