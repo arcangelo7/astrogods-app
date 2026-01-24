@@ -1,14 +1,96 @@
 {
-  "listings": {
+  "ApplicationCategory": "Lifestyle_Relationships",
+  "Pricing": {
+    "TrialPeriod": "NoFreeTrial",
+    "MarketSpecificPricings": {
+      "LB": "NotAvailable",
+      "EH": "NotAvailable"
+    },
+    "PriceId": "Free",
+    "IsAdvancedPricingModel": false
+  },
+  "Visibility": "Public",
+  "TargetPublishMode": "Immediate",
+  "Listings": {
     "en-us": {
-      "baseListing": {
-        "releaseNotes": "Success screen after subscription. Reorganized navigation in side menu. Clickable links in Codex. Subscription management improvements."
+      "BaseListing": {
+        "Title": "AstroGods",
+        "ShortDescription": "Deep astrological interpretations for those who want to go beyond the surface",
+        "Description": "AstroGods starts from the position of the planets at the moment of your birth to offer you a portrait of who you are: your way of loving, thinking, acting. You can explore compatibility with another person or understand what energies characterize a period of your life.\n\nHere, Astrology is taken seriously. The astronomical calculations are the most precise available, the methodology adheres to the original Egyptian tradition, the interpretations are in-depth. No generic horoscopes: each reading goes into the detail of your unique configuration.\n\nYour first birth chart reading is completely free. Additional birth charts require a Standard subscription (from 1.99 €/month). Synastry and transit readings require a Premium subscription (from 2.99 €/month). All subscriptions include a 7-day free trial.",
+        "ReleaseNotes": "Success screen after subscription. Reorganized navigation in side menu. Clickable links in Codex. Subscription management improvements.",
+        "Keywords": [
+          "Astrology",
+          "birth chart reading",
+          "synastry",
+          "transits",
+          "horoscope",
+          "zodiac",
+          "Egyptian Astrology"
+        ],
+        "Features": [
+          "Birth chart reading",
+          "Synastry reading for relationships",
+          "Daily transits analysis",
+          "Monthly transits analysis",
+          "Save and manage multiple charts",
+          "Newsletter with daily and monthly transits",
+          "Dark and light themes",
+          "English and Italian support",
+          "Google Sign-In integration",
+          "Cross-platform sync",
+          "Download readings as PDF"
+        ],
+        "LicenseTerms": "https://astrogods.it/terms-and-conditions",
+        "CopyrightAndTrademarkInfo": "© 2025 Arcangelo Massari. All rights reserved.",
+        "DevStudio": "Arcangelo Massari"
       }
     },
-    "it-it": {
-      "baseListing": {
-        "releaseNotes": "Schermata di successo dopo la sottoscrizione. Navigazione riorganizzata nel menu laterale. Link cliccabili nel Codex. Miglioramenti alla gestione degli abbonamenti."
+    "it": {
+      "BaseListing": {
+        "Title": "AstroGods",
+        "ShortDescription": "Interpretazioni astrologiche profonde per chi vuole andare oltre la superficie",
+        "Description": "AstroGods parte dalla posizione dei pianeti nel momento della tua nascita per offrirti un ritratto di chi sei: il tuo modo di amare, pensare, agire. Puoi esplorare la compatibilità con un'altra persona o capire quali energie caratterizzano un periodo della tua vita.\n\nQui l'Astrologia si fa sul serio. I calcoli astronomici sono i più precisi disponibili, la metodologia aderisce alla tradizione egizia originale, le interpretazioni sono approfondite. Niente oroscopi generici: ogni lettura entra nel dettaglio della tua configurazione unica.\n\nLa prima lettura del tema natale è completamente gratuita. Temi natali aggiuntivi richiedono un abbonamento Standard (da 1,99 €/mese). Sinastrie e letture dei transiti richiedono un abbonamento Premium (da 2,99 €/mese). Tutti gli abbonamenti includono una prova gratuita di 7 giorni.",
+        "ReleaseNotes": "Schermata di successo dopo la sottoscrizione. Navigazione riorganizzata nel menu laterale. Link cliccabili nel Codex. Miglioramenti alla gestione degli abbonamenti.",
+        "Keywords": [
+          "Astrologia",
+          "lettura del tema natale",
+          "sinastria",
+          "transiti",
+          "Astrologia Egizia",
+          "zodiaco",
+          "oroscopo"
+        ],
+        "Features": [
+          "Lettura del tema natale",
+          "Lettura di sinastria per le relazioni",
+          "Analisi dei transiti giornalieri",
+          "Analisi dei transiti mensili",
+          "Salva e gestisci più temi natali",
+          "Newsletter con i transiti giornalieri e mensili",
+          "Temi chiaro e scuro",
+          "Supporto per inglese e italiano",
+          "Login con Google",
+          "Sincronizzazione multi-piattaforma",
+          "Scarica le letture in PDF"
+        ],
+        "LicenseTerms": "https://astrogods.it/terms-and-conditions",
+        "CopyrightAndTrademarkInfo": "© 2025 Arcangelo Massari. Tutti i diritti riservati.",
+        "DevStudio": "Arcangelo Massari"
       }
     }
+  },
+  "HardwarePreferences": ["Keyboard", "Mouse"],
+  "AutomaticBackupEnabled": true,
+  "CanInstallOnRemovableMedia": true,
+  "IsGameDvrEnabled": false,
+  "HasExternalInAppProducts": true,
+  "MeetAccessibilityGuidelines": false,
+  "AllowMicrosoftDecideAppAvailabilityToFutureDeviceFamilies": false,
+  "AllowTargetFutureDeviceFamilies": {
+    "Desktop": true,
+    "Mobile": false,
+    "Xbox": false,
+    "Team": false,
+    "Holographic": false
   }
 }
