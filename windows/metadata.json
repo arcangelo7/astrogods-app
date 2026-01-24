@@ -1,17 +1,12 @@
 {
-  "applicationCategory": "Lifestyle_Relationships",
   "listings": {
     "en-us": {
       "baseListing": {
-        "title": "AstroGods",
-        "description": "AstroGods starts from the position of the planets at the moment of your birth to offer you a portrait of who you are: your way of loving, thinking, acting. You can explore compatibility with another person or understand what energies characterize a period of your life.\n\nHere, Astrology is taken seriously. The astronomical calculations are the most precise available, the methodology adheres to the original Egyptian tradition, the interpretations are in-depth. No generic horoscopes: each reading goes into the detail of your unique configuration.\n\nYour first birth chart reading is completely free. Additional birth charts require a Standard subscription (from 1.99 €/month). Synastry (compatibility analysis) and transit readings require a Premium subscription (from 2.99 €/month). All subscriptions include a 7-day free trial.",
         "releaseNotes": "Success screen after subscription. Reorganized navigation in side menu. Clickable links in Codex. Subscription management improvements."
       }
     },
     "it-it": {
       "baseListing": {
-        "title": "AstroGods",
-        "description": "AstroGods parte dalla posizione dei pianeti nel momento della tua nascita per offrirti un ritratto di chi sei: il tuo modo di amare, pensare, agire. Puoi esplorare la compatibilità con un'altra persona o capire quali energie caratterizzano un periodo della tua vita.\n\nQui l'Astrologia si fa sul serio. I calcoli astronomici sono i più precisi disponibili, la metodologia aderisce alla tradizione egizia originale, le interpretazioni sono approfondite. Niente oroscopi generici: ogni lettura entra nel dettaglio della tua configurazione unica.\n\nLa prima lettura del tema natale è completamente gratuita. Temi natali aggiuntivi richiedono un abbonamento Standard (da 1,99 €/mese). Sinastrie (analisi di compatibilità) e letture dei transiti richiedono un abbonamento Premium (da 2,99 €/mese). Tutti gli abbonamenti includono una prova gratuita di 7 giorni.",
         "releaseNotes": "Schermata di successo dopo la sottoscrizione. Navigazione riorganizzata nel menu laterale. Link cliccabili nel Codex. Miglioramenti alla gestione degli abbonamenti."
       }
     }

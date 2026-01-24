@@ -60,10 +60,29 @@ jobs:
       - name: Update submission metadata
         shell: pwsh
         run: |
-          $metadata = Get-Content -Raw "metadata/metadata.json"
-          Write-Host "Sending metadata:"
-          Write-Host $metadata
-          $metadata | msstore submission updateMetadata $env:APP_ID --verbose
+          Write-Host "Fetching current submission..."
+          $output = msstore submission get $env:APP_ID 2>&1 | Out-String
+          $jsonMatch = [regex]::Match($output, '(?s)\{.*\}')
+          if (-not $jsonMatch.Success) {
+            Write-Host "::error::Could not extract JSON from submission"
+            exit 1
+          }
+          $current = $jsonMatch.Value | ConvertFrom-Json
+
+          Write-Host "Loading release notes from metadata.json..."
+          $updates = Get-Content -Raw "metadata/metadata.json" | ConvertFrom-Json
+
+          foreach ($lang in $updates.listings.PSObject.Properties.Name) {
+            $notes = $updates.listings.$lang.baseListing.releaseNotes
+            if ($current.listings.$lang) {
+              $current.listings.$lang.baseListing.releaseNotes = $notes
+              Write-Host "Updated releaseNotes for $lang"
+            }
+          }
+
+          $updatedJson = $current | ConvertTo-Json -Depth 20 -Compress
+          Write-Host "Sending updated metadata..."
+          $updatedJson | msstore submission updateMetadata $env:APP_ID --verbose
 
       - name: Publish submission
         shell: pwsh
