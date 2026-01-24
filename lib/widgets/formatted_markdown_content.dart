@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../config/image_urls.dart';
 import '../constants/text_styles.dart';
 import '../constants/cavern_names.dart';
@@ -473,16 +474,42 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
     );
   }
 
+  Future<void> _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
   Widget _buildMarkdownWidget(String content, BuildContext context) {
     // Fix markdown formatting issues: ensure headers are on separate lines
     String fixedContent = content
         .replaceAllMapped(RegExp(r'(\S)\s+(##\s+)'), (match) => '${match.group(1)}\n\n${match.group(2)}')
         .replaceAllMapped(RegExp(r'(\S)\s+(###\s+)'), (match) => '${match.group(1)}\n\n${match.group(2)}')
         .replaceAllMapped(RegExp(r'(\S)\s+(####\s+)'), (match) => '${match.group(1)}\n\n${match.group(2)}');
-    
+
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final linkColor = isDark ? Colors.blue[300]! : Theme.of(context).colorScheme.primary;
+    final linkStyle = AppTextStyles.getMarkdownParagraphStyle(context).copyWith(
+      color: linkColor,
+      decoration: TextDecoration.underline,
+      decorationColor: linkColor,
+    );
+
     return GptMarkdown(
       fixedContent,
       style: AppTextStyles.getMarkdownParagraphStyle(context),
+      onLinkTap: (url, title) => _launchUrl(url),
+      linkBuilder: (context, text, url, style) {
+        final linkText = (text as TextSpan).toPlainText();
+        return MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: Text(
+            linkText,
+            style: linkStyle,
+          ),
+        );
+      },
     );
   }
 

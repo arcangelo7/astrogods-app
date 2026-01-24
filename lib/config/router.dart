@@ -8,6 +8,7 @@ import '../screens/predictions_screen.dart';
 import '../screens/codex_screen.dart';
 import '../screens/saved_charts_screen.dart';
 import '../screens/subscription_plans_screen.dart';
+import '../screens/subscription_success_screen.dart';
 import '../screens/settings_screen.dart';
 import '../screens/profile_screen.dart';
 import '../screens/auth/login_screen.dart';
@@ -160,6 +161,14 @@ class AppRouter {
           path: '/subscription-plans',
           name: 'subscription-plans',
           builder: (context, state) => const SubscriptionPlansScreen(),
+        ),
+        GoRoute(
+          path: '/subscription-success',
+          name: 'subscription-success',
+          builder: (context, state) {
+            final tier = state.uri.queryParameters['tier'] ?? 'premium';
+            return SubscriptionSuccessScreen(isPremium: tier == 'premium');
+          },
         ),
         GoRoute(
           path: '/settings',

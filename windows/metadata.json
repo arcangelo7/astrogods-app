@@ -1,0 +1,14 @@
+{
+  "listings": {
+    "en-us": {
+      "baseListing": {
+        "releaseNotes": "- Success screen after subscription\n- Reorganized navigation in side menu\n- Clickable links in Codex\n- Subscription management improvements"
+      }
+    },
+    "it-it": {
+      "baseListing": {
+        "releaseNotes": "- Schermata di successo dopo la sottoscrizione\n- Navigazione riorganizzata nel menu laterale\n- Link cliccabili nel Codex\n- Miglioramenti alla gestione degli abbonamenti"
+      }
+    }
+  }
+}

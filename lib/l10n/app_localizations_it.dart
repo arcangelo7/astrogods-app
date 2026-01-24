@@ -521,6 +521,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get regenerateReading => 'Rigenera lettura';
 
   @override
+  String get newImprovedVersion => 'Nuova versione migliorata';
+
+  @override
   String get searchCharts => 'Cerca analisi...';
 
   @override
@@ -756,6 +759,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'Accedi per ottenere la tua lettura completa';
 
   @override
+  String get loginRequiredForSubscription =>
+      'Accedi o crea un account per abbonarti';
+
+  @override
   String get previewTitle => 'Il tuo tema natale ti attende';
 
   @override
@@ -782,13 +789,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get subscriptionAmount => 'Importo';
 
   @override
-  String get subscriptionStartDate => 'Iniziato';
+  String get subscriptionStartDate => 'Iniziato il';
 
   @override
-  String get subscriptionEndDate => 'Rinnova';
+  String get subscriptionEndDate => 'Si rinnova il';
 
   @override
-  String get subscriptionCancelsOn => 'Cancella';
+  String get subscriptionCancelsOn => 'Termina il';
 
   @override
   String get manageSubscription => 'Gestisci abbonamento';
@@ -3262,6 +3269,10 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes_4_10_1 =>
+      'Schermata di successo dopo la sottoscrizione. Navigazione riorganizzata nel menu laterale. Link cliccabili nel Codex. Miglioramenti alla gestione degli abbonamenti.';
+
+  @override
   String get releaseNotes_4_10_0 =>
       'Puoi rigenerare le letture nella tua lingua preferita. I transiti salvati ora appaiono tra le analisi salvate. Risolti bug nel flusso di autenticazione.';
 
@@ -3425,4 +3436,37 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get noSavedMonthlyTransitsDescription =>
       'I transiti mensili che generi appariranno qui.';
+
+  @override
+  String get subscriptionSuccessTitle => 'Benvenuto in AstroGods!';
+
+  @override
+  String get subscriptionSuccessMessagePremium =>
+      'Grazie per il tuo supporto. Ora hai accesso a tutte le funzionalità.';
+
+  @override
+  String get subscriptionSuccessMessageStandard =>
+      'Grazie per il tuo supporto. Ora puoi leggere infiniti temi natali.';
+
+  @override
+  String get subscriptionSuccessTrialInfo =>
+      'Il tuo periodo di prova di 7 giorni è iniziato';
+
+  @override
+  String get subscriptionSuccessGoHome => 'Vai alla home';
+
+  @override
+  String get activeSubscriptionDeleteWarning =>
+      'Hai un abbonamento attivo. Per eliminare il tuo account, il tuo abbonamento verrà prima annullato.\n\nQuesta azione non può essere annullata. Tutti i tuoi dati, analisi salvate e immagini del profilo saranno eliminati permanentemente.';
+
+  @override
+  String get cancelSubscriptionAndDelete =>
+      'Annulla abbonamento ed elimina account';
+
+  @override
+  String get cancellingSubscription => 'Cancellazione in corso...';
+
+  @override
+  String get subscriptionCancelledSuccessfully =>
+      'Abbonamento annullato con successo';
 }

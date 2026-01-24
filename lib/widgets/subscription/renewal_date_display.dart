@@ -5,10 +5,12 @@ import '../../utils/date_utils.dart' as date_utils;
 
 class RenewalDateDisplay extends StatelessWidget {
   final DateTime renewalDate;
+  final bool cancelAtPeriodEnd;
 
   const RenewalDateDisplay({
     super.key,
     required this.renewalDate,
+    this.cancelAtPeriodEnd = false,
   });
 
   @override
@@ -31,14 +33,16 @@ class RenewalDateDisplay extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            Icons.calendar_today,
-            color: colorScheme.primary,
+            cancelAtPeriodEnd ? Icons.event_busy : Icons.calendar_today,
+            color: cancelAtPeriodEnd ? colorScheme.error : colorScheme.primary,
             size: 18,
           ),
           const SizedBox(width: 8),
           Flexible(
             child: Text(
-              '${localizations.nextRenewal}: $formattedDate',
+              cancelAtPeriodEnd
+                  ? '${localizations.subscriptionCancelsOn}: $formattedDate'
+                  : '${localizations.nextRenewal}: $formattedDate',
               style: AppTextStyles.getCaptionStyle(context).copyWith(
                 fontWeight: FontWeight.w600,
                 color: colorScheme.onSurface,

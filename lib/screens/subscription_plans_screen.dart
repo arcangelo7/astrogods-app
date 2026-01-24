@@ -1,14 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import '../constants/text_styles.dart';
+import '../providers/auth_provider.dart';
 import '../widgets/starry_night_background.dart';
 import '../l10n/app_localizations.dart';
-import '../services/stripe_service.dart' show StripeService, CheckoutException;
+import '../services/stripe_service.dart';
 import '../services/api_client.dart' show ApiException;
 import '../services/subscription_service.dart';
 import '../utils/snackbar_utils.dart';
 import '../utils/session_utils.dart';
+import '../utils/auth_navigation_utils.dart';
 import '../models/subscription_plan.dart';
 import '../models/subscription.dart';
 import '../widgets/subscription/subscription_button.dart';
@@ -33,6 +38,8 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
   bool _hasTrialEligibility = true;
   bool _isLoadingTrialEligibility = true;
   SubscriptionStatusResponse? _subscriptionStatus;
+  StripeConfig? _stripeConfig;
+  bool _isLoadingStripeConfig = true;
 
   @override
   void initState() {
@@ -50,8 +57,28 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
       }
     });
 
+    _loadStripeConfig();
     _loadSubscriptionStatus();
     _checkForSessionId();
+  }
+
+  Future<void> _loadStripeConfig() async {
+    try {
+      final config = await StripeService.getConfig();
+      if (mounted) {
+        setState(() {
+          _stripeConfig = config;
+          _isLoadingStripeConfig = false;
+        });
+      }
+    } catch (e) {
+      debugPrint('Failed to load Stripe config: $e');
+      if (mounted) {
+        setState(() {
+          _isLoadingStripeConfig = false;
+        });
+      }
+    }
   }
 
   Future<void> _loadSubscriptionStatus() async {
@@ -110,23 +137,10 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
         }
 
         try {
-          await StripeService.confirmSession(context, sessionId);
+          final tier = await StripeService.confirmSession(context, sessionId);
           if (mounted) {
-            // Close loading dialog
             Navigator.of(context).pop();
-
-            final localizations = AppLocalizations.of(context)!;
-            // Show success with a more prominent feedback
-            SnackbarUtils.showSuccess(
-              context,
-              localizations.subscriptionActivated,
-            );
-
-            // Clean URL by removing session_id parameter
-            context.go('/subscription-plans');
-
-            // Refresh the page to show updated subscription status
-            setState(() {});
+            context.go('/subscription-success?tier=$tier');
           }
         } catch (e) {
           if (mounted) {
@@ -183,6 +197,17 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
   ) async {
     final localizations = AppLocalizations.of(context)!;
 
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    if (!authProvider.isAuthenticated) {
+      unawaited(saveReturnUrl('/subscription-plans'));
+      SnackbarUtils.showInfo(
+        context,
+        localizations.loginRequiredForSubscription,
+      );
+      context.go('/login');
+      return;
+    }
+
     try {
       // Show loading indicator
       showDialog(
@@ -232,13 +257,10 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
           );
         }
 
-        // Subscription created
+        // Subscription created, navigate to success page
         if (context.mounted) {
-          SnackbarUtils.showSuccess(
-            context,
-            localizations.subscriptionActivated,
-          );
-          setState(() {});
+          final tier = plan.isPremium ? 'premium' : 'standard';
+          context.go('/subscription-success?tier=$tier');
         }
       }
     } on ApiException catch (e) {
@@ -285,35 +307,38 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
 
   List<SubscriptionPlan> _getAllPlans() {
     final localizations = AppLocalizations.of(context)!;
+    final config = _stripeConfig!;
     return [
-      ...SubscriptionPlan.getMonthlyPlans(localizations),
-      ...SubscriptionPlan.getSemiannualPlans(localizations),
-      ...SubscriptionPlan.getAnnualPlans(localizations),
+      ...SubscriptionPlan.getMonthlyPlans(localizations, config),
+      ...SubscriptionPlan.getSemiannualPlans(localizations, config),
+      ...SubscriptionPlan.getAnnualPlans(localizations, config),
     ];
   }
 
   List<SubscriptionPlan> _getCurrentPlans() {
     final localizations = AppLocalizations.of(context)!;
+    final config = _stripeConfig!;
     List<SubscriptionPlan> plans;
 
     switch (_tabController.index) {
       case 0:
-        plans = SubscriptionPlan.getMonthlyPlans(localizations);
+        plans = SubscriptionPlan.getMonthlyPlans(localizations, config);
         break;
       case 1:
-        plans = SubscriptionPlan.getSemiannualPlans(localizations);
+        plans = SubscriptionPlan.getSemiannualPlans(localizations, config);
         break;
       case 2:
-        plans = SubscriptionPlan.getAnnualPlans(localizations);
+        plans = SubscriptionPlan.getAnnualPlans(localizations, config);
         break;
       default:
-        plans = SubscriptionPlan.getMonthlyPlans(localizations);
+        plans = SubscriptionPlan.getMonthlyPlans(localizations, config);
     }
 
     final allPlans = _getAllPlans();
     final annotatedAllPlans = SubscriptionPlan.annotateWithCurrentPlan(
       allPlans,
       _subscriptionStatus?.subscription,
+      config,
     );
 
     final annotatedPlans = plans.map((plan) {
@@ -325,6 +350,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
         badge: matchingPlan.badge,
         isCurrentPlan: matchingPlan.isCurrentPlan,
         nextRenewalDate: matchingPlan.nextRenewalDate,
+        cancelAtPeriodEnd: matchingPlan.cancelAtPeriodEnd,
       );
     }).toList();
 
@@ -333,12 +359,14 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
 
   List<SubscriptionPlan> _getSimplifiedPlans() {
     final localizations = AppLocalizations.of(context)!;
-    final plans = SubscriptionPlan.getSimplifiedPlans(localizations);
+    final config = _stripeConfig!;
+    final plans = SubscriptionPlan.getSimplifiedPlans(localizations, config);
 
     final allPlans = _getAllPlans();
     final annotatedAllPlans = SubscriptionPlan.annotateWithCurrentPlan(
       allPlans,
       _subscriptionStatus?.subscription,
+      config,
     );
 
     final annotatedPlans = plans.map((plan) {
@@ -350,6 +378,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
         badge: matchingPlan.badge,
         isCurrentPlan: matchingPlan.isCurrentPlan,
         nextRenewalDate: matchingPlan.nextRenewalDate,
+        cancelAtPeriodEnd: matchingPlan.cancelAtPeriodEnd,
       );
     }).toList();
 
@@ -387,9 +416,16 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                 ),
               ),
               Expanded(
-                child: _isLoadingTrialEligibility
+                child: _isLoadingTrialEligibility || _isLoadingStripeConfig
                     ? const Center(child: CircularProgressIndicator())
-                    : SingleChildScrollView(
+                    : _stripeConfig == null
+                        ? Center(
+                            child: Text(
+                              localizations.connectionError,
+                              style: AppTextStyles.getBodyStyle(context),
+                            ),
+                          )
+                        : SingleChildScrollView(
                         padding: const EdgeInsets.all(16.0),
                         child: ConstrainedBox(
                           constraints: BoxConstraints(
@@ -741,7 +777,10 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
               SizedBox(height: isMainCard ? 16 : 24),
               if (isCurrentPlan && plan.nextRenewalDate != null) ...[
                 Center(
-                  child: RenewalDateDisplay(renewalDate: plan.nextRenewalDate!),
+                  child: RenewalDateDisplay(
+                    renewalDate: plan.nextRenewalDate!,
+                    cancelAtPeriodEnd: plan.cancelAtPeriodEnd,
+                  ),
                 ),
                 const SizedBox(height: 16),
               ],

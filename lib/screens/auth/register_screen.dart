@@ -638,24 +638,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(height: 24),
 
                       // Login Link
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            l10n.alreadyHaveAccount,
-                            style: AppTextStyles.getCaptionStyle(context),
-                          ),
-                          TextButton(
-                            onPressed: () => context.go('/login'),
-                            child: Text(
-                              l10n.signIn,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: AppTextStyles.semibold,
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withValues(alpha: 0.85),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              l10n.alreadyHaveAccount,
+                              style: AppTextStyles.getCaptionStyle(context),
+                            ),
+                            TextButton(
+                              onPressed: () => context.go('/login'),
+                              child: Text(
+                                l10n.signIn,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: AppTextStyles.semibold,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),

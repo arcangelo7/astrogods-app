@@ -24,6 +24,10 @@ class SubscriptionService {
     }
   }
 
+  Future<void> cancelSubscription() async {
+    await _apiClient.post('/stripe/cancel-subscription');
+  }
+
   Future<void> openCustomerPortal({String? priceId}) async {
     try {
       final isDesktop = !kIsWeb &&

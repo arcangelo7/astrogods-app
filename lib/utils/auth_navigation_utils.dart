@@ -3,8 +3,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../config/router.dart';
 import '../services/birth_chart_service.dart';
 
+Future<void> saveReturnUrl(String url) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('redirect_after_login', url);
+}
+
 Future<void> navigateAfterAuth() async {
   final prefs = await SharedPreferences.getInstance();
+
+  // Priority 0: Generic return URL
+  final returnUrl = prefs.getString('redirect_after_login');
+  if (returnUrl != null) {
+    await prefs.remove('redirect_after_login');
+    appRouter.go(returnUrl);
+    return;
+  }
 
   // Priority 1: Pending preview redirect
   final hasPendingPreview = prefs.getBool('redirect_to_reading') ?? false;

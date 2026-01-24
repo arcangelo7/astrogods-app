@@ -17,7 +17,6 @@ import 'themes/app_theme.dart';
 import 'constants/colors.dart';
 import 'config/environment.dart';
 import 'config/router.dart';
-import 'config/stripe_config.dart';
 import 'widgets/custom_title_bar.dart';
 
 // coverage:ignore-start
@@ -33,7 +32,7 @@ void main() async {
   await Environment.init();
 
   if (!kIsWeb) {
-    Stripe.publishableKey = StripeConfig.publishableKey;
+    // Stripe.publishableKey is set lazily in StripeService.getConfig()
     // TODO: Register a Merchant ID in Apple Developer Console for Apple Pay on iOS
     Stripe.merchantIdentifier = 'merchant.com.astrogods.app';
   }

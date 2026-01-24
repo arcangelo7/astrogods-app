@@ -339,12 +339,12 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
             const SizedBox(height: 20),
             _ActionTile(
               icon: analysis.readingOutdated == true
-                  ? Icons.refresh
+                  ? Icons.new_releases
                   : (analysis.hasReading == true
                         ? Icons.auto_stories
-                        : Icons.auto_awesome),
+                        : Icons.edit_note),
               title: analysis.readingOutdated == true
-                  ? l10n.regenerateReading
+                  ? l10n.newImprovedVersion
                   : (analysis.hasReading == true
                         ? l10n.viewReading
                         : l10n.generateReading),
@@ -1199,7 +1199,7 @@ class _AnalysisCard extends StatelessWidget {
                                 analysis.readingLanguage != null &&
                                 analysis.readingLanguage != currentLang;
                             final statusText = analysis.readingOutdated == true
-                                ? l10n.regenerateReading
+                                ? l10n.newImprovedVersion
                                 : (analysis.hasReading == true
                                     ? (showLangIndicator
                                         ? '${l10n.readingAvailable} (${analysis.readingLanguage!.toUpperCase()})'
@@ -1210,13 +1210,13 @@ class _AnalysisCard extends StatelessWidget {
                               children: [
                                 Icon(
                                   analysis.readingOutdated == true
-                                      ? Icons.refresh
+                                      ? Icons.new_releases
                                       : (analysis.hasReading == true
                                           ? Icons.auto_stories
-                                          : Icons.auto_awesome),
+                                          : Icons.edit_note),
                                   size: 16,
                                   color: analysis.readingOutdated == true
-                                      ? Theme.of(context).colorScheme.error
+                                      ? Theme.of(context).colorScheme.tertiary
                                       : (analysis.hasReading == true
                                           ? Theme.of(context).colorScheme.secondary
                                           : Theme.of(context).colorScheme.error),
@@ -1227,7 +1227,7 @@ class _AnalysisCard extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: analysis.readingOutdated == true
-                                        ? Theme.of(context).colorScheme.error
+                                        ? Theme.of(context).colorScheme.tertiary
                                         : (analysis.hasReading == true
                                             ? Theme.of(context).colorScheme.secondary
                                             : Theme.of(context).colorScheme.error),

@@ -226,21 +226,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 24),
 
                       // Register Link
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            l10n.dontHaveAccount,
-                            style: AppTextStyles.getCaptionStyle(context),
-                          ),
-                          TextButton(
-                            onPressed: _navigateToRegister,
-                            child: Text(
-                              l10n.signUp,
-                              style: AppTextStyles.getLinkStyle(context),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withValues(alpha: 0.85),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              l10n.dontHaveAccount,
+                              style: AppTextStyles.getCaptionStyle(context),
                             ),
-                          ),
-                        ],
+                            TextButton(
+                              onPressed: _navigateToRegister,
+                              child: Text(
+                                l10n.signUp,
+                                style: AppTextStyles.getLinkStyle(context),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

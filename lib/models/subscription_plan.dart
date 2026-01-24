@@ -1,4 +1,4 @@
-import '../config/stripe_config.dart';
+import '../services/stripe_service.dart';
 import 'subscription.dart';
 
 enum PlanType { monthly, semiannual, annual }
@@ -29,6 +29,7 @@ class SubscriptionPlan {
   final PlanBadge badge;
   final bool isCurrentPlan;
   final DateTime? nextRenewalDate;
+  final bool cancelAtPeriodEnd;
 
   const SubscriptionPlan({
     required this.title,
@@ -50,6 +51,7 @@ class SubscriptionPlan {
     this.badge = PlanBadge.none,
     this.isCurrentPlan = false,
     this.nextRenewalDate,
+    this.cancelAtPeriodEnd = false,
   });
 
   bool get isPremium => tier == PlanTier.premium;
@@ -74,6 +76,7 @@ class SubscriptionPlan {
     PlanBadge? badge,
     bool? isCurrentPlan,
     DateTime? nextRenewalDate,
+    bool? cancelAtPeriodEnd,
   }) {
     return SubscriptionPlan(
       title: title ?? this.title,
@@ -95,6 +98,7 @@ class SubscriptionPlan {
       badge: badge ?? this.badge,
       isCurrentPlan: isCurrentPlan ?? this.isCurrentPlan,
       nextRenewalDate: nextRenewalDate ?? this.nextRenewalDate,
+      cancelAtPeriodEnd: cancelAtPeriodEnd ?? this.cancelAtPeriodEnd,
     );
   }
 
@@ -112,6 +116,7 @@ class SubscriptionPlan {
   static List<SubscriptionPlan> annotateWithCurrentPlan(
     List<SubscriptionPlan> plans,
     Subscription? currentSubscription,
+    StripeConfig stripeConfig,
   ) {
     if (currentSubscription == null) {
       return plans;
@@ -124,7 +129,10 @@ class SubscriptionPlan {
       return plans;
     }
 
-    final currentPriceId = _extractPriceIdFromSubscription(currentSubscription);
+    final currentPriceId = _extractPriceIdFromSubscription(
+      currentSubscription,
+      stripeConfig,
+    );
     if (currentPriceId == null) {
       return plans;
     }
@@ -140,6 +148,7 @@ class SubscriptionPlan {
           badge: PlanBadge.currentPlan,
           isCurrentPlan: true,
           nextRenewalDate: currentSubscription.currentPeriodEndDate,
+          cancelAtPeriodEnd: currentSubscription.cancelAtPeriodEnd,
         );
       }
 
@@ -148,21 +157,24 @@ class SubscriptionPlan {
     }).toList();
   }
 
-  static String? _extractPriceIdFromSubscription(Subscription subscription) {
+  static String? _extractPriceIdFromSubscription(
+    Subscription subscription,
+    StripeConfig stripeConfig,
+  ) {
     final amountInEuros = (subscription.amount / 100).toStringAsFixed(2);
     final interval = subscription.interval;
 
     final priceMap = <String, String>{
-      '4.99-month': StripeConfig.premiumMonthly,
-      '23.94-month': StripeConfig.premiumSemestral,
-      '3.99-month': StripeConfig.premiumSemestral,
-      '2.99-month': StripeConfig.standardMonthly,
-      '14.35-month': StripeConfig.standardSemestral,
-      '2.39-month': StripeConfig.standardSemestral,
-      '35.88-year': StripeConfig.premiumAnnual,
-      '2.99-year': StripeConfig.premiumAnnual,
-      '23.88-year': StripeConfig.standardAnnual,
-      '1.99-year': StripeConfig.standardAnnual,
+      '4.99-month': stripeConfig.premiumMonthly,
+      '23.94-month': stripeConfig.premiumSemestral,
+      '3.99-month': stripeConfig.premiumSemestral,
+      '2.99-month': stripeConfig.standardMonthly,
+      '14.35-month': stripeConfig.standardSemestral,
+      '2.39-month': stripeConfig.standardSemestral,
+      '35.88-year': stripeConfig.premiumAnnual,
+      '2.99-year': stripeConfig.premiumAnnual,
+      '23.88-year': stripeConfig.standardAnnual,
+      '1.99-year': stripeConfig.standardAnnual,
     };
 
     final key = '$amountInEuros-$interval';
@@ -249,7 +261,10 @@ class SubscriptionPlan {
     ];
   }
 
-  static List<SubscriptionPlan> getMonthlyPlans(dynamic localizations) {
+  static List<SubscriptionPlan> getMonthlyPlans(
+    dynamic localizations,
+    StripeConfig stripeConfig,
+  ) {
     return [
       SubscriptionPlan(
         title: localizations.premiumMonthly,
@@ -259,7 +274,7 @@ class SubscriptionPlan {
         features: getPremiumFeatures(localizations),
         tier: PlanTier.premium,
         type: PlanType.monthly,
-        priceId: StripeConfig.premiumMonthly,
+        priceId: stripeConfig.premiumMonthly,
       ),
       SubscriptionPlan(
         title: localizations.standardMonthly,
@@ -270,12 +285,15 @@ class SubscriptionPlan {
         excludedFeatures: getStandardExcludedFeatures(localizations),
         tier: PlanTier.standard,
         type: PlanType.monthly,
-        priceId: StripeConfig.standardMonthly,
+        priceId: stripeConfig.standardMonthly,
       ),
     ];
   }
 
-  static List<SubscriptionPlan> getSemiannualPlans(dynamic localizations) {
+  static List<SubscriptionPlan> getSemiannualPlans(
+    dynamic localizations,
+    StripeConfig stripeConfig,
+  ) {
     return [
       SubscriptionPlan(
         title: localizations.premiumSemiannual,
@@ -289,7 +307,7 @@ class SubscriptionPlan {
         features: getPremiumFeatures(localizations),
         tier: PlanTier.premium,
         type: PlanType.semiannual,
-        priceId: StripeConfig.premiumSemestral,
+        priceId: stripeConfig.premiumSemestral,
       ),
       SubscriptionPlan(
         title: localizations.standardSemiannual,
@@ -304,12 +322,15 @@ class SubscriptionPlan {
         excludedFeatures: getStandardExcludedFeatures(localizations),
         tier: PlanTier.standard,
         type: PlanType.semiannual,
-        priceId: StripeConfig.standardSemestral,
+        priceId: stripeConfig.standardSemestral,
       ),
     ];
   }
 
-  static List<SubscriptionPlan> getAnnualPlans(dynamic localizations) {
+  static List<SubscriptionPlan> getAnnualPlans(
+    dynamic localizations,
+    StripeConfig stripeConfig,
+  ) {
     return [
       SubscriptionPlan(
         title: localizations.premiumAnnual,
@@ -323,7 +344,7 @@ class SubscriptionPlan {
         features: getPremiumFeatures(localizations),
         tier: PlanTier.premium,
         type: PlanType.annual,
-        priceId: StripeConfig.premiumAnnual,
+        priceId: stripeConfig.premiumAnnual,
       ),
       SubscriptionPlan(
         title: localizations.standardAnnual,
@@ -338,12 +359,15 @@ class SubscriptionPlan {
         excludedFeatures: getStandardExcludedFeatures(localizations),
         tier: PlanTier.standard,
         type: PlanType.annual,
-        priceId: StripeConfig.standardAnnual,
+        priceId: stripeConfig.standardAnnual,
       ),
     ];
   }
 
-  static List<SubscriptionPlan> getSimplifiedPlans(dynamic localizations) {
+  static List<SubscriptionPlan> getSimplifiedPlans(
+    dynamic localizations,
+    StripeConfig stripeConfig,
+  ) {
     return [
       SubscriptionPlan(
         title: localizations.premiumAnnual,
@@ -357,7 +381,7 @@ class SubscriptionPlan {
         tier: PlanTier.premium,
         type: PlanType.annual,
         cardStyle: CardStyle.main,
-        priceId: StripeConfig.premiumAnnual,
+        priceId: stripeConfig.premiumAnnual,
       ),
       SubscriptionPlan(
         title: localizations.premiumMonthly,
@@ -368,7 +392,7 @@ class SubscriptionPlan {
         tier: PlanTier.premium,
         type: PlanType.monthly,
         cardStyle: CardStyle.alternative,
-        priceId: StripeConfig.premiumMonthly,
+        priceId: stripeConfig.premiumMonthly,
       ),
     ];
   }

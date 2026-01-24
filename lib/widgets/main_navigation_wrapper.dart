@@ -148,6 +148,25 @@ class MainNavigationWrapper extends StatelessWidget {
                         }
                       },
                     ),
+                    const Divider(),
+                    Consumer<AuthProvider>(
+                      builder: (context, authProvider, child) {
+                        if (authProvider.isAuthenticated) {
+                          return ListTile(
+                            leading: const Icon(Icons.person_outlined),
+                            title: Text(
+                              AppLocalizations.of(context)!.profile,
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                              context.push('/profile');
+                            },
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    ),
                     ListTile(
                       leading: const Icon(Icons.payment_outlined),
                       title: Text(AppLocalizations.of(context)!.viewPlans),
@@ -156,7 +175,6 @@ class MainNavigationWrapper extends StatelessWidget {
                         context.push('/subscription-plans');
                       },
                     ),
-                    const Divider(),
                     ListTile(
                       leading: const Icon(Icons.settings_outlined),
                       title: Text(AppLocalizations.of(context)!.settingsTitle),
@@ -165,6 +183,7 @@ class MainNavigationWrapper extends StatelessWidget {
                         context.push('/settings');
                       },
                     ),
+                    const Divider(),
                     ListTile(
                       leading: const Icon(Icons.groups_outlined),
                       title: Text(AppLocalizations.of(context)!.aboutAndFaq),
@@ -173,41 +192,43 @@ class MainNavigationWrapper extends StatelessWidget {
                         context.push('/about-faq');
                       },
                     ),
+                    ListTile(
+                      leading: const Icon(Icons.privacy_tip_outlined),
+                      title: Text(AppLocalizations.of(context)!.privacyPolicy),
+                      onTap: () {
+                        Navigator.pop(context);
+                        context.push('/privacy-policy');
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.description_outlined),
+                      title: Text(AppLocalizations.of(context)!.termsOfService),
+                      onTap: () {
+                        Navigator.pop(context);
+                        context.push('/terms-and-conditions');
+                      },
+                    ),
                     const Divider(),
                     Consumer<AuthProvider>(
                       builder: (context, authProvider, child) {
                         if (authProvider.isAuthenticated) {
-                          return Column(
-                            children: [
-                              ListTile(
-                                leading: const Icon(Icons.person_outlined),
-                                title: Text(
-                                  AppLocalizations.of(context)!.profile,
-                                ),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  context.push('/profile');
-                                },
-                              ),
-                              ListTile(
-                                leading: const Icon(Icons.logout_outlined),
-                                title: Text(
-                                  AppLocalizations.of(context)!.logout,
-                                ),
-                                onTap: () async {
-                                  Navigator.pop(context);
-                                  await authProvider.logout();
-                                  if (context.mounted) {
-                                    SnackbarUtils.showSuccess(
-                                      context,
-                                      AppLocalizations.of(
-                                        context,
-                                      )!.logoutSuccessful,
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
+                          return ListTile(
+                            leading: const Icon(Icons.logout_outlined),
+                            title: Text(
+                              AppLocalizations.of(context)!.logout,
+                            ),
+                            onTap: () async {
+                              Navigator.pop(context);
+                              await authProvider.logout();
+                              if (context.mounted) {
+                                SnackbarUtils.showSuccess(
+                                  context,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logoutSuccessful,
+                                );
+                              }
+                            },
                           );
                         } else {
                           return ListTile(

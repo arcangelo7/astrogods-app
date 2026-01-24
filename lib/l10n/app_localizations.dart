@@ -1034,6 +1034,12 @@ abstract class AppLocalizations {
   /// **'Regenerate reading'**
   String get regenerateReading;
 
+  /// No description provided for @newImprovedVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'New improved version'**
+  String get newImprovedVersion;
+
   /// No description provided for @searchCharts.
   ///
   /// In en, this message translates to:
@@ -1478,6 +1484,12 @@ abstract class AppLocalizations {
   /// **'Please login to get your complete reading'**
   String get loginRequiredForFullReading;
 
+  /// No description provided for @loginRequiredForSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in or create an account to subscribe'**
+  String get loginRequiredForSubscription;
+
   /// No description provided for @previewTitle.
   ///
   /// In en, this message translates to:
@@ -1529,19 +1541,19 @@ abstract class AppLocalizations {
   /// No description provided for @subscriptionStartDate.
   ///
   /// In en, this message translates to:
-  /// **'Started'**
+  /// **'Started on'**
   String get subscriptionStartDate;
 
   /// No description provided for @subscriptionEndDate.
   ///
   /// In en, this message translates to:
-  /// **'Renews'**
+  /// **'Renews on'**
   String get subscriptionEndDate;
 
   /// No description provided for @subscriptionCancelsOn.
   ///
   /// In en, this message translates to:
-  /// **'Cancels'**
+  /// **'Ends on'**
   String get subscriptionCancelsOn;
 
   /// No description provided for @manageSubscription.
@@ -5738,6 +5750,12 @@ abstract class AppLocalizations {
   /// **'Version {version}'**
   String version(Object version);
 
+  /// No description provided for @releaseNotes_4_10_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Success screen after subscription. Reorganized navigation in side menu. Clickable links in Codex. Subscription management improvements.'**
+  String get releaseNotes_4_10_1;
+
   /// No description provided for @releaseNotes_4_10_0.
   ///
   /// In en, this message translates to:
@@ -6007,6 +6025,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Monthly transits you generate will appear here.'**
   String get noSavedMonthlyTransitsDescription;
+
+  /// No description provided for @subscriptionSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to AstroGods!'**
+  String get subscriptionSuccessTitle;
+
+  /// No description provided for @subscriptionSuccessMessagePremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your support. You now have access to all features.'**
+  String get subscriptionSuccessMessagePremium;
+
+  /// No description provided for @subscriptionSuccessMessageStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your support. You can now read unlimited birth charts.'**
+  String get subscriptionSuccessMessageStandard;
+
+  /// No description provided for @subscriptionSuccessTrialInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Your 7-day trial has started'**
+  String get subscriptionSuccessTrialInfo;
+
+  /// No description provided for @subscriptionSuccessGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to home'**
+  String get subscriptionSuccessGoHome;
+
+  /// No description provided for @activeSubscriptionDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'You have an active subscription. To delete your account, your subscription will be cancelled first.\n\nThis action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.'**
+  String get activeSubscriptionDeleteWarning;
+
+  /// No description provided for @cancelSubscriptionAndDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel subscription and delete account'**
+  String get cancelSubscriptionAndDelete;
+
+  /// No description provided for @cancellingSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelling subscription...'**
+  String get cancellingSubscription;
+
+  /// No description provided for @subscriptionCancelledSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription cancelled successfully'**
+  String get subscriptionCancelledSuccessfully;
 }
 
 class _AppLocalizationsDelegate

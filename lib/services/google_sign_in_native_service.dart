@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,9 +10,7 @@ class GoogleSignInNativeService {
   factory GoogleSignInNativeService() => _instance;
   GoogleSignInNativeService._internal();
 
-  GoogleSignInAccount? _currentUser;
   bool _isInitialized = false;
-  StreamSubscription<GoogleSignInAuthenticationEvent>? _authSubscription;
 
   Future<void> initialize(String? clientId) async {
     if (_isInitialized) return;
@@ -32,22 +29,7 @@ class GoogleSignInNativeService {
       }
     }
 
-    _authSubscription?.cancel();
-    _authSubscription =
-        signIn.authenticationEvents.listen(_handleAuthenticationEvent);
-    await signIn.attemptLightweightAuthentication();
     _isInitialized = true;
-  }
-
-  void _handleAuthenticationEvent(GoogleSignInAuthenticationEvent event) {
-    switch (event) {
-      case GoogleSignInAuthenticationEventSignIn():
-        _currentUser = event.user;
-        break;
-      case GoogleSignInAuthenticationEventSignOut():
-        _currentUser = null;
-        break;
-    }
   }
 
   Future<GoogleUserData?> signIn() async {
@@ -61,23 +43,20 @@ class GoogleSignInNativeService {
             'GoogleSignInNativeService not initialized. Call initialize() first.');
       }
 
-      if (GoogleSignIn.instance.supportsAuthenticate()) {
-        await GoogleSignIn.instance.authenticate();
-      } else {
+      if (!GoogleSignIn.instance.supportsAuthenticate()) {
         throw Exception('Authentication not supported on this platform');
       }
 
-      if (_currentUser == null) {
-        return null;
-      }
+      final GoogleSignInAccount user =
+          await GoogleSignIn.instance.authenticate();
 
-      final GoogleSignInAuthentication auth = _currentUser!.authentication;
+      final GoogleSignInAuthentication auth = user.authentication;
 
       return GoogleUserData(
-        id: _currentUser!.id,
-        name: _currentUser!.displayName ?? '',
-        email: _currentUser!.email,
-        imageUrl: _currentUser!.photoUrl ?? '',
+        id: user.id,
+        name: user.displayName ?? '',
+        email: user.email,
+        imageUrl: user.photoUrl ?? '',
         idToken: auth.idToken ?? '',
       );
     } on GoogleSignInException catch (e) {
@@ -85,26 +64,6 @@ class GoogleSignInNativeService {
         return null;
       }
       rethrow;
-    } catch (e) {
-      throw Exception('Google Sign-In failed: $e');
     }
-  }
-
-  Future<bool> signOut() async {
-    if (!kIsWeb && (Platform.isLinux || Platform.isWindows)) {
-      return GoogleSignInDesktopService().signOut();
-    }
-
-    try {
-      await GoogleSignIn.instance.disconnect();
-      _currentUser = null;
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  bool isSignedIn() {
-    return _currentUser != null;
   }
 }

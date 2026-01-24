@@ -99,6 +99,11 @@
   </screenshots>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="4.10.1" date="2026-01-24">
+      <description>
+        <p>Success screen after subscription. Reorganized navigation in side menu. Clickable links in Codex. Subscription management improvements.</p>
+      </description>
+    </release>
     <release version="4.10.0" date="2026-01-16">
       <description>
         <p>You can now regenerate readings in your preferred language. Saved transits now appear in saved analyses. Fixed authentication workflow bugs.</p>

@@ -8,6 +8,7 @@ import '../providers/auth_provider.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
 import '../services/auth_service.dart';
+import '../services/api_client.dart';
 import '../utils/snackbar_utils.dart';
 import '../providers/theme_provider.dart';
 import '../config/environment.dart';
@@ -124,10 +125,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _showDeleteAccountDialog(BuildContext context) async {
+    if (_subscriptionStatus?.hasActiveSubscription == true) {
+      await _showActiveSubscriptionDeleteDialog(context);
+      return;
+    }
+    await _showStandardDeleteAccountDialog(context);
+  }
+
+  Future<bool?> _showDeleteConfirmationDialog({
+    required BuildContext context,
+    required String title,
+    required String warning,
+    required String confirmButtonText,
+    String? additionalText,
+  }) async {
     final l10n = AppLocalizations.of(context)!;
     final TextEditingController confirmController = TextEditingController();
 
-    final result = await showDialog<bool>(
+    return showDialog<bool>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext dialogContext) {
@@ -135,25 +150,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
           builder: (context, setState) {
             return AlertDialog(
               backgroundColor: Theme.of(context).colorScheme.surface,
-              title: Text(
-                l10n.deleteAccountTitle,
-                style: AppTextStyles.getH5Style(context),
-              ),
+              title: Text(title, style: AppTextStyles.getH5Style(context)),
               content: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      l10n.deleteAccountWarning,
-                      style: AppTextStyles.getBodyStyle(context),
-                    ),
+                    Text(warning, style: AppTextStyles.getBodyStyle(context)),
                     const SizedBox(height: 16),
                     Text(
-                      l10n.deleteAccountConfirmation,
-                      style: AppTextStyles.getBodyStyle(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.bold),
+                      additionalText ?? l10n.typeDeleteToConfirm,
+                      style: AppTextStyles.getBodyStyle(context).copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
                     TextField(
@@ -162,20 +169,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         labelText: l10n.typeDeleteToConfirm,
                         labelStyle: AppTextStyles.getCaptionStyle(context),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.outline,
-                          ),
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
                         ),
                       ),
                       style: AppTextStyles.getBodyStyle(context),
-                      onChanged: (value) {
-                        setState(() {});
-                      },
+                      onChanged: (value) => setState(() {}),
                     ),
                   ],
                 ),
@@ -183,23 +184,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(dialogContext).pop(false),
-                  child: Text(
-                    l10n.cancel,
-                    style: AppTextStyles.getButtonStyle(context),
-                  ),
+                  child: Text(l10n.cancel, style: AppTextStyles.getButtonStyle(context)),
                 ),
                 TextButton(
-                  onPressed: confirmController.text.trim().toUpperCase() !=
-                          l10n.deleteConfirmationWord.toUpperCase()
+                  onPressed: confirmController.text.trim().toUpperCase() != l10n.deleteConfirmationWord.toUpperCase()
                       ? null
-                      : () {
-                          Navigator.of(dialogContext).pop(true);
-                        },
+                      : () => Navigator.of(dialogContext).pop(true),
                   child: Text(
-                    l10n.delete,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
-                    ),
+                    confirmButtonText,
+                    style: TextStyle(color: Theme.of(context).colorScheme.error),
                   ),
                 ),
               ],
@@ -208,7 +201,65 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       },
     );
+  }
 
+  Future<void> _showActiveSubscriptionDeleteDialog(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+    final result = await _showDeleteConfirmationDialog(
+      context: context,
+      title: l10n.deleteAccountTitle,
+      warning: l10n.activeSubscriptionDeleteWarning,
+      confirmButtonText: l10n.cancelSubscriptionAndDelete,
+    );
+    if (result == true && context.mounted) {
+      await _cancelSubscriptionAndDeleteAccount(context);
+    }
+  }
+
+  Future<void> _cancelSubscriptionAndDeleteAccount(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+    final subscriptionService = SubscriptionService(context: context);
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        content: Row(
+          children: [
+            const CircularProgressIndicator(),
+            const SizedBox(width: 16),
+            Expanded(child: Text(l10n.cancellingSubscription)),
+          ],
+        ),
+      ),
+    );
+
+    try {
+      await subscriptionService.cancelSubscription();
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      SnackbarUtils.showSuccess(context, l10n.subscriptionCancelledSuccessfully);
+      await _deleteAccount(context);
+    } catch (e) {
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      if (e is ApiException && e.message.isNotEmpty) {
+        SnackbarUtils.showError(context, e.message);
+      } else {
+        SnackbarUtils.showError(context, l10n.unknownErrorOccurred);
+      }
+    }
+  }
+
+  Future<void> _showStandardDeleteAccountDialog(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+    final result = await _showDeleteConfirmationDialog(
+      context: context,
+      title: l10n.deleteAccountTitle,
+      warning: l10n.deleteAccountWarning,
+      confirmButtonText: l10n.delete,
+      additionalText: l10n.deleteAccountConfirmation,
+    );
     if (result == true && context.mounted) {
       await _deleteAccount(context);
     }
@@ -904,33 +955,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _unsubscribeDaily(int newsletterId) async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       final newsletterService = NewsletterService(context: context);
       await newsletterService.unsubscribeDailyNewsletter(newsletterId);
 
       if (mounted) {
-        SnackbarUtils.showSuccess(context, AppLocalizations.of(context)!.unsubscribeSuccess);
+        SnackbarUtils.showSuccess(context, l10n.unsubscribeSuccess);
         _loadNewsletters();
       }
     } catch (e) {
       if (mounted) {
-        SnackbarUtils.showError(context, e.toString());
+        if (e is ApiException && e.message.isNotEmpty) {
+          SnackbarUtils.showError(context, e.message);
+        } else {
+          SnackbarUtils.showError(context, l10n.unknownErrorOccurred);
+        }
       }
     }
   }
 
   Future<void> _unsubscribeMonthly(int newsletterId) async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       final newsletterService = NewsletterService(context: context);
       await newsletterService.unsubscribeMonthlyNewsletter(newsletterId);
 
       if (mounted) {
-        SnackbarUtils.showSuccess(context, AppLocalizations.of(context)!.unsubscribeSuccess);
+        SnackbarUtils.showSuccess(context, l10n.unsubscribeSuccess);
         _loadNewsletters();
       }
     } catch (e) {
       if (mounted) {
-        SnackbarUtils.showError(context, e.toString());
+        if (e is ApiException && e.message.isNotEmpty) {
+          SnackbarUtils.showError(context, e.message);
+        } else {
+          SnackbarUtils.showError(context, l10n.unknownErrorOccurred);
+        }
       }
     }
   }

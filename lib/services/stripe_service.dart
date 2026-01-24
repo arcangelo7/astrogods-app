@@ -21,8 +21,52 @@ class CheckoutException implements Exception {
   String toString() => message;
 }
 
+class StripeConfig {
+  final String publishableKey;
+  final Map<String, String> priceIds;
+
+  StripeConfig({required this.publishableKey, required this.priceIds});
+
+  String get premiumMonthly => priceIds['premium_monthly']!;
+  String get premiumSemestral => priceIds['premium_semestral']!;
+  String get premiumAnnual => priceIds['premium_annual']!;
+  String get standardMonthly => priceIds['standard_monthly']!;
+  String get standardSemestral => priceIds['standard_semestral']!;
+  String get standardAnnual => priceIds['standard_annual']!;
+}
+
 class StripeService {
   static String get baseUrl => Environment.apiBaseUrl;
+  static StripeConfig? _cachedConfig;
+
+  static Future<StripeConfig> getConfig() async {
+    if (_cachedConfig != null) {
+      return _cachedConfig!;
+    }
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/stripe/config'),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Client-Version': Environment.appVersion,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final publishableKey = data['publishable_key'] as String;
+      _cachedConfig = StripeConfig(
+        publishableKey: publishableKey,
+        priceIds: Map<String, String>.from(data['price_ids']),
+      );
+      if (!kIsWeb) {
+        Stripe.publishableKey = publishableKey;
+      }
+      return _cachedConfig!;
+    } else {
+      throw ApiException('Failed to load Stripe configuration');
+    }
+  }
 
   static Future<Map<String, dynamic>> createPaymentIntent(
     BuildContext context,
@@ -222,7 +266,7 @@ class StripeService {
     }
   }
   
-  static Future<void> confirmSession(
+  static Future<String> confirmSession(
     BuildContext context,
     String sessionId,
   ) async {
@@ -254,7 +298,8 @@ class StripeService {
       );
 
       if (response.statusCode == 200) {
-        return;
+        final data = json.decode(response.body);
+        return data['tier'] as String;
       } else {
         final error = json.decode(response.body);
         throw ApiException(

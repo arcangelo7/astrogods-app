@@ -519,6 +519,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get regenerateReading => 'Regenerate reading';
 
   @override
+  String get newImprovedVersion => 'New improved version';
+
+  @override
   String get searchCharts => 'Search charts...';
 
   @override
@@ -751,6 +754,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Please login to get your complete reading';
 
   @override
+  String get loginRequiredForSubscription =>
+      'Sign in or create an account to subscribe';
+
+  @override
   String get previewTitle => 'Your birth chart awaits';
 
   @override
@@ -776,13 +783,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscriptionAmount => 'Amount';
 
   @override
-  String get subscriptionStartDate => 'Started';
+  String get subscriptionStartDate => 'Started on';
 
   @override
-  String get subscriptionEndDate => 'Renews';
+  String get subscriptionEndDate => 'Renews on';
 
   @override
-  String get subscriptionCancelsOn => 'Cancels';
+  String get subscriptionCancelsOn => 'Ends on';
 
   @override
   String get manageSubscription => 'Manage subscription';
@@ -3233,6 +3240,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes_4_10_1 =>
+      'Success screen after subscription. Reorganized navigation in side menu. Clickable links in Codex. Subscription management improvements.';
+
+  @override
   String get releaseNotes_4_10_0 =>
       'You can now regenerate readings in your preferred language. Saved transits now appear in saved analyses. Fixed authentication workflow bugs.';
 
@@ -3392,4 +3403,36 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noSavedMonthlyTransitsDescription =>
       'Monthly transits you generate will appear here.';
+
+  @override
+  String get subscriptionSuccessTitle => 'Welcome to AstroGods!';
+
+  @override
+  String get subscriptionSuccessMessagePremium =>
+      'Thank you for your support. You now have access to all features.';
+
+  @override
+  String get subscriptionSuccessMessageStandard =>
+      'Thank you for your support. You can now read unlimited birth charts.';
+
+  @override
+  String get subscriptionSuccessTrialInfo => 'Your 7-day trial has started';
+
+  @override
+  String get subscriptionSuccessGoHome => 'Go to home';
+
+  @override
+  String get activeSubscriptionDeleteWarning =>
+      'You have an active subscription. To delete your account, your subscription will be cancelled first.\n\nThis action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.';
+
+  @override
+  String get cancelSubscriptionAndDelete =>
+      'Cancel subscription and delete account';
+
+  @override
+  String get cancellingSubscription => 'Cancelling subscription...';
+
+  @override
+  String get subscriptionCancelledSuccessfully =>
+      'Subscription cancelled successfully';
 }
