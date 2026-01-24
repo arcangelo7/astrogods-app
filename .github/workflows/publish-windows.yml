@@ -53,9 +53,8 @@ jobs:
       - name: Upload package to submission
         shell: pwsh
         run: |
-          $msixFile = (Get-ChildItem -Path msix -Filter "*.msix" | Select-Object -First 1).FullName
-          Write-Host "Uploading package: $msixFile"
-          msstore publish . --appId $env:APP_ID --inputFile $msixFile --noCommit
+          Write-Host "Uploading package from: msix"
+          msstore publish . --appId $env:APP_ID --inputDirectory msix --noCommit
 
       - name: Update submission metadata
         shell: pwsh
