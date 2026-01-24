@@ -60,10 +60,10 @@ jobs:
       - name: Update submission metadata
         shell: pwsh
         run: |
-          $metadata = Get-Content -Raw "metadata/metadata.json"
           Write-Host "Updating metadata with release notes:"
+          $metadata = Get-Content -Raw "metadata/metadata.json"
           Write-Host $metadata
-          msstore submission updateMetadata $env:APP_ID $metadata
+          $metadata | msstore submission updateMetadata $env:APP_ID --verbose
 
       - name: Publish submission
         shell: pwsh
