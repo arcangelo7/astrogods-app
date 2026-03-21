@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <p align="center">
   <img src="branding/logos/circular/astrogods_logo_256.png" alt="AstroGods Logo" width="192" />
 </p>
@@ -9,6 +15,7 @@
 [![Flathub](https://img.shields.io/flathub/v/it.astrogods.AstroGods?logo=flathub&logoColor=white)](https://flathub.org/apps/it.astrogods.AstroGods)
 [![Snap](https://snapcraft.io/astrogods/badge.svg)](https://snapcraft.io/astrogods)
 [![Microsoft Store](https://img.shields.io/badge/Microsoft_Store-Install-0078D4?logo=microsoft&logoColor=white)](https://apps.microsoft.com/detail/9mttm2qdm94v)
+[![REUSE](https://github.com/arcangelo7/astrogods-app/actions/workflows/reuse.yml/badge.svg)](https://github.com/arcangelo7/astrogods-app/actions/workflows/reuse.yml)
 
 AstroGods is a modern, beautifully designed Astrology app focused on self-knowledge. It provides in-depth birth chart interpretations using Egyptian astrology (Equal house system with Vehlow domification), synastry analysis for relationships, and daily and monthly transit readings. Available in English and Italian.
 

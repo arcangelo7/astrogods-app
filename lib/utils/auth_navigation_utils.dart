@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/router.dart';

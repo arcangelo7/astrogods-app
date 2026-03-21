@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../models/google_user_data.dart';

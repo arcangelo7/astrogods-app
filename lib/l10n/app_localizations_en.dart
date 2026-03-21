@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';

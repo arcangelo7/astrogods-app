@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2014 The Flutter Authors
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
 #include <flutter/dart_project.h>
 #include <flutter/flutter_view_controller.h>
 #include <windows.h>

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 // This is a basic Flutter widget test.
 //
 // To perform an interaction with a widget in your test, use the WidgetTester

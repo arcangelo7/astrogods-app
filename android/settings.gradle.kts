@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2014 The Flutter Authors
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
 pluginManagement {
     val flutterSdkPath = run {
         val properties = java.util.Properties()

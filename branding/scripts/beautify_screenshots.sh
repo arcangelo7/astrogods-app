@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # Beautify screenshots for Flathub
 # Adds rounded corners, drop shadow, and ensures max 2000x1400
 

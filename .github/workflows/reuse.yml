@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: REUSE compliance
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches: [main]
+
+jobs:
+  reuse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: fsfe/reuse-action@v6

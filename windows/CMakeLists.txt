@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2014 The Flutter Authors
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 # Project-level configuration.
 cmake_minimum_required(VERSION 3.14)
 project(astrogods LANGUAGES CXX)

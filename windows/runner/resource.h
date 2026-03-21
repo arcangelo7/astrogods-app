@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2014 The Flutter Authors
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
 // Used by Runner.rc
