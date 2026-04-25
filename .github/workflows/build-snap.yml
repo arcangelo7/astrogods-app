@@ -22,7 +22,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Install snapcraft
         run: sudo snap install snapcraft --classic
@@ -34,7 +34,7 @@ jobs:
           echo "snap=$(ls *.snap)" >> $GITHUB_OUTPUT
 
       - name: Upload snap artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: snap-${{ matrix.arch }}
           path: ${{ steps.build.outputs.snap }}
