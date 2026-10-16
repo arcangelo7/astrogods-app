@@ -64,10 +64,12 @@ jobs:
       - name: Update submission metadata
         shell: pwsh
         run: |
-          $metadata = Get-Content -Raw "metadata/metadata.json"
-          Write-Host "Sending metadata:"
-          Write-Host $metadata
-          $metadata | msstore submission updateMetadata $env:APP_ID --verbose
+          $submission = msstore submission get $env:APP_ID | ConvertFrom-Json -AsHashtable
+          $metadata = Get-Content -Raw "metadata/metadata.json" | ConvertFrom-Json -AsHashtable
+          foreach ($key in $metadata.Keys) {
+            $submission[$key] = $metadata[$key]
+          }
+          $submission | ConvertTo-Json -Depth 32 | msstore submission updateMetadata $env:APP_ID --verbose
 
       - name: Publish submission
         shell: pwsh

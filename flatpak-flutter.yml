@@ -47,5 +47,5 @@ modules:
         tag: VERSION_PLACEHOLDER
       - type: git
         url: https://github.com/flutter/flutter.git
-        tag: 3.38.5
+        tag: 3.47.7
         dest: flutter

@@ -1,13 +1,25 @@
 version = 1
 
-# Project files that cannot have inline comments
 [[annotations]]
 path = [
+    "android/**",
+    "linux/**",
+    "windows/**",
+]
+SPDX-FileCopyrightText = "2014 The Flutter Authors"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+[[annotations]]
+path = [
+    "lib/**",
+    "android/fastlane/**",
+    "linux/it.astrogods.AstroGods.desktop",
+    "linux/it.astrogods.AstroGods.metainfo.xml",
+    "pubspec.yaml",
     ".env.flutter",
     ".gitignore",
     "android/app/src/main/res/mipmap-*/*.png",
     "android/play_store_512.png",
-    "android/whatsnew/**",
     "assets/images/**",
     "branding/**",
     "lib/l10n/*.arb",
@@ -20,7 +32,6 @@ path = [
 SPDX-FileCopyrightText = "2026 Arcangelo Massari <info@arcangelomassari.com>"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
-# Generated build files (Flatpak)
 [[annotations]]
 path = [
     "generated/**",
@@ -28,19 +39,16 @@ path = [
 SPDX-FileCopyrightText = "2026 Arcangelo Massari <info@arcangelomassari.com>"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
-# License file itself
 [[annotations]]
 path = "LICENSE"
 SPDX-FileCopyrightText = "2007 Free Software Foundation, Inc. <https://fsf.org/>"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
-# Machine-generated files
 [[annotations]]
 path = "pubspec.lock"
 SPDX-FileCopyrightText = "NONE"
 SPDX-License-Identifier = "CC0-1.0"
 
-# Flutter framework template files (non-commentable)
 [[annotations]]
 path = [
     ".metadata",
@@ -49,7 +57,6 @@ path = [
 SPDX-FileCopyrightText = "2014 The Flutter Authors"
 SPDX-License-Identifier = "BSD-3-Clause"
 
-# Flutter auto-generated files (regenerated on build)
 [[annotations]]
 path = [
     "linux/flutter/generated_plugin_registrant.cc",
