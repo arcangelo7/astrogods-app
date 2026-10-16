@@ -1,21 +1,15 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../services/birth_chart_service.dart';
 import '../services/reading_state_service.dart';
 
 class LunarPhaseDisplay extends StatefulWidget {
   final int birthChartId;
 
-  const LunarPhaseDisplay({
-    super.key,
-    required this.birthChartId,
-  });
+  const LunarPhaseDisplay({super.key, required this.birthChartId});
 
   @override
   State<LunarPhaseDisplay> createState() => _LunarPhaseDisplayState();
@@ -50,24 +44,24 @@ class _LunarPhaseDisplayState extends State<LunarPhaseDisplay> {
   }
 
   String _getLocalizedPhaseName(BuildContext context, String backendPhaseName) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     switch (backendPhaseName) {
       case 'New':
-        return l10n.newMoon;
+        return t.ui.newMoon;
       case 'Waxing crescent':
-        return l10n.waxingCrescent;
+        return t.ui.waxingCrescent;
       case 'First quarter':
-        return l10n.firstQuarter;
+        return t.ui.firstQuarter;
       case 'Waxing gibbous':
-        return l10n.waxingGibbous;
+        return t.ui.waxingGibbous;
       case 'Full':
-        return l10n.fullMoon;
+        return t.ui.fullMoon;
       case 'Waning gibbous':
-        return l10n.waningGibbous;
+        return t.ui.waningGibbous;
       case 'Last quarter':
-        return l10n.lastQuarter;
+        return t.ui.lastQuarter;
       case 'Waning crescent':
-        return l10n.waningCrescent;
+        return t.ui.waningCrescent;
       default:
         return backendPhaseName;
     }
@@ -75,7 +69,7 @@ class _LunarPhaseDisplayState extends State<LunarPhaseDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final screenWidth = MediaQuery.of(context).size.width;
     final containerWidth = screenWidth > _maxWidth ? _maxWidth : screenWidth;
 
@@ -105,11 +99,7 @@ class _LunarPhaseDisplayState extends State<LunarPhaseDisplay> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.string(
-                    _moonSvg!,
-                    width: 60,
-                    height: 60,
-                  ),
+                  SvgPicture.string(_moonSvg!, width: 60, height: 60),
                   const SizedBox(height: 12),
                   Text(
                     _getLocalizedPhaseName(context, _moonPhaseName!),
@@ -121,10 +111,11 @@ class _LunarPhaseDisplayState extends State<LunarPhaseDisplay> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    l10n.dayCount(_moonPhase!),
+                    t.ui.dayCount(day: _moonPhase!),
                     style: AppTextStyles.getBodyStyle(context).copyWith(
                       fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                      color: Theme.of(context).colorScheme.onSurface
+                          .withValues(alpha: 0.7),
                     ),
                     textAlign: TextAlign.center,
                   ),

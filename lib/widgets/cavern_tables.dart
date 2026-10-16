@@ -1,10 +1,7 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class _TableTheme {
   final Color borderColor;
@@ -17,17 +14,21 @@ class _TableTheme {
   final TextStyle paragraphStyle;
 
   _TableTheme(BuildContext context)
-      : borderColor = Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
-        headerBgColor = Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
-        headerBgColorStrong = Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-        secondaryBgColor = Theme.of(context).colorScheme.secondary.withValues(alpha: 0.05),
-        padding = EdgeInsets.all(_getResponsivePadding(context)),
-        borderSide = BorderSide(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
-          width: 1,
-        ),
-        strongStyle = AppTextStyles.getMarkdownStrongStyle(context),
-        paragraphStyle = AppTextStyles.getMarkdownParagraphStyle(context);
+    : borderColor = Theme.of(context).colorScheme.outline
+          .withValues(alpha: 0.3),
+      headerBgColor = Theme.of(context).colorScheme.primary
+          .withValues(alpha: 0.05),
+      headerBgColorStrong = Theme.of(context).colorScheme.primary
+          .withValues(alpha: 0.1),
+      secondaryBgColor = Theme.of(context).colorScheme.secondary
+          .withValues(alpha: 0.05),
+      padding = EdgeInsets.all(_getResponsivePadding(context)),
+      borderSide = BorderSide(
+        color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+        width: 1,
+      ),
+      strongStyle = AppTextStyles.getMarkdownStrongStyle(context),
+      paragraphStyle = AppTextStyles.getMarkdownParagraphStyle(context);
 
   static double _getResponsivePadding(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -37,85 +38,79 @@ class _TableTheme {
 
 class CavernTables {
   static Widget getPrimaDivisioneTable(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final tr = Translations.of(context);
     final t = _TableTheme(context);
 
     return _ResponsiveTable(
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(
-            color: t.borderColor,
-            width: 1,
-          ),
+          border: Border.all(color: t.borderColor, width: 1),
         ),
         child: Column(
           children: [
-          // Header row (Prima Divisione)
-          Container(
-            width: double.infinity,
-            padding: t.padding,
-            decoration: BoxDecoration(
-              color: t.headerBgColorStrong,
-              border: Border(
-                bottom: BorderSide(color: t.borderColor, width: 1),
+            // Header row (Prima Divisione)
+            Container(
+              width: double.infinity,
+              padding: t.padding,
+              decoration: BoxDecoration(
+                color: t.headerBgColorStrong,
+                border: Border(
+                  bottom: BorderSide(color: t.borderColor, width: 1),
+                ),
+              ),
+              child: Text(
+                tr.caverns.firstDivisionTitle,
+                textAlign: TextAlign.center,
+                style: AppTextStyles.getMarkdownStrongStyle(context),
               ),
             ),
-            child: Text(
-              l10n.firstDivisionTitle,
-              textAlign: TextAlign.center,
-              style: AppTextStyles.getMarkdownStrongStyle(context),
-            ),
-          ),
-          // R1 section
-          _buildRowSpanSection(context, 'R1', [
-            ['S1', 'S2', 'S3'],
-            [
-              l10n.table1R1S1,
-              l10n.table1R1S2,
-              l10n.table1R1S3,
-            ],
-          ]),
-          // R2 section
-          _buildRowSpanSection(context, 'R2', [
-            ['S1', 'S2', 'S3'],
-            [
-              l10n.table1R2S1,
-              l10n.table1R2S2,
-              l10n.table1R2S3,
-            ],
-          ]),
-          // R3 section
-          _buildRowSpanSectionWithColspan(
-            context,
-            'R3',
-            [
-              ['S1', 'S2'],
+            // R1 section
+            _buildRowSpanSection(context, 'R1', [
+              ['S1', 'S2', 'S3'],
               [
-                l10n.table1R3S1,
-                l10n.table1R3S2,
+                tr.caverns.table1R1S1,
+                tr.caverns.table1R1S2,
+                tr.caverns.table1R1S3,
               ],
-            ],
-            [1, 2],
-          ), // S1=1 column, S2=2 columns
-          // R4 section
-          _buildRowSpanSection(context, 'R4', [
-            ['S1', 'S2', 'S3'],
-            [
-              l10n.table1R4S1,
-              l10n.table1R4S2,
-              l10n.table1R4S3,
-            ],
-          ]),
-          // R5 section
-          _buildRowSpanSectionWithColspan(
-            context,
-            'R5',
-            [
-              ['S1', 'S2'],
-              [l10n.table1R5S1, l10n.table1R5S2],
-            ],
-            [1, 2],
-          ), // S1=1 column, S2=2 columns
+            ]),
+            // R2 section
+            _buildRowSpanSection(context, 'R2', [
+              ['S1', 'S2', 'S3'],
+              [
+                tr.caverns.table1R2S1,
+                tr.caverns.table1R2S2,
+                tr.caverns.table1R2S3,
+              ],
+            ]),
+            // R3 section
+            _buildRowSpanSectionWithColspan(
+              context,
+              'R3',
+              [
+                ['S1', 'S2'],
+                [tr.caverns.table1R3S1, tr.caverns.table1R3S2],
+              ],
+              [1, 2],
+            ), // S1=1 column, S2=2 columns
+            // R4 section
+            _buildRowSpanSection(context, 'R4', [
+              ['S1', 'S2', 'S3'],
+              [
+                tr.caverns.table1R4S1,
+                tr.caverns.table1R4S2,
+                tr.caverns.table1R4S3,
+              ],
+            ]),
+            // R5 section
+            _buildRowSpanSectionWithColspan(
+              context,
+              'R5',
+              [
+                ['S1', 'S2'],
+                [tr.caverns.table1R5S1, tr.caverns.table1R5S2],
+              ],
+              [1, 2],
+            ), // S1=1 column, S2=2 columns
           ],
         ),
       ),
@@ -142,7 +137,11 @@ class CavernTables {
                 border: Border(right: t.borderSide, bottom: t.borderSide),
               ),
               child: Center(
-                child: Text(rLabel, style: t.strongStyle, textAlign: TextAlign.center),
+                child: Text(
+                  rLabel,
+                  style: t.strongStyle,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),
@@ -156,7 +155,11 @@ class CavernTables {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        for (int colIndex = 0; colIndex < rows[rowIndex].length; colIndex++)
+                        for (
+                          int colIndex = 0;
+                          colIndex < rows[rowIndex].length;
+                          colIndex++
+                        )
                           Expanded(
                             flex: 2,
                             child: Container(
@@ -173,7 +176,9 @@ class CavernTables {
                               child: Text(
                                 rows[rowIndex][colIndex],
                                 textAlign: TextAlign.center,
-                                style: rowIndex == 0 ? t.strongStyle : t.paragraphStyle,
+                                style: rowIndex == 0
+                                    ? t.strongStyle
+                                    : t.paragraphStyle,
                               ),
                             ),
                           ),
@@ -209,7 +214,11 @@ class CavernTables {
                 border: Border(right: t.borderSide, bottom: t.borderSide),
               ),
               child: Center(
-                child: Text(rLabel, style: t.strongStyle, textAlign: TextAlign.center),
+                child: Text(
+                  rLabel,
+                  style: t.strongStyle,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),
@@ -223,7 +232,11 @@ class CavernTables {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        for (int colIndex = 0; colIndex < rows[rowIndex].length; colIndex++)
+                        for (
+                          int colIndex = 0;
+                          colIndex < rows[rowIndex].length;
+                          colIndex++
+                        )
                           Expanded(
                             flex: colSpans[colIndex],
                             child: Container(
@@ -240,7 +253,9 @@ class CavernTables {
                               child: Text(
                                 rows[rowIndex][colIndex],
                                 textAlign: TextAlign.center,
-                                style: rowIndex == 0 ? t.strongStyle : t.paragraphStyle,
+                                style: rowIndex == 0
+                                    ? t.strongStyle
+                                    : t.paragraphStyle,
                               ),
                             ),
                           ),
@@ -256,231 +271,228 @@ class CavernTables {
   }
 
   static Widget getSecondaDivisioneTable(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final tr = Translations.of(context);
     final t = _TableTheme(context);
 
     return _ResponsiveTable(
       child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: t.borderColor, width: 1),
-      ),
-      child: Column(
-        children: [
-          // Header row (Division Two)
-          Container(
-            width: double.infinity,
-            padding: t.padding,
-            decoration: BoxDecoration(
-              color: t.headerBgColorStrong,
-              border: Border(bottom: BorderSide(color: t.borderColor, width: 1)),
+        decoration: BoxDecoration(
+          border: Border.all(color: t.borderColor, width: 1),
+        ),
+        child: Column(
+          children: [
+            // Header row (Division Two)
+            Container(
+              width: double.infinity,
+              padding: t.padding,
+              decoration: BoxDecoration(
+                color: t.headerBgColorStrong,
+                border: Border(
+                  bottom: BorderSide(color: t.borderColor, width: 1),
+                ),
+              ),
+              child: Text(
+                tr.caverns.secondDivisionTitle,
+                textAlign: TextAlign.center,
+                style: AppTextStyles.getMarkdownStrongStyle(context),
+              ),
             ),
-            child: Text(
-              l10n.secondDivisionTitle,
-              textAlign: TextAlign.center,
-              style: AppTextStyles.getMarkdownStrongStyle(context),
-            ),
-          ),
-          // R1 section
-          _buildRowSpanSection(context, 'R1', [
-            ['S1', 'S2', 'S3'],
-            [
-              l10n.table2R1S1,
-              l10n.table2R1S2,
-              l10n.table2R1S3,
-            ],
-          ]),
-          // R2 section
-          _buildRowSpanSection(context, 'R2', [
-            ['S1', 'S2'],
-            [
-              l10n.table2R2S1,
-              l10n.table2R2S2,
-            ],
-          ]),
-          // R3 section
-          _buildRowSpanSection(context, 'R3', [
-            ['S1', 'S2'],
-            [
-              l10n.table2R3S1,
-              l10n.table2R3S2,
-            ],
-          ]),
-          // R4 section
-          _buildRowSpanSection(context, 'R4', [
-            ['S1', 'S2'],
-            [
-              l10n.table2R4S1,
-              l10n.table2R4S2,
-            ],
-          ]),
-          // R5 section
-          _buildRowSpanSection(context, 'R5', [
-            ['S1'],
-            [
-              l10n.table2R5S1,
-            ],
-          ]),
-        ],
-      ),
+            // R1 section
+            _buildRowSpanSection(context, 'R1', [
+              ['S1', 'S2', 'S3'],
+              [
+                tr.caverns.table2R1S1,
+                tr.caverns.table2R1S2,
+                tr.caverns.table2R1S3,
+              ],
+            ]),
+            // R2 section
+            _buildRowSpanSection(context, 'R2', [
+              ['S1', 'S2'],
+              [tr.caverns.table2R2S1, tr.caverns.table2R2S2],
+            ]),
+            // R3 section
+            _buildRowSpanSection(context, 'R3', [
+              ['S1', 'S2'],
+              [tr.caverns.table2R3S1, tr.caverns.table2R3S2],
+            ]),
+            // R4 section
+            _buildRowSpanSection(context, 'R4', [
+              ['S1', 'S2'],
+              [tr.caverns.table2R4S1, tr.caverns.table2R4S2],
+            ]),
+            // R5 section
+            _buildRowSpanSection(context, 'R5', [
+              ['S1'],
+              [tr.caverns.table2R5S1],
+            ]),
+          ],
+        ),
       ),
     );
   }
 
   static Widget getTerzaDivisioneTable(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final tr = Translations.of(context);
     final t = _TableTheme(context);
 
     return _ResponsiveTable(
       child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: t.borderColor, width: 1),
-      ),
-      child: Column(
-        children: [
-          // Header row (Division Three)
-          Container(
-            width: double.infinity,
-            padding: t.padding,
-            decoration: BoxDecoration(
-              color: t.headerBgColorStrong,
-              border: Border(bottom: BorderSide(color: t.borderColor, width: 1)),
+        decoration: BoxDecoration(
+          border: Border.all(color: t.borderColor, width: 1),
+        ),
+        child: Column(
+          children: [
+            // Header row (Division Three)
+            Container(
+              width: double.infinity,
+              padding: t.padding,
+              decoration: BoxDecoration(
+                color: t.headerBgColorStrong,
+                border: Border(
+                  bottom: BorderSide(color: t.borderColor, width: 1),
+                ),
+              ),
+              child: Text(
+                tr.caverns.divisionStructureAlt3,
+                textAlign: TextAlign.center,
+                style: AppTextStyles.getMarkdownStrongStyle(context),
+              ),
             ),
-            child: Text(
-              l10n.divisionStructureAlt3,
-              textAlign: TextAlign.center,
-              style: AppTextStyles.getMarkdownStrongStyle(context),
-            ),
-          ),
-          // R1 section
-          _buildRowSpanSection(context, 'R1', [
-            ['S1', 'S2', 'S3', 'S4', 'S5'],
-            [
-              l10n.table3R1S1,
-              l10n.table3R1S2,
-              l10n.table3R1S3,
-              l10n.table3R1S4,
-              l10n.table3R1S5,
-            ],
-          ]),
-          // R2 section
-          _buildRowSpanSection(context, 'R2', [
-            ['S1', 'S2', 'S3\n(${l10n.centralScene})', 'S4', 'S5'],
-            [
-              l10n.table3R2S1,
-              l10n.table3R2S2,
-              l10n.table3R2S3,
-              l10n.table3R2S4,
-              l10n.table3R2S5,
-            ],
-          ]),
-          // R3 section
-          _buildRowSpanSection(context, 'R3', [
-            ['S1', 'S2', 'S3'],
-            [
-              l10n.table3R3S1,
-              l10n.table3R3S2,
-              l10n.table3R3S3,
-            ],
-          ]),
-        ],
-      ),
+            // R1 section
+            _buildRowSpanSection(context, 'R1', [
+              ['S1', 'S2', 'S3', 'S4', 'S5'],
+              [
+                tr.caverns.table3R1S1,
+                tr.caverns.table3R1S2,
+                tr.caverns.table3R1S3,
+                tr.caverns.table3R1S4,
+                tr.caverns.table3R1S5,
+              ],
+            ]),
+            // R2 section
+            _buildRowSpanSection(context, 'R2', [
+              ['S1', 'S2', 'S3\n(${tr.caverns.centralScene})', 'S4', 'S5'],
+              [
+                tr.caverns.table3R2S1,
+                tr.caverns.table3R2S2,
+                tr.caverns.table3R2S3,
+                tr.caverns.table3R2S4,
+                tr.caverns.table3R2S5,
+              ],
+            ]),
+            // R3 section
+            _buildRowSpanSection(context, 'R3', [
+              ['S1', 'S2', 'S3'],
+              [
+                tr.caverns.table3R3S1,
+                tr.caverns.table3R3S2,
+                tr.caverns.table3R3S3,
+              ],
+            ]),
+          ],
+        ),
       ),
     );
   }
 
   static Widget getQuartaDivisioneTable(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final tr = Translations.of(context);
     final t = _TableTheme(context);
 
     return _ResponsiveTable(
       child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: t.borderColor, width: 1),
-      ),
-      child: Column(
-        children: [
-          // Header row (Division Four)
-          Container(
-            width: double.infinity,
-            padding: t.padding,
-            decoration: BoxDecoration(
-              color: t.headerBgColorStrong,
-              border: Border(bottom: BorderSide(color: t.borderColor, width: 1)),
+        decoration: BoxDecoration(
+          border: Border.all(color: t.borderColor, width: 1),
+        ),
+        child: Column(
+          children: [
+            // Header row (Division Four)
+            Container(
+              width: double.infinity,
+              padding: t.padding,
+              decoration: BoxDecoration(
+                color: t.headerBgColorStrong,
+                border: Border(
+                  bottom: BorderSide(color: t.borderColor, width: 1),
+                ),
+              ),
+              child: Text(
+                tr.caverns.divisionStructureAlt4,
+                textAlign: TextAlign.center,
+                style: AppTextStyles.getMarkdownStrongStyle(context),
+              ),
             ),
-            child: Text(
-              l10n.divisionStructureAlt4,
-              textAlign: TextAlign.center,
-              style: AppTextStyles.getMarkdownStrongStyle(context),
-            ),
-          ),
-          // R1 section
-          _buildRowSpanSection(context, 'R1', [
-            ['S1', 'S2', 'S3'],
-            [
-              l10n.table4R1S1,
-              l10n.table4R1S2,
-              l10n.table4R1S3,
-            ],
-          ]),
-          // R2 section
-          _buildRowSpanSection(context, 'R2', [
-            ['S1', 'S2', 'S3'],
-            [
-              l10n.table4R2S1,
-              l10n.table4R2S2,
-              l10n.table4R2S3,
-            ],
-          ]),
-          // R3 section
-          _buildRowSpanSection(context, 'R3', [
-            ['S1', 'S2', 'S3'],
-            [
-              l10n.table4R3S1,
-              l10n.table4R3S2,
-              l10n.table4R3S3,
-            ],
-          ]),
-        ],
-      ),
+            // R1 section
+            _buildRowSpanSection(context, 'R1', [
+              ['S1', 'S2', 'S3'],
+              [
+                tr.caverns.table4R1S1,
+                tr.caverns.table4R1S2,
+                tr.caverns.table4R1S3,
+              ],
+            ]),
+            // R2 section
+            _buildRowSpanSection(context, 'R2', [
+              ['S1', 'S2', 'S3'],
+              [
+                tr.caverns.table4R2S1,
+                tr.caverns.table4R2S2,
+                tr.caverns.table4R2S3,
+              ],
+            ]),
+            // R3 section
+            _buildRowSpanSection(context, 'R3', [
+              ['S1', 'S2', 'S3'],
+              [
+                tr.caverns.table4R3S1,
+                tr.caverns.table4R3S2,
+                tr.caverns.table4R3S3,
+              ],
+            ]),
+          ],
+        ),
       ),
     );
   }
 
   static Widget getQuintaDivisioneTable(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final tr = Translations.of(context);
     final t = _TableTheme(context);
 
     return _ResponsiveTable(
       child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: t.borderColor, width: 1),
-      ),
-      child: Column(
-        children: [
-          // Header row (Division Five)
-          Container(
-            width: double.infinity,
-            padding: t.padding,
-            decoration: BoxDecoration(
-              color: t.headerBgColorStrong,
-              border: Border(bottom: BorderSide(color: t.borderColor, width: 1)),
+        decoration: BoxDecoration(
+          border: Border.all(color: t.borderColor, width: 1),
+        ),
+        child: Column(
+          children: [
+            // Header row (Division Five)
+            Container(
+              width: double.infinity,
+              padding: t.padding,
+              decoration: BoxDecoration(
+                color: t.headerBgColorStrong,
+                border: Border(
+                  bottom: BorderSide(color: t.borderColor, width: 1),
+                ),
+              ),
+              child: Text(
+                tr.caverns.table5Division,
+                textAlign: TextAlign.center,
+                style: AppTextStyles.getMarkdownStrongStyle(context),
+              ),
             ),
-            child: Text(
-              l10n.table5Division,
-              textAlign: TextAlign.center,
-              style: AppTextStyles.getMarkdownStrongStyle(context),
-            ),
-          ),
-          // Complex table with spanning columns
-          _buildFifthDivisionComplexTable(context),
-        ],
-      ),
+            // Complex table with spanning columns
+            _buildFifthDivisionComplexTable(context),
+          ],
+        ),
       ),
     );
   }
 
   static Widget _buildFifthDivisionComplexTable(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final tr = Translations.of(context);
     final t = _TableTheme(context);
 
     return IntrinsicHeight(
@@ -499,14 +511,8 @@ class CavernTables {
                     decoration: BoxDecoration(
                       color: t.headerBgColor,
                       border: Border(
-                        right: BorderSide(
-                          color: t.borderColor,
-                          width: 1,
-                        ),
-                        bottom: BorderSide(
-                          color: t.borderColor,
-                          width: 1,
-                        ),
+                        right: BorderSide(color: t.borderColor, width: 1),
+                        bottom: BorderSide(color: t.borderColor, width: 1),
                       ),
                     ),
                     child: Center(
@@ -524,14 +530,8 @@ class CavernTables {
                     decoration: BoxDecoration(
                       color: t.headerBgColor,
                       border: Border(
-                        right: BorderSide(
-                          color: t.borderColor,
-                          width: 1,
-                        ),
-                        bottom: BorderSide(
-                          color: t.borderColor,
-                          width: 1,
-                        ),
+                        right: BorderSide(color: t.borderColor, width: 1),
+                        bottom: BorderSide(color: t.borderColor, width: 1),
                       ),
                     ),
                     child: Center(
@@ -549,10 +549,7 @@ class CavernTables {
                     decoration: BoxDecoration(
                       color: t.headerBgColor,
                       border: Border(
-                        right: BorderSide(
-                          color: t.borderColor,
-                          width: 1,
-                        ),
+                        right: BorderSide(color: t.borderColor, width: 1),
                       ),
                     ),
                     child: Center(
@@ -573,17 +570,14 @@ class CavernTables {
               decoration: BoxDecoration(
                 color: t.secondaryBgColor,
                 border: Border(
-                  right: BorderSide(
-                    color: t.borderColor,
-                    width: 1,
-                  ),
+                  right: BorderSide(color: t.borderColor, width: 1),
                 ),
               ),
               child: Center(
                 child: RotatedBox(
                   quarterTurns: -1,
                   child: Text(
-                    l10n.largeNut,
+                    tr.caverns.largeNut,
                     style: AppTextStyles.getMarkdownStrongStyle(context),
                   ),
                 ),
@@ -605,20 +599,16 @@ class CavernTables {
                         decoration: BoxDecoration(
                           color: t.headerBgColorStrong,
                           border: Border(
-                            right: BorderSide(
-                              color: t.borderColor,
-                              width: 1,
-                            ),
-                            bottom: BorderSide(
-                              color: t.borderColor,
-                              width: 1,
-                            ),
+                            right: BorderSide(color: t.borderColor, width: 1),
+                            bottom: BorderSide(color: t.borderColor, width: 1),
                           ),
                         ),
                         child: Center(
                           child: Text(
                             'S1(1)',
-                            style: AppTextStyles.getMarkdownStrongStyle(context),
+                            style: AppTextStyles.getMarkdownStrongStyle(
+                              context,
+                            ),
                           ),
                         ),
                       ),
@@ -628,10 +618,7 @@ class CavernTables {
                           padding: t.padding,
                           decoration: BoxDecoration(
                             border: Border(
-                              right: BorderSide(
-                                color: t.borderColor,
-                                width: 1,
-                              ),
+                              right: BorderSide(color: t.borderColor, width: 1),
                               bottom: BorderSide(
                                 color: t.borderColor,
                                 width: 1,
@@ -640,8 +627,10 @@ class CavernTables {
                           ),
                           child: Center(
                             child: Text(
-                              l10n.table5R1S1P1,
-                              style: AppTextStyles.getMarkdownParagraphStyle(context),
+                              tr.caverns.table5R1S1P1,
+                              style: AppTextStyles.getMarkdownParagraphStyle(
+                                context,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -660,20 +649,16 @@ class CavernTables {
                         decoration: BoxDecoration(
                           color: t.headerBgColorStrong,
                           border: Border(
-                            right: BorderSide(
-                              color: t.borderColor,
-                              width: 1,
-                            ),
-                            bottom: BorderSide(
-                              color: t.borderColor,
-                              width: 1,
-                            ),
+                            right: BorderSide(color: t.borderColor, width: 1),
+                            bottom: BorderSide(color: t.borderColor, width: 1),
                           ),
                         ),
                         child: Center(
                           child: Text(
                             'S1(1)',
-                            style: AppTextStyles.getMarkdownStrongStyle(context),
+                            style: AppTextStyles.getMarkdownStrongStyle(
+                              context,
+                            ),
                           ),
                         ),
                       ),
@@ -683,10 +668,7 @@ class CavernTables {
                           padding: t.padding,
                           decoration: BoxDecoration(
                             border: Border(
-                              right: BorderSide(
-                                color: t.borderColor,
-                                width: 1,
-                              ),
+                              right: BorderSide(color: t.borderColor, width: 1),
                               bottom: BorderSide(
                                 color: t.borderColor,
                                 width: 1,
@@ -695,8 +677,10 @@ class CavernTables {
                           ),
                           child: Center(
                             child: Text(
-                              l10n.table5R2S1P1,
-                              style: AppTextStyles.getMarkdownParagraphStyle(context),
+                              tr.caverns.table5R2S1P1,
+                              style: AppTextStyles.getMarkdownParagraphStyle(
+                                context,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -715,20 +699,16 @@ class CavernTables {
                         decoration: BoxDecoration(
                           color: t.headerBgColorStrong,
                           border: Border(
-                            right: BorderSide(
-                              color: t.borderColor,
-                              width: 1,
-                            ),
-                            bottom: BorderSide(
-                              color: t.borderColor,
-                              width: 1,
-                            ),
+                            right: BorderSide(color: t.borderColor, width: 1),
+                            bottom: BorderSide(color: t.borderColor, width: 1),
                           ),
                         ),
                         child: Center(
                           child: Text(
                             'S1(1)',
-                            style: AppTextStyles.getMarkdownStrongStyle(context),
+                            style: AppTextStyles.getMarkdownStrongStyle(
+                              context,
+                            ),
                           ),
                         ),
                       ),
@@ -738,16 +718,15 @@ class CavernTables {
                           padding: t.padding,
                           decoration: BoxDecoration(
                             border: Border(
-                              right: BorderSide(
-                                color: t.borderColor,
-                                width: 1,
-                              ),
+                              right: BorderSide(color: t.borderColor, width: 1),
                             ),
                           ),
                           child: Center(
                             child: Text(
-                              l10n.table5R3S1P1,
-                              style: AppTextStyles.getMarkdownParagraphStyle(context),
+                              tr.caverns.table5R3S1P1,
+                              style: AppTextStyles.getMarkdownParagraphStyle(
+                                context,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -791,7 +770,9 @@ class CavernTables {
                               child: Center(
                                 child: Text(
                                   'S2(1)',
-                                  style: AppTextStyles.getMarkdownStrongStyle(context),
+                                  style: AppTextStyles.getMarkdownStrongStyle(
+                                    context,
+                                  ),
                                 ),
                               ),
                             ),
@@ -813,8 +794,11 @@ class CavernTables {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    l10n.table5R1S2P1,
-                                    style: AppTextStyles.getMarkdownParagraphStyle(context),
+                                    tr.caverns.table5R1S2P1,
+                                    style:
+                                        AppTextStyles.getMarkdownParagraphStyle(
+                                          context,
+                                        ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -846,7 +830,9 @@ class CavernTables {
                               child: Center(
                                 child: Text(
                                   'S3(1)',
-                                  style: AppTextStyles.getMarkdownStrongStyle(context),
+                                  style: AppTextStyles.getMarkdownStrongStyle(
+                                    context,
+                                  ),
                                 ),
                               ),
                             ),
@@ -868,8 +854,11 @@ class CavernTables {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    l10n.table5R1S3P1,
-                                    style: AppTextStyles.getMarkdownParagraphStyle(context),
+                                    tr.caverns.table5R1S3P1,
+                                    style:
+                                        AppTextStyles.getMarkdownParagraphStyle(
+                                          context,
+                                        ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -891,20 +880,16 @@ class CavernTables {
                         decoration: BoxDecoration(
                           color: t.headerBgColorStrong,
                           border: Border(
-                            right: BorderSide(
-                              color: t.borderColor,
-                              width: 1,
-                            ),
-                            bottom: BorderSide(
-                              color: t.borderColor,
-                              width: 1,
-                            ),
+                            right: BorderSide(color: t.borderColor, width: 1),
+                            bottom: BorderSide(color: t.borderColor, width: 1),
                           ),
                         ),
                         child: Center(
                           child: Text(
                             'S2(1)',
-                            style: AppTextStyles.getMarkdownStrongStyle(context),
+                            style: AppTextStyles.getMarkdownStrongStyle(
+                              context,
+                            ),
                           ),
                         ),
                       ),
@@ -914,10 +899,7 @@ class CavernTables {
                           padding: t.padding,
                           decoration: BoxDecoration(
                             border: Border(
-                              right: BorderSide(
-                                color: t.borderColor,
-                                width: 1,
-                              ),
+                              right: BorderSide(color: t.borderColor, width: 1),
                               bottom: BorderSide(
                                 color: t.borderColor,
                                 width: 1,
@@ -926,8 +908,10 @@ class CavernTables {
                           ),
                           child: Center(
                             child: Text(
-                              l10n.table5R2S2P1,
-                              style: AppTextStyles.getMarkdownParagraphStyle(context),
+                              tr.caverns.table5R2S2P1,
+                              style: AppTextStyles.getMarkdownParagraphStyle(
+                                context,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -963,7 +947,9 @@ class CavernTables {
                               child: Center(
                                 child: Text(
                                   'S2(1)',
-                                  style: AppTextStyles.getMarkdownStrongStyle(context),
+                                  style: AppTextStyles.getMarkdownStrongStyle(
+                                    context,
+                                  ),
                                 ),
                               ),
                             ),
@@ -981,8 +967,11 @@ class CavernTables {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    l10n.table5R3S2P1,
-                                    style: AppTextStyles.getMarkdownParagraphStyle(context),
+                                    tr.caverns.table5R3S2P1,
+                                    style:
+                                        AppTextStyles.getMarkdownParagraphStyle(
+                                          context,
+                                        ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1014,7 +1003,9 @@ class CavernTables {
                               child: Center(
                                 child: Text(
                                   'S3(1)',
-                                  style: AppTextStyles.getMarkdownStrongStyle(context),
+                                  style: AppTextStyles.getMarkdownStrongStyle(
+                                    context,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1032,8 +1023,11 @@ class CavernTables {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    l10n.table5R3S3P1,
-                                    style: AppTextStyles.getMarkdownParagraphStyle(context),
+                                    tr.caverns.table5R3S3P1,
+                                    style:
+                                        AppTextStyles.getMarkdownParagraphStyle(
+                                          context,
+                                        ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1055,17 +1049,14 @@ class CavernTables {
               decoration: BoxDecoration(
                 color: t.secondaryBgColor,
                 border: Border(
-                  right: BorderSide(
-                    color: t.borderColor,
-                    width: 1,
-                  ),
+                  right: BorderSide(color: t.borderColor, width: 1),
                 ),
               ),
               child: Center(
                 child: RotatedBox(
                   quarterTurns: -1,
                   child: Text(
-                    l10n.largeIthyphallicOsiris,
+                    tr.caverns.largeIthyphallicOsiris,
                     style: AppTextStyles.getMarkdownStrongStyle(context),
                   ),
                 ),
@@ -1087,16 +1078,15 @@ class CavernTables {
                         decoration: BoxDecoration(
                           color: t.headerBgColorStrong,
                           border: Border(
-                            bottom: BorderSide(
-                              color: t.borderColor,
-                              width: 1,
-                            ),
+                            bottom: BorderSide(color: t.borderColor, width: 1),
                           ),
                         ),
                         child: Center(
                           child: Text(
                             'S1(2)',
-                            style: AppTextStyles.getMarkdownStrongStyle(context),
+                            style: AppTextStyles.getMarkdownStrongStyle(
+                              context,
+                            ),
                           ),
                         ),
                       ),
@@ -1114,8 +1104,10 @@ class CavernTables {
                           ),
                           child: Center(
                             child: Text(
-                              l10n.table5R1S1P2,
-                              style: AppTextStyles.getMarkdownParagraphStyle(context),
+                              tr.caverns.table5R1S1P2,
+                              style: AppTextStyles.getMarkdownParagraphStyle(
+                                context,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -1151,7 +1143,9 @@ class CavernTables {
                               child: Center(
                                 child: Text(
                                   'S1(2)',
-                                  style: AppTextStyles.getMarkdownStrongStyle(context),
+                                  style: AppTextStyles.getMarkdownStrongStyle(
+                                    context,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1173,8 +1167,11 @@ class CavernTables {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    l10n.table5R2S1P2,
-                                    style: AppTextStyles.getMarkdownParagraphStyle(context),
+                                    tr.caverns.table5R2S1P2,
+                                    style:
+                                        AppTextStyles.getMarkdownParagraphStyle(
+                                          context,
+                                        ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1202,7 +1199,9 @@ class CavernTables {
                               child: Center(
                                 child: Text(
                                   'S2(2)',
-                                  style: AppTextStyles.getMarkdownStrongStyle(context),
+                                  style: AppTextStyles.getMarkdownStrongStyle(
+                                    context,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1220,8 +1219,11 @@ class CavernTables {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    l10n.table5R2S2P2,
-                                    style: AppTextStyles.getMarkdownParagraphStyle(context),
+                                    tr.caverns.table5R2S2P2,
+                                    style:
+                                        AppTextStyles.getMarkdownParagraphStyle(
+                                          context,
+                                        ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1243,16 +1245,15 @@ class CavernTables {
                         decoration: BoxDecoration(
                           color: t.headerBgColorStrong,
                           border: Border(
-                            bottom: BorderSide(
-                              color: t.borderColor,
-                              width: 1,
-                            ),
+                            bottom: BorderSide(color: t.borderColor, width: 1),
                           ),
                         ),
                         child: Center(
                           child: Text(
                             'S1(2)',
-                            style: AppTextStyles.getMarkdownStrongStyle(context),
+                            style: AppTextStyles.getMarkdownStrongStyle(
+                              context,
+                            ),
                           ),
                         ),
                       ),
@@ -1262,8 +1263,10 @@ class CavernTables {
                           padding: t.padding,
                           child: Center(
                             child: Text(
-                              l10n.table5R3S1P2,
-                              style: AppTextStyles.getMarkdownParagraphStyle(context),
+                              tr.caverns.table5R3S1P2,
+                              style: AppTextStyles.getMarkdownParagraphStyle(
+                                context,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -1281,7 +1284,7 @@ class CavernTables {
   }
 
   static Widget getSestaDivisioneTable(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final tr = Translations.of(context);
     final t = _TableTheme(context);
 
     return _ResponsiveTable(
@@ -1297,10 +1300,12 @@ class CavernTables {
               padding: t.padding,
               decoration: BoxDecoration(
                 color: t.headerBgColorStrong,
-                border: Border(bottom: BorderSide(color: t.borderColor, width: 1)),
+                border: Border(
+                  bottom: BorderSide(color: t.borderColor, width: 1),
+                ),
               ),
               child: Text(
-                l10n.table6Division,
+                tr.caverns.table6Division,
                 textAlign: TextAlign.center,
                 style: AppTextStyles.getMarkdownStrongStyle(context),
               ),
@@ -1309,31 +1314,31 @@ class CavernTables {
             _buildRowSpanSection(context, 'R1', [
               ['S1', 'S2', 'S3', 'S4'],
               [
-                l10n.table6R1S1,
-                l10n.table6R1S2,
-                l10n.table6R1S3,
-                l10n.table6R1S4,
+                tr.caverns.table6R1S1,
+                tr.caverns.table6R1S2,
+                tr.caverns.table6R1S3,
+                tr.caverns.table6R1S4,
               ],
             ]),
             // R2 section
             _buildRowSpanSection(context, 'R2', [
               ['S1', 'S2', 'S3', 'S4', 'S5'],
               [
-                l10n.table6R2S1,
-                l10n.table6R2S2,
-                l10n.table6R2S3,
-                l10n.table6R2S4,
-                l10n.table6R2S5,
+                tr.caverns.table6R2S1,
+                tr.caverns.table6R2S2,
+                tr.caverns.table6R2S3,
+                tr.caverns.table6R2S4,
+                tr.caverns.table6R2S5,
               ],
             ]),
             // R3 section
             _buildRowSpanSection(context, 'R3', [
               ['S1', 'S2', 'S3', 'S4'],
               [
-                l10n.table6R3S1,
-                l10n.table6R3S2,
-                l10n.table6R3S3,
-                l10n.table6R3S4,
+                tr.caverns.table6R3S1,
+                tr.caverns.table6R3S2,
+                tr.caverns.table6R3S3,
+                tr.caverns.table6R3S4,
               ],
             ]),
           ],
@@ -1353,26 +1358,31 @@ class _ResponsiveTable extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     const tableWidth = 1400.0;
     final needsScroll = screenWidth < tableWidth;
-    
+
     if (needsScroll) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0,
+            ),
             child: Row(
               children: [
                 Icon(
                   Icons.swipe,
                   size: 16,
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                  color: Theme.of(context).colorScheme.onSurface
+                      .withValues(alpha: 0.6),
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  AppLocalizations.of(context)!.swipeToView,
+                  Translations.of(context).ui.swipeToView,
                   style: TextStyle(
                     fontSize: 12,
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                    color: Theme.of(context).colorScheme.onSurface
+                        .withValues(alpha: 0.6),
                   ),
                 ),
               ],
@@ -1381,23 +1391,17 @@ class _ResponsiveTable extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: SizedBox(
-              width: tableWidth,
-              child: child,
-            ),
+            child: SizedBox(width: tableWidth, child: child),
           ),
         ],
       );
     }
-    
+
     // Desktop: fixed width centered
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: SizedBox(
-          width: tableWidth,
-          child: child,
-        ),
+        child: SizedBox(width: tableWidth, child: child),
       ),
     );
   }

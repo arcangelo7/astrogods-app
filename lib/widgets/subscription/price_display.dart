@@ -1,16 +1,9 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../../constants/text_styles.dart';
-import '../../l10n/app_localizations.dart';
+import '../../i18n/translations.g.dart';
 
-enum PriceDisplayStyle {
-  main,
-  alternative,
-  normal,
-}
+enum PriceDisplayStyle { main, alternative, normal }
 
 class PriceDisplay extends StatelessWidget {
   final String price;
@@ -36,27 +29,23 @@ class PriceDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
       children: [
         if (discount != null) ...[
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 4,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
               color: colorScheme.error.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
               discount!,
-              style: AppTextStyles.getCaptionStyle(context).copyWith(
-                color: colorScheme.error,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyles.getCaptionStyle(
+                context,
+              ).copyWith(color: colorScheme.error, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -66,7 +55,7 @@ class PriceDisplay extends StatelessWidget {
         if (annualTotal != null) ...[
           const SizedBox(height: 8),
           Text(
-            localizations.billedAnnuallyAt(annualTotal!),
+            t.ui.billedAnnuallyAt(amount: annualTotal!),
             style: AppTextStyles.getCaptionStyle(context),
             textAlign: TextAlign.center,
           ),
@@ -74,17 +63,14 @@ class PriceDisplay extends StatelessWidget {
         if (saveAmount != null) ...[
           const SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.red.shade50,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: Colors.red.shade200),
             ),
             child: Text(
-              localizations.saveAmount(saveAmount!),
+              t.ui.saveAmount(amount: saveAmount!),
               style: AppTextStyles.getBodyStyle(context).copyWith(
                 color: Colors.red.shade700,
                 fontWeight: FontWeight.bold,
@@ -96,10 +82,9 @@ class PriceDisplay extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             extraInfo!,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              color: Colors.red.shade700,
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppTextStyles.getBodyStyle(
+              context,
+            ).copyWith(color: Colors.red.shade700, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
         ],
@@ -133,10 +118,7 @@ class PriceDisplay extends StatelessWidget {
                 fontSize: 36,
               ),
             ),
-            Text(
-              '/$period',
-              style: AppTextStyles.getBodyStyle(context),
-            ),
+            Text('/$period', style: AppTextStyles.getBodyStyle(context)),
           ],
         );
       case PriceDisplayStyle.alternative:
@@ -152,10 +134,7 @@ class PriceDisplay extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              '/$period',
-              style: AppTextStyles.getBodyStyle(context),
-            ),
+            Text('/$period', style: AppTextStyles.getBodyStyle(context)),
           ],
         );
       case PriceDisplayStyle.normal:
@@ -171,10 +150,7 @@ class PriceDisplay extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              '/$period',
-              style: AppTextStyles.getCaptionStyle(context),
-            ),
+            Text('/$period', style: AppTextStyles.getCaptionStyle(context)),
           ],
         );
     }

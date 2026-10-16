@@ -1,21 +1,21 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:http/http.dart' as http;
+
 import 'dart:convert';
+
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
+
 import '../services/auth_service.dart';
 import '../services/api_client.dart';
 import '../config/environment.dart';
 import '../providers/language_provider.dart';
 
 import 'platform/url_launcher_stub.dart'
-  if (dart.library.html) 'platform/url_launcher_web.dart'
-  if (dart.library.io) 'platform/url_launcher_mobile.dart' as platform;
+    if (dart.library.html) 'platform/url_launcher_web.dart'
+    if (dart.library.io) 'platform/url_launcher_mobile.dart'
+    as platform;
 
 class CheckoutException implements Exception {
   final String message;
@@ -98,9 +98,7 @@ class StripeService {
           'Accept-Language': languageCode,
           'X-Client-Version': Environment.appVersion,
         },
-        body: json.encode({
-          'price_id': priceId,
-        }),
+        body: json.encode({'price_id': priceId}),
       );
 
       if (response.statusCode == 200) {
@@ -161,10 +159,12 @@ class StripeService {
     }
   }
 
-  static Future<String?> createCheckoutSession(
+  static Future<Map<String, dynamic>> createCheckoutSession(
     BuildContext context,
-    String priceId,
-  ) async {
+    String priceId, {
+    String? successUrl,
+    String? cancelUrl,
+  }) async {
     try {
       final languageProvider = Provider.of<LanguageProvider>(
         context,
@@ -179,6 +179,10 @@ class StripeService {
         throw ApiException('User not authenticated', statusCode: 401);
       }
 
+      final body = <String, dynamic>{'price_id': priceId};
+      if (successUrl != null) body['success_url'] = successUrl;
+      if (cancelUrl != null) body['cancel_url'] = cancelUrl;
+
       final response = await http.post(
         Uri.parse('$baseUrl/create-checkout-session'),
         headers: {
@@ -187,14 +191,11 @@ class StripeService {
           'Accept-Language': languageCode,
           'X-Client-Version': Environment.appVersion,
         },
-        body: json.encode({
-          'price_id': priceId,
-        }),
+        body: json.encode(body),
       );
 
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        return data['checkout_url'];
+        return json.decode(response.body) as Map<String, dynamic>;
       } else {
         final error = json.decode(response.body);
         throw ApiException(
@@ -238,10 +239,7 @@ class StripeService {
           'Accept-Language': languageCode,
           'X-Client-Version': Environment.appVersion,
         },
-        body: json.encode({
-          'customer_id': customerId,
-          'price_id': priceId,
-        }),
+        body: json.encode({'customer_id': customerId, 'price_id': priceId}),
       );
 
       if (response.statusCode == 200) {
@@ -269,7 +267,7 @@ class StripeService {
       throw Exception('Error launching checkout: $e');
     }
   }
-  
+
   static Future<String> confirmSession(
     BuildContext context,
     String sessionId,
@@ -296,9 +294,7 @@ class StripeService {
           'Accept-Language': languageCode,
           'X-Client-Version': Environment.appVersion,
         },
-        body: json.encode({
-          'session_id': sessionId,
-        }),
+        body: json.encode({'session_id': sessionId}),
       );
 
       if (response.statusCode == 200) {

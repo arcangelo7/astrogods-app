@@ -1,10 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import 'dart:async';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../widgets/starry_night_background.dart';
 import '../widgets/gradient_button.dart';
 import '../constants/text_styles.dart';
@@ -32,11 +30,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     _subtitleParts = [
-      l10n.subtitlePart1,
-      l10n.subtitlePart2,
-      l10n.subtitlePart3,
+      t.ui.subtitlePart1,
+      t.ui.subtitlePart2,
+      t.ui.subtitlePart3,
     ];
   }
 
@@ -162,6 +160,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         showPlanet: true,
         subtle: false,
         child: SafeArea(
+          bottom: false,
           child: Padding(
             padding: EdgeInsets.only(
               left: 24.0,
@@ -186,19 +185,25 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             'ASTROGODS',
                             style:
                                 (isLandscape && isMobile
-                                        ? AppTextStyles.getH3Style(context).copyWith(fontSize: 36)
+                                        ? AppTextStyles.getH3Style(context)
+                                              .copyWith(fontSize: 36)
                                         : isMobile
-                                            ? AppTextStyles.getH2Style(context)
-                                            : AppTextStyles.getHeroStyle(context))
+                                        ? AppTextStyles.getH2Style(context)
+                                        : AppTextStyles.getHeroStyle(context))
                                     .copyWith(
                                       letterSpacing:
                                           _titleLetterSpacingAnimation.value,
-                                      color: Theme.of(context).colorScheme.onSurface,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
                                       shadows: [
                                         Shadow(
                                           offset: const Offset(2, 2),
                                           blurRadius: 4,
-                                          color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.5),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .shadow
+                                              .withValues(alpha: 0.5),
                                         ),
                                       ],
                                     ),
@@ -225,10 +230,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   _subtitleParts[i],
                                   style:
                                       (isMobile
-                                              ? AppTextStyles.getBodyLargeStyle(context)
-                                              : AppTextStyles.getSubtitleLargeStyle(context))
+                                              ? AppTextStyles.getBodyLargeStyle(
+                                                  context,
+                                                )
+                                              : AppTextStyles.getSubtitleLargeStyle(
+                                                  context,
+                                                ))
                                           .copyWith(
-                                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withValues(alpha: 0.8),
                                             letterSpacing: 4.0,
                                           ),
                                   textAlign: TextAlign.center,
@@ -245,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   SizedBox(height: isLandscape && isMobile ? 40 : 80),
                   // Get started button
                   GradientButton(
-                    text: AppLocalizations.of(context)!.getStarted,
+                    text: Translations.of(context).ui.getStarted,
                     onPressed: widget.onGetStarted ?? () {},
                   ),
                 ],

@@ -1,0 +1,506 @@
+astronomyFundamentalsTitle: Fondamenti di Astronomia
+bookOfCaverns: Il Libro delle Caverne
+bookOfCavernsIntroduction: |-
+  ## I Testi Funerari Egizi e l'Astrologia
+
+  Questa trattazione delle **12 case astrologiche** è basata su testi funerari egizi del Nuovo Regno che descrivono il viaggio del dio sole Ra attraverso l'oltretomba, seguendo l'interpretazione astrologica di Angelo Angelini.
+
+  ## I due testi fonte
+
+  Le dodici caverne qui presentate derivano da due testi egizi distinti:
+
+  ### Caverne 1-6: Il Libro delle Caverne propriamente detto
+  Testo funerario ramesside che descrive il viaggio notturno di Ra attraverso sei sezioni della Duat. Caratterizzato da scene di punizione dei nemici di Ra e Osiride, questo testo è attestato nelle sue versioni più complete nella tomba di Ramses VI (KV9) e nell'Osireion di Seti I ad Abydos.
+
+  L'egittologia contemporanea sostiene che il Libro delle Caverne contenga in realtà tutte e dodici le caverne, organizzate con più caverne per sezione ([Power, 2015](https://doi.org/10.17638/03032971)). Per questa trattazione astrologica seguiamo tuttavia l'interpretazione di Angelini che assimila ognuna delle sei sezioni a una casa astrologica.
+
+  ### Caverne 8-12: Il Libro delle Dodici Caverne
+  Conosciuto anche come **Incantesimo delle Caverne**, questo testo fu a lungo considerato parte del Libro dei Morti. Alexandre Piankoff ha dimostrato che si tratta invece di una composizione indipendente con carattere liturgico benevolo: le divinità concedono favori al defunto senza scene di punizione.
+
+  Le prime sette caverne del Libro delle Dodici Caverne sono rappresentate in maniera estremamente sintetica e schematica, dando ben poche informazioni sul loro contenuto, mentre sono soltanto le ultime cinque (dalla 8 alla 12) a essere descritte in maniera dettagliata.
+
+  Angelo Angelini interpreta l'ottava caverna del Libro delle Dodici Caverne come l'ottava casa astrologica - un collegamento simbolico, non filologico.
+
+  ## Il significato di "Caverna"
+
+  In egizio **Kerreret** o **Kerret**:
+
+  ![Geroglifico di Kerreret](caverna.webp)
+
+  Secondo Angelo Angelini, il geroglifico combina:
+  - **Q** (triangolo): la materia da lavorare
+  - **Semi**: il tempo
+  - **Rettangolo aperto**: lo spazio
+
+  Il termine indica quindi "uno spazio temporale" - essenza della domificazione astrologica, dove il tempo celeste (transiti planetari) si cristallizza in esperienza terrena.
+
+  ## Fonti
+
+  ### Libro delle Caverne (caverne 1-6)
+  - **Ricostruzione filologica**: Werning, D. A. (2019). The Book of Caverns in Theban Tomb 33: Late Period reception process and individual adaptation. *Bulletin de l'Institut français d'archéologie orientale*, *118*, 525-554. [https://doi.org/10.4000/bifao.5059](https://doi.org/10.4000/bifao.5059)
+  - **Interpretazione iconografica**: Power, D. M. (2019). *Aspects of iconography and transmission in the Book of Caverns* [Tesi di dottorato]. University of Liverpool. [https://doi.org/10.17638/03032971](https://doi.org/10.17638/03032971)
+  - **Fonte iconografica**: [Theban Mapping Project](https://thebanmappingproject.com/tombs/kv-09-rameses-v-and-rameses-vi), tomba di Ramses VI
+
+  ### Libro delle Dodici Caverne (caverne 8-12)
+  - **Ricostruzione filologica**: Méndez Rodríguez, D. M. (2015). The transmission of the Book of the Twelve Caverns. In G. Rosati & M. C. Guidotti (Eds.), *Proceedings of the XI International Congress of Egyptologists* (pp. 405-409). Archaeopress. [https://doi.org/10.2307/j.ctv177tjnf.77](https://doi.org/10.2307/j.ctv177tjnf.77)
+  - **Interpretazione iconografica**: Piankoff, A. (1974). *The wandering of the soul*. Princeton University Press. [https://archive.org/details/wanderingofsoul0006pian](https://archive.org/details/wanderingofsoul0006pian)
+  - **Fonte iconografica**: [Papiro EA 10478](https://www.britishmuseum.org/collection/object/Y_EA10478-6), British Museum
+
+  ### Interpretazione astrologica
+  - Angelini, A. (1992). *Manuale di astrologia egizia*. Kemi.
+
+  **Nota**: I colori nelle illustrazioni delle caverne 1-6 sono suggestivi e hanno funzione comunicativa per evocare l'atmosfera dell'oltretomba, non filologica, in quanto gli originali su parete sono molto deteriorati. Per le caverne 8-12 sono stati utilizzati i colori originali del Papiro EA 10478 del British Museum.
+celestialSphereContent: |-
+  ## L'osservazione del cielo notturno
+
+  Se in una notte limpida, lontano dalle luci artificiali, ci si ferma a guardare il cielo per qualche ora, si nota un fatto immediato: le stelle non cambiano posizione le une rispetto alle altre. Le costellazioni mantengono la loro forma. Eppure l'intero cielo si muove, lentamente, da est verso ovest. Una stella che all'inizio della sera si trovava bassa sull'orizzonte orientale, qualche ora dopo sarà salita più in alto; una che era allo zenit sarà scesa verso occidente.
+
+  Questo movimento apparente è causato dalla rotazione della Terra attorno al proprio asse. Noi non percepiamo la rotazione terrestre, quindi vediamo le stelle muoversi.
+
+  ## La sfera celeste come modello
+
+  Per descrivere le posizioni degli astri, gli astronomi utilizzano un modello geometrico: la **sfera celeste**. Si tratta di una sfera immaginaria di raggio infinito, centrata sull'osservatore. Tutte le stelle, i pianeti e gli altri corpi celesti vengono proiettati sulla superficie interna di questa sfera.
+
+  Non importa che le stelle si trovino a distanze enormemente diverse tra loro. Sulla sfera celeste contano solo le direzioni, non le distanze. Due stelle che appaiono vicine in cielo sono vicine sulla sfera celeste, anche se una potrebbe essere cento volte più lontana dell'altra.
+
+  ## I punti di riferimento
+
+  L'**orizzonte** è il cerchio che separa la metà di sfera celeste visibile (sopra di noi) da quella invisibile (sotto di noi). Sull'orizzonte si individuano quattro punti cardinali: **Nord**, **Sud**, **Est** e **Ovest**. Il punto direttamente sopra la testa dell'osservatore si chiama **zenit**; il punto diametralmente opposto, sotto i piedi, si chiama **nadir**.
+
+  Il **meridiano** è l'arco immaginario che parte dall'orizzonte nord, sale fino allo zenit e scende fino all'orizzonte sud. Divide il cielo in due metà: orientale e occidentale.
+
+  Nel tema natale, questi punti di riferimento definiscono i quattro angoli. Il grado dello zodiaco che sorge a Est è l'**Ascendente**; quello che tramonta a Ovest è il **Discendente**. Il grado dello zodiaco al punto più alto del meridiano è il **Medio Cielo** (MC); quello opposto, sotto l'orizzonte, è il **Fondo Cielo** (IC, dal latino *Imum Coeli*).
+
+  [CELESTIAL_SPHERE_DIAGRAM]
+celestialSphereTitle: La sfera celeste
+codexAttributionRequired: 'Condizione obbligatoria: Attribuzione tramite citazione "Fonte: AstroGods (astrogods.it) - Licenza CC BY 4.0"'
+codexCreativeCommons: B) Codex - Contenuti educativi (licenza CC BY 4.0)
+codexCreativeCommonsText: 'I contenuti del Codex, inclusi testi interpretativi, immagini e materiali educativi, sono rilasciati sotto licenza Creative Commons Attribution 4.0 International. Gli utenti possono:'
+codexRights1: Riprodurre, distribuire e comunicare pubblicamente l'opera
+codexRights2: Modificare, trasformare l'opera e creare opere derivate
+codexRights3: Utilizzare l'opera per fini commerciali
+codexThirdPartyLicenseHierarchy: Laddove i contenuti del Codex incorporino materiali di terze parti soggetti a licenze più restrittive, prevalgono i termini della licenza più restrittiva. Gli utenti devono identificare e rispettare tutti i requisiti di licenza applicabili, inclusa l'attribuzione alle fonti originali.
+codexTitle: Codex
+contentComingSoon: Contenuto in arrivo
+diagramAquarius: Acquario
+diagramAries: Ariete
+diagramAscendingSign: 'Segno ascendente: ${sign}'
+diagramAutumn: Autunno
+diagramAutumnalEquinox: Eq. autunno
+diagramAverageRising: Levata media
+diagramCancer: Cancro
+diagramCapricorn: Capricorno
+diagramCelestialEquator: Equatore celeste
+diagramCelestialEquatorShort: Eq. celeste
+diagramCelestialPole: Polo celeste
+diagramEarth: Terra
+diagramEast: Est
+diagramEcliptic: Eclittica
+diagramEquator: Equatore
+diagramFastRising: Levata rapida
+diagramGemini: Gemelli
+diagramHorizon: Orizzonte
+diagramLatitude: 'Latitudine: ${degrees}°'
+diagramLeo: Leone
+diagramLibra: Bilancia
+diagramLongAscension: Ascensione lunga
+diagramMeridian: Meridiano
+diagramNadir: Nadir
+diagramNorth: Nord
+diagramPisces: Pesci
+diagramPrecessionAge: '${symbol} ${sign}, ~${year}'
+diagramPolarCircleShort: C. polare
+diagramPole: Polo
+diagramRome: Roma
+diagramRomeLatitude: Roma · 42° N
+diagramSagittarius: Sagittario
+diagramScorpio: Scorpione
+diagramShortAscension: Ascensione corta
+diagramSlowRising: Levata lenta
+diagramSpring: Primavera
+diagramSummer: Estate
+diagramSummerSolstice: Solst. estate
+diagramTaurus: Toro
+diagramVernalEquinox: Eq. primavera
+diagramVirgo: Vergine
+diagramWest: Ovest
+diagramWinter: Inverno
+diagramWinterSolstice: Solst. inverno
+diagramYearBCE: a.C.
+diagramYearCE: d.C.
+diagramZenith: Zenit
+diagramCaptionCelestialSphere: La sfera celeste vista da un osservatore a latitudine media. Lo slider ruota la sfera per mostrare il moto apparente del cielo
+diagramCaptionEquatorEcliptic: Equatore celeste ed eclittica. Lo slider muove il Sole lungo l'eclittica nel corso di un anno
+diagramCaptionLatitudeSky: La sfera celeste a diverse latitudini. Lo slider varia la latitudine e mostra come cambia l'altezza del polo celeste e l'inclinazione dei cerchi stellari rispetto all'orizzonte
+diagramCaptionEclipticRising: Confronto tra ascensione lunga e ascensione corta. Il numero di gradi zodiacali che sorgono nello stesso intervallo di tempo cambia a seconda dell'angolo tra eclittica e orizzonte
+diagramCaptionEclipticHorizon: L'eclittica all'orizzonte orientale. Lo slider dell'ora mostra come varia l'angolo di incidenza durante la rotazione diurna
+diagramCaptionSemidiurnalArc: Sfera celeste con eclittica e orizzonte. Lo slider della latitudine modifica l'inclinazione della sfera; lo slider dell'ora mostra la rotazione diurna
+diagramCaptionPlacido: Case di Placido viste dall'alto. Lo slider varia la latitudine per mostrare come la distorsione cresce allontanandosi dall'equatore
+diagramCaptionPrecession: L'asse terrestre traccia un cono nello spazio in circa 25.772 anni. Lo slider ruota l'asse per mostrare l'oscillazione
+diagramCaptionWholeSign: Case a segno intero. Ogni segno zodiacale costituisce una casa completa. Lo slider sposta l'Ascendente per mostrare come cambia la distribuzione
+domificationArticleContent: |-
+  ## Introduzione
+
+  Perché AstroGods utilizza la domificazione Vehlow e non quella di Placido? La domanda è legittima: la stragrande maggioranza dei software astrologici adotta il sistema di Placido de Titis, un monaco olivetano del XVII secolo il cui metodo è diventato, per inerzia storica più che per merito filosofico, lo standard moderno. Eppure, se si risale alle origini dell'Astrologia, si scopre che le case uguali rappresentano il sistema più antico, più diffuso e più coerente con la visione del mondo su cui l'Astrologia stessa si fonda. Nei paragrafi che seguono ricostruiremo le ragioni di questa scelta, partendo da una domanda ancora più profonda: cosa sono, davvero, le Case?
+
+  ## Cosa sono le Case: una premessa necessaria
+
+  Prima di scegliere un sistema di domificazione, occorre capire cosa siano le Case.
+
+  Nell'Astrologia moderna le Case vengono spesso trattate come semplici divisioni geometriche dello spazio celeste, settori da calcolare con formule trigonometriche. Ma nella tradizione antica la concezione è radicalmente diversa. Le Case sono le dodici porzioni dell'aura eterica umana: quella parte del corpo sottile microcosmico che consente alla matrice celeste macrocosmica (i Segni) di cristallizzarsi nella matrice terrestre microcosmica (il corpo fisico ed eterico).
+
+  Il termine egizio per indicare le Case è *Kereret* (o *Kerret*), che viene tradotto come "Caverna" nel cosiddetto [Libro delle Caverne](/codex/domification/book-of-caves). Ma questa traduzione è riduttiva. Come osserva Angelini, analizzando l'etimologia geroglifica, *Kereret* contiene in sé sia il concetto di spazio sia quello di tempo: è uno *spazio-tempo*, un'unità inscindibile di luogo e durata [(Angelini, 1992)](https://www.kemiassociazione.it/product/?manuale-di-astrologia-egizia){{la caverna è uno spazio temporale, un luogo che è collegato al tempo. Con questa definizione gli Egizi hanno magistralmente indicato cosa sia, in sostanza, la domificazione: uno spazio che è in funzione del tempo, oppure un tempo che non si può dissociare dallo spazio}}.
+
+  Questa concezione rende immediatamente evidente il limite delle domificazioni moderne: Campano considera le Case un fenomeno puramente spaziale, Placido le tratta come fenomeno temporale. Nessuna delle due coglie la natura unitaria del *Kereret*.
+
+  ## La premessa determina la conclusione
+
+  In un corso di Astrologia del 1991, Angelo Angelini formula un principio che illumina l'intera questione della domificazione: un calcolo risolve sempre la premessa che gli è stata posta a monte, ma se quella premessa è sbagliata, il risultato sarà inevitabilmente sbagliato, indipendentemente dal rigore matematico impiegato [(Angelini, 1991)](https://www.kemiassociazione.it/astrologia-iv---angelini.html){{La premessa di un calcolo è fondamentale. Il calcolo ti risolve la premessa che tu hai posto a monte, ma se questa premessa è sbagliata, ti porta ad una conclusione sbagliata.}}.
+
+  La domificazione di Placido parte da una premessa astronomico-matematica: divide il [semi-arco diurno](/codex/domification/understanding-placido/semidiurnal-arcs) di ciascun grado zodiacale in parti uguali di tempo e ricava le cuspidi delle case dai gradi che corrispondono a ciascuna divisione. Il calcolo è trigonometricamente ineccepibile, ma la conversione dal tempo ai gradi dello zodiaco produce case di ampiezza disuguale, perché l'[eclittica](/codex/astronomy-fundamentals/equator-ecliptic) incontra l'orizzonte con angoli diversi nel corso della rotazione celeste. La distorsione cresce con la [latitudine](/codex/domification/understanding-placido/latitude-sky) dell'osservatore: all'equatore le case restano quasi regolari, alle alte latitudini alcune si gonfiano e altre si restringono fino a diventare sottilissime. Per una trattazione approfondita con diagrammi interattivi si veda la sezione [Comprendere la domificazione Placido](/codex/domification/understanding-placido).
+
+  [PLACIDO_DIAGRAM]
+
+  Il calcolo è corretto, ma la premessa lo è? La domificazione Vehlow parte da un fondamento del tutto diverso: metafisico e analogico. Le Case rappresentano i dodici campi archetipici dell'esperienza, le dodici sezioni dell'aura umana. La loro struttura deve rispecchiare l'ordine cosmico, non la contingenza astronomica di un dato luogo e momento. Per quanto un calcolo possa imporsi come matematicamente perfetto, ciò che conta è la concezione del mondo sulla cui base quel calcolo è stato costruito.
+
+  ## Breve storia della domificazione
+
+  Le case uguali non sono un'innovazione recente: sono il sistema dominante dell'Astrologia per la maggior parte della sua storia documentata.
+
+  Il metodo prevalente era quello delle case a segno intero (*Whole Sign Houses*), in cui ogni segno zodiacale corrisponde a una casa completa: lo attestano le fonti dell'Astrologia ellenistica (III sec. a.C. - I sec. d.C.), dell'età imperiale romana (Vettius Valens, II sec. d.C.; Firmico Materno, IV sec. d.C.) e della tradizione araba altomedievale, fino al IX-X sec. [(Hand, 2007)](https://www.cultureandcosmos.org/pdfs/11/11_Hand_Signs_as_Houses_Vol11.pdf){{The practice of using signs as places did not die out at the end of the Greek era. We also find it in early Arabic era authors such as Masha'allah (fl. 762-815)}}. Nell'Astrologia vedica indiana il medesimo principio (*Rashi Chakra*) è rimasto in uso ininterrotto fino a oggi.
+
+  [WHOLE_SIGN_HOUSES_DIAGRAM]
+
+  A differenza delle case a segno intero, dove ogni segno costituisce una casa di 30° esatti, le domificazioni a quadranti prendono come riferimento i [quattro angoli](/codex/astronomy-fundamentals/celestial-sphere) (Ascendente, Discendente, Medio Cielo e Fondo Cielo). Questi quattro punti dividono l'eclittica in quattro settori, i quadranti, che vengono poi suddivisi per ricavare le case intermedie. Poiché i quattro settori non sono mai esattamente uguali, le case risultanti hanno ampiezza variabile.
+
+
+  Il primo sistema a quadranti a diffondersi fu quello di Alcabizio (al-Qabisi, X sec.), che divenne il metodo standard nell'Astrologia araba e latina medievale. Seguirono Campano (XIII sec.), Regiomontano (XV sec.) e infine Placido.
+
+  Il contesto in cui Placido elaborò il suo sistema è quello della rivoluzione scientifica del XVII secolo. Il paradigma meccanicistico di Galileo, Newton e Descartes stava ridefinendo i criteri di legittimità del sapere: contava ciò che era misurabile, calcolabile, riproducibile. L'Astrologia perse il suo statuto di scienza analogica e unitaria e venne relegata ai margini. In quel clima è naturale che le nuove domificazioni si fondassero sul solo calcolo astronomico, abbandonando le premesse metafisiche che avevano sorretto per millenni il sistema delle case uguali.
+
+  Nel XX secolo, l'astrologo tedesco Johannes Vehlow riprese il sistema delle case uguali e lo perfezionò ponendo l'Ascendente al centro della I casa, con la casa che si estende 15 gradi prima e 15 gradi dopo. Chiamò il suo approccio "antike Manier" (metodo antico) perché lo ritrovava nelle fonti classiche [(Vehlow, 1933)](http://www.astrologie-chirologie.com/johannes_vehlow_werke/johannes_vehlow_band_I.pdf){{Die Bezeichnung "antike Manier" habe ich deshalb gewählt, weil die Einteilung der Häuser mit den Kardinalpunkten in den Mitten einer uralten Methode entspricht unter Zugrundelegung der antiken Urtypen, dem Thema mundi}}.
+
+  L'invenzione delle case disuguali, scrive Vehlow, generò un "Rattenkönig" (groviglio) di ulteriori metodi di calcolo. L'antico sistema non fu abbandonato perché non funzionava, ma perché il razionalismo riformò l'oroscopo fino a privarlo del suo carattere simbolico, riducendolo a un arido esercizio di calcolo.
+
+  ## Perché le case uguali
+
+  ### Convergenze tra tradizioni
+
+  Il sistema a case uguali non è un'invenzione isolata. Tradizioni diverse convergono sulla stessa struttura duodenaria proporzionale.
+
+  #### Astrologia vedica (Jyotish)
+
+  L'Astrologia oroscopica a dodici case entra in India attraverso il contatto con la tradizione ellenistica, documentato almeno dallo *Yavanajataka*, versificazione sanscrita del 269/270 d.C. di un trattato greco [(Pingree, 1978)](https://archive.org/details/PingreeYJ){{From the concluding three verses of the Yavanajataka we know the author's name and that the date of his composition was A.D. 269/270. We are further informed that it is a versified version of a prose translation, made by one Yavanesvara, "the lord of the Greeks," in the year A.D. 149/150}}. Il titolo è di per sé eloquente: *Yavanajataka* significa letteralmente "oroscopia dei Greci", poiché *Yavana* era il termine sanscrito per designare i Greci, derivato dal greco antico *Ἴωνες* (Ioni).
+
+  Il sistema a dodici case del Jyotish non è dunque un'invenzione autonoma. La domanda rilevante non è se gli indiani abbiano trovato le Whole Sign Houses indipendentemente, ma perché, una volta ricevuto il sistema ellenistico, l'India lo abbia conservato mentre l'Occidente lo sostituiva progressivamente con metodi dipendenti dalla latitudine. Nel Jyotish il *Rashi Chakra* (la ruota dei segni) funge direttamente da mappa delle *bhāva* (case): ogni *rashi* coincide con un campo di esperienza.
+
+  La risposta risiede in una compatibilità filosofica profonda. La tradizione vedica possedeva già il concetto di *Ṛta*: l'ordine cosmico primordiale, dalla radice indoeuropea *\*h₂ar-*. È la stessa radice che dà il greco *ἁρμονία* (armonia) e il latino *ars* (arte, tecnica): tre parole che in lingue diverse nominano la stessa cosa, il proporzionato congiungimento delle parti. Un sistema di dodici settori uguali, nessuno deformato dalla latitudine, risuonava naturalmente con un orizzonte concettuale in cui l'ordine cosmico è simmetrico e universale per definizione.
+
+  #### I Dodici Rami Terrestri cinesi
+
+  Nella cosmologia cinese, i Dodici Rami Terrestri (*Dizhi*) articolano il tempo e lo spazio su tre livelli contemporaneamente: le dodici "doppie ore" di due ore ciascuna che compongono il giorno, i dodici mesi lunari che compongono l'anno e dodici direzioni bussola a intervalli di 30° l'una dall'altra. In ognuno dei tre registri la scansione è equidistante: dodici principi uguali in dignità, nessuno gonfiato o compresso dalla posizione geografica.
+
+  Il livello delle doppie ore è quello più direttamente confrontabile con le case astrologiche. Le case, nell'Astrologia occidentale, dividono il ciclo diurno in dodici settori di esperienza. I Rami Terrestri dividono le stesse ventiquattro ore in dodici periodi identici di due ore, indipendentemente dalla latitudine. Nessuna dottrina cinese sostiene che l'ora del Drago debba durare più dell'ora del Coniglio perché il natale è a Oslo invece che a Mumbai.
+
+  Questa struttura trova la sua espressione astrologica più elaborata nel *Zi Wei Dou Shu* (紫微斗數), l'Astrologia della Stella Polare Viola. In questo sistema il tema natale è organizzato in dodici palazzi uguali, uno per ciascun Ramo Terrestre: Vita, Fratelli, Coniuge, Figli, Ricchezza, Salute, Viaggi, Amici, Carriera, Proprietà, Mente, Genitori. I palazzi sono settori di esperienza analoghi alle case occidentali e la loro uguaglianza è strutturale: non dipende da dove l'osservatore si trova sulla Terra.
+
+  #### La Cabala e il Sefer Yetzirah
+
+  Il *Sefer Yetzirah* (Libro della Formazione, III–VI sec. d.C.) assegna le ventidue lettere dell'alfabeto ebraico alla geometria di un cubo: tre alle tre dimensioni dello spazio (altezza, larghezza, profondità), sette alle sei direzioni cardinali (su, giù, nord, sud, est, ovest) e al punto centrale, dodici agli spigoli in cui due facce adiacenti si incontrano. La tradizione commentaristica cabalistica ha chiamato questo modello il Cubo dello Spazio. Il §47 del testo, il paragrafo che elenca le dodici direzioni diagonali, chiama queste posizioni *גבולי אלכסון*, «confini diagonali», e le associa alle dodici costellazioni zodiacali, ai dodici mesi e a dodici organi del corpo [(Hayman, 2004)](https://doi.org/10.1628/978-3-16-158795-5){{Twelve simple letters: He, Waw, Zayin, Ḥet, Tet, Yod, Lamed, Nun, Samek, Ayin, Sade, Qof. He carved them, he combined them, he hewed them, he weighed them and exchanged them, and formed with them the constellations, the months, and the principal (bodily) organs}}. Tutti i dodici spigoli di un cubo sono geometricamente identici: la simmetria del solido non consente gerarchie tra loro.
+
+  #### Il Pitagorismo e il dodecagono regolare
+
+  Nella tradizione pitagorica i numeri sono principi formali attraverso cui l'ordine del cosmo si rende intelligibile [(Aristotele, *Metafisica*, c. 350 a.C.)](https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0052%3Abook%3D1%3Asection%3D985b){{all other things have their whole nature modelled upon numbers, and that numbers are the ultimate things in the whole physical universe}}. Al centro di questa tradizione si trova la Tetractys, la figura triangolare generata dalla somma dei quattro primi interi (1 + 2 + 3 + 4 = 10), che i Pitagorici veneravano come il fondamento dell'armonia cosmica.
+
+  Su una corda vibrante, dimezzare la lunghezza produce il suono all'ottava superiore, ridurla a due terzi produce la quinta, ridurla a tre quarti produce la quarta. I rapporti 2:1, 3:2 e 4:3 usano soltanto i numeri 1, 2, 3 e 4 della Tetractys [(Teone di Smirne, *Expositio rerum mathematicarum*, c. 115–140 d.C.)](https://archive.org/details/theonissmyrnaei00theogoog){{τοὺς δὲ συμφωνοῦντας φθόγγους ἐν λόγοις τοῖς πρὸς ἀλλήλους πρῶτος ἀνευρηκέναι δοκεῖ Πυθαγόρας, τοὺς μὲν διὰ τεσσάρων ἐν ἐπιτρίτῳ, τοὺς δὲ διὰ πέντε ἐν ἡμιολίῳ, τοὺς δὲ διὰ πασῶν ἐν διπλασίῳ}}. Il minimo comune multiplo di 1, 2, 3 e 4 è 12: il più piccolo intero divisibile per ciascuno di essi. Un cerchio suddiviso in dodici settori di 30 gradi traduce questa struttura nel piano.
+
+  Platone, nel *Timeo*, chiude il sistema dei solidi regolari assegnando il dodecaedro, il solido a dodici facce pentagonali, alla struttura dell'intero cosmo: "il dio lo usò per il tutto" [(Platone, *Timeo*, c. 360 a.C.)](https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0180%3Atext%3DTim.%3Asection%3D55c){{And seeing that there still remained one other compound figure, the fifth, God used it up for the Universe in his decoration thereof}}; il motivo è che il dodecaedro è il solido platonico che più si avvicina alla sfera e il cosmo platonico è sferico [(Zeyl & Sattler, 2022)](https://plato.stanford.edu/entries/plato-timaeus/){{The remaining regular solid, the dodecahedron, is "used for the universe as a whole," since it approaches most nearly the shape of a sphere}}. Il dodecagono regolare è la proiezione piana di questa struttura cosmologica: dodici settori uguali, nessuno più ampio o più ristretto degli altri.
+
+  ### Il fondamento metafisico: l'aura e la simmetria
+
+  Queste convergenze trovano una spiegazione nella seguente premessa metafisica: le case non sono settori di spazio celeste definiti da formule trigonometriche, ma le dodici sezioni dell'aura eterica dell'essere umano, quella raffigurata nel [Libro delle Caverne](/codex/domification/book-of-caves/cavern/1) come un ovale, un involucro magnetico attorno alla figura umana.
+
+  Se le case sono le sezioni dell'aura, la questione della loro ampiezza ha una risposta necessaria: devono essere uguali. L'ampiezza non può dipendere dalla latitudine dell'osservatore perché l'aura è una proprietà intrinseca dell'essere, non dell'orizzonte astronomico. Una I casa di 40 gradi a Oslo e di 28 a Roma significherebbe che la sezione dell'aura legata all'identità cambia dimensione con la latitudine. Nella stessa carta, una I casa più ampia della II significherebbe che l'aura dedica più spazio all'identità che alle risorse. Al polo alcune case scompaiono e quella persona non avrebbe i campi di esperienza corrispondenti.
+
+  La stessa struttura si ritrova su scala cosmica. Lo Zodiaco è l'aura del Sole: non il percorso apparente del Sole nel cielo, ma il suo campo energetico, suddiviso in dodici segni uguali di 30 gradi. Nessuno si sognerebbe di dividere lo Zodiaco in parti disuguali perché le costellazioni omonime hanno estensioni diverse. Dal punto di vista strettamente astronomico le costellazioni attraversate dall'eclittica non sono nemmeno dodici: l'Ofiuco si interpone tra Scorpione e Sagittario e il Sole vi transita più a lungo di quanto transiti nello Scorpione stesso. Eppure nessun sistema astrologico lo include tra i segni, perché lo Zodiaco non è un catalogo astronomico di ammassi stellari: è una struttura metafisica e simbolica.
+
+  ## Perché l'Ascendente è al quindicesimo grado
+
+  ### Il Thema Mundi
+
+  Nel IV secolo Firmico Materno descrive il *Thema Mundi*, la carta astrologica mitica della creazione, attribuendone la dottrina alla tradizione egizia: il segreto sarebbe passato da Esculapio e Anubis a Petosiris e Nechepso per tramite di Mercurio. Nella carta ogni pianeta siede al quindicesimo grado del proprio domicilio: il Sole al 15° del Leone, la Luna al 15° del Cancro, Saturno al 15° del Capricorno, Giove al 15° del Sagittario, Marte al 15° dello Scorpione, Venere al 15° della Bilancia, Mercurio al 15° della Vergine. L'Ascendente è posto al quindicesimo grado del Cancro [(Firmico Materno, *Matheseos Libri VIII*, c. 334 d.C.)](https://www.astrologiahumana.com/firmicusmaternustheoryandpractice.pdf){{the Sun in the 15th degree of Leo, the Moon in the 15th degree of Cancer, Saturn in the 15th degree of Capricorn, Jupiter in the 15th degree of Sagittarius, Mars in the 15th degree of Scorpio, Venus in the 15th degree of Libra, Mercury in the 15th degree of Virgo, and the ascendant in the 15th degree of Cancer}}. Il quindicesimo grado è il centro esatto del segno.
+
+  Lo stesso Firmico chiarisce che il *Thema Mundi* non racconta un evento storico: è un modello normativo, costruito dai sapienti antichi affinché l'astrologo lo adotti nella redazione delle carte individuali. La domanda è: cosa insegna, concretamente, un modello in cui ogni elemento è centrato nel proprio segno?
+
+  Non può insegnare a collocare i pianeti al quindicesimo grado: le posizioni planetarie sono dati astronomici determinati dall'istante di nascita; l'astrologo li calcola, non li sceglie. Ciò che il modello trasmette è un principio strutturale: il centro del segno è il luogo di massima potenza. Non a caso ogni pianeta è collocato nel segno che governa, la dignità essenziale più forte; porlo al quindicesimo grado significa portarlo al culmine della propria forza.
+
+  L'Ascendente è l'unico elemento per il quale questo principio può essere applicato operativamente. La sua posizione nello zodiaco è calcolata come quella dei pianeti, ma il modo in cui le case si organizzano attorno ad esso è una scelta di metodo. Il *Thema Mundi* insegna che il punto organizzatore della carta va posto al centro della casa, non al suo bordo. Vehlow fondò il suo sistema su questa evidenza, riconoscendovi il metodo originario dell'Astrologia antica [(Vehlow, 1933)](http://www.astrologie-chirologie.com/johannes_vehlow_werke/johannes_vehlow_band_I.pdf){{Der Aszendent, der die Stunde — hora oder Horoscopus bedeutet, wurde in die Mitte des Zeichens Krebs verlegt. Von Häuserspitzen ist hier nirgends die Rede!}}. L'origine egizia della dottrina è il motivo per cui il sistema Vehlow è noto anche come domificazione egizia.
+
+  ### Il centro come punto di massima potenza
+
+  La tradizione del Jyotish ha formalizzato lo stesso principio con un nome preciso: *bhava madhya*, il "centro della casa". Il grado del *lagna* (Ascendente) non segna il bordo della I casa ma ne occupa il centro: la casa si estende 15 gradi prima e 15 gradi dopo il grado ascendente. I confini tra una casa e la successiva si chiamano *bhava sandhi*, le giunzioni di casa.
+
+  La distinzione tra madhya e sandhi ha un fondamento non soltanto topologico ma funzionale. Il *Phaladeepika* di Mantreswara, uno dei testi classici del Jyotish, stabilisce un principio netto: anche un pianeta in esaltazione o in segno amico perde tutta la sua efficacia se si trova al *bhava sandhi*; al contrario, i pianeti che occupano il grado esatto del *bhava madhya* producono l'effetto pieno della casa, mentre quelli in posizioni intermedie producono effetti parziali [(Mantreswara, *Phaladeepika*, XIII sec.)](https://www.panchanga.lv/wp-content/uploads/2020/06/Phaladipika_Shri-Mantreswara.pdf){{Even if a planet be posited in his sign of exaltation or a friendly sign, he proves in affliction if he is situated in Bhava-Sandhi. The planets occupying the exact degrees (Bhava-Madhya) produce the full effects of that house. The planets situated in Bhava-Sandhi produce no effects}}.
+
+  Questo gradiente di forza trasforma la posizione dell'Ascendente da scelta geometrica a questione funzionale. Se il centro della casa ne è il punto di massima efficacia, l'Ascendente, il punto più determinante dell'intera carta, deve coincidere con il *bhava madhya* della I casa. Porlo al bordo significherebbe collocare il principio organizzatore della carta nel suo punto di minore potenza: una contraddizione strutturale.
+
+  ## Perché Placido non funziona
+
+  ### Impossibilità oltre il 60esimo parallelo
+
+  La domificazione Placido non funziona oltre circa 66 gradi di latitudine. Come denunciò già nel 1897 Fomalhaut nel suo *Manuel d'astrologie sphérique et judiciaire* [(Nicoullaud, 1897)](https://archive.org/details/BSG_DELTA61179FA){{Or il est inadmissible d'adopter un système qui ne s'applique pas à tous les lieux du Globe}}: "È inammissibile adottare un sistema che non si applica a tutti i luoghi del Globo." Questa limitazione da sola dovrebbe bastare a mettere in discussione un sistema che pretende di descrivere un ordine universale. Gli abitanti dell'Alaska, della Scandinavia settentrionale, della Russia artica sarebbero esclusi dal rapporto tra cosmo e individuo per un difetto del metodo di calcolo.
+
+  ### Distorsione degli aspetti planetari
+
+  In Placido, la sproporzione nell'estensione delle case produce aberrazioni negli aspetti tra le case stesse. Si verificano casi in cui una I casa si trova in trigono con la IV, o la X in sestile con la VII: case che dovrebbero essere in quadratura, poiché vertici degli assi zodiacali, finiscono in rapporti armonici, uno scenario contraddittorio rispetto all'intera struttura dell'oroscopo.
+
+  ### I segni intercettati: un artefatto del calcolo
+
+  Nei sistemi a quadrante come Placido, le case possono superare i 30° di ampiezza. Quando una casa è così grande da contenere un intero segno zodiacale senza che esso compaia su alcuna cuspide, si dice che il segno è *intercettato*: è inglobato dalla casa, privo di una propria cuspide. Il fenomeno si verifica sempre in coppie opposte. Alcuni astrologi interpretano i segni intercettati come energie nascoste o bloccate, più difficili da esprimere.
+
+  La teoria è relativamente recente. Non esistono riferimenti significativi alle intercettazioni negli autori classici (Vettio Valente, Tolomeo, Manilio) né medievali (Al-Biruni, Masha'allah, Guido Bonatti), che utilizzavano prevalentemente case a segno intero, nelle quali le intercettazioni sono strutturalmente impossibili. Il primo trattamento monografico si trova nell'opera di Joanne Wickenburg, che nel 1978 pubblicò *Intercepted Signs: Environment vs. Destiny* [(Wickenburg, 1978)](https://www.goodreads.com/book/show/18669388-intercepted-signs).
+
+  Dal punto di vista critico, le intercettazioni sono artefatti del metodo di calcolo, non fenomeni cosmici reali. Il caso più eloquente è quello dell'equatore: a latitudine zero le case di Placido misurano tutte circa 30° e le intercettazioni di fatto non si verificano. Chi nasce a Quito, Nairobi o Jakarta non ha segni intercettati nel proprio tema natale. Salendo di latitudine le case iniziano a deformarsi; oltre i 40° le intercettazioni diventano sistematiche; alle latitudini polari alcune case si estendono per oltre 60°. La teoria implica che intere popolazioni equatoriali siano prive delle "energie nascoste" che essa attribuisce a chi nasce a latitudini medio-alte, mentre due gemelli nati nello stesso istante a Quito e a Stoccolma avrebbero carte strutturalmente diverse sotto lo stesso cielo, con gli stessi pianeti nelle stesse posizioni. Ha senso attribuire dinamiche psicologiche profonde a un artefatto che dipende esclusivamente dalla latitudine di nascita?
+domificationArticleTitle: Perché utilizziamo la domificazione Vehlow
+domificationSectionTitle: La domificazione
+equatorEclipticContent: |-
+  ## Due cerchi, due ritmi
+
+  Sulla sfera celeste si possono tracciare infiniti cerchi, ma due sono di gran lunga i più importanti per l'Astrologia.
+
+  Il primo è l'**equatore celeste**: la proiezione dell'equatore terrestre sulla sfera celeste, perpendicolare all'asse di rotazione della Terra. Il secondo è l'**eclittica**: il percorso apparente che il Sole traccia tra le stelle nel corso di un anno. In realtà è la Terra a orbitare attorno al Sole, ma dalla nostra prospettiva è il Sole a spostarsi sullo sfondo stellare, a una velocità media di circa **1 grado al giorno** (360 gradi diviso 365,25 giorni). L'eclittica è il cerchio più importante dell'Astrologia: lo zodiaco è definito lungo di essa, le posizioni planetarie sono misurate lungo di essa, le case sono divisioni di essa.
+
+  ## L'obliquità dell'eclittica
+
+  L'eclittica non coincide con l'equatore celeste. È **inclinata di 23,44 gradi** rispetto ad esso. Questa inclinazione si chiama **obliquità dell'eclittica** ed è dovuta al fatto che l'asse di rotazione terrestre non è perpendicolare al piano orbitale, ma è inclinato di 23,44 gradi.
+
+  Se l'asse terrestre fosse perfettamente verticale rispetto all'orbita, eclittica ed equatore coinciderebbero. Non ci sarebbero stagioni, il giorno durerebbe sempre 12 ore ovunque e l'Astrologia perderebbe buona parte della sua struttura.
+
+  [EQUATOR_ECLIPTIC_DIAGRAM]
+
+  Lo slider muove il Sole lungo l'eclittica nel corso di un anno.
+
+  Agli equinozi il Sole si trova esattamente sull'equatore celeste: giorno e notte hanno la stessa durata. Ai solstizi il Sole raggiunge la massima distanza dall'equatore, producendo i giorni più lunghi e più corti dell'anno.
+
+  ## I punti di intersezione: equinozi e solstizi
+
+  I due cerchi si intersecano in due punti. Quando il Sole si trova in uno di questi punti, si trova contemporaneamente sull'eclittica e sull'equatore celeste. Il Sole si trova esattamente sull'equatore celeste. Questi momenti sono gli **equinozi**:
+
+  - **Equinozio di primavera** (punto vernale, 0 gradi Ariete): il Sole attraversa l'equatore dal basso verso l'alto, passando dall'emisfero celeste sud a quello nord. Questo punto è l'origine dello zodiaco tropicale
+  - **Equinozio d'autunno** (0 gradi Bilancia): il Sole attraversa l'equatore dall'alto verso il basso
+
+  A metà strada tra gli equinozi, il Sole raggiunge la massima distanza dall'equatore. Questi punti sono i **solstizi**:
+
+  - **Solstizio d'estate** (0 gradi Cancro): il Sole raggiunge il punto più a nord, a 23,44 gradi sopra l'equatore celeste. Il giorno più lungo nell'emisfero nord
+  - **Solstizio d'inverno** (0 gradi Capricorno): il Sole raggiunge il punto più a sud, a 23,44 gradi sotto l'equatore celeste. Il giorno più corto nell'emisfero nord
+
+  ## Le stagioni
+
+  L'obliquità dell'eclittica è la causa diretta delle stagioni. Quando il Sole si trova sulla parte dell'eclittica al di sopra dell'equatore celeste (da marzo a settembre), l'emisfero nord riceve più luce: i giorni sono più lunghi delle notti, il Sole sale più alto nel cielo. Quando si trova sulla parte al di sotto (da settembre a marzo), accade l'opposto.
+
+  La differenza tra le stagioni non dipende dalla distanza dal Sole (che varia poco), ma dall'angolo con cui i raggi solari colpiscono il suolo e dalla durata dell'illuminazione.
+
+  ## Lo zodiaco
+
+  Lo **zodiaco** è una fascia larga circa 8-9 gradi su ciascun lato dell'eclittica. Tutti i pianeti del sistema solare si muovono all'interno di questa fascia (con rare eccezioni per Plutone). Lo zodiaco tropicale, quello usato nell'Astrologia occidentale, divide l'eclittica in **12 segmenti uguali di 30 gradi**, ciascuno associato a un segno zodiacale.
+
+  Il punto di partenza è l'equinozio di primavera (0 gradi Ariete). Da lì si contano 30 gradi per l'Ariete, poi 30 per il Toro, e così via fino ai Pesci. Questa divisione è puramente geometrica: non corrisponde alle costellazioni omonime, che hanno dimensioni diverse e si sono spostate a causa della [precessione degli equinozi](/codex/astronomy-fundamentals/precession).
+equatorEclipticTitle: Equatore celeste ed eclittica
+exploreMore: Approfondisci
+latitudeSkyContent: |-
+  Questo articolo presuppone familiarità con i concetti di sfera celeste, equatore celeste ed eclittica. Chi non li conosce può consultare i due articoli della sezione [Fondamenti di Astronomia](/codex/astronomy-fundamentals): [La sfera celeste](/codex/astronomy-fundamentals/celestial-sphere) e [Equatore celeste ed eclittica](/codex/astronomy-fundamentals/equator-ecliptic).
+
+  ## La sfera celeste dipende da dove ci si trova
+
+  La **latitudine** è l'angolo che misura quanto un punto sulla superficie terrestre si trova a nord o a sud dell'equatore: vale 0 gradi all'equatore e 90 gradi ai poli.
+
+  Due osservatori che guardano il cielo nello stesso istante ma da latitudini diverse vedono cieli diversi. Le stelle sono le stesse, ma l'orientamento della sfera celeste rispetto all'orizzonte locale cambia radicalmente.
+
+  ## Il polo celeste e la latitudine
+
+  Il **polo celeste nord** è il punto della sfera celeste attorno al quale tutte le stelle sembrano ruotare. Ogni stella compie un cerchio completo attorno al polo in circa 24 ore. Questo cerchio è lo stesso moto che, visto da Terra, appare come il percorso da est a ovest descritto nell'articolo sulla [sfera celeste](/codex/astronomy-fundamentals/celestial-sphere): la parte del cerchio sopra l'orizzonte è l'arco visibile, la parte sotto è il periodo in cui la stella è sotto l'orizzonte.
+
+  La sua altezza sopra l'orizzonte è uguale alla latitudine dell'osservatore. Questa è una relazione geometrica esatta:
+
+  - A Roma (latitudine 42 gradi nord), il polo celeste nord si trova a 42 gradi sopra l'orizzonte nord
+  - A Stoccolma (latitudine 59 gradi), il polo è a 59 gradi
+  - All'equatore (latitudine 0), il polo è esattamente sull'orizzonte
+  - Al polo nord (latitudine 90 gradi), il polo celeste è allo zenit
+
+  ## Il cielo all'equatore
+
+  All'equatore terrestre, entrambi i poli celesti si trovano sull'orizzonte, uno a nord e uno a sud. L'equatore celeste passa per lo zenit, perpendicolare all'orizzonte.
+
+  Le stelle sorgono verticalmente dall'orizzonte orientale e tramontano verticalmente a occidente. Ogni stella è visibile per esattamente 12 ore e invisibile per 12, indipendentemente dalla sua posizione in cielo.
+
+  ## Il cielo ai poli
+
+  Al polo nord terrestre la situazione è opposta. Il polo celeste nord si trova allo zenit. Le stelle non sorgono e non tramontano: ruotano in cerchi orizzontali, mantenendo sempre la stessa altezza sopra l'orizzonte.
+
+  Le stelle che non scendono mai sotto l'orizzonte si chiamano **circumpolari**. Al polo nord, tutte le stelle dell'emisfero celeste nord sono circumpolari; tutte quelle dell'emisfero sud sono permanentemente invisibili. L'equatore celeste coincide con l'orizzonte.
+
+  ## Il cielo a latitudini intermedie
+
+  A latitudini intermedie come quella di Roma (42 gradi nord), il polo celeste nord si trova a 42 gradi di altezza sopra il punto cardinale nord dell'orizzonte. Le stelle descrivono cerchi attorno al polo celeste e più una stella è vicina al polo celeste, più il suo cerchio è stretto. Quando il cerchio è così stretto da restare interamente al di sopra dell'orizzonte, la stella è circumpolare. Nel diagramma interattivo, le stelle circumpolari corrispondono ai cerchi che non intersecano la linea dell'orizzonte.
+
+  Tutte le altre stelle sorgono e tramontano, ma restano sopra l'orizzonte per tempi diversi. Le stelle più a nord dell'equatore celeste restano visibili più a lungo; quelle più a sud, meno a lungo. Il motivo è semplice: ogni stella traccia un cerchio attorno al polo celeste e più una stella è vicina al polo, più il suo cerchio resta al di sopra dell'orizzonte.
+
+  [LATITUDE_SKY_DIAGRAM]
+latitudeSkyTitle: Come la latitudine cambia il cielo
+methodologicalNote: Nota metodologica
+nextSection: 'Avanti: ${title}'
+placidoIntroContent: |-
+  Per chi non ha familiarità con i concetti di sfera celeste, equatore celeste ed eclittica, consigliamo di leggere prima i due articoli della sezione [Fondamenti di Astronomia](/codex/astronomy-fundamentals): [La sfera celeste](/codex/astronomy-fundamentals/celestial-sphere) e [Equatore celeste ed eclittica](/codex/astronomy-fundamentals/equator-ecliptic).
+
+  ## Le case: dividere il cielo in dodici
+
+  In Astrologia, il tema natale è diviso in dodici case. Ogni casa governa un ambito dell'esperienza: identità, risorse, comunicazione, famiglia, creatività e così via. I segni zodiacali e le case condividono il numero dodici, ma sono strutture distinte. I segni dividono l'[eclittica](/codex/astronomy-fundamentals/equator-ecliptic) in dodici segmenti uguali di 30 gradi. Le case la dividono in base alla posizione dell'osservatore sulla Terra in un momento specifico.
+
+  La domanda che distingue un sistema di domificazione dall'altro è: come si effettua questa divisione?
+
+  ## Il metodo di Placido
+
+  Placido de Titis, un monaco olivetano del XVII secolo, propose un metodo basato sul tempo. Il suo ragionamento parte da un'osservazione semplice: ogni punto dell'eclittica sorge all'orizzonte orientale, sale fino al punto più alto al meridiano (il Medio Cielo), poi scende e tramonta all'orizzonte occidentale. Il tempo necessario per percorrere il tragitto dal sorgere alla culminazione è l'arco semi-diurno.
+
+  Placido divide questo arco semi-diurno in tre intervalli di tempo uguali. I gradi dell'eclittica che corrispondono ai confini di un terzo e di due terzi diventano le cuspidi delle case. La stessa procedura si applica alla metà discendente (dalla culminazione al tramonto), producendo sei case sopra l'orizzonte e sei sotto.
+
+  L'idea è intuitiva: il tempo che un grado impiega ad attraversare il cielo visibile viene suddiviso in parti uguali e ciascuna parte corrisponde a una casa.
+
+  ## Perché produce case disuguali
+
+  Il problema è che parti diverse dell'eclittica viaggiano a velocità diverse. Alcuni gradi zodiacali trascorrono molte ore sopra l'orizzonte; altri ne trascorrono molte meno. Questa asimmetria è causata da due fattori: l'inclinazione dell'eclittica rispetto all'equatore celeste e la latitudine geografica dell'osservatore.
+
+  Quando Placido divide l'arco semi-diurno in segmenti temporali uguali e poi rimappa quei segmenti sull'eclittica, le case risultanti coprono un numero diverso di gradi. Una casa che contiene gradi di ascensione lunga (che sorgono lentamente) sarà ampia; una casa che contiene gradi di ascensione corta (che sorgono rapidamente) sarà stretta. A latitudini moderate come Roma, la differenza è sensibile. A latitudini elevate, diventa estrema.
+
+  Se questi concetti non risultano immediatamente chiari, è del tutto normale: si tratta di meccanismi difficili da visualizzare senza un supporto grafico. Gli articoli che seguono sono pensati proprio per questo, con diagrammi interattivi che aiutano a farsi un'idea concreta del problema.
+
+  ## Cosa segue
+
+  Gli articoli di questa sezione costruiscono la comprensione astronomica necessaria per vedere esattamente come e perché questo accade:
+
+  1. [Come la latitudine cambia il cielo](/codex/domification/understanding-placido/latitude-sky) mostra come la posizione dell'osservatore sulla Terra determina l'orientamento dell'intera sfera celeste
+  2. [Archi semi-diurni e l'eclittica all'orizzonte](/codex/domification/understanding-placido/semidiurnal-arcs) spiega il meccanismo che produce tempi di levata disuguali
+placidoIntroTitle: Che cos'è la domificazione Placido
+precessionContent: |-
+  ## Cos'è la precessione?
+
+  La precessione degli equinozi è un lento movimento astronomico causato dal comportamento della Terra come un gigantesco giroscopio. La Terra non è una sfera perfetta: è leggermente appiattita ai poli. L'attrazione gravitazionale combinata del Sole e della Luna sul rigonfiamento equatoriale fa sì che l'asse del nostro pianeta tracci un cerchio nello spazio in circa 25.772 anni, con un moto simile a quello di una trottola.
+
+  Questo moto ha una conseguenza importante: il polo nord celeste cambia posizione di epoca in epoca e le stelle dello sfondo scorrono lentamente rispetto ai segni zodiacali. La precessione produce una differenza misurabile tra due tipi di anno: l'**anno tropicale** (il tempo tra due equinozi di primavera successivi, 365 giorni 5 ore 48 minuti 45 secondi) e l'**anno siderale** (il tempo necessario perché il Sole torni nella stessa posizione rispetto alle stelle fisse, 365 giorni 6 ore 9 minuti 10 secondi). La differenza di circa 20 minuti si accumula nei secoli e rivela lo spostamento del punto vernale.
+
+  [PRECESSION_DIAGRAM]
+
+  ## La scoperta della precessione
+
+  La prima misurazione scientifica di questa discrepanza si deve a Ipparco di Nicea (c. 190-120 a.C.), che confrontando le proprie osservazioni con quelle dei predecessori greci Timocari e Aristillo rilevò uno spostamento di 2° della stella Spica rispetto all'equinozio autunnale. La tesi che gli astronomi babilonesi avessero già formalizzato la scoperta è stata confutata [(Neugebauer, 1950)](https://www.jstor.org/stable/595428){{there is no basis visible anywhere in the cuneiform texts of the Seleucid period to support the assumption of a conscious recognition of precession}}. Il fenomeno era tuttavia osservato prima di Ipparco: come si vedrà nella testimonianza egizia, templi, dinastie e teologia riflettono il passaggio del punto vernale attraverso le costellazioni. Una revisione sistematica delle evidenze archeoastronomiche ha concluso che sebbene manchino prove definitive la quantità di indizi è notevole [(Magli, 2004)](https://arxiv.org/pdf/physics/0407108){{Although definitive evidence of the discovery is still lacking, the quantity of hints (for instance, coming from ancient Egypt) is impressive and stimulating}}.
+
+  ## Le ere astrologiche
+
+  Spostandosi l'asse terrestre, mutano i rapporti dell'equatore con l'eclittica e si spostano gli equinozi e i solstizi di un grado ogni 71,6 anni circa. Il punto Gamma (0° Ariete), origine delle longitudini eclittiche tanto in Astronomia come in Astrologia, attraversa nel tempo diverse costellazioni:
+
+  - **Era dell'Ariete** (c. 2160-60 a.C.): segnata dall'ascesa delle grandi civiltà guerriere e dell'eroe individuale. Dal Nuovo Regno egizio alla Persia, dalle città-stato greche alla Repubblica romana, gli imperi si espandono attraverso la conquista. L'Ariete è un segno di fuoco governato da Marte: i temi dominanti dell'era sono l'affermazione della volontà individuale, il valore militare, la ricerca della gloria e la fondazione di nuovi ordini attraverso la forza e la legge
+  - **Era dei Pesci** (dal c. 60 a.C.): contrassegnata dalla nascita e dalla diffusione del Cristianesimo, il cui simbolo più antico è il pesce. La parola greca ἰχθύς (ichthýs, "pesce") forma l'acronimo di "Gesù Cristo Figlio di Dio Salvatore"; i primi cristiani lo usavano come segno di riconoscimento durante le persecuzioni. I temi dominanti dell'era riflettono le qualità del segno: compassione, sacrificio, fede, devozione, ricerca della salvezza attraverso un'autorità spirituale esterna
+  - **Era dell'Acquario**: il prossimo grande ciclo, il cui inizio è stato variamente stimato tra il ventiduesimo e il ventisettesimo secolo. L'Acquario è un segno d'aria: la tradizione astrologica gli associa il progresso scientifico e tecnologico, la ricerca della fratellanza universale e della libertà individuale, la conoscenza interiore al posto della fede cieca e la coscienza collettiva al posto dell'obbedienza all'autorità
+
+  Le date sopra indicate sono approssimative e il concetto formale di ere legate alla precessione è più recente di quanto si creda. La prima teoria sistematica a collegare i periodi storici alla precessione degli equinozi fu formulata non nell'antichità ma durante l'Illuminismo francese, da Charles-François Dupuis e Constantin-François Volney [(Campion, 2011)](https://constable.blog/wp-content/uploads/15-1_Campion_Age_Aquarius-1.pdf){{there are no extant classical or medieval astrological texts that attribute any astrological or historical significance to precession. Instead the increasing separation between the tropical and sidereal zodiacs was used to discredit astrology}}. Non si conosce un solo esempio di questo uso della precessione da parte degli astrologi prima della fine del diciannovesimo secolo. Tra Medioevo e Rinascimento, astrologi come Guido Bonatti e Tommaso Campanella considerarono la divergenza tra zodiaco tropicale e siderale un problema per l'Astrologia, non uno strumento di previsione. L'osservazione, tuttavia, precede la formalizzazione di millenni: come mostrerà la testimonianza egizia qui sotto, templi, dinastie e teologia riflettono il passaggio del punto vernale attraverso le costellazioni.
+
+  Lo zodiaco astrologico suddivide l'eclittica in dodici archi uguali di 30 gradi misurati dal punto vernale; le costellazioni omonime occupano invece estensioni molto diverse e i loro confini, fissati convenzionalmente dall'Unione Astronomica Internazionale nel 1930, non coincidono con queste divisioni. Non esiste un criterio univoco per stabilire il momento esatto in cui un'era finisce e la successiva comincia e le stime pubblicate coprono oltre duemila anni. Johannes Vehlow collocò la transizione nel 1793, in coincidenza con la Rivoluzione francese [(Vehlow, 1934)](http://www.astrologie-chirologie.com/johannes_vehlow_werke/johannes_vehlow_band_VIII.pdf){{So hat sich mit Hilfe der statischen, weltpolitischen Achsen endlich eindeutig feststellen lassen, wo sich gegenwärtig der Frühlingspunkt, am Sternbilderzodiakus gemessen, befindet. Die beiden anfangs erwähnten französischen Autoren hatten mit ihren Feststellungen also recht, und mit ihnen nehmen wir an, daß das Wassermannzeitalter bereits im Jahre 1793, zur Zeit der französischen Revolution begonnen hat!}}; la stima più tardiva, il 2597, si deve a Jean Meeus e poggia sui confini delle costellazioni fissati dall'UAI nel 1930 [(Meeus, 1997)](https://openlibrary.org/isbn/9780943396514){{Not until A.D. 2597 will the March equinox cross the boundary into Aquarius.}}. Come [argomentato a proposito della domificazione](/codex/domification/why-vehlow), la premessa di un calcolo è più importante del calcolo stesso: determinare l'inizio di un'era astrologica in base ai confini delle costellazioni IAU equivale a sovrapporre un criterio astronomico moderno a un sistema simbolico millenario; è lo stesso tipo di errore che la domificazione di Placido commette quando giustappone i [semi-archi diurni](/codex/domification/understanding-placido/semidiurnal-arcs) a un ordine che non è astronomico ma metafisico. Divisioni uguali di 30 gradi, più coerenti con la struttura dello zodiaco astrologico, collocano la transizione intorno al ventiduesimo secolo. Il punto vernale si trova attualmente nella costellazione dei Pesci con qualsiasi metodo di calcolo.
+
+  L'Astrologia mondana delle Grandi Congiunzioni offre un'altra lettura dei temi acquariani attribuiti alla società contemporanea, senza richiedere un passaggio di era.
+
+  Giove e Saturno si congiungono circa ogni vent'anni. Le loro congiunzioni formano sequenze che ricorrono prevalentemente in segni dello stesso elemento, con alcune interruzioni. Le congiunzioni del 1980–1981 avvennero in Bilancia, un segno d'Aria, mentre quella del 2000 tornò in un segno di Terra. La congiunzione del 21 dicembre 2020 in Acquario segna l'inizio di una serie prevalentemente in segni d'Aria [(Nolle, s.d.)](https://www.astropro.com/features/tables/geo/ju-sa/ju000sa.html){{It begins with the December 21, 2020 alignment and concludes with the 2199 conjunction}}. In una lettura astrologica, questo passaggio può essere associato ai temi della comunicazione e delle reti collettive, senza implicare l'inizio dell'era dell'Acquario.
+
+  ## Dal Toro all'Ariete nell'Egitto faraonico
+
+  Tra gli indizi che Magli definisce "impressionanti e stimolanti", il caso egizio merita un esame ravvicinato. Nell'Egitto faraonico il passaggio da un culto animale a un altro è tracciabile su fonti iconografiche, architettoniche e testuali lungo un arco di oltre duemila anni.
+
+  ### I tre tori sacri
+
+  L'Egitto antico venerava tre tori sacri nei suoi maggiori centri religiosi.
+
+  A Menfi risiedeva l'**Apis**, manifestazione vivente (in egizio il *Ba*) del dio creatore Ptah. Il culto risale alla I Dinastia, ovvero intorno al 3100 a.C. [(Simpson, 1957)](https://www.jstor.org/stable/43581573){{Facing the name of the Horus 'Aha is the text: sp tpy pḥrr Ḥp, "the first occasion of the running of the Apis". The text thus provides us with an earlier mention of the running of the Apis than that given for the reign of Dn by the sealing from Saḳḳarah and the text of the Palermo Stone}}. Alla morte il toro era mummificato e sepolto nel Serapeo di Saqqara, la necropoli di Menfi scoperta da Auguste Mariette nel 1851.
+
+  ![Il toro Apis, con le caratteristiche macchie bianche e nere e il disco solare tra le corna](codex/apis.webp)
+
+  A Eliopoli, il **Mnevis**, araldo del dio solare Ra-Atum. Il "toro di Eliopoli" compare già nei Testi delle Piramidi della V Dinastia (c. 2350 a.C.), in piena Età del Toro [(Allen, 2005)](https://archive.org/details/the-ancient-egyptian-pyramid-texts_202103){{Unis has come against you: it is Unis, wild bull of the savannah, a bigfaced bull who comes from Heliopolis — Pyramid of Unis, Recitation 212}}.
+
+  A Hermonthis, il **Buchis**, incarnazione del dio guerriero Montu [(Wilkinson, 2003)](https://openlibrary.org/isbn/9780500051207){{Montu could also be represented in the form of his sacred bull, the Buchis, or occasionally in the later dynasties as a bull-headed man}} e Ba vivente del dio solare Ra. Il Bucheum, la sua necropoli scoperta da Robert Mond e Oliver Myers, conserva stele che acclamano il toro con questo titolo [(Mond & Myers, 1934)](https://archive.org/details/EXCMEM41_2){{there appeared Buchis, the living Ba of Re, manifestation of Re. He was born in Hermonthis}}.
+
+  Non a caso nella lingua egizia la parola *Ka* significa sia "toro" sia "forza vitale", il principio spirituale che accompagna ogni persona dalla nascita alla morte: per gli antichi Egizi il toro incarnava il principio vitale stesso [(Gordon & Schwabe, 2004)](https://doi.org/10.1163/9789047404163){{ka was also the name for 'bull', an equation surely not meaningless to the Egyptians}}.
+
+  ![A sinistra: statua del Ka del faraone Hor I (ca. 1760 a.C., Museo Egizio del Cairo). A destra: rilievo templare. Il geroglifico sul capo raffigura due braccia alzate, che significano sia "toro" sia "forza vitale"](codex/ka.webp)
+
+  ### Da Montu ad Amon
+
+  Tra l'Antico e il Medio Regno la capitale dell'Egitto era Tebe, la cui divinità principale era proprio Montu. Gli ultimi tre sovrani dell'XI Dinastia portarono il nome Menthu-Hotep ("Montu è soddisfatto"); la XII Dinastia che seguì produsse quattro Amenemhat ("Amon è in testa") e nessun Menthu-Hotep. Nell'arco di un secolo e mezzo Amon soppiantò gradualmente Montu e raggiunse la posizione di dio supremo dell'intero pantheon egizio [(Wilkinson, 2003)](https://openlibrary.org/isbn/9780500051207){{Within a century and a half Amun gradually displaced the old god of that region, Montu, and the ascendancy of the Theban kings in Middle and New Kingdom times eventually propelled him (as the combined Amun-Re) to the position of supreme god of the Egyptian pantheon}}. Amon è un dio dalla testa di ariete. Amenemhat I spostò la capitale a Itjtawy, ma Tebe rimase il centro religioso dell'Egitto: il grande complesso templare di Karnak, originariamente dedicato a Montu, divenne il santuario di Amon-Ra. I suoi viali processionali sono fiancheggiati da sfingi a testa di ariete.
+
+  ![Criosfingi lungo il viale processionale del tempio di Karnak. Ogni sfinge dalla testa di ariete custodisce una piccola figura del faraone tra le zampe anteriori](codex/karnak.webp)
+
+  La cronologia di questa transizione è degna di nota [(Angelini, 1988)](https://www.kemiassociazione.it){{Verso il 2200 il punto Gamma passa da Toro ad Ariete, cade la XII Dinastia ed in Egitto vi è l'avvento di AMON, la Testa di Ariete}}. L'era del Toro termina intorno al 2160 a.C.; la caduta dell'Antico Regno si data al 2181 a.C. circa. Nell'era dell'Ariete che segue, Amon sorge fino a diventare il re degli dèi. Per oltre venti secoli la teologia egizia venerò il toro come simbolo supremo nell'era del Toro e l'ariete nell'era dell'Ariete.
+precessionTitle: Precessione degli Equinozi
+readMethodologicalNote: Leggi la nota metodologica
+semidiurnalArcsContent: |-
+  ## Dall'osservazione alla meccanica celeste
+
+  Tre fattori governano il modo in cui i gradi dell'eclittica sorgono all'orizzonte: la [rotazione terrestre](/codex/astronomy-fundamentals/celestial-sphere), l'inclinazione dell'[eclittica](/codex/astronomy-fundamentals/equator-ecliptic) rispetto all'equatore e la [latitudine dell'osservatore](/codex/domification/understanding-placido/latitude-sky). Questo articolo mostra come la loro combinazione produca il fenomeno che sta alla base della domificazione di Placido: il fatto che gradi diversi dell'eclittica impiegano tempi diversi a sorgere.
+
+  ## L'arco semi-diurno
+
+  Quando un corpo celeste sorge all'orizzonte orientale, inizia il suo percorso visibile nel cielo. Traccia un arco fino a raggiungere il punto più alto, la culminazione al meridiano, poi scende fino a tramontare all'orizzonte occidentale.
+
+  L'**arco semi-diurno** (ASD) è la metà di questo percorso: l'arco dal sorgere alla culminazione, oppure dalla culminazione al tramonto.
+
+  Una stella esattamente sull'equatore celeste ha un arco semi-diurno di **6 ore**: sorge, impiega 6 ore per arrivare al meridiano, poi altre 6 ore per tramontare. È sopra l'orizzonte per 12 ore esatte.
+
+  ## Declinazione e arco semi-diurno
+
+  Ma le stelle non si trovano tutte sull'equatore. La **declinazione** di una stella, la sua distanza angolare dall'equatore celeste, influenza la durata del suo arco semi-diurno e questo effetto dipende dalla latitudine dell'osservatore.
+
+  A Roma, 42 gradi nord:
+
+  - Una stella con declinazione 0° (sull'equatore): ASD = 6 ore esatte
+  - Una stella con declinazione +20°: ASD = circa 7 ore e 16 minuti
+  - Una stella con declinazione -20°: ASD = circa 4 ore e 44 minuti
+  - Una stella con declinazione +42° (uguale alla latitudine): ASD = circa 9 ore e 37 minuti
+
+  Maggiore la declinazione verso il polo visibile, più lungo l'arco semi-diurno. Il motivo è geometrico: ogni stella traccia un cerchio attorno al [polo celeste](/codex/domification/understanding-placido/latitude-sky). Se il polo è alto sopra l'orizzonte, le stelle che gli orbitano vicino descrivono cerchi che restano quasi interamente al di sopra della linea dell'orizzonte e quindi rimangono visibili più a lungo. Le stelle lontane dal polo, al contrario, hanno cerchi che passano per lo più al di sotto. L'effetto si amplifica con la latitudine, perché a latitudini più alte il polo celeste è più in alto e la disparità tra i cerchi aumenta.
+
+  [LATITUDE_SKY_DIAGRAM]
+
+  ## L'eclittica all'orizzonte
+
+  L'eclittica è il percorso del Sole e dei pianeti lungo lo zodiaco. A differenza dell'equatore celeste, che mantiene sempre la stessa relazione con l'asse di rotazione, l'eclittica è inclinata di 23,44° rispetto ad esso. Questa inclinazione fa sì che ogni grado dell'eclittica abbia una declinazione propria: si va da +23,44° a 0° Cancro fino a -23,44° a 0° Capricorno, passando per 0° agli equinozi.
+
+  Come abbiamo visto, la declinazione determina la durata dell'arco semi-diurno. Ogni grado dell'eclittica ha quindi un arco semi-diurno diverso: i gradi vicini al Cancro, con alta declinazione positiva nell'emisfero nord, restano sopra l'orizzonte più a lungo; quelli vicini al Capricorno, con declinazione negativa, meno a lungo.
+
+  Ma la conseguenza che più interessa la domificazione è un'altra. La sfera celeste ruota a velocità costante: un giro completo ogni giorno siderale. Eppure l'Ascendente, il grado zodiacale che sorge a est, non avanza nello zodiaco a velocità costante. A volte attraversa molti gradi in un'ora, a volte pochi. La ragione sta nell'angolo con cui l'eclittica incontra l'orizzonte: siccome l'eclittica è un cerchio inclinato, mentre il cielo ruota i suoi diversi tratti arrivano all'orizzonte orientale con inclinazioni diverse.
+
+  [ECLIPTIC_RISING_COMPARISON_DIAGRAM]
+
+  [ECLIPTIC_HORIZON_DIAGRAM]
+
+  Quando l'eclittica taglia l'orizzonte quasi perpendicolarmente, i gradi zodiacali sono disposti uno sopra l'altro. La rotazione li porta verso il basso, non lungo l'orizzonte: ciascuno deve attraversare la linea dell'orizzonte singolarmente. Pochi gradi sorgono in un dato intervallo di tempo. I segni che sorgono in queste condizioni si chiamano segni di **ascensione lunga**.
+
+  Quando l'eclittica corre quasi parallela all'orizzonte, molti gradi giacciono contemporaneamente vicini alla linea dell'orizzonte. La rotazione li spazza oltre il bordo quasi insieme: molti gradi sorgono nello stesso tempo. Questi sono i segni di **ascensione corta**.
+
+  [SEMIDIURNAL_ARC_DIAGRAM]
+
+  Nel diagramma, lo slider della latitudine modifica l'inclinazione complessiva della sfera celeste rispetto all'orizzonte. Lo slider dell'ora mostra la rotazione giornaliera del cielo, cioè il modo in cui l'orizzonte incontra, uno dopo l'altro, i diversi tratti dell'eclittica. All'equatore l'effetto quasi si annulla, perché ogni tratto dell'eclittica incontra l'orizzonte con un angolo simile. A Roma la differenza è già netta e a latitudini più alte diventa più marcata.
+
+  ## Come Placido ricava le case
+
+  A questo punto si vede il passaggio decisivo. L'Ascendente è il grado che sta sorgendo ora a oriente. Il Medio Cielo è il grado che culmina al meridiano. Tra questi due punti c'è un intero tratto dell'eclittica in movimento, ma Placido non lo divide in tre archi uguali di 30 gradi.
+
+  Lo divide in **tre tempi uguali**.
+
+  In pratica prende il tragitto che un grado compie dal sorgere alla culminazione e cerca due soglie temporali intermedie: il punto raggiunto dopo un terzo del tempo e quello raggiunto dopo due terzi. I gradi dell'eclittica che corrispondono a queste due soglie diventano le cuspidi intermedie del quadrante.
+
+  Lo stesso criterio viene applicato agli altri quadranti del tema. Il risultato non è una sequenza di cuspidi distanziate regolarmente di 30 gradi, perché i gradi dell'eclittica non salgono tutti con la stessa velocità. Dove la levata è lenta, la traduzione del tempo in longitudine zodiacale dà un esito; dove la levata è rapida, ne dà un altro.
+
+  Per questo Placido produce case disuguali: il principio di divisione resta uguale, il tempo, ma i gradi zodiacali su cui cade quel tempo cambiano continuamente con latitudine, obliquità e rotazione diurna.
+
+  Il diagramma seguente mostra il risultato concreto: le dodici case di Placido viste dall'alto, con uno slider che permette di variare la latitudine. All'equatore le case sono tutte uguali, perché ogni tratto dell'eclittica sorge con la stessa velocità. Man mano che la latitudine aumenta, la disparità tra le case cresce fino a diventare estrema alle latitudini polari.
+
+  [PLACIDO_DIAGRAM]
+semidiurnalArcsTitle: Archi semi-diurni e l'eclittica all'orizzonte
+understandingPlacidoTitle: Comprendere la domificazione Placido

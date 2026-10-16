@@ -1,8 +1,5 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../models/reading.dart';
 import '../models/reading_chunk.dart';
 import '../models/synastry.dart';
@@ -80,10 +77,7 @@ class SynastryService {
     }
   }
 
-  Future<String> getSynastrySvg(
-    int synastryId, {
-    double zoom = 1.0,
-  }) async {
+  Future<String> getSynastrySvg(int synastryId, {double zoom = 1.0}) async {
     try {
       final svg = await _apiClient.getRawText(
         '/synastry/$synastryId/svg?zoom=${zoom.toString()}',
@@ -107,7 +101,9 @@ class SynastryService {
       );
       return svg;
     } catch (e) {
-      throw SynastryException('Failed to get synastry details SVG: ${e.toString()}');
+      throw SynastryException(
+        'Failed to get synastry details SVG: ${e.toString()}',
+      );
     }
   }
 
@@ -124,7 +120,9 @@ class SynastryService {
       return svg;
     } catch (e) {
       if (e is ApiException) rethrow;
-      throw SynastryException('Failed to get synastry aspect grid SVG: ${e.toString()}');
+      throw SynastryException(
+        'Failed to get synastry aspect grid SVG: ${e.toString()}',
+      );
     }
   }
 

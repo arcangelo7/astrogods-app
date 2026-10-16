@@ -1,125 +1,106 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../models/cavern_details.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class CavernDetailsService {
-  static String getBookOfCavernsIntroduction(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return l10n.bookOfCavernsIntroduction;
-  }
-
   static List<CavernDetails> getAllCavernDetails(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final introduction = l10n.bookOfCavernsIntroduction;
+    final t = Translations.of(context);
     return [
       CavernDetails(
         houseNumber: 1,
-        title: l10n.firstCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.firstCavernLiteralMeaning,
-        esotericMeaning: l10n.firstCavernEsotericMeaning,
+        title: t.caverns.firstCavernTitle,
+        literalMeaning: t.caverns.firstCavernLiteralMeaning,
+        esotericMeaning: t.caverns.firstCavernEsotericMeaning,
         imagePath: 'prima_caverna.webp',
       ),
       CavernDetails(
         houseNumber: 2,
-        title: l10n.secondCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.secondCavernLiteralMeaning,
-        esotericMeaning: l10n.secondCavernEsotericMeaning,
+        title: t.caverns.secondCavernTitle,
+        literalMeaning: t.caverns.secondCavernLiteralMeaning,
+        esotericMeaning: t.caverns.secondCavernEsotericMeaning,
         imagePath: 'seconda_caverna.webp',
       ),
       CavernDetails(
         houseNumber: 3,
-        title: l10n.thirdCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.thirdCavernLiteralMeaning,
-        esotericMeaning: l10n.thirdCavernEsotericMeaning,
+        title: t.caverns.thirdCavernTitle,
+        literalMeaning: t.caverns.thirdCavernLiteralMeaning,
+        esotericMeaning: t.caverns.thirdCavernEsotericMeaning,
         imagePath: 'terza_caverna.webp',
       ),
       CavernDetails(
         houseNumber: 4,
-        title: l10n.fourthCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.fourthCavernLiteralMeaning,
-        esotericMeaning: l10n.fourthCavernEsotericMeaning,
+        title: t.caverns.fourthCavernTitle,
+        literalMeaning: t.caverns.fourthCavernLiteralMeaning,
+        esotericMeaning: t.caverns.fourthCavernEsotericMeaning,
         imagePath: 'quarta_caverna.webp',
       ),
       CavernDetails(
         houseNumber: 5,
-        title: l10n.fifthCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.fifthCavernLiteralMeaning,
-        esotericMeaning: l10n.fifthCavernEsotericMeaning,
+        title: t.caverns.fifthCavernTitle,
+        literalMeaning: t.caverns.fifthCavernLiteralMeaning,
+        esotericMeaning: t.caverns.fifthCavernEsotericMeaning,
         imagePath: 'quinta_caverna.webp',
       ),
       CavernDetails(
         houseNumber: 6,
-        title: l10n.sixthCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.sixthCavernLiteralMeaning,
-        esotericMeaning: l10n.sixthCavernEsotericMeaning,
+        title: t.caverns.sixthCavernTitle,
+        literalMeaning: t.caverns.sixthCavernLiteralMeaning,
+        esotericMeaning: t.caverns.sixthCavernEsotericMeaning,
         imagePath: 'sesta_caverna.webp',
       ),
       CavernDetails(
         houseNumber: 7,
-        title: l10n.seventhCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.seventhCavernLiteralMeaning,
-        esotericMeaning: l10n.seventhCavernEsotericMeaning,
+        title: t.caverns.seventhCavernTitle,
+        literalMeaning: t.caverns.seventhCavernLiteralMeaning,
+        esotericMeaning: t.caverns.seventhCavernEsotericMeaning,
         imagePath: null,
       ),
       CavernDetails(
         houseNumber: 8,
-        title: l10n.eighthCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.eighthCavernLiteralMeaning,
-        esotericMeaning: l10n.eighthCavernEsotericMeaning,
+        title: t.caverns.eighthCavernTitle,
+        literalMeaning: t.caverns.eighthCavernLiteralMeaning,
+        esotericMeaning: t.caverns.eighthCavernEsotericMeaning,
         imagePath: 'ottava_caverna.webp',
       ),
       CavernDetails(
         houseNumber: 9,
-        title: l10n.ninthCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.ninthCavernLiteralMeaning,
-        esotericMeaning: l10n.ninthCavernEsotericMeaning,
+        title: t.caverns.ninthCavernTitle,
+        literalMeaning: t.caverns.ninthCavernLiteralMeaning,
+        esotericMeaning: t.caverns.ninthCavernEsotericMeaning,
         imagePath: 'nona_caverna.webp',
       ),
       CavernDetails(
         houseNumber: 10,
-        title: l10n.tenthCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.tenthCavernLiteralMeaning,
-        esotericMeaning: l10n.tenthCavernEsotericMeaning,
+        title: t.caverns.tenthCavernTitle,
+        literalMeaning: t.caverns.tenthCavernLiteralMeaning,
+        esotericMeaning: t.caverns.tenthCavernEsotericMeaning,
         imagePath: 'decima_caverna.webp',
       ),
       CavernDetails(
         houseNumber: 11,
-        title: l10n.eleventhCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.eleventhCavernLiteralMeaning,
-        esotericMeaning: l10n.eleventhCavernEsotericMeaning,
+        title: t.caverns.eleventhCavernTitle,
+        literalMeaning: t.caverns.eleventhCavernLiteralMeaning,
+        esotericMeaning: t.caverns.eleventhCavernEsotericMeaning,
         imagePath: 'undicesima_caverna.webp',
       ),
       CavernDetails(
         houseNumber: 12,
-        title: l10n.twelfthCavernTitle,
-        introduction: introduction,
-        literalMeaning: l10n.twelfthCavernLiteralMeaning,
-        esotericMeaning: l10n.twelfthCavernEsotericMeaning,
+        title: t.caverns.twelfthCavernTitle,
+        literalMeaning: t.caverns.twelfthCavernLiteralMeaning,
+        esotericMeaning: t.caverns.twelfthCavernEsotericMeaning,
         imagePath: 'dodicesima_caverna.webp',
       ),
     ];
   }
 
-  static CavernDetails? getCavernDetailsByHouse(int houseNumber, BuildContext context) {
+  static CavernDetails? getCavernDetailsByHouse(
+    int houseNumber,
+    BuildContext context,
+  ) {
     try {
-      return getAllCavernDetails(context).firstWhere(
-        (cavern) => cavern.houseNumber == houseNumber,
-      );
+      return getAllCavernDetails(context)
+          .firstWhere((cavern) => cavern.houseNumber == houseNumber);
     } catch (e) {
       return null;
     }

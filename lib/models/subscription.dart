@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'subscription.g.dart';
@@ -52,7 +48,7 @@ class Subscription {
   DateTime? get currentPeriodStartDate => currentPeriodStart != null
       ? DateTime.fromMillisecondsSinceEpoch(currentPeriodStart! * 1000)
       : null;
-  
+
   DateTime? get currentPeriodEndDate => currentPeriodEnd != null
       ? DateTime.fromMillisecondsSinceEpoch(currentPeriodEnd! * 1000)
       : null;
@@ -75,11 +71,10 @@ class Subscription {
 
   bool get isFailedPayment {
     return status == 'past_due' ||
-           status == 'unpaid' ||
-           status == 'incomplete' ||
-           status == 'incomplete_expired';
+        status == 'unpaid' ||
+        status == 'incomplete' ||
+        status == 'incomplete_expired';
   }
-
 }
 
 @JsonSerializable()
@@ -103,7 +98,8 @@ class SubscriptionStatusResponse {
 
   bool get hasSubscription => subscription != null;
 
-  bool get isActive => subscription?.status == 'active' || subscription?.status == 'trialing';
+  bool get isActive =>
+      subscription?.status == 'active' || subscription?.status == 'trialing';
 
   bool get isFailedPayment => subscription?.isFailedPayment ?? false;
 

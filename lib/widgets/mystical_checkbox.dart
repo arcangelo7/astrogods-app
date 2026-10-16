@@ -1,8 +1,5 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../constants/text_styles.dart';
 
 class MysticalCheckbox extends StatelessWidget {
@@ -26,10 +23,7 @@ class MysticalCheckbox extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final checkboxTile = CheckboxListTile(
-      title: Text(
-        title,
-        style: AppTextStyles.getBodyStyle(context),
-      ),
+      title: Text(title, style: AppTextStyles.getBodyStyle(context)),
       subtitle: subtitle != null
           ? Padding(
               padding: const EdgeInsets.only(top: 8.0),
@@ -55,9 +49,13 @@ class MysticalCheckbox extends StatelessWidget {
           color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.5),
           width: 1,
         ),
-        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+        color: Theme.of(context).colorScheme.surfaceContainerHighest
+            .withValues(alpha: 0.3),
       ),
-      child: checkboxTile,
+      child: Material(
+        type: MaterialType.transparency,
+        child: checkboxTile,
+      ),
     );
   }
 }

@@ -1,0 +1,24 @@
+releaseNotes: Release notes
+releaseNotesTitle: What's new
+releaseNotes_2_0_1: Initial release with birth chart readings, synastry analysis for couple compatibility, and daily and monthly transit predictions. PDF export. Full support for English and Italian.
+releaseNotes_2_0_2: Bug fixes and stability improvements.
+releaseNotes_2_0_3: Performance improvements.
+releaseNotes_2_0_4: Bug fixes and stability improvements.
+releaseNotes_2_1_0: Chart-only PDF download for birth chart, synastry, and transits. PDF export for daily and monthly transit readings. House numbers now shown in chart details. Birth charts created before registration are now automatically linked to your account.
+releaseNotes_2_2_0: 'Faster transit calculations, up to 40% faster for monthly transits. New team member: Corrado Camponeschi.'
+releaseNotes_2_2_1: Bug fixes and stability improvements.
+releaseNotes_2_3_0: Enhanced chart visualization with degree markers and planet connector lines. Improved water sign colors for better contrast. Visual refinements to the chart display.
+releaseNotes_2_4_0: Readings can now resume if your connection is interrupted. Improved overall stability.
+releaseNotes_3_0_0: New release notes screen to view version history. The app now checks compatibility and notifies you when an update is available. Improved reading generation stability.
+releaseNotes_4_0_0: High-resolution images in fullscreen view. New aspect grid for synastry and transits. PDF exports now include details and aspect grid pages. Enhanced desktop navigation with arrows, clickable indicators, and keyboard shortcuts. Improved fullscreen zoom for charts and images. Lighter and faster app. Fixed layout issue in landscape mode on mobile.
+releaseNotes_4_0_1: Fixed an issue where the PDF button did not appear after reading generation. Saved charts now refresh correctly when navigating back with the browser.
+releaseNotes_4_10_0: You can now regenerate readings in your preferred language. Saved transits now appear in saved analyses. Fixed authentication workflow bugs.
+releaseNotes_4_10_1: Success screen after subscription. Reorganized navigation in side menu. Clickable links in Codex. Subscription management improvements.
+releaseNotes_4_11_0: 'If you were born during a clock change, you can now pick which hour you mean. Charts for births before modern time zones are now more accurate. The Codex adds articles on precession and house systems, with interactive diagrams. Tap a citation in the Codex to read the original passage. New floating navigation bar and Google sign in on iPhone.'
+releaseNotes_4_5_1: New app icons. Improved logo quality in the menu. Fixed a validation issue when editing birth charts.
+releaseNotes_4_7_1: Connection error messages now translated.
+releaseNotes_4_7_6: Improved font rendering.
+releaseNotes_4_7_7: Fixed errors in monthly transit calculations. Subscription badges now display only when appropriate.
+releaseNotes_4_8_0: New app icon. Optimized starry night background.
+releaseNotes_4_9_0: Updated terms and conditions and privacy policy. Fixed a registration issue with email and password. Birth chart is now automatically generated after registration.
+version: Version ${version}

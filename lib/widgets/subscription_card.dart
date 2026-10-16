@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
+
 import '../models/subscription.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../constants/text_styles.dart';
 import '../utils/date_utils.dart' as app_date_utils;
 import '../services/subscription_service.dart';
@@ -24,19 +21,19 @@ class SubscriptionCard extends StatelessWidget {
   });
 
   String _getStatusText(BuildContext context, String status) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     switch (status.toLowerCase()) {
       case 'active':
-        return l10n.subscriptionActive;
+        return t.ui.subscriptionActive;
       case 'trialing':
-        return l10n.subscriptionTrialing;
+        return t.ui.subscriptionTrialing;
       case 'past_due':
-        return l10n.subscriptionPastDue;
+        return t.ui.subscriptionPastDue;
       case 'unpaid':
-        return l10n.subscriptionUnpaid;
+        return t.ui.subscriptionUnpaid;
       case 'incomplete':
       case 'incomplete_expired':
-        return l10n.subscriptionIncomplete;
+        return t.ui.subscriptionIncomplete;
       default:
         return status;
     }
@@ -60,8 +57,8 @@ class SubscriptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    
+    final t = Translations.of(context);
+
     return Card(
       color: Theme.of(context).colorScheme.surface,
       child: Padding(
@@ -85,8 +82,10 @@ class SubscriptionCard extends StatelessWidget {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: _getStatusColor(context, subscription.status)
-                        .withValues(alpha: 0.1),
+                    color: _getStatusColor(
+                      context,
+                      subscription.status,
+                    ).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -99,36 +98,41 @@ class SubscriptionCard extends StatelessWidget {
                 ),
               ],
             ),
-            
-            
+
             const SizedBox(height: 16),
-            
+
             // Subscription details
             _buildDetailRow(
               context,
-              l10n.subscriptionAmount,
+              t.ui.subscriptionAmount,
               '${subscription.formattedAmount}/${subscription.formattedInterval}',
             ),
             const SizedBox(height: 8),
             if (subscription.currentPeriodStartDate != null) ...[
               _buildDetailRow(
                 context,
-                l10n.subscriptionStartDate,
-                app_date_utils.DateUtils.formatDate(context, subscription.currentPeriodStartDate!),
+                t.ui.subscriptionStartDate,
+                app_date_utils.DateUtils.formatDate(
+                  context,
+                  subscription.currentPeriodStartDate!,
+                ),
               ),
               const SizedBox(height: 8),
             ],
             if (subscription.currentPeriodEndDate != null) ...[
               _buildDetailRow(
                 context,
-                subscription.cancelAtPeriodEnd 
-                    ? l10n.subscriptionCancelsOn 
-                    : l10n.subscriptionEndDate,
-                app_date_utils.DateUtils.formatDate(context, subscription.currentPeriodEndDate!),
+                subscription.cancelAtPeriodEnd
+                    ? t.ui.subscriptionCancelsOn
+                    : t.ui.subscriptionEndDate,
+                app_date_utils.DateUtils.formatDate(
+                  context,
+                  subscription.currentPeriodEndDate!,
+                ),
               ),
               const SizedBox(height: 8),
             ],
-            
+
             const SizedBox(height: 16),
 
             // Expired subscription - show reactivation button
@@ -140,7 +144,7 @@ class SubscriptionCard extends StatelessWidget {
                     context.push('/subscription-plans');
                   },
                   icon: const Icon(Icons.refresh),
-                  label: Text(l10n.reactivateSubscription),
+                  label: Text(t.ui.reactivateSubscription),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -153,10 +157,12 @@ class SubscriptionCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.error.withValues(alpha: 0.1),
+                  color: Theme.of(context).colorScheme.error
+                      .withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: Theme.of(context).colorScheme.error.withValues(alpha: 0.3),
+                    color: Theme.of(context).colorScheme.error
+                        .withValues(alpha: 0.3),
                   ),
                 ),
                 child: Row(
@@ -169,10 +175,10 @@ class SubscriptionCard extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        l10n.paymentFailedDescription,
-                        style: AppTextStyles.getCaptionStyle(context).copyWith(
-                          color: Theme.of(context).colorScheme.error,
-                        ),
+                        t.legal.paymentFailedDescription,
+                        style: AppTextStyles.getCaptionStyle(
+                          context,
+                        ).copyWith(color: Theme.of(context).colorScheme.error),
                       ),
                     ),
                   ],
@@ -184,7 +190,7 @@ class SubscriptionCard extends StatelessWidget {
                   Expanded(
                     child: _ManageSubscriptionButton(
                       subscription: subscription,
-                      buttonText: l10n.updatePaymentMethod,
+                      buttonText: t.ui.updatePaymentMethod,
                       isRetryPayment: true,
                       onPortalClosed: onPortalClosed,
                     ),
@@ -212,16 +218,12 @@ class SubscriptionCard extends StatelessWidget {
           width: 100,
           child: Text(
             '$label:',
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
+          child: Text(value, style: AppTextStyles.getBodyStyle(context)),
         ),
       ],
     );
@@ -242,7 +244,8 @@ class _ManageSubscriptionButton extends StatefulWidget {
   });
 
   @override
-  State<_ManageSubscriptionButton> createState() => _ManageSubscriptionButtonState();
+  State<_ManageSubscriptionButton> createState() =>
+      _ManageSubscriptionButtonState();
 }
 
 class _ManageSubscriptionButtonState extends State<_ManageSubscriptionButton> {
@@ -250,7 +253,7 @@ class _ManageSubscriptionButtonState extends State<_ManageSubscriptionButton> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return SizedBox(
       width: double.infinity,
@@ -275,7 +278,7 @@ class _ManageSubscriptionButtonState extends State<_ManageSubscriptionButton> {
                       : Theme.of(context).colorScheme.onPrimary,
                 ),
               )
-            : Text(widget.buttonText ?? l10n.manageSubscription),
+            : Text(widget.buttonText ?? t.ui.manageSubscription),
       ),
     );
   }
@@ -297,11 +300,8 @@ class _ManageSubscriptionButtonState extends State<_ManageSubscriptionButton> {
       }
     } catch (e) {
       if (mounted) {
-        final l10n = AppLocalizations.of(context)!;
-        SnackbarUtils.showError(
-          context,
-          l10n.manageSubscription,
-        );
+        final t = Translations.of(context);
+        SnackbarUtils.showError(context, t.ui.manageSubscription);
       }
     } finally {
       if (mounted) {

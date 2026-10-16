@@ -1,15 +1,13 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:async';
 import 'dart:io' show Platform;
-import 'package:flutter/material.dart';
+
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:provider/provider.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../../l10n/app_localizations.dart';
+
+import '../../i18n/translations.g.dart';
 import '../../providers/auth_provider.dart';
 import '../../constants/text_styles.dart';
 import '../../utils/snackbar_utils.dart';
@@ -22,10 +20,7 @@ import 'google_signin_button.dart';
 class GoogleSignInWidget extends StatefulWidget {
   final bool isRegisterMode;
 
-  const GoogleSignInWidget({
-    super.key,
-    this.isRegisterMode = false,
-  });
+  const GoogleSignInWidget({super.key, this.isRegisterMode = false});
 
   @override
   State<GoogleSignInWidget> createState() => _GoogleSignInWidgetState();
@@ -35,7 +30,8 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
   final GoogleSignInNativeService _googleNativeService =
       GoogleSignInNativeService();
   // Static subscription ensures only one listener exists across all widget instances
-  static StreamSubscription<GoogleSignInAuthenticationEvent>? _authEventSubscription;
+  static StreamSubscription<GoogleSignInAuthenticationEvent>?
+  _authEventSubscription;
   static _GoogleSignInWidgetState? _activeInstance;
   static bool _isHandlingSignIn = false;
   bool _isInitialized = false;
@@ -103,8 +99,9 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
     _authEventSubscription?.cancel();
     _activeInstance = this;
 
-    _authEventSubscription =
-        GoogleSignIn.instance.authenticationEvents.listen((event) {
+    _authEventSubscription = GoogleSignIn.instance.authenticationEvents.listen((
+      event,
+    ) {
       if (event is GoogleSignInAuthenticationEventSignIn) {
         // Prevent handling duplicate events
         if (_isHandlingSignIn) return;
@@ -138,12 +135,12 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
       }
     } catch (e) {
       if (mounted) {
-        final l10n = AppLocalizations.of(context)!;
+        final t = Translations.of(context);
         SnackbarUtils.showCopyableErrorSnackBar(
           context,
           widget.isRegisterMode
-              ? l10n.googleSignUpError(e.toString())
-              : l10n.googleSignInError(e.toString()),
+              ? t.ui.googleSignUpError(error: e.toString())
+              : t.ui.googleSignInError(error: e.toString()),
         );
       }
     }
@@ -186,24 +183,24 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
           return;
         }
 
-        final l10n = AppLocalizations.of(context)!;
+        final t = Translations.of(context);
         SnackbarUtils.showCopyableErrorSnackBar(
           context,
           widget.isRegisterMode
-              ? l10n.googleSignUpError(e.toString())
-              : l10n.googleSignInError(e.toString()),
+              ? t.ui.googleSignUpError(error: e.toString())
+              : t.ui.googleSignInError(error: e.toString()),
         );
       }
     } catch (e) {
       authProvider.stopLoading();
 
       if (mounted) {
-        final l10n = AppLocalizations.of(context)!;
+        final t = Translations.of(context);
         SnackbarUtils.showCopyableErrorSnackBar(
           context,
           widget.isRegisterMode
-              ? l10n.googleSignUpError(e.toString())
-              : l10n.googleSignInError(e.toString()),
+              ? t.ui.googleSignUpError(error: e.toString())
+              : t.ui.googleSignInError(error: e.toString()),
         );
       }
     }
@@ -215,7 +212,7 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
       return const SizedBox.shrink();
     }
 
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Column(
       children: [
@@ -231,8 +228,10 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child:
-                  Text(l10n.or, style: AppTextStyles.getCaptionStyle(context)),
+              child: Text(
+                t.ui.or,
+                style: AppTextStyles.getCaptionStyle(context),
+              ),
             ),
             Expanded(
               child: Divider(
@@ -270,7 +269,7 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
             height: 56,
             child: SignInButton(
               Buttons.google,
-              text: l10n.continueWithGoogle,
+              text: t.ui.continueWithGoogle,
               onPressed: _handleGoogleSignIn,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),

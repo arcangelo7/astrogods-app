@@ -1,15 +1,23 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 import '../screens/home_screen.dart';
 import '../screens/personality_screen.dart';
 import '../screens/relationships_screen.dart';
 import '../screens/predictions_screen.dart';
-import '../screens/codex_screen.dart';
+import '../screens/codex/codex_screen.dart';
+import '../screens/codex/astronomy_fundamentals/codex_precession_screen.dart';
+import '../screens/codex/domification/book_of_caves/codex_book_of_caves_screen.dart';
+import '../screens/codex/domification/codex_domification_screen.dart';
+import '../screens/codex/domification/codex_domification_article_screen.dart';
+import '../screens/codex/domification/book_of_caves/book_of_caverns_introduction_screen.dart';
+import '../screens/codex/astronomy_fundamentals/codex_astronomy_fundamentals_screen.dart';
+import '../screens/codex/astronomy_fundamentals/codex_celestial_sphere_screen.dart';
+import '../screens/codex/astronomy_fundamentals/codex_equator_ecliptic_screen.dart';
+import '../screens/codex/domification/understanding_placido/codex_latitude_sky_screen.dart';
+import '../screens/codex/domification/understanding_placido/codex_semidiurnal_arcs_screen.dart';
+import '../screens/codex/domification/understanding_placido/codex_understanding_placido_screen.dart';
+import '../screens/codex/domification/understanding_placido/codex_placido_introduction_screen.dart';
 import '../screens/saved_charts_screen.dart';
 import '../screens/subscription_plans_screen.dart';
 import '../screens/subscription_success_screen.dart';
@@ -25,7 +33,7 @@ import '../screens/birth_chart_preview_screen.dart';
 import '../screens/synastry_reading_screen.dart';
 import '../screens/synastry_reading_wrapper.dart';
 import '../screens/transit_reading_wrapper.dart';
-import '../screens/cavern_details_screen.dart';
+import '../screens/codex/cavern_details_screen.dart';
 import '../screens/privacy_policy_screen.dart';
 import '../screens/cookie_policy_screen.dart';
 import '../screens/terms_and_conditions_screen.dart';
@@ -83,7 +91,9 @@ class AppRouter {
         }
 
         // Redirect authenticated users away from auth routes
-        if (authProvider.isAuthenticated && !authProvider.isLoading && isAuthRoute) {
+        if (authProvider.isAuthenticated &&
+            !authProvider.isLoading &&
+            isAuthRoute) {
           return '/';
         }
 
@@ -121,12 +131,14 @@ class AppRouter {
             GoRoute(
               path: '/relationships',
               name: 'relationships',
-              builder: (context, state) => const AuthGuard(child: RelationshipsScreen()),
+              builder: (context, state) =>
+                  const AuthGuard(child: RelationshipsScreen()),
             ),
             GoRoute(
               path: '/predictions',
               name: 'predictions',
-              builder: (context, state) => const AuthGuard(child: PredictionsScreen()),
+              builder: (context, state) =>
+                  const AuthGuard(child: PredictionsScreen()),
             ),
           ],
         ),
@@ -136,22 +148,100 @@ class AppRouter {
           builder: (context, state) => const CodexScreen(),
           routes: [
             GoRoute(
-              path: '/cavern/:houseNumber',
-              name: 'codex-cavern-details',
-              builder: (context, state) {
-                final houseNumberStr = state.pathParameters['houseNumber'];
-                final houseNumber = int.tryParse(houseNumberStr ?? '');
-                if (houseNumber == null ||
-                    houseNumber < 1 ||
-                    houseNumber > 12) {
-                  return const CodexScreen();
-                }
-                final extra = state.extra as Map<String, dynamic>?;
-                return CavernDetailsScreen(
-                  houseNumber: houseNumber,
-                  extra: extra,
-                );
-              },
+              path: 'astronomy-fundamentals',
+              name: 'codex-astronomy-fundamentals',
+              builder: (context, state) =>
+                  const CodexAstronomyFundamentalsScreen(),
+              routes: [
+                GoRoute(
+                  path: 'celestial-sphere',
+                  name: 'codex-celestial-sphere',
+                  builder: (context, state) =>
+                      const CodexCelestialSphereScreen(),
+                ),
+                GoRoute(
+                  path: 'equator-ecliptic',
+                  name: 'codex-equator-ecliptic',
+                  builder: (context, state) =>
+                      const CodexEquatorEclipticScreen(),
+                ),
+                GoRoute(
+                  path: 'precession',
+                  name: 'codex-precession',
+                  builder: (context, state) => const CodexPrecessionScreen(),
+                ),
+              ],
+            ),
+            GoRoute(
+              path: 'domification',
+              name: 'codex-domification',
+              builder: (context, state) => const CodexDomificationScreen(),
+              routes: [
+                GoRoute(
+                  path: 'understanding-placido',
+                  name: 'codex-understanding-placido',
+                  builder: (context, state) =>
+                      const CodexUnderstandingPlacidoScreen(),
+                  routes: [
+                    GoRoute(
+                      path: 'introduction',
+                      name: 'codex-placido-introduction',
+                      builder: (context, state) =>
+                          const CodexPlacidoIntroductionScreen(),
+                    ),
+                    GoRoute(
+                      path: 'latitude-sky',
+                      name: 'codex-latitude-sky',
+                      builder: (context, state) =>
+                          const CodexLatitudeSkyScreen(),
+                    ),
+                    GoRoute(
+                      path: 'semidiurnal-arcs',
+                      name: 'codex-semidiurnal-arcs',
+                      builder: (context, state) =>
+                          const CodexSemidiurnalArcsScreen(),
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: 'why-vehlow',
+                  name: 'codex-domification-why-vehlow',
+                  builder: (context, state) =>
+                      const CodexDomificationArticleScreen(),
+                ),
+                GoRoute(
+                  path: 'book-of-caves',
+                  name: 'codex-book-of-caves',
+                  builder: (context, state) => const CodexBookOfCavesScreen(),
+                  routes: [
+                    GoRoute(
+                      path: 'introduction',
+                      name: 'codex-book-of-caves-introduction',
+                      builder: (context, state) =>
+                          const BookOfCavernsIntroductionScreen(),
+                    ),
+                    GoRoute(
+                      path: 'cavern/:houseNumber',
+                      name: 'codex-cavern-details',
+                      builder: (context, state) {
+                        final houseNumberStr =
+                            state.pathParameters['houseNumber'];
+                        final houseNumber = int.tryParse(houseNumberStr ?? '');
+                        if (houseNumber == null ||
+                            houseNumber < 1 ||
+                            houseNumber > 12) {
+                          return const CodexScreen();
+                        }
+                        final extra = state.extra as Map<String, dynamic>?;
+                        return CavernDetailsScreen(
+                          houseNumber: houseNumber,
+                          extra: extra,
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -327,19 +417,6 @@ class AppRouter {
             }
 
             return const PredictionsScreen();
-          },
-        ),
-        GoRoute(
-          path: '/cavern-details/:houseNumber',
-          name: 'cavern-details',
-          builder: (context, state) {
-            final houseNumberStr = state.pathParameters['houseNumber'];
-            final houseNumber = int.tryParse(houseNumberStr ?? '');
-            if (houseNumber == null || houseNumber < 1 || houseNumber > 12) {
-              return const HomeScreen();
-            }
-            final extra = state.extra as Map<String, dynamic>?;
-            return CavernDetailsScreen(houseNumber: houseNumber, extra: extra);
           },
         ),
         GoRoute(

@@ -1,11 +1,9 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:async';
-import 'package:flutter/material.dart';
+
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
 import '../mixins/subscription_loader_mixin.dart';
 import '../models/synastry.dart';
 import '../providers/theme_provider.dart';
@@ -20,7 +18,7 @@ import '../widgets/pdf_download_widget.dart';
 import '../services/api_client.dart';
 import '../utils/session_utils.dart';
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class SynastryReadingScreen extends StatefulWidget {
   final Synastry synastry;
@@ -174,9 +172,9 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen>
       personBName: widget.synastry.birthChartB!.fullName,
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.synastryBetween(
-            widget.synastry.birthChartA!.fullName,
-            widget.synastry.birthChartB!.fullName,
+          Translations.of(context).ui.synastryBetween(
+            person1: widget.synastry.birthChartA!.fullName,
+            person2: widget.synastry.birthChartB!.fullName,
           ),
         ),
         backgroundColor: Colors.transparent,
@@ -214,7 +212,8 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen>
     final currentTopic = _readingStateService.getCurrentTopic(synastryId);
     final error = _readingStateService.getError(synastryId);
 
-    final showBanner = reading != null &&
+    final showBanner =
+        reading != null &&
         reading.language != null &&
         !isGenerating &&
         !hasError;
@@ -226,7 +225,8 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen>
           ReadingLanguageBanner(
             readingLanguage: reading.language!,
             hasSubscription: subscriptionStatus?.hasActiveSubscription ?? false,
-            hasPremiumSubscription: subscriptionStatus?.hasPremiumSubscription ?? false,
+            hasPremiumSubscription:
+                subscriptionStatus?.hasPremiumSubscription ?? false,
             requiresPremium: true,
             isLoadingSubscription: subscriptionStatus == null,
             onRegenerate: _handleRegenerate,
@@ -243,7 +243,9 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen>
           errorStateBuilder: (error) => _buildErrorState(error),
           synastry: widget.synastry,
           readingModel: reading,
-          isSubscriptionRequired: _readingStateService.isSubscriptionRequired(synastryId),
+          isSubscriptionRequired: _readingStateService.isSubscriptionRequired(
+            synastryId,
+          ),
         ),
       ],
     );
@@ -273,16 +275,14 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen>
             ),
             const SizedBox(height: 24),
             Text(
-              AppLocalizations.of(context)!.compatibilityAnalysis,
+              Translations.of(context).ui.compatibilityAnalysis,
               style: AppTextStyles.getH5Style(context),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
             Text(
-              AppLocalizations.of(
-                context,
-              )!.generateDetailedCompatibilityAnalysis(
-                widget.synastry.relationshipTitle,
+              Translations.of(context).ui.generateDetailedCompatibilityAnalysis(
+                relationshipTitle: widget.synastry.relationshipTitle,
               ),
               style: AppTextStyles.getBodyStyle(context),
               textAlign: TextAlign.center,
@@ -291,7 +291,7 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen>
             ElevatedButton.icon(
               onPressed: _generateReading,
               icon: const Icon(Icons.auto_awesome),
-              label: Text(AppLocalizations.of(context)!.generateAnalysis),
+              label: Text(Translations.of(context).ui.generateAnalysis),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
@@ -319,7 +319,7 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen>
             ),
             const SizedBox(height: 24),
             Text(
-              AppLocalizations.of(context)!.errorTitle,
+              Translations.of(context).ui.errorTitle,
               style: AppTextStyles.getH5Style(context),
               textAlign: TextAlign.center,
             ),
@@ -336,7 +336,7 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen>
                 _generateReading();
               },
               icon: const Icon(Icons.refresh),
-              label: Text(AppLocalizations.of(context)!.retry),
+              label: Text(Translations.of(context).ui.retry),
             ),
           ],
         ),

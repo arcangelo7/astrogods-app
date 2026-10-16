@@ -1,27 +1,14 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'environment.dart';
 
 class ImageUrls {
-  static String cavern(String filename) =>
-      '${Environment.staticBaseUrl}/static/images/caverns/$filename';
-
-  static String cavernHd(String filename) =>
-      '${Environment.staticBaseUrl}/static/images/caverns/${_toHd(filename)}';
+  static String image(String path, {bool hd = false}) {
+    if (hd) {
+      final lastDot = path.lastIndexOf('.');
+      path = '${path.substring(0, lastDot)}_hd${path.substring(lastDot)}';
+    }
+    return '${Environment.staticBaseUrl}/static/images/$path';
+  }
 
   static String cavernPdf(String filename) =>
       '${Environment.staticBaseUrl}/static/images/caverns_pdf/$filename';
-
-  static String division(String filename) =>
-      '${Environment.staticBaseUrl}/static/images/divisions/$filename';
-
-  static String divisionHd(String filename) =>
-      '${Environment.staticBaseUrl}/static/images/divisions/${_toHd(filename)}';
-
-  static String _toHd(String filename) {
-    final lastDot = filename.lastIndexOf('.');
-    return '${filename.substring(0, lastDot)}_hd${filename.substring(lastDot)}';
-  }
 }

@@ -1,9 +1,6 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import 'mystical_checkbox.dart';
 
 class UnknownTimeCheckbox extends StatelessWidget {
@@ -20,11 +17,11 @@ class UnknownTimeCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return MysticalCheckbox(
-      title: l10n.dontKnowBirthTime,
-      subtitle: value ? l10n.withoutBirthTimeWarning : null,
+      title: t.ui.dontKnowBirthTime,
+      subtitle: value ? t.ui.withoutBirthTimeWarning : null,
       value: value,
       onChanged: onChanged,
       enabled: enabled,

@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
+
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class SnackbarUtils {
   static void showCopyableErrorSnackBar(
@@ -19,26 +16,36 @@ class SnackbarUtils {
           children: [
             Expanded(
               child: Text(
-                message, 
-                style: AppTextStyles.getSnackbarTextStyle(context, Theme.of(context).colorScheme.error)
+                message,
+                style: AppTextStyles.getSnackbarTextStyle(
+                  context,
+                  Theme.of(context).colorScheme.error,
+                ),
               ),
             ),
             const SizedBox(width: 8),
             IconButton(
               icon: Icon(
-                Icons.copy, 
-                color: ThemeData.estimateBrightnessForColor(Theme.of(context).colorScheme.error) == Brightness.dark
+                Icons.copy,
+                color:
+                    ThemeData.estimateBrightnessForColor(
+                          Theme.of(context).colorScheme.error,
+                        ) ==
+                        Brightness.dark
                     ? Colors.white
                     : Colors.black,
-                size: 18
+                size: 18,
               ),
               onPressed: () {
                 Clipboard.setData(ClipboardData(text: message));
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      AppLocalizations.of(context)!.errorMessageCopied,
-                      style: AppTextStyles.getSnackbarTextStyle(context, Theme.of(context).colorScheme.primary),
+                      Translations.of(context).ui.errorMessageCopied,
+                      style: AppTextStyles.getSnackbarTextStyle(
+                        context,
+                        Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     behavior: SnackBarBehavior.floating,
@@ -68,8 +75,11 @@ class SnackbarUtils {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          message, 
-          style: AppTextStyles.getSnackbarTextStyle(context, Theme.of(context).colorScheme.error)
+          message,
+          style: AppTextStyles.getSnackbarTextStyle(
+            context,
+            Theme.of(context).colorScheme.error,
+          ),
         ),
         backgroundColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
@@ -87,8 +97,11 @@ class SnackbarUtils {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          message, 
-          style: AppTextStyles.getSnackbarTextStyle(context, Theme.of(context).colorScheme.primary)
+          message,
+          style: AppTextStyles.getSnackbarTextStyle(
+            context,
+            Theme.of(context).colorScheme.primary,
+          ),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         behavior: SnackBarBehavior.floating,
@@ -111,8 +124,11 @@ class SnackbarUtils {
           children: [
             Expanded(
               child: Text(
-                message, 
-                style: AppTextStyles.getSnackbarTextStyle(context, Theme.of(context).colorScheme.error)
+                message,
+                style: AppTextStyles.getSnackbarTextStyle(
+                  context,
+                  Theme.of(context).colorScheme.error,
+                ),
               ),
             ),
             const SizedBox(width: 12),
@@ -123,7 +139,10 @@ class SnackbarUtils {
               },
               style: TextButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.onError,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
               ),
               child: Text(
                 actionLabel,
@@ -151,8 +170,11 @@ class SnackbarUtils {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          message, 
-          style: AppTextStyles.getSnackbarTextStyle(context, Theme.of(context).colorScheme.primary)
+          message,
+          style: AppTextStyles.getSnackbarTextStyle(
+            context,
+            Theme.of(context).colorScheme.primary,
+          ),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         behavior: SnackBarBehavior.floating,

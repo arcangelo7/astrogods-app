@@ -1,23 +1,18 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
+
 import 'dart:convert';
+
 import '../constants/colors.dart';
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../widgets/gradient_button.dart';
 
 class UnsubscribeScreen extends StatefulWidget {
   final String token;
 
-  const UnsubscribeScreen({
-    super.key,
-    required this.token,
-  });
+  const UnsubscribeScreen({super.key, required this.token});
 
   @override
   State<UnsubscribeScreen> createState() => _UnsubscribeScreenState();
@@ -42,9 +37,7 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
       const baseUrl = String.fromEnvironment('API_BASE_URL');
       final response = await http.post(
         Uri.parse('$baseUrl/api/newsletter/unsubscribe/${widget.token}'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: {'Content-Type': 'application/json'},
       );
 
       final responseData = json.decode(response.body);
@@ -59,27 +52,29 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
       } else {
         setState(() {
           _hasError = true;
-          _errorMessage = responseData['message'] ?? AppLocalizations.of(context)!.unknownErrorOccurred;
+          _errorMessage =
+              responseData['message'] ??
+              Translations.of(context).ui.unknownErrorOccurred;
           _isLoading = false;
         });
       }
     } catch (e) {
       setState(() {
         _hasError = true;
-        _errorMessage = AppLocalizations.of(context)!.networkErrorOccurred;
+        _errorMessage = Translations.of(context).ui.networkErrorOccurred;
         _isLoading = false;
       });
     }
   }
 
-  String _getNewsletterTypeText(AppLocalizations l10n, String type) {
+  String _getNewsletterTypeText(Translations t, String type) {
     switch (type) {
       case 'daily':
-        return l10n.dailyPredictions;
+        return t.ui.dailyPredictions;
       case 'monthly':
-        return l10n.monthlyPredictions;
+        return t.ui.monthlyPredictions;
       case 'all':
-        return l10n.allNewsletters;
+        return t.ui.allNewsletters;
       default:
         return type;
     }
@@ -87,13 +82,13 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text(l10n.unsubscribe),
+        title: Text(t.ui.unsubscribe),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -108,24 +103,22 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
         child: _isLoading
             ? _buildLoadingWidget()
             : _hasError
-                ? _buildErrorWidget(l10n)
-                : _buildSuccessWidget(l10n, isDark),
+            ? _buildErrorWidget(t)
+            : _buildSuccessWidget(t, isDark),
       ),
     );
   }
 
   Widget _buildLoadingWidget() {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(
-            color: AppColors.mysticalPurple,
-          ),
+          CircularProgressIndicator(color: AppColors.mysticalPurple),
           const SizedBox(height: 16),
           Text(
-            l10n.processingUnsubscribeRequest,
+            t.ui.processingUnsubscribeRequest,
             style: AppTextStyles.getSubtitleLargeStyle(context),
             textAlign: TextAlign.center,
           ),
@@ -134,7 +127,7 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
     );
   }
 
-  Widget _buildErrorWidget(AppLocalizations l10n) {
+  Widget _buildErrorWidget(Translations t) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -148,7 +141,7 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
             ),
             const SizedBox(height: 24),
             Text(
-              l10n.unsubscribeError,
+              t.ui.unsubscribeError,
               style: AppTextStyles.getH4Style(context),
               textAlign: TextAlign.center,
             ),
@@ -159,17 +152,14 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
-            GradientButton(
-              text: l10n.goHome,
-              onPressed: () => context.go('/'),
-            ),
+            GradientButton(text: t.ui.goHome, onPressed: () => context.go('/')),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSuccessWidget(AppLocalizations l10n, bool isDark) {
+  Widget _buildSuccessWidget(Translations t, bool isDark) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -181,7 +171,8 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
               height: 80,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                color: Theme.of(context).colorScheme.primary
+                    .withValues(alpha: 0.1),
               ),
               child: Icon(
                 Icons.check_circle_outline,
@@ -191,7 +182,7 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
             ),
             const SizedBox(height: 24),
             Text(
-              l10n.unsubscribeSuccess,
+              t.ui.unsubscribeSuccess,
               style: AppTextStyles.getH4Style(context),
               textAlign: TextAlign.center,
             ),
@@ -202,12 +193,11 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
                 text: TextSpan(
                   style: AppTextStyles.getSubtitleLargeStyle(context),
                   children: [
-                    TextSpan(text: '${l10n.email}: '),
+                    TextSpan(text: '${t.ui.email}: '),
                     TextSpan(
                       text: _email!,
-                      style: AppTextStyles.getSubtitleLargeStyle(context).copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppTextStyles.getSubtitleLargeStyle(context)
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -220,12 +210,11 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
                 text: TextSpan(
                   style: AppTextStyles.getSubtitleLargeStyle(context),
                   children: [
-                    TextSpan(text: '${l10n.newsletterType}: '),
+                    TextSpan(text: '${t.ui.newsletterType}: '),
                     TextSpan(
-                      text: _getNewsletterTypeText(l10n, _newsletterType!),
-                      style: AppTextStyles.getSubtitleLargeStyle(context).copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      text: _getNewsletterTypeText(t, _newsletterType!),
+                      style: AppTextStyles.getSubtitleLargeStyle(context)
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -238,12 +227,11 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
                 text: TextSpan(
                   style: AppTextStyles.getSubtitleLargeStyle(context),
                   children: [
-                    TextSpan(text: '${l10n.birthChart}: '),
+                    TextSpan(text: '${t.ui.birthChart}: '),
                     TextSpan(
                       text: _birthChartName!,
-                      style: AppTextStyles.getSubtitleLargeStyle(context).copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppTextStyles.getSubtitleLargeStyle(context)
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -251,17 +239,13 @@ class _UnsubscribeScreenState extends State<UnsubscribeScreen> {
               const SizedBox(height: 16),
             ],
             Text(
-              l10n.unsubscribeSuccessMessage,
-              style: AppTextStyles.getCaptionStyle(context).copyWith(
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+              t.ui.unsubscribeSuccessMessage,
+              style: AppTextStyles.getCaptionStyle(context)
+                  .copyWith(color: Theme.of(context).colorScheme.secondary),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
-            GradientButton(
-              text: l10n.goHome,
-              onPressed: () => context.go('/'),
-            ),
+            GradientButton(text: t.ui.goHome, onPressed: () => context.go('/')),
           ],
         ),
       ),

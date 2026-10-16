@@ -1,15 +1,13 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/reading_chunk.dart';
 import '../providers/language_provider.dart';
 import '../config/environment.dart';
@@ -64,10 +62,7 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final headers = await _getHeaders();
       final response = await _client
-          .get(
-            uri,
-            headers: {...headers, if (extraHeaders != null) ...extraHeaders},
-          )
+          .get(uri, headers: {...headers, ...?extraHeaders})
           .timeout(requestTimeout ?? timeout);
 
       return await _handleResponse(response);
@@ -76,7 +71,10 @@ class ApiClient {
     } on TimeoutException {
       throw ApiException('connection_timeout', errorKey: 'connection.timeout');
     } on http.ClientException {
-      throw ApiException('server_unavailable', errorKey: 'connection.unavailable');
+      throw ApiException(
+        'server_unavailable',
+        errorKey: 'connection.unavailable',
+      );
     } catch (e) {
       if (e is ApiException) rethrow;
       throw ApiException('connection_error', errorKey: 'connection.error');
@@ -105,7 +103,10 @@ class ApiClient {
     } on TimeoutException {
       throw ApiException('connection_timeout', errorKey: 'connection.timeout');
     } on http.ClientException {
-      throw ApiException('server_unavailable', errorKey: 'connection.unavailable');
+      throw ApiException(
+        'server_unavailable',
+        errorKey: 'connection.unavailable',
+      );
     } catch (e) {
       if (e is ApiException) rethrow;
       throw ApiException('connection_error', errorKey: 'connection.error');
@@ -134,7 +135,10 @@ class ApiClient {
     } on TimeoutException {
       throw ApiException('connection_timeout', errorKey: 'connection.timeout');
     } on http.ClientException {
-      throw ApiException('server_unavailable', errorKey: 'connection.unavailable');
+      throw ApiException(
+        'server_unavailable',
+        errorKey: 'connection.unavailable',
+      );
     } catch (e) {
       if (e is ApiException) rethrow;
       throw ApiException('connection_error', errorKey: 'connection.error');
@@ -158,7 +162,10 @@ class ApiClient {
     } on TimeoutException {
       throw ApiException('connection_timeout', errorKey: 'connection.timeout');
     } on http.ClientException {
-      throw ApiException('server_unavailable', errorKey: 'connection.unavailable');
+      throw ApiException(
+        'server_unavailable',
+        errorKey: 'connection.unavailable',
+      );
     } catch (e) {
       if (e is ApiException) rethrow;
       throw ApiException('connection_error', errorKey: 'connection.error');
@@ -201,10 +208,7 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final headers = await _getHeaders();
       final response = await _client
-          .get(
-            uri,
-            headers: {...headers, if (extraHeaders != null) ...extraHeaders},
-          )
+          .get(uri, headers: {...headers, ...?extraHeaders})
           .timeout(requestTimeout ?? timeout);
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return response.body;
@@ -216,7 +220,10 @@ class ApiClient {
     } on TimeoutException {
       throw ApiException('connection_timeout', errorKey: 'connection.timeout');
     } on http.ClientException {
-      throw ApiException('server_unavailable', errorKey: 'connection.unavailable');
+      throw ApiException(
+        'server_unavailable',
+        errorKey: 'connection.unavailable',
+      );
     } catch (e) {
       if (e is ApiException) rethrow;
       throw ApiException('connection_error', errorKey: 'connection.error');
@@ -235,10 +242,7 @@ class ApiClient {
       headers['Accept'] = 'application/pdf';
 
       final response = await _client
-          .get(
-            uri,
-            headers: headers,
-          )
+          .get(uri, headers: headers)
           .timeout(requestTimeout ?? timeout);
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -249,7 +253,7 @@ class ApiClient {
           final data = json.decode(response.body);
           throw ApiException(
             data['error'] ?? 'Request failed',
-            statusCode: response.statusCode
+            statusCode: response.statusCode,
           );
         } catch (e) {
           if (e is ApiException) rethrow;
@@ -261,7 +265,10 @@ class ApiClient {
     } on TimeoutException {
       throw ApiException('connection_timeout', errorKey: 'connection.timeout');
     } on http.ClientException {
-      throw ApiException('server_unavailable', errorKey: 'connection.unavailable');
+      throw ApiException(
+        'server_unavailable',
+        errorKey: 'connection.unavailable',
+      );
     } catch (e) {
       if (e is ApiException) rethrow;
       throw ApiException('connection_error', errorKey: 'connection.error');
@@ -320,7 +327,10 @@ class ApiClient {
     } on TimeoutException {
       throw ApiException('connection_timeout', errorKey: 'connection.timeout');
     } on http.ClientException {
-      throw ApiException('server_unavailable', errorKey: 'connection.unavailable');
+      throw ApiException(
+        'server_unavailable',
+        errorKey: 'connection.unavailable',
+      );
     } catch (e) {
       if (e is ApiException) rethrow;
       throw ApiException('connection_error', errorKey: 'connection.error');
@@ -449,7 +459,10 @@ class ApiClient {
     } on TimeoutException {
       throw ApiException('connection_timeout', errorKey: 'connection.timeout');
     } on http.ClientException {
-      throw ApiException('server_unavailable', errorKey: 'connection.unavailable');
+      throw ApiException(
+        'server_unavailable',
+        errorKey: 'connection.unavailable',
+      );
     } catch (e) {
       if (e is ApiException) rethrow;
       throw ApiException('connection_error', errorKey: 'connection.error');

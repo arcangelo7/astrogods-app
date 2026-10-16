@@ -1,11 +1,6 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 class CavernDetails {
   final int houseNumber;
   final String title;
-  final String introduction;
   final String literalMeaning;
   final String esotericMeaning;
   final String? imagePath;
@@ -13,7 +8,6 @@ class CavernDetails {
   const CavernDetails({
     required this.houseNumber,
     required this.title,
-    required this.introduction,
     required this.literalMeaning,
     required this.esotericMeaning,
     this.imagePath,
@@ -23,7 +17,6 @@ class CavernDetails {
     return CavernDetails(
       houseNumber: json['houseNumber'] as int,
       title: json['title'] as String,
-      introduction: json['introduction'] as String,
       literalMeaning: json['literalMeaning'] as String,
       esotericMeaning: json['esotericMeaning'] as String,
       imagePath: json['imagePath'] as String?,
@@ -34,7 +27,6 @@ class CavernDetails {
     return {
       'houseNumber': houseNumber,
       'title': title,
-      'introduction': introduction,
       'literalMeaning': literalMeaning,
       'esotericMeaning': esotericMeaning,
       'imagePath': imagePath,

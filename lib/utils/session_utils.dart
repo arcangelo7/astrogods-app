@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../services/api_client.dart';
 import '../providers/auth_provider.dart';
 import 'snackbar_utils.dart';
@@ -28,14 +25,14 @@ class SessionUtils {
     BuildContext context,
     String? errorKey,
   ) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     switch (errorKey) {
       case 'connection.timeout':
-        return l10n.connectionTimeout;
+        return t.ui.connectionTimeout;
       case 'connection.unavailable':
-        return l10n.serverUnavailable;
+        return t.ui.serverUnavailable;
       default:
-        return l10n.connectionError;
+        return t.ui.connectionError;
     }
   }
 
@@ -81,5 +78,4 @@ class SessionUtils {
       }
     }
   }
-
 }

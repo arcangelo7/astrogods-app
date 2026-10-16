@@ -1,12 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../widgets/starry_night_background.dart';
 
 class ReleaseNotesScreen extends StatelessWidget {
@@ -14,29 +10,30 @@ class ReleaseNotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     final releases = [
-      _ReleaseInfo('4.10.1', l10n.releaseNotes_4_10_1),
-      _ReleaseInfo('4.10.0', l10n.releaseNotes_4_10_0),
-      _ReleaseInfo('4.9.0', l10n.releaseNotes_4_9_0),
-      _ReleaseInfo('4.8.0', l10n.releaseNotes_4_8_0),
-      _ReleaseInfo('4.7.7', l10n.releaseNotes_4_7_7),
-      _ReleaseInfo('4.7.6', l10n.releaseNotes_4_7_6),
-      _ReleaseInfo('4.7.1', l10n.releaseNotes_4_7_1),
-      _ReleaseInfo('4.5.1', l10n.releaseNotes_4_5_1),
-      _ReleaseInfo('4.0.1', l10n.releaseNotes_4_0_1),
-      _ReleaseInfo('4.0.0', l10n.releaseNotes_4_0_0),
-      _ReleaseInfo('3.0.0', l10n.releaseNotes_3_0_0),
-      _ReleaseInfo('2.4.0', l10n.releaseNotes_2_4_0),
-      _ReleaseInfo('2.3.0', l10n.releaseNotes_2_3_0),
-      _ReleaseInfo('2.2.1', l10n.releaseNotes_2_2_1),
-      _ReleaseInfo('2.2.0', l10n.releaseNotes_2_2_0),
-      _ReleaseInfo('2.1.0', l10n.releaseNotes_2_1_0),
-      _ReleaseInfo('2.0.4', l10n.releaseNotes_2_0_4),
-      _ReleaseInfo('2.0.3', l10n.releaseNotes_2_0_3),
-      _ReleaseInfo('2.0.2', l10n.releaseNotes_2_0_2),
-      _ReleaseInfo('2.0.1', l10n.releaseNotes_2_0_1),
+      _ReleaseInfo('4.11.0', t.releaseNotes.releaseNotes_4_11_0),
+      _ReleaseInfo('4.10.1', t.releaseNotes.releaseNotes_4_10_1),
+      _ReleaseInfo('4.10.0', t.releaseNotes.releaseNotes_4_10_0),
+      _ReleaseInfo('4.9.0', t.releaseNotes.releaseNotes_4_9_0),
+      _ReleaseInfo('4.8.0', t.releaseNotes.releaseNotes_4_8_0),
+      _ReleaseInfo('4.7.7', t.releaseNotes.releaseNotes_4_7_7),
+      _ReleaseInfo('4.7.6', t.releaseNotes.releaseNotes_4_7_6),
+      _ReleaseInfo('4.7.1', t.releaseNotes.releaseNotes_4_7_1),
+      _ReleaseInfo('4.5.1', t.releaseNotes.releaseNotes_4_5_1),
+      _ReleaseInfo('4.0.1', t.releaseNotes.releaseNotes_4_0_1),
+      _ReleaseInfo('4.0.0', t.releaseNotes.releaseNotes_4_0_0),
+      _ReleaseInfo('3.0.0', t.releaseNotes.releaseNotes_3_0_0),
+      _ReleaseInfo('2.4.0', t.releaseNotes.releaseNotes_2_4_0),
+      _ReleaseInfo('2.3.0', t.releaseNotes.releaseNotes_2_3_0),
+      _ReleaseInfo('2.2.1', t.releaseNotes.releaseNotes_2_2_1),
+      _ReleaseInfo('2.2.0', t.releaseNotes.releaseNotes_2_2_0),
+      _ReleaseInfo('2.1.0', t.releaseNotes.releaseNotes_2_1_0),
+      _ReleaseInfo('2.0.4', t.releaseNotes.releaseNotes_2_0_4),
+      _ReleaseInfo('2.0.3', t.releaseNotes.releaseNotes_2_0_3),
+      _ReleaseInfo('2.0.2', t.releaseNotes.releaseNotes_2_0_2),
+      _ReleaseInfo('2.0.1', t.releaseNotes.releaseNotes_2_0_1),
     ];
 
     return Scaffold(
@@ -44,6 +41,7 @@ class ReleaseNotesScreen extends StatelessWidget {
         showPlanet: false,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -63,13 +61,18 @@ class ReleaseNotesScreen extends StatelessWidget {
                   },
                 ),
                 title: Text(
-                  l10n.releaseNotesTitle,
+                  t.releaseNotes.releaseNotesTitle,
                   style: AppTextStyles.getH4Style(context),
                 ),
               ),
               Expanded(
                 child: ListView.builder(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 16,
+                    bottom: MediaQuery.of(context).padding.bottom + 16,
+                  ),
                   itemCount: releases.length,
                   itemBuilder: (context, index) {
                     final release = releases[index];
@@ -82,7 +85,7 @@ class ReleaseNotesScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              l10n.version(release.version),
+                              t.releaseNotes.version(version: release.version),
                               style: AppTextStyles.getH5Style(context).copyWith(
                                 color: Theme.of(context).colorScheme.primary,
                               ),

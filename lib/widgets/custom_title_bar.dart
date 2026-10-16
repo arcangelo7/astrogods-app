@@ -1,18 +1,11 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:window_manager/window_manager.dart';
 
 class CustomTitleBar extends StatelessWidget {
   final String title;
 
-  const CustomTitleBar({
-    super.key,
-    required this.title,
-  });
+  const CustomTitleBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -62,26 +55,16 @@ class CustomTitleBar extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildTitleBarButton(
-                    context,
-                    Icons.minimize,
-                    () {
-                      windowManager.minimize();
-                    },
-                    isDark,
-                  ),
-                  _buildTitleBarButton(
-                    context,
-                    Icons.crop_square,
-                    () async {
-                      if (await windowManager.isMaximized()) {
-                        windowManager.unmaximize();
-                      } else {
-                        windowManager.maximize();
-                      }
-                    },
-                    isDark,
-                  ),
+                  _buildTitleBarButton(context, Icons.minimize, () {
+                    windowManager.minimize();
+                  }, isDark),
+                  _buildTitleBarButton(context, Icons.crop_square, () async {
+                    if (await windowManager.isMaximized()) {
+                      windowManager.unmaximize();
+                    } else {
+                      windowManager.maximize();
+                    }
+                  }, isDark),
                   _buildTitleBarButton(
                     context,
                     Icons.close,

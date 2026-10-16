@@ -1,9 +1,6 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
+
 import '../models/birth_chart.dart';
 import '../services/transit_service.dart' as transit;
 import '../widgets/starry_night_background.dart';
@@ -77,9 +74,7 @@ class _TransitReadingWrapperState extends State<TransitReadingWrapper> {
         body: StarryNightBackground(
           showPlanet: false,
           subtle: true,
-          child: const Center(
-            child: CircularProgressIndicator(),
-          ),
+          child: const Center(child: CircularProgressIndicator()),
         ),
       );
     }
@@ -93,11 +88,7 @@ class _TransitReadingWrapperState extends State<TransitReadingWrapper> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.error_outline,
-                  size: 64,
-                  color: Colors.red,
-                ),
+                const Icon(Icons.error_outline, size: 64, color: Colors.red),
                 const SizedBox(height: 16),
                 Text(
                   _error ?? 'Error loading transit reading',
@@ -117,7 +108,8 @@ class _TransitReadingWrapperState extends State<TransitReadingWrapper> {
     }
 
     // Extract birth chart data
-    final birthChartData = _transitData!['birth_chart'] as Map<String, dynamic>?;
+    final birthChartData =
+        _transitData!['birth_chart'] as Map<String, dynamic>?;
     if (birthChartData == null) {
       return Scaffold(
         body: StarryNightBackground(
@@ -127,11 +119,7 @@ class _TransitReadingWrapperState extends State<TransitReadingWrapper> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.error_outline,
-                  size: 64,
-                  color: Colors.red,
-                ),
+                const Icon(Icons.error_outline, size: 64, color: Colors.red),
                 const SizedBox(height: 16),
                 Text(
                   'Error loading birth chart',

@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:google_sign_in_all_platforms/google_sign_in_all_platforms.dart';
 
 import '../models/google_user_data.dart';
@@ -28,7 +24,8 @@ class GoogleSignInDesktopService {
   GoogleSignIn _getGoogleSignIn() {
     if (_googleSignIn == null) {
       throw Exception(
-          'GoogleSignInDesktopService not initialized. Call initialize() first.');
+        'GoogleSignInDesktopService not initialized. Call initialize() first.',
+      );
     }
     return _googleSignIn!;
   }

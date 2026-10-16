@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'birth_chart.g.dart';
@@ -19,6 +15,8 @@ class BirthChart {
   final String? place;
   @JsonKey(name: 'unknown_time')
   final bool unknownTime;
+  @JsonKey(name: 'time_fold')
+  final int? timeFold;
   @JsonKey(name: 'is_personal')
   final bool? isPersonal;
   @JsonKey(name: 'created_on')
@@ -45,6 +43,7 @@ class BirthChart {
     required this.longitude,
     this.place,
     this.unknownTime = false,
+    this.timeFold,
     this.isPersonal,
     this.createdOn,
     this.hasReading,
@@ -68,6 +67,7 @@ class BirthChart {
     double? longitude,
     String? place,
     bool? unknownTime,
+    int? timeFold,
     bool? isPersonal,
     DateTime? createdOn,
     bool? hasReading,
@@ -86,6 +86,7 @@ class BirthChart {
       longitude: longitude ?? this.longitude,
       place: place ?? this.place,
       unknownTime: unknownTime ?? this.unknownTime,
+      timeFold: timeFold ?? this.timeFold,
       isPersonal: isPersonal ?? this.isPersonal,
       createdOn: createdOn ?? this.createdOn,
       hasReading: hasReading ?? this.hasReading,

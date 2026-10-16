@@ -1,12 +1,10 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:io';
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:http/http.dart' as http;
+
 import '../models/user.dart';
 import '../models/auth_request.dart';
 import '../services/auth_service.dart';
@@ -23,6 +21,7 @@ class AuthProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool _hasInitialized = false;
   String? _errorMessage;
+  String? _errorKey;
   LanguageProvider? _languageProvider;
   ThemeProvider? _themeProvider;
 
@@ -43,6 +42,7 @@ class AuthProvider extends ChangeNotifier {
   bool get isAuthenticated => _isAuthenticated;
   bool get isLoading => _isLoading || !_hasInitialized;
   String? get errorMessage => _errorMessage;
+  String? get errorKey => _errorKey;
 
   Future<void> _checkInitialAuthState() async {
     try {
@@ -60,7 +60,7 @@ class AuthProvider extends ChangeNotifier {
     if (!_hasInitialized) {
       await _checkInitialAuthState();
     }
-    
+
     _setLoading(true);
     try {
       final user = await _authService.getCurrentUser();
@@ -79,7 +79,11 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> login(String email, String password, {BuildContext? context}) async {
+  Future<bool> login(
+    String email,
+    String password, {
+    BuildContext? context,
+  }) async {
     _setLoading(true);
     _clearError();
 
@@ -107,7 +111,10 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> register(RegisterRequest request, {BuildContext? context}) async {
+  Future<bool> register(
+    RegisterRequest request, {
+    BuildContext? context,
+  }) async {
     _setLoading(true);
     _clearError();
 
@@ -123,6 +130,7 @@ class AuthProvider extends ChangeNotifier {
         return true;
       } else {
         _errorMessage = response.message!;
+        _errorKey = response.errorKey;
         notifyListeners();
         return false;
       }
@@ -144,9 +152,7 @@ class AuthProvider extends ChangeNotifier {
 
     try {
       final authService = AuthService(context: context);
-      final response = await authService.loginWithGoogle(
-        idToken: idToken,
-      );
+      final response = await authService.loginWithGoogle(idToken: idToken);
 
       if (response.success && response.user != null) {
         _currentUser = response.user;
@@ -232,6 +238,7 @@ class AuthProvider extends ChangeNotifier {
         return true;
       } else {
         _errorMessage = response.message!;
+        _errorKey = response.errorKey;
         notifyListeners();
         return false;
       }
@@ -266,6 +273,7 @@ class AuthProvider extends ChangeNotifier {
 
   void _clearError() {
     _errorMessage = null;
+    _errorKey = null;
   }
 
   void _syncUserWithLanguageProvider() {
@@ -342,7 +350,7 @@ class AuthProvider extends ChangeNotifier {
     } finally {
       _setLoading(false);
     }
-    
+
     return null;
   }
 
@@ -369,10 +377,7 @@ class AuthProvider extends ChangeNotifier {
       });
 
       request.files.add(
-        await http.MultipartFile.fromPath(
-          'profile_picture',
-          imageFile.path,
-        ),
+        await http.MultipartFile.fromPath('profile_picture', imageFile.path),
       );
 
       final streamedResponse = await request.send();
@@ -397,7 +402,7 @@ class AuthProvider extends ChangeNotifier {
     } finally {
       _setLoading(false);
     }
-    
+
     return null;
   }
 
@@ -448,5 +453,4 @@ class AuthProvider extends ChangeNotifier {
       _setLoading(false);
     }
   }
-
 }

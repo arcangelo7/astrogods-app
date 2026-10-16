@@ -1,21 +1,15 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../models/synastry.dart';
 import '../models/birth_chart.dart';
 import '../constants/text_styles.dart';
 import '../utils/date_utils.dart' as date_utils;
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class SynastryHeader extends StatelessWidget {
   final Synastry synastry;
 
-  const SynastryHeader({
-    super.key,
-    required this.synastry,
-  });
+  const SynastryHeader({super.key, required this.synastry});
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +18,14 @@ class SynastryHeader extends StatelessWidget {
     final nameA = chartA.fullName;
     final nameB = chartB.fullName;
 
-
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
         children: [
           // Main title
           Text(
-            AppLocalizations.of(context)!.synastryBetween(nameA, nameB),
+            Translations.of(context).ui
+                .synastryBetween(person1: nameA, person2: nameB),
             style: AppTextStyles.getH5Style(context),
             textAlign: TextAlign.center,
           ),
@@ -40,19 +34,9 @@ class SynastryHeader extends StatelessWidget {
           // Person data layout
           Row(
             children: [
-              Expanded(
-                child: _buildPersonInfo(
-                  context,
-                  chartA,
-                ),
-              ),
+              Expanded(child: _buildPersonInfo(context, chartA)),
               const SizedBox(width: 24),
-              Expanded(
-                child: _buildPersonInfo(
-                  context,
-                  chartB,
-                ),
-              ),
+              Expanded(child: _buildPersonInfo(context, chartB)),
             ],
           ),
         ],
@@ -60,18 +44,14 @@ class SynastryHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildPersonInfo(
-    BuildContext context,
-    BirthChart birthChart,
-  ) {
+  Widget _buildPersonInfo(BuildContext context, BirthChart birthChart) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           birthChart.fullName,
-          style: AppTextStyles.getBodyStyle(context).copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+          style: AppTextStyles.getBodyStyle(context)
+              .copyWith(fontWeight: FontWeight.w600),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 8),
@@ -84,9 +64,8 @@ class SynastryHeader extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             birthChart.place!,
-            style: AppTextStyles.getCaptionStyle(context).copyWith(
-              fontSize: 11,
-            ),
+            style: AppTextStyles.getCaptionStyle(context)
+                .copyWith(fontSize: 11),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

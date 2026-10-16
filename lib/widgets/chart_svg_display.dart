@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../services/birth_chart_service.dart';
 import '../services/reading_state_service.dart';
 import '../services/synastry_service.dart';
@@ -50,21 +47,17 @@ class _ChartSvgConfig {
   Future<String> getMainSvg(BuildContext context, {required double zoom}) {
     switch (type) {
       case _ChartType.birthChart:
-        return BirthChartService(
-          context: context,
-        ).getBirthChartSvg(chartId, zoom: zoom);
+        return BirthChartService(context: context)
+            .getBirthChartSvg(chartId, zoom: zoom);
       case _ChartType.synastry:
-        return SynastryService(
-          context: context,
-        ).getSynastrySvg(chartId, zoom: zoom);
+        return SynastryService(context: context)
+            .getSynastrySvg(chartId, zoom: zoom);
       case _ChartType.dailyTransit:
-        return transit.TransitService(
-          context: context,
-        ).getDailyTransitSvg(chartId, zoom: zoom);
+        return transit.TransitService(context: context)
+            .getDailyTransitSvg(chartId, zoom: zoom);
       case _ChartType.monthlyTransit:
-        return transit.TransitService(
-          context: context,
-        ).getMonthlyTransitSvg(chartId, zoom: zoom);
+        return transit.TransitService(context: context)
+            .getMonthlyTransitSvg(chartId, zoom: zoom);
     }
   }
 
@@ -75,17 +68,14 @@ class _ChartSvgConfig {
   }) {
     switch (type) {
       case _ChartType.birthChart:
-        return BirthChartService(
-          context: context,
-        ).getBirthChartDetailsSvg(chartId, zoom: zoom, darkMode: darkMode);
+        return BirthChartService(context: context)
+            .getBirthChartDetailsSvg(chartId, zoom: zoom, darkMode: darkMode);
       case _ChartType.synastry:
-        return SynastryService(
-          context: context,
-        ).getSynastryDetailsSvg(chartId, zoom: zoom, darkMode: darkMode);
+        return SynastryService(context: context)
+            .getSynastryDetailsSvg(chartId, zoom: zoom, darkMode: darkMode);
       case _ChartType.dailyTransit:
-        return transit.TransitService(
-          context: context,
-        ).getDailyTransitDetailsSvg(chartId, zoom: zoom, darkMode: darkMode);
+        return transit.TransitService(context: context)
+            .getDailyTransitDetailsSvg(chartId, zoom: zoom, darkMode: darkMode);
       case _ChartType.monthlyTransit:
         return transit.TransitService(
           context: context,
@@ -102,21 +92,19 @@ class _ChartSvgConfig {
       case _ChartType.birthChart:
         return null;
       case _ChartType.synastry:
-        return SynastryService(
-          context: context,
-        ).getSynastryAspectGridSvg(chartId, zoom: zoom, darkMode: darkMode);
+        return SynastryService(context: context)
+            .getSynastryAspectGridSvg(chartId, zoom: zoom, darkMode: darkMode);
       case _ChartType.dailyTransit:
         return transit.TransitService(
           context: context,
         ).getDailyTransitAspectGridSvg(chartId, zoom: zoom, darkMode: darkMode);
       case _ChartType.monthlyTransit:
-        return transit.TransitService(
-          context: context,
-        ).getMonthlyTransitAspectGridSvg(
-          chartId,
-          zoom: zoom,
-          darkMode: darkMode,
-        );
+        return transit.TransitService(context: context)
+            .getMonthlyTransitAspectGridSvg(
+              chartId,
+              zoom: zoom,
+              darkMode: darkMode,
+            );
     }
   }
 
@@ -225,10 +213,16 @@ class _ChartSvgDisplayState extends State<ChartSvgDisplay> {
       });
 
       // Load details SVG for current theme
-      final detailsFuture = _config!.getDetailsSvg(context, zoom: zoom, darkMode: widget.darkMode);
+      final detailsFuture = _config!.getDetailsSvg(
+        context,
+        zoom: zoom,
+        darkMode: widget.darkMode,
+      );
       _cachedDetailsSvg = detailsFuture?.then((svg) {
         stateService.cacheDetailsSvg(
-          _config!.type.name, _config!.chartId, svg,
+          _config!.type.name,
+          _config!.chartId,
+          svg,
           darkMode: widget.darkMode,
         );
         return svg;
@@ -236,28 +230,42 @@ class _ChartSvgDisplayState extends State<ChartSvgDisplay> {
       // Pre-cache light version for PDF generation (intentional: PDF always uses light mode
       // since it has white background and needs black text)
       if (widget.darkMode) {
-        _config!.getDetailsSvg(context, zoom: zoom, darkMode: false)?.then((lightSvg) {
+        _config!.getDetailsSvg(context, zoom: zoom, darkMode: false)?.then((
+          lightSvg,
+        ) {
           stateService.cacheDetailsSvg(
-            _config!.type.name, _config!.chartId, lightSvg,
+            _config!.type.name,
+            _config!.chartId,
+            lightSvg,
             darkMode: false,
           );
         });
       }
 
       // Load aspect grid SVG for current theme (synastry/transits only)
-      final aspectFuture = _config!.getAspectGridSvg(context, zoom: zoom, darkMode: widget.darkMode);
+      final aspectFuture = _config!.getAspectGridSvg(
+        context,
+        zoom: zoom,
+        darkMode: widget.darkMode,
+      );
       _cachedAspectGridSvg = aspectFuture?.then((svg) {
         stateService.cacheAspectGridSvg(
-          _config!.type.name, _config!.chartId, svg,
+          _config!.type.name,
+          _config!.chartId,
+          svg,
           darkMode: widget.darkMode,
         );
         return svg;
       });
       // Pre-cache light version for PDF generation
       if (widget.darkMode) {
-        _config!.getAspectGridSvg(context, zoom: zoom, darkMode: false)?.then((lightSvg) {
+        _config!.getAspectGridSvg(context, zoom: zoom, darkMode: false)?.then((
+          lightSvg,
+        ) {
           stateService.cacheAspectGridSvg(
-            _config!.type.name, _config!.chartId, lightSvg,
+            _config!.type.name,
+            _config!.chartId,
+            lightSvg,
             darkMode: false,
           );
         });
@@ -277,6 +285,7 @@ class _ChartSvgDisplayState extends State<ChartSvgDisplay> {
 
     showDialog(
       context: context,
+      useSafeArea: false,
       builder: (context) =>
           _ChartFullscreenDialog(config: _config!, initialPage: _currentPage),
     );
@@ -351,9 +360,8 @@ class _ChartSvgDisplayState extends State<ChartSvgDisplay> {
                 currentPage: _currentPage,
                 size: _Constants.smallPageIndicatorSize,
                 activeColor: Theme.of(context).colorScheme.primary,
-                inactiveColor: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.3),
+                inactiveColor: Theme.of(context).colorScheme.onSurface
+                    .withValues(alpha: 0.3),
                 onPageSelected: _goToPage,
               ),
             ),
@@ -435,13 +443,11 @@ class _SvgViewer extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              AppLocalizations.of(
-                context,
-              )!.errorLoadingChart(snapshot.error.toString()),
+              Translations.of(context).ui
+                  .errorLoadingChart(error: snapshot.error.toString()),
               style: TextStyle(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.7),
+                color: Theme.of(context).colorScheme.onSurface
+                    .withValues(alpha: 0.7),
               ),
               textAlign: TextAlign.center,
             ),
@@ -453,11 +459,10 @@ class _SvgViewer extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              AppLocalizations.of(context)!.chartNotAvailable,
+              Translations.of(context).ui.chartNotAvailable,
               style: TextStyle(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.7),
+                color: Theme.of(context).colorScheme.onSurface
+                    .withValues(alpha: 0.7),
               ),
               textAlign: TextAlign.center,
             ),
@@ -472,9 +477,8 @@ class _SvgViewer extends StatelessWidget {
                 : MouseCursor.defer,
             child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(
-                  context,
-                ).colorScheme.surface.withValues(alpha: 0.4),
+                color: Theme.of(context).colorScheme.surface
+                    .withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(8),
                 boxShadow: [
                   BoxShadow(
@@ -652,13 +656,86 @@ class _ChartFullscreenDialogState extends State<_ChartFullscreenDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
+    final mediaQuery = MediaQuery.of(context);
+    final screenSize = mediaQuery.size;
+    final padding = mediaQuery.padding;
     final isDesktop = screenSize.width > 768;
     final chartSize = isDesktop
         ? screenSize.width * 0.7
         : screenSize.width * 0.85;
     final pageCount = widget.config.pageCount;
     final hasMultiplePages = pageCount > 1;
+
+    final dialogContent = Container(
+      decoration: BoxDecoration(
+        color: Colors.black.withValues(alpha: 0.95),
+        borderRadius: BorderRadius.circular(
+          isDesktop ? _Constants.dialogBorderRadius : 0,
+        ),
+      ),
+      child: Stack(
+        children: [
+          _buildFullscreenContent(chartSize),
+          if (hasMultiplePages && _currentPage > 0)
+            Positioned(
+              left: 8,
+              top: 0,
+              bottom: 0,
+              child: Center(
+                child: IconButton(
+                  icon: Icon(
+                    Icons.chevron_left,
+                    color: Colors.white.withValues(alpha: 0.8),
+                    size: _Constants.navigationArrowSize,
+                  ),
+                  onPressed: _goToPreviousPage,
+                ),
+              ),
+            ),
+          if (hasMultiplePages && _currentPage < pageCount - 1)
+            Positioned(
+              right: 8,
+              top: 0,
+              bottom: 0,
+              child: Center(
+                child: IconButton(
+                  icon: Icon(
+                    Icons.chevron_right,
+                    color: Colors.white.withValues(alpha: 0.8),
+                    size: _Constants.navigationArrowSize,
+                  ),
+                  onPressed: _goToNextPage,
+                ),
+              ),
+            ),
+          Positioned(
+            top: (isDesktop ? 0 : padding.top) + 10,
+            right: 10,
+            child: IconButton(
+              icon: const Icon(
+                Icons.close,
+                color: Colors.white,
+                size: _Constants.closeIconSize,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ),
+          if (hasMultiplePages)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: (isDesktop ? 0 : padding.bottom) + 20,
+              child: _PageIndicators(
+                pageCount: pageCount,
+                currentPage: _currentPage,
+                size: _Constants.smallPageIndicatorSize,
+                activeColor: Colors.white,
+                inactiveColor: Colors.white.withValues(alpha: 0.3),
+              ),
+            ),
+        ],
+      ),
+    );
 
     return CallbackShortcuts(
       bindings: {
@@ -671,83 +748,14 @@ class _ChartFullscreenDialogState extends State<_ChartFullscreenDialog> {
         autofocus: true,
         child: Dialog(
           backgroundColor: Colors.transparent,
-          insetPadding: const EdgeInsets.all(0),
-          child: Container(
-            width: isDesktop
-                ? screenSize.width * _Constants.dialogSizeFactor
-                : screenSize.width,
-            height: isDesktop
-                ? screenSize.height * _Constants.dialogSizeFactor
-                : screenSize.height,
-            decoration: BoxDecoration(
-              color: Colors.black.withValues(alpha: 0.95),
-              borderRadius: BorderRadius.circular(
-                isDesktop ? _Constants.dialogBorderRadius : 0,
-              ),
-            ),
-            child: Stack(
-              children: [
-                _buildFullscreenContent(chartSize),
-                if (hasMultiplePages && _currentPage > 0)
-                  Positioned(
-                    left: 8,
-                    top: 0,
-                    bottom: 0,
-                    child: Center(
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.chevron_left,
-                          color: Colors.white.withValues(alpha: 0.8),
-                          size: _Constants.navigationArrowSize,
-                        ),
-                        onPressed: _goToPreviousPage,
-                      ),
-                    ),
-                  ),
-                if (hasMultiplePages && _currentPage < pageCount - 1)
-                  Positioned(
-                    right: 8,
-                    top: 0,
-                    bottom: 0,
-                    child: Center(
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.chevron_right,
-                          color: Colors.white.withValues(alpha: 0.8),
-                          size: _Constants.navigationArrowSize,
-                        ),
-                        onPressed: _goToNextPage,
-                      ),
-                    ),
-                  ),
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                      size: _Constants.closeIconSize,
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ),
-                if (hasMultiplePages)
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 20,
-                    child: _PageIndicators(
-                      pageCount: pageCount,
-                      currentPage: _currentPage,
-                      size: _Constants.smallPageIndicatorSize,
-                      activeColor: Colors.white,
-                      inactiveColor: Colors.white.withValues(alpha: 0.3),
-                    ),
-                  ),
-              ],
-            ),
-          ),
+          insetPadding: EdgeInsets.zero,
+          child: isDesktop
+              ? SizedBox(
+                  width: screenSize.width * _Constants.dialogSizeFactor,
+                  height: screenSize.height * _Constants.dialogSizeFactor,
+                  child: dialogContent,
+                )
+              : SizedBox.expand(child: dialogContent),
         ),
       ),
     );
@@ -766,9 +774,8 @@ class _ChartFullscreenDialogState extends State<_ChartFullscreenDialog> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                AppLocalizations.of(
-                  context,
-                )!.errorLoadingChart(snapshot.error?.toString() ?? ''),
+                Translations.of(context).ui
+                    .errorLoadingChart(error: snapshot.error?.toString() ?? ''),
                 style: const TextStyle(color: Colors.white70),
                 textAlign: TextAlign.center,
               ),

@@ -1,9 +1,6 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../models/birth_chart.dart';
 import '../services/newsletter_service.dart';
 import '../services/birth_chart_service.dart';
@@ -104,7 +101,10 @@ class _NewsletterEditDialogState extends State<NewsletterEditDialog> {
 
       if (mounted) {
         Navigator.of(context).pop();
-        SnackbarUtils.showSuccess(context, AppLocalizations.of(context)!.updateSuccess);
+        SnackbarUtils.showSuccess(
+          context,
+          Translations.of(context).ui.updateSuccess,
+        );
       }
     } catch (e) {
       if (mounted) {
@@ -118,18 +118,22 @@ class _NewsletterEditDialogState extends State<NewsletterEditDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return GenericDialog(
-      title: widget.type == 'daily' ? l10n.editDaily : l10n.editMonthly,
+      title: widget.type == 'daily' ? t.ui.editDaily : t.ui.editMonthly,
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: Text(l10n.cancel),
+          child: Text(t.ui.cancel),
         ),
         const SizedBox(width: 8),
         ElevatedButton(
-          onPressed: _isLoading || _isLoadingCharts || _selectedChart == null || _selectedLocation == null
+          onPressed:
+              _isLoading ||
+                  _isLoadingCharts ||
+                  _selectedChart == null ||
+                  _selectedLocation == null
               ? null
               : _updateSubscription,
           child: _isLoading
@@ -138,7 +142,7 @@ class _NewsletterEditDialogState extends State<NewsletterEditDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Text(l10n.save),
+              : Text(t.ui.save),
         ),
       ],
       child: Column(
@@ -147,14 +151,12 @@ class _NewsletterEditDialogState extends State<NewsletterEditDialog> {
         children: [
           // Birth chart selection
           _isLoadingCharts
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+              ? const Center(child: CircularProgressIndicator())
               : BirthChartSelector(
                   selectedChart: _selectedChart,
                   validator: (chart) {
                     if (chart == null) {
-                      return AppLocalizations.of(context)!.pleaseSelectBirthChart;
+                      return Translations.of(context).ui.pleaseSelectBirthChart;
                     }
                     return null;
                   },
@@ -171,7 +173,7 @@ class _NewsletterEditDialogState extends State<NewsletterEditDialog> {
           // Location selection
           LocationSearchField(
             controller: _locationController,
-            labelText: l10n.currentLocation,
+            labelText: t.ui.currentLocation,
             onLocationSelected: (PlaceDetails? location) {
               setState(() {
                 _selectedLocation = location;

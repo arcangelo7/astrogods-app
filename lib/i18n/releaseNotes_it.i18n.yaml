@@ -1,0 +1,24 @@
+releaseNotes: Note di rilascio
+releaseNotesTitle: Novità
+releaseNotes_2_0_1: Rilascio iniziale con letture del tema natale, analisi di sinastria per la compatibilità di coppia e previsioni dei transiti giornalieri e mensili. Esportazione PDF. Supporto completo per inglese e italiano.
+releaseNotes_2_0_2: Correzioni di bug e miglioramenti della stabilità.
+releaseNotes_2_0_3: Miglioramenti delle prestazioni.
+releaseNotes_2_0_4: Correzioni di bug e miglioramenti della stabilità.
+releaseNotes_2_1_0: Download PDF solo grafico per tema natale, sinastria e transiti. Esportazione PDF per le letture dei transiti giornalieri e mensili. Numeri delle case ora mostrati nei dettagli del grafico. I temi natali creati prima della registrazione vengono ora collegati automaticamente al tuo account.
+releaseNotes_2_2_0: 'Calcoli dei transiti più veloci, fino al 40% più rapidi per i transiti mensili. Nuovo membro del team: Corrado Camponeschi.'
+releaseNotes_2_2_1: Correzioni di bug e miglioramenti della stabilità.
+releaseNotes_2_3_0: Visualizzazione del grafico migliorata con indicatori di gradi e linee di connessione dei pianeti. Colori dei segni d'acqua migliorati per un contrasto migliore. Perfezionamenti visivi al grafico.
+releaseNotes_2_4_0: Le letture possono ora riprendere se la connessione viene interrotta. Stabilità generale migliorata.
+releaseNotes_3_0_0: Nuova schermata delle note di rilascio per visualizzare la cronologia delle versioni. L'app ora verifica la compatibilità e ti avvisa quando è disponibile un aggiornamento. Migliorata la stabilità della generazione delle letture.
+releaseNotes_4_0_0: Immagini ad alta risoluzione nella visualizzazione a schermo intero. Nuova griglia degli aspetti per sinastria e transiti. I PDF ora includono pagine con dettagli e griglia degli aspetti. Navigazione desktop migliorata con frecce, indicatori cliccabili e tasti direzionali. Zoom a schermo intero migliorato per grafici e immagini. App più leggera e veloce. Risolto problema di layout in modalità orizzontale su mobile.
+releaseNotes_4_0_1: Risolto un problema per cui il pulsante PDF non appariva dopo la generazione della lettura. I grafici salvati ora si aggiornano correttamente tornando indietro con il browser.
+releaseNotes_4_10_0: Puoi rigenerare le letture nella tua lingua preferita. I transiti salvati ora appaiono tra le analisi salvate. Risolti bug nel flusso di autenticazione.
+releaseNotes_4_10_1: Schermata di successo dopo la sottoscrizione. Navigazione riorganizzata nel menu laterale. Link cliccabili nel Codex. Miglioramenti alla gestione degli abbonamenti.
+releaseNotes_4_11_0: 'Per le nascite durante il cambio dell''ora puoi indicare quale delle due ore intendi. I temi natali di chi è nato prima dei fusi orari moderni sono più precisi. Il Codex si arricchisce di articoli sulla precessione e sui sistemi di case, con diagrammi interattivi. Tocca una citazione nel Codex per leggere il passo originale. Nuova barra di navigazione fluttuante e accesso con Google su iPhone.'
+releaseNotes_4_5_1: Nuove icone dell'app. Migliorata la qualità del logo nel menu. Risolto un problema di validazione nella modifica del tema natale.
+releaseNotes_4_7_1: Messaggi di errore di connessione ora tradotti in italiano.
+releaseNotes_4_7_6: Migliorato il rendering dei font.
+releaseNotes_4_7_7: Risolti errori nel calcolo dei transiti mensili. I badge degli abbonamenti ora si mostrano solo quando appropriato.
+releaseNotes_4_8_0: Nuova icona dell'app. Ottimizzato lo sfondo del cielo stellato.
+releaseNotes_4_9_0: Aggiornati termini e condizioni e informativa sulla privacy. Risolto un problema di registrazione con email e password. Il tema natale viene ora generato automaticamente dopo la registrazione.
+version: Versione ${version}

@@ -1,9 +1,6 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../constants/text_styles.dart';
 import '../models/birth_chart.dart';
 import '../services/newsletter_service.dart';
@@ -16,10 +13,12 @@ class NewsletterSubscriptionDialog extends StatefulWidget {
   const NewsletterSubscriptionDialog({super.key});
 
   @override
-  State<NewsletterSubscriptionDialog> createState() => _NewsletterSubscriptionDialogState();
+  State<NewsletterSubscriptionDialog> createState() =>
+      _NewsletterSubscriptionDialogState();
 }
 
-class _NewsletterSubscriptionDialogState extends State<NewsletterSubscriptionDialog> {
+class _NewsletterSubscriptionDialogState
+    extends State<NewsletterSubscriptionDialog> {
   BirthChart? _selectedChart;
   PlaceDetails? _selectedLocation;
   String _selectedType = 'daily'; // 'daily' or 'monthly'
@@ -34,11 +33,13 @@ class _NewsletterSubscriptionDialogState extends State<NewsletterSubscriptionDia
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return AlertDialog(
       title: Text(
-        _selectedType == 'daily' ? l10n.subscribeToDaily : l10n.subscribeToMonthly,
+        _selectedType == 'daily'
+            ? t.ui.subscribeToDaily
+            : t.ui.subscribeToMonthly,
         style: AppTextStyles.getH3Style(context),
       ),
       content: SizedBox(
@@ -48,30 +49,74 @@ class _NewsletterSubscriptionDialogState extends State<NewsletterSubscriptionDia
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Newsletter type selection
-            DropdownButtonFormField<String>(
-              initialValue: _selectedType,
-              decoration: InputDecoration(
-                labelText: l10n.newsletterType,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+            DropdownMenuFormField<String>(
+              expandedInsets: EdgeInsets.zero,
+              initialSelection: _selectedType,
+              label: Text(t.ui.newsletterType),
+              textStyle: AppTextStyles.getBodyStyle(context),
+              onSelected: (value) {
+                if (value != null) {
+                  setState(() {
+                    _selectedType = value;
+                  });
+                }
+              },
+              menuStyle: MenuStyle(
+                elevation: WidgetStatePropertyAll(8),
+                shape: WidgetStatePropertyAll(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                backgroundColor: WidgetStatePropertyAll(
+                  Theme.of(context).colorScheme.surface,
+                ),
+                shadowColor: WidgetStatePropertyAll(
+                  Theme.of(context).colorScheme.shadow.withValues(alpha: 0.1),
+                ),
               ),
-              items: [
-                DropdownMenuItem(
-                  value: 'daily',
-                  child: Text(l10n.subscribeToDaily),
-                ),
-                DropdownMenuItem(
+              decorationBuilder: (context, controller) {
+                return InputDecoration(
+                  labelStyle: AppTextStyles.getFormLabelStyle(context),
+                  floatingLabelStyle: AppTextStyles.getFloatingLabelStyle(
+                    context,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.outline
+                          .withValues(alpha: 0.5),
+                      width: 1,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 16,
+                  ),
+                  filled: true,
+                  fillColor: Theme.of(context)
+                      .colorScheme
+                      .surfaceContainerHighest
+                      .withValues(alpha: 0.3),
+                );
+              },
+              dropdownMenuEntries: [
+                DropdownMenuEntry(value: 'daily', label: t.ui.subscribeToDaily),
+                DropdownMenuEntry(
                   value: 'monthly',
-                  child: Text(l10n.subscribeToMonthly),
+                  label: t.ui.subscribeToMonthly,
                 ),
               ],
-              onChanged: (value) {
-                setState(() {
-                  _selectedType = value!;
-                });
-              },
             ),
             const SizedBox(height: 16),
 
@@ -80,7 +125,7 @@ class _NewsletterSubscriptionDialogState extends State<NewsletterSubscriptionDia
               selectedChart: _selectedChart,
               validator: (chart) {
                 if (chart == null) {
-                  return AppLocalizations.of(context)!.pleaseSelectBirthChart;
+                  return Translations.of(context).ui.pleaseSelectBirthChart;
                 }
                 return null;
               },
@@ -97,7 +142,7 @@ class _NewsletterSubscriptionDialogState extends State<NewsletterSubscriptionDia
             // Location selection
             LocationSearchField(
               controller: _locationController,
-              labelText: l10n.currentLocation,
+              labelText: t.ui.currentLocation,
               onLocationSelected: (PlaceDetails? location) {
                 setState(() {
                   _selectedLocation = location;
@@ -110,10 +155,11 @@ class _NewsletterSubscriptionDialogState extends State<NewsletterSubscriptionDia
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: Text(l10n.cancel),
+          child: Text(t.ui.cancel),
         ),
         ElevatedButton(
-          onPressed: _isLoading || _selectedChart == null || _selectedLocation == null
+          onPressed:
+              _isLoading || _selectedChart == null || _selectedLocation == null
               ? null
               : _subscribe,
           child: _isLoading
@@ -122,7 +168,11 @@ class _NewsletterSubscriptionDialogState extends State<NewsletterSubscriptionDia
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Text(_selectedType == 'daily' ? l10n.subscribeToDaily : l10n.subscribeToMonthly),
+              : Text(
+                  _selectedType == 'daily'
+                      ? t.ui.subscribeToDaily
+                      : t.ui.subscribeToMonthly,
+                ),
         ),
       ],
     );
@@ -154,7 +204,10 @@ class _NewsletterSubscriptionDialogState extends State<NewsletterSubscriptionDia
 
       if (mounted) {
         Navigator.of(context).pop();
-        SnackbarUtils.showSuccess(context, AppLocalizations.of(context)!.subscribeSuccess);
+        SnackbarUtils.showSuccess(
+          context,
+          Translations.of(context).ui.subscribeSuccess,
+        );
       }
     } catch (e) {
       if (mounted) {

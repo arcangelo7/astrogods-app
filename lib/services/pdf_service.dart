@@ -1,22 +1,20 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
+
+import 'package:material_ui/material_ui.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:printing/printing.dart';
+
 import '../config/image_urls.dart';
 import '../models/birth_chart.dart';
 import '../models/synastry.dart';
 import '../models/transit.dart';
 import '../models/reading.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../utils/date_utils.dart' as date_utils;
 import '../constants/cavern_names.dart';
 import 'reading_state_service.dart';
@@ -57,16 +55,16 @@ class PdfService {
 
       final fileInfo = await DefaultCacheManager().getFileFromCache(url);
       if (fileInfo == null) {
-        throw StateError('Cavern image not found in cache for house $houseNumber');
+        throw StateError(
+          'Cavern image not found in cache for house $houseNumber',
+        );
       }
       imageBytes = await fileInfo.file.readAsBytes();
       _cavernImageCache[houseNumber] = imageBytes;
     }
 
     final image = pw.MemoryImage(imageBytes);
-    return pw.Center(
-      child: pw.Image(image, width: 500, height: 282),
-    );
+    return pw.Center(child: pw.Image(image, width: 500, height: 282));
   }
 
   Future<Uint8List> _generatePdf({
@@ -78,7 +76,7 @@ class PdfService {
     bool chartOnly = false,
   }) async {
     final pdf = pw.Document();
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final theme = _getTheme();
     final stateService = ReadingStateService();
 
@@ -94,18 +92,34 @@ class PdfService {
 
     // Always use light mode for PDF (white background needs black text)
     pw.Widget? detailsWidget;
-    final detailsSvg = stateService.getCachedDetailsSvg(cacheKey, id, darkMode: false);
+    final detailsSvg = stateService.getCachedDetailsSvg(
+      cacheKey,
+      id,
+      darkMode: false,
+    );
     if (detailsSvg != null) {
       detailsWidget = pw.Center(
-        child: pw.Container(width: 450, height: 598, child: _createSvgImage(detailsSvg)),
+        child: pw.Container(
+          width: 450,
+          height: 598,
+          child: _createSvgImage(detailsSvg),
+        ),
       );
     }
 
     pw.Widget? aspectGridWidget;
-    final aspectGridSvg = stateService.getCachedAspectGridSvg(cacheKey, id, darkMode: false);
+    final aspectGridSvg = stateService.getCachedAspectGridSvg(
+      cacheKey,
+      id,
+      darkMode: false,
+    );
     if (aspectGridSvg != null) {
       aspectGridWidget = pw.Center(
-        child: pw.Container(width: 500, height: 400, child: _createSvgImage(aspectGridSvg)),
+        child: pw.Container(
+          width: 500,
+          height: 400,
+          child: _createSvgImage(aspectGridSvg),
+        ),
       );
     }
 
@@ -117,32 +131,20 @@ class PdfService {
         infoBox,
         pw.SizedBox(height: 20),
         chartWidget,
-        if (detailsWidget != null) ...[
-          pw.NewPage(),
-          detailsWidget,
-        ],
-        if (aspectGridWidget != null) ...[
-          pw.NewPage(),
-          aspectGridWidget,
-        ],
+        if (detailsWidget != null) ...[pw.NewPage(), detailsWidget],
+        if (aspectGridWidget != null) ...[pw.NewPage(), aspectGridWidget],
       ];
     } else {
       final readingWidgets = await _buildReadingContentWithImages(
         readingContent!,
-        l10n,
+        t,
       );
       content = [
         _buildPdfHeader(title),
         pw.SizedBox(height: 20),
         chartWidget,
-        if (detailsWidget != null) ...[
-          pw.NewPage(),
-          detailsWidget,
-        ],
-        if (aspectGridWidget != null) ...[
-          pw.NewPage(),
-          aspectGridWidget,
-        ],
+        if (detailsWidget != null) ...[pw.NewPage(), detailsWidget],
+        if (aspectGridWidget != null) ...[pw.NewPage(), aspectGridWidget],
         pw.NewPage(),
         infoBox,
         pw.SizedBox(height: 30),
@@ -167,17 +169,19 @@ class PdfService {
     required BirthChart birthChart,
     required Reading reading,
   }) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final lunarData = ReadingStateService().getCachedLunarPhase(birthChart.id);
     if (lunarData == null) {
-      throw StateError('Lunar phase data not found in cache for birth chart ${birthChart.id}');
+      throw StateError(
+        'Lunar phase data not found in cache for birth chart ${birthChart.id}',
+      );
     }
 
     return _generatePdf(
       cacheKey: 'birthChart',
       id: birthChart.id,
-      title: l10n.birthChartOf(birthChart.fullName),
-      infoBox: _buildBirthChartInfo(birthChart, l10n, lunarData),
+      title: t.ui.birthChartOf(name: birthChart.fullName),
+      infoBox: _buildBirthChartInfo(birthChart, t, lunarData),
       readingContent: reading.reading,
     );
   }
@@ -185,17 +189,19 @@ class PdfService {
   Future<Uint8List> generateBirthChartChartOnlyPdf({
     required BirthChart birthChart,
   }) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final lunarData = ReadingStateService().getCachedLunarPhase(birthChart.id);
     if (lunarData == null) {
-      throw StateError('Lunar phase data not found in cache for birth chart ${birthChart.id}');
+      throw StateError(
+        'Lunar phase data not found in cache for birth chart ${birthChart.id}',
+      );
     }
 
     return _generatePdf(
       cacheKey: 'birthChart',
       id: birthChart.id,
-      title: l10n.birthChartOf(birthChart.fullName),
-      infoBox: _buildBirthChartInfo(birthChart, l10n, lunarData),
+      title: t.ui.birthChartOf(name: birthChart.fullName),
+      infoBox: _buildBirthChartInfo(birthChart, t, lunarData),
       chartOnly: true,
     );
   }
@@ -204,33 +210,31 @@ class PdfService {
     required Synastry synastry,
     required Reading reading,
   }) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return _generatePdf(
       cacheKey: 'synastry',
       id: synastry.id,
-      title: l10n.synastryBetween(
-        synastry.birthChartA!.fullName,
-        synastry.birthChartB!.fullName,
+      title: t.ui.synastryBetween(
+        person1: synastry.birthChartA!.fullName,
+        person2: synastry.birthChartB!.fullName,
       ),
-      infoBox: _buildSynastryInfo(synastry, l10n),
+      infoBox: _buildSynastryInfo(synastry, t),
       readingContent: reading.reading,
     );
   }
 
-  Future<Uint8List> generateSynastryChartOnlyPdf({
-    required Synastry synastry,
-  }) {
-    final l10n = AppLocalizations.of(context)!;
+  Future<Uint8List> generateSynastryChartOnlyPdf({required Synastry synastry}) {
+    final t = Translations.of(context);
 
     return _generatePdf(
       cacheKey: 'synastry',
       id: synastry.id,
-      title: l10n.synastryBetween(
-        synastry.birthChartA!.fullName,
-        synastry.birthChartB!.fullName,
+      title: t.ui.synastryBetween(
+        person1: synastry.birthChartA!.fullName,
+        person2: synastry.birthChartB!.fullName,
       ),
-      infoBox: _buildSynastryInfo(synastry, l10n),
+      infoBox: _buildSynastryInfo(synastry, t),
       chartOnly: true,
     );
   }
@@ -260,24 +264,24 @@ class PdfService {
     );
   }
 
-  String _getLocalizedPhaseName(AppLocalizations l10n, String backendPhaseName) {
+  String _getLocalizedPhaseName(Translations t, String backendPhaseName) {
     switch (backendPhaseName) {
       case 'New':
-        return l10n.newMoon;
+        return t.ui.newMoon;
       case 'Waxing crescent':
-        return l10n.waxingCrescent;
+        return t.ui.waxingCrescent;
       case 'First quarter':
-        return l10n.firstQuarter;
+        return t.ui.firstQuarter;
       case 'Waxing gibbous':
-        return l10n.waxingGibbous;
+        return t.ui.waxingGibbous;
       case 'Full':
-        return l10n.fullMoon;
+        return t.ui.fullMoon;
       case 'Waning gibbous':
-        return l10n.waningGibbous;
+        return t.ui.waningGibbous;
       case 'Last quarter':
-        return l10n.lastQuarter;
+        return t.ui.lastQuarter;
       case 'Waning crescent':
-        return l10n.waningCrescent;
+        return t.ui.waningCrescent;
       default:
         return backendPhaseName;
     }
@@ -285,11 +289,11 @@ class PdfService {
 
   pw.Widget _buildBirthChartInfo(
     BirthChart birthChart,
-    AppLocalizations l10n,
+    Translations t,
     Map<String, dynamic> lunarPhaseData,
   ) {
     final translatedPhaseName = _getLocalizedPhaseName(
-      l10n,
+      t,
       lunarPhaseData['moon_phase_name'] as String,
     );
 
@@ -300,13 +304,13 @@ class PdfService {
       ),
       pw.SizedBox(height: 4),
       _buildInfoRow(
-        l10n.dateOfBirth,
+        t.ui.dateOfBirth,
         date_utils.DateUtils.formatDate(context, birthChart.date),
       ),
       if (birthChart.place != null)
-        _buildInfoRow(l10n.placeOfBirth, birthChart.place!),
+        _buildInfoRow(t.ui.placeOfBirth, birthChart.place!),
       if (birthChart.unknownTime)
-        _buildInfoRow(l10n.timeOfBirth, l10n.unknownTime),
+        _buildInfoRow(t.ui.timeOfBirth, t.ui.unknownTime),
       pw.SizedBox(height: 8),
       pw.Row(
         crossAxisAlignment: pw.CrossAxisAlignment.center,
@@ -321,11 +325,11 @@ class PdfService {
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Text(
-                l10n.lunarPhase,
+                t.ui.lunarPhase,
                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
               ),
               pw.Text(
-                '$translatedPhaseName, ${l10n.dayNumber(lunarPhaseData['moon_phase'] as int)}',
+                '$translatedPhaseName, ${t.ui.dayNumber(number: lunarPhaseData['moon_phase'] as int)}',
               ),
             ],
           ),
@@ -333,10 +337,10 @@ class PdfService {
       ),
     ];
 
-    return _buildInfoBox(l10n.birthInformation, children);
+    return _buildInfoBox(t.ui.birthInformation, children);
   }
 
-  pw.Widget _buildSynastryInfo(Synastry synastry, AppLocalizations l10n) {
+  pw.Widget _buildSynastryInfo(Synastry synastry, Translations t) {
     final children = <pw.Widget>[
       pw.Text(
         synastry.birthChartA!.fullName,
@@ -344,11 +348,11 @@ class PdfService {
       ),
       pw.SizedBox(height: 4),
       _buildInfoRow(
-        l10n.dateOfBirth,
+        t.ui.dateOfBirth,
         date_utils.DateUtils.formatDate(context, synastry.birthChartA!.date),
       ),
       if (synastry.birthChartA!.place != null)
-        _buildInfoRow(l10n.placeOfBirth, synastry.birthChartA!.place!),
+        _buildInfoRow(t.ui.placeOfBirth, synastry.birthChartA!.place!),
       pw.SizedBox(height: 12),
       pw.Text(
         synastry.birthChartB!.fullName,
@@ -356,14 +360,14 @@ class PdfService {
       ),
       pw.SizedBox(height: 4),
       _buildInfoRow(
-        l10n.dateOfBirth,
+        t.ui.dateOfBirth,
         date_utils.DateUtils.formatDate(context, synastry.birthChartB!.date),
       ),
       if (synastry.birthChartB!.place != null)
-        _buildInfoRow(l10n.placeOfBirth, synastry.birthChartB!.place!),
+        _buildInfoRow(t.ui.placeOfBirth, synastry.birthChartB!.place!),
     ];
 
-    return _buildInfoBox(l10n.birthInformation, children);
+    return _buildInfoBox(t.ui.birthInformation, children);
   }
 
   pw.Widget _buildInfoRow(String label, String value) {
@@ -414,30 +418,30 @@ class PdfService {
   pw.Widget _buildDailyTransitInfo(
     BirthChart birthChart,
     DailyTransitReading transit,
-    AppLocalizations l10n,
+    Translations t,
   ) {
     final children = <pw.Widget>[
-      _buildInfoRow(l10n.person, birthChart.fullName),
+      _buildInfoRow(t.ui.person, birthChart.fullName),
       _buildInfoRow(
-        l10n.dateOfBirth,
+        t.ui.dateOfBirth,
         date_utils.DateUtils.formatDate(context, birthChart.date),
       ),
       if (birthChart.place != null)
-        _buildInfoRow(l10n.placeOfBirth, birthChart.place!),
+        _buildInfoRow(t.ui.placeOfBirth, birthChart.place!),
       _buildInfoRow(
-        l10n.transitDate,
+        t.ui.transitDate,
         date_utils.DateUtils.formatDate(context, transit.date),
       ),
-      _buildInfoRow(l10n.transitLocation, transit.location.place),
+      _buildInfoRow(t.ui.transitLocation, transit.location.place),
     ];
 
-    return _buildInfoBox(l10n.transitInformation, children);
+    return _buildInfoBox(t.ui.transitInformation, children);
   }
 
   pw.Widget _buildMonthlyTransitInfo(
     BirthChart birthChart,
     MonthlyTransitReading transit,
-    AppLocalizations l10n,
+    Translations t,
   ) {
     final monthName = date_utils.DateUtils.formatMonthYear(
       context,
@@ -446,31 +450,31 @@ class PdfService {
     );
 
     final children = <pw.Widget>[
-      _buildInfoRow(l10n.person, birthChart.fullName),
+      _buildInfoRow(t.ui.person, birthChart.fullName),
       _buildInfoRow(
-        l10n.dateOfBirth,
+        t.ui.dateOfBirth,
         date_utils.DateUtils.formatDate(context, birthChart.date),
       ),
       if (birthChart.place != null)
-        _buildInfoRow(l10n.placeOfBirth, birthChart.place!),
-      _buildInfoRow(l10n.transitPeriod, monthName),
-      _buildInfoRow(l10n.transitLocation, transit.location.place),
+        _buildInfoRow(t.ui.placeOfBirth, birthChart.place!),
+      _buildInfoRow(t.ui.transitPeriod, monthName),
+      _buildInfoRow(t.ui.transitLocation, transit.location.place),
     ];
 
-    return _buildInfoBox(l10n.transitInformation, children);
+    return _buildInfoBox(t.ui.transitInformation, children);
   }
 
   Future<Uint8List> generateDailyTransitPdf({
     required BirthChart birthChart,
     required DailyTransitReading transit,
   }) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return _generatePdf(
       cacheKey: 'dailyTransit',
       id: transit.readingId,
-      title: l10n.dailyTransitOf(birthChart.fullName),
-      infoBox: _buildDailyTransitInfo(birthChart, transit, l10n),
+      title: t.ui.dailyTransitOf(name: birthChart.fullName),
+      infoBox: _buildDailyTransitInfo(birthChart, transit, t),
       readingContent: transit.reading,
     );
   }
@@ -479,13 +483,13 @@ class PdfService {
     required BirthChart birthChart,
     required DailyTransitReading transit,
   }) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return _generatePdf(
       cacheKey: 'dailyTransit',
       id: transit.readingId,
-      title: l10n.dailyTransitOf(birthChart.fullName),
-      infoBox: _buildDailyTransitInfo(birthChart, transit, l10n),
+      title: t.ui.dailyTransitOf(name: birthChart.fullName),
+      infoBox: _buildDailyTransitInfo(birthChart, transit, t),
       chartOnly: true,
     );
   }
@@ -494,13 +498,13 @@ class PdfService {
     required BirthChart birthChart,
     required MonthlyTransitReading transit,
   }) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return _generatePdf(
       cacheKey: 'monthlyTransit',
       id: transit.readingId,
-      title: l10n.monthlyTransitOf(birthChart.fullName),
-      infoBox: _buildMonthlyTransitInfo(birthChart, transit, l10n),
+      title: t.ui.monthlyTransitOf(name: birthChart.fullName),
+      infoBox: _buildMonthlyTransitInfo(birthChart, transit, t),
       readingContent: transit.reading,
     );
   }
@@ -509,20 +513,20 @@ class PdfService {
     required BirthChart birthChart,
     required MonthlyTransitReading transit,
   }) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return _generatePdf(
       cacheKey: 'monthlyTransit',
       id: transit.readingId,
-      title: l10n.monthlyTransitOf(birthChart.fullName),
-      infoBox: _buildMonthlyTransitInfo(birthChart, transit, l10n),
+      title: t.ui.monthlyTransitOf(name: birthChart.fullName),
+      infoBox: _buildMonthlyTransitInfo(birthChart, transit, t),
       chartOnly: true,
     );
   }
 
   Future<List<pw.Widget>> _buildReadingContentWithImages(
     String reading,
-    AppLocalizations l10n,
+    Translations t,
   ) async {
     final List<pw.Widget> widgets = [];
 
@@ -547,7 +551,8 @@ class PdfService {
       if (line.isEmpty) continue;
 
       // Check for house illustration placeholder
-      final houseMatch = RegExp(r'\[HOUSE_(\d+)_ILLUSTRATION\]').firstMatch(line);
+      final houseMatch = RegExp(r'\[HOUSE_(\d+)_ILLUSTRATION\]')
+          .firstMatch(line);
       if (houseMatch != null) {
         final houseNumber = houseMatch.group(1)!;
         final cavernImage = await _buildCavernImage(houseNumber);
@@ -760,9 +765,9 @@ class PdfService {
   }
 
   Future<bool> sharePdf(Uint8List pdfBytes, String filename) async {
-    final l10n = AppLocalizations.of(context)!;
-    final result = await FilePicker.platform.saveFile(
-      dialogTitle: l10n.savePdfDialogTitle,
+    final t = Translations.of(context);
+    final result = await FilePicker.saveFile(
+      dialogTitle: t.ui.savePdfDialogTitle,
       fileName: filename,
       bytes: pdfBytes,
     );

@@ -1,10 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:io' show Platform;
+
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
+
 import '../models/google_user_data.dart';
 import 'google_sign_in_desktop_service.dart';
 
@@ -37,22 +35,24 @@ class GoogleSignInNativeService {
   }
 
   Future<GoogleUserData?> signIn() async {
-    if (!kIsWeb && (Platform.isLinux || Platform.isWindows)) {
+    if (!kIsWeb &&
+        (Platform.isLinux || Platform.isWindows || Platform.isMacOS)) {
       return GoogleSignInDesktopService().signIn();
     }
 
     try {
       if (!_isInitialized) {
         throw Exception(
-            'GoogleSignInNativeService not initialized. Call initialize() first.');
+          'GoogleSignInNativeService not initialized. Call initialize() first.',
+        );
       }
 
       if (!GoogleSignIn.instance.supportsAuthenticate()) {
         throw Exception('Authentication not supported on this platform');
       }
 
-      final GoogleSignInAccount user =
-          await GoogleSignIn.instance.authenticate();
+      final GoogleSignInAccount user = await GoogleSignIn.instance
+          .authenticate();
 
       final GoogleSignInAuthentication auth = user.authentication;
 

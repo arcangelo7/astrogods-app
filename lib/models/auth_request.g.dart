@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'auth_request.dart';
@@ -31,6 +27,7 @@ RegisterRequest _$RegisterRequestFromJson(Map<String, dynamic> json) =>
       birthPlace: json['birth_place'] as String?,
       birthPlaceId: json['birth_place_id'] as String?,
       unknownTime: json['unknown_time'] as bool?,
+      birthTimeFold: (json['birth_time_fold'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
@@ -46,6 +43,7 @@ Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
       'birth_place': instance.birthPlace,
       'birth_place_id': instance.birthPlaceId,
       'unknown_time': instance.unknownTime,
+      'birth_time_fold': instance.birthTimeFold,
     };
 
 AuthResponse _$AuthResponseFromJson(Map<String, dynamic> json) => AuthResponse(
@@ -55,6 +53,7 @@ AuthResponse _$AuthResponseFromJson(Map<String, dynamic> json) => AuthResponse(
       ? null
       : User.fromJson(json['user'] as Map<String, dynamic>),
   token: json['token'] as String?,
+  errorKey: json['error_key'] as String?,
 );
 
 Map<String, dynamic> _$AuthResponseToJson(AuthResponse instance) =>
@@ -63,4 +62,5 @@ Map<String, dynamic> _$AuthResponseToJson(AuthResponse instance) =>
       'message': instance.message,
       'user': instance.user,
       'token': instance.token,
+      'error_key': instance.errorKey,
     };

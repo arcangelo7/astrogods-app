@@ -1,9 +1,7 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../constants/text_styles.dart';
+import 'birth_time_check.dart';
 
 class MysticalTimePickerField extends StatelessWidget {
   final TextEditingController controller;
@@ -11,6 +9,7 @@ class MysticalTimePickerField extends StatelessWidget {
   final String labelText;
   final Function(TimeOfDay) onTimeSelected;
   final String? Function(String?)? validator;
+  final BirthTimeController birthTime;
   final bool enabled;
 
   const MysticalTimePickerField({
@@ -20,6 +19,7 @@ class MysticalTimePickerField extends StatelessWidget {
     required this.labelText,
     required this.onTimeSelected,
     this.validator,
+    required this.birthTime,
     this.enabled = true,
   });
 
@@ -44,7 +44,8 @@ class MysticalTimePickerField extends StatelessWidget {
 
     if (time != null) {
       onTimeSelected(time);
-      controller.text = '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+      controller.text =
+          '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
     }
   }
 
@@ -52,7 +53,9 @@ class MysticalTimePickerField extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return TextFormField(
+    return ListenableBuilder(
+      listenable: birthTime,
+      builder: (context, _) => TextFormField(
       controller: controller,
       validator: validator,
       readOnly: true,
@@ -61,6 +64,8 @@ class MysticalTimePickerField extends StatelessWidget {
       style: AppTextStyles.getBodyStyle(context),
       decoration: InputDecoration(
         labelText: labelText,
+        errorText: birthTime.missingMessage,
+        errorMaxLines: 4,
         labelStyle: AppTextStyles.getFormLabelStyle(context),
         floatingLabelStyle: AppTextStyles.getFloatingLabelStyle(context),
         suffixIcon: Icon(
@@ -68,9 +73,7 @@ class MysticalTimePickerField extends StatelessWidget {
           color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           size: AppTextStyles.iconMedium,
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
@@ -80,24 +83,21 @@ class MysticalTimePickerField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.primary,
-            width: 2,
-          ),
+          borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.error,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: theme.colorScheme.error, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 16,
         ),
         filled: true,
-        fillColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+        fillColor: theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.3,
+        ),
+      ),
       ),
     );
   }

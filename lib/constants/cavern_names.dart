@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 // House 7 intentionally excluded - no cavern image exists for it
 const cavernPdfNames = {
   '1': 'prima_caverna.jpg',

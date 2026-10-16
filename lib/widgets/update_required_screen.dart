@@ -1,23 +1,16 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:io';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class UpdateRequiredScreen extends StatelessWidget {
   final String message;
 
-  const UpdateRequiredScreen({
-    super.key,
-    required this.message,
-  });
+  const UpdateRequiredScreen({super.key, required this.message});
 
   String _getStoreUrl() {
     if (kIsWeb) {
@@ -41,7 +34,7 @@ class UpdateRequiredScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return PopScope(
       canPop: false,
@@ -60,7 +53,7 @@ class UpdateRequiredScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
                   Text(
-                    l10n.updateRequired,
+                    t.ui.updateRequired,
                     style: AppTextStyles.getH2Style(context),
                     textAlign: TextAlign.center,
                   ),
@@ -78,7 +71,7 @@ class UpdateRequiredScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      child: Text(l10n.updateNow),
+                      child: Text(t.ui.updateNow),
                     ),
                   ),
                 ],

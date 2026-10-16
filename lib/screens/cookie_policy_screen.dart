@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
 
@@ -22,14 +19,14 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
   int _selectedIndex = 0;
   bool _isScrollingToSection = false;
 
-  List<String> _getSections(AppLocalizations l10n) {
+  List<String> _getSections(Translations t) {
     return [
-      l10n.whatAreCookiesSection,
-      l10n.typesOfCookiesSection,
-      l10n.trackingToolsSection,
-      l10n.managingCookiesSection,
-      l10n.complianceSection,
-      l10n.contactForCookiesTitle,
+      t.legal.whatAreCookiesSection,
+      t.legal.typesOfCookiesSection,
+      t.legal.trackingToolsSection,
+      t.legal.managingCookiesSection,
+      t.legal.complianceSection,
+      t.legal.contactForCookiesTitle,
     ];
   }
 
@@ -70,20 +67,21 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
   void _onScroll() {
     if (_isScrollingToSection) return;
 
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
-    
+    final t = Translations.of(context);
+    final sections = _getSections(t);
+
     int newIndex = 0;
     double minDistance = double.infinity;
-    
+
     for (int i = 0; i < sections.length; i++) {
       final key = _sectionKeys[sections[i]];
       if (key?.currentContext != null) {
-        final RenderBox? box = key!.currentContext!.findRenderObject() as RenderBox?;
+        final RenderBox? box =
+            key!.currentContext!.findRenderObject() as RenderBox?;
         if (box != null) {
           final position = box.localToGlobal(Offset.zero);
           final distance = (position.dy - 100).abs();
-          
+
           if (distance < minDistance) {
             minDistance = distance;
             newIndex = i;
@@ -91,7 +89,7 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
         }
       }
     }
-    
+
     if (newIndex != _selectedIndex) {
       setState(() {
         _selectedIndex = newIndex;
@@ -101,8 +99,8 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
+    final t = Translations.of(context);
+    final sections = _getSections(t);
     final isWideScreen = MediaQuery.of(context).size.width > 900;
 
     return Scaffold(
@@ -113,6 +111,7 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
         showPlanet: false,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -132,7 +131,7 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                   },
                 ),
                 title: Text(
-                  l10n.cookiePolicyPageTitle,
+                  t.legal.cookiePolicyPageTitle,
                   style: AppTextStyles.getH4Style(context),
                 ),
               ),
@@ -146,9 +145,8 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                         decoration: BoxDecoration(
                           border: Border(
                             right: BorderSide(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.outline.withValues(alpha: 0.2),
+                              color: Theme.of(context).colorScheme.outline
+                                  .withValues(alpha: 0.2),
                             ),
                           ),
                         ),
@@ -158,10 +156,9 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                             Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Text(
-                                l10n.summary,
-                                style: AppTextStyles.getH5Style(
-                                  context,
-                                ).copyWith(fontWeight: FontWeight.bold),
+                                t.legal.summary,
+                                style: AppTextStyles.getH5Style(context)
+                                    .copyWith(fontWeight: FontWeight.bold),
                               ),
                             ),
                             Expanded(
@@ -170,7 +167,8 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                                 itemBuilder: (context, index) {
                                   final isSelected = _selectedIndex == index;
                                   return InkWell(
-                                    onTap: () => _scrollToSection(index, sections),
+                                    onTap: () =>
+                                        _scrollToSection(index, sections),
                                     child: Container(
                                       margin: const EdgeInsets.symmetric(
                                         horizontal: 8.0,
@@ -178,9 +176,9 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                                       ),
                                       decoration: BoxDecoration(
                                         color: isSelected
-                                            ? Theme.of(
-                                                context,
-                                              ).colorScheme.primaryContainer
+                                            ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primaryContainer
                                             : Colors.transparent,
                                         borderRadius: BorderRadius.circular(8),
                                       ),
@@ -197,9 +195,9 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.circle,
                                                 color: isSelected
-                                                    ? Theme.of(
-                                                        context,
-                                                      ).colorScheme.primary
+                                                    ? Theme.of(context)
+                                                          .colorScheme
+                                                          .primary
                                                     : Theme.of(context)
                                                           .colorScheme
                                                           .onSurface
@@ -265,7 +263,7 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          l10n.cookiePolicyPageTitle,
+                                          t.legal.cookiePolicyPageTitle,
                                           style: AppTextStyles.getH2Style(
                                             context,
                                           ),
@@ -273,7 +271,7 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                                         ),
                                         const SizedBox(height: 16),
                                         Text(
-                                          l10n.cookiePolicyWelcomeText,
+                                          t.legal.cookiePolicyWelcomeText,
                                           style:
                                               AppTextStyles.getBodyStyle(
                                                 context,
@@ -287,7 +285,7 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                                         ),
                                         const SizedBox(height: 12),
                                         Text(
-                                          l10n.cookiePolicyLastModified,
+                                          t.legal.cookiePolicyLastModified,
                                           style:
                                               AppTextStyles.getCaptionStyle(
                                                 context,
@@ -339,7 +337,11 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
 
                                 _buildFooterSection(context),
 
-                                const SizedBox(height: 48),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).padding.bottom +
+                                      24,
+                                ),
                               ],
                             ),
                           ),
@@ -403,36 +405,36 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
     return _buildSection(
       context,
       Icons.help_outline,
-      AppLocalizations.of(context)!.whatAreCookiesSection,
+      Translations.of(context).legal.whatAreCookiesSection,
       Text(
-        AppLocalizations.of(context)!.whatAreCookiesContent,
+        Translations.of(context).legal.whatAreCookiesContent,
         style: AppTextStyles.getBodyStyle(context),
       ),
     );
   }
 
   Widget _buildTypesOfCookiesSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.category,
-      l10n.typesOfCookiesSection,
+      t.legal.typesOfCookiesSection,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildCookieTypeCard(
             context,
             Icons.security,
-            l10n.necessaryCookiesTitle,
-            l10n.necessaryCookiesDescription,
+            t.legal.necessaryCookiesTitle,
+            t.legal.necessaryCookiesDescription,
             Theme.of(context).colorScheme.primary,
           ),
           const SizedBox(height: 16),
           _buildCookieTypeCard(
             context,
             Icons.analytics,
-            l10n.measurementCookiesTitle,
-            l10n.measurementCookiesDescription,
+            t.legal.measurementCookiesTitle,
+            t.legal.measurementCookiesDescription,
             Theme.of(context).colorScheme.secondary,
           ),
         ],
@@ -467,11 +469,7 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                 color: iconColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                icon,
-                color: iconColor,
-                size: 24,
-              ),
+              child: Icon(icon, color: iconColor, size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -480,9 +478,8 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                 children: [
                   Text(
                     title,
-                    style: AppTextStyles.getBodyStyle(context).copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: AppTextStyles.getBodyStyle(context)
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -499,16 +496,16 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
   }
 
   Widget _buildTrackingToolsSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.track_changes,
-      l10n.trackingToolsSection,
+      t.legal.trackingToolsSection,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.trackingToolsIntro,
+            t.legal.trackingToolsIntro,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 24),
@@ -518,7 +515,8 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
               side: BorderSide(
-                color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                color: Theme.of(context).colorScheme.outline
+                    .withValues(alpha: 0.2),
               ),
             ),
             child: Padding(
@@ -536,34 +534,32 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
-                          l10n.matomoSelfHostedTitle,
-                          style: AppTextStyles.getBodyStyle(context).copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          t.legal.matomoSelfHostedTitle,
+                          style: AppTextStyles.getBodyStyle(context)
+                              .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    l10n.matomoSelfHostedDescription,
+                    t.legal.matomoSelfHostedDescription,
                     style: AppTextStyles.getBodyStyle(context),
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    l10n.dataCollectedByMatomo,
-                    style: AppTextStyles.getCaptionStyle(context).copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    t.ui.dataCollectedByMatomo,
+                    style: AppTextStyles.getCaptionStyle(context)
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
                     children: [
-                      l10n.usageData,
-                      l10n.ipAddress,
-                      l10n.trackingTools,
+                      t.legal.usageData,
+                      t.legal.ipAddress,
+                      t.legal.trackingTools,
                     ].map((item) => _buildDataChip(context, item)).toList(),
                   ),
                 ],
@@ -576,31 +572,31 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
   }
 
   Widget _buildManagingCookiesSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.settings,
-      l10n.managingCookiesSection,
+      t.legal.managingCookiesSection,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.managingCookiesContent,
+            t.legal.managingCookiesContent,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 24),
           _buildManagementCard(
             context,
             Icons.web,
-            l10n.browserSettingsTitle,
-            l10n.browserSettingsContent,
+            t.legal.browserSettingsTitle,
+            t.legal.browserSettingsContent,
           ),
           const SizedBox(height: 16),
           _buildManagementCard(
             context,
             Icons.block,
-            l10n.consequencesOfBlockingTitle,
-            l10n.consequencesOfBlockingContent,
+            t.legal.consequencesOfBlockingTitle,
+            t.legal.consequencesOfBlockingContent,
           ),
         ],
       ),
@@ -635,43 +631,41 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
               const SizedBox(width: 8),
               Text(
                 title,
-                style: AppTextStyles.getBodyStyle(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyles.getBodyStyle(context)
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          Text(
-            content,
-            style: AppTextStyles.getCaptionStyle(context),
-          ),
+          Text(content, style: AppTextStyles.getCaptionStyle(context)),
         ],
       ),
     );
   }
 
   Widget _buildComplianceSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.verified_user,
-      l10n.complianceSection,
+      t.legal.complianceSection,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.complianceContent,
+            t.legal.complianceContent,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.3),
+              color: Theme.of(context).colorScheme.primaryContainer
+                  .withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+                color: Theme.of(context).colorScheme.primary
+                    .withValues(alpha: 0.2),
               ),
             ),
             child: Row(
@@ -687,10 +681,9 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        l10n.europeanUnion,
-                        style: AppTextStyles.getBodyStyle(context).copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        t.legal.europeanUnion,
+                        style: AppTextStyles.getBodyStyle(context)
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 4),
                       Text(
@@ -709,16 +702,16 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
   }
 
   Widget _buildContactSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.email_outlined,
-      l10n.contactForCookiesTitle,
+      t.legal.contactForCookiesTitle,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.contactForCookiesContent,
+            t.legal.contactForCookiesContent,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 24),
@@ -728,7 +721,8 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
               side: BorderSide(
-                color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                color: Theme.of(context).colorScheme.outline
+                    .withValues(alpha: 0.2),
               ),
             ),
             child: Padding(
@@ -745,10 +739,9 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        l10n.dataControllerName,
-                        style: AppTextStyles.getBodyStyle(context).copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        t.legal.dataControllerName,
+                        style: AppTextStyles.getBodyStyle(context)
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -757,12 +750,14 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                     children: [
                       Icon(
                         Icons.email,
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: Theme.of(context).colorScheme.onSurface
+                            .withValues(alpha: 0.6),
                         size: 16,
                       ),
                       const SizedBox(width: 8),
                       InkWell(
-                        onTap: () => _launchExternalUrl('mailto:contact@astrogods.it'),
+                        onTap: () =>
+                            _launchExternalUrl('mailto:contact@astrogods.it'),
                         child: Text(
                           'contact@astrogods.it',
                           style: AppTextStyles.getBodyStyle(context).copyWith(
@@ -780,9 +775,10 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
           const SizedBox(height: 16),
           Center(
             child: ElevatedButton.icon(
-              onPressed: () => _launchExternalUrl('mailto:contact@astrogods.it'),
+              onPressed: () =>
+                  _launchExternalUrl('mailto:contact@astrogods.it'),
               icon: const Icon(Icons.email_outlined),
-              label: Text(l10n.contactUs),
+              label: Text(t.legal.contactUs),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -799,7 +795,7 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
   }
 
   Widget _buildFooterSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 800),
@@ -807,20 +803,21 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+              color: Theme.of(context).colorScheme.outline
+                  .withValues(alpha: 0.2),
             ),
           ),
         ),
         child: Column(
           children: [
             Text(
-              l10n.appTitle,
+              t.ui.appTitle,
               style: AppTextStyles.getH4Style(context),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
-              l10n.dataControllerName,
+              t.legal.dataControllerName,
               style: AppTextStyles.getCaptionStyle(context),
               textAlign: TextAlign.center,
             ),
@@ -829,24 +826,19 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
               alignment: WrapAlignment.center,
               children: [
                 Text(
-                  "${l10n.dataControllerEmailLabel} ",
-                  style: AppTextStyles.getCaptionStyle(
-                    context,
-                  ).copyWith(fontWeight: FontWeight.bold),
+                  "${t.legal.dataControllerEmailLabel} ",
+                  style: AppTextStyles.getCaptionStyle(context)
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
                 InkWell(
-                  onTap: () => _launchExternalUrl(
-                    'mailto:contact@astrogods.it',
-                  ),
+                  onTap: () =>
+                      _launchExternalUrl('mailto:contact@astrogods.it'),
                   child: Text(
                     'contact@astrogods.it',
-                    style: AppTextStyles.getCaptionStyle(context)
-                        .copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.primary,
-                          decoration: TextDecoration.underline,
-                        ),
+                    style: AppTextStyles.getCaptionStyle(context).copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
               ],
@@ -881,9 +873,9 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
   }
 
   void _showTableOfContentsBottomSheet(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
-    
+    final t = Translations.of(context);
+    final sections = _getSections(t);
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -904,9 +896,8 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.outline.withValues(alpha: 0.4),
+                  color: Theme.of(context).colorScheme.outline
+                      .withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -920,10 +911,9 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      l10n.summary,
-                      style: AppTextStyles.getH5Style(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.bold),
+                      t.legal.summary,
+                      style: AppTextStyles.getH5Style(context)
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     IconButton(
@@ -980,12 +970,12 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
                                   style: AppTextStyles.getBodyStyle(context)
                                       .copyWith(
                                         color: isSelected
-                                            ? Theme.of(
-                                                context,
-                                              ).colorScheme.primary
-                                            : Theme.of(
-                                                context,
-                                              ).colorScheme.onSurface,
+                                            ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface,
                                         fontWeight: isSelected
                                             ? FontWeight.w600
                                             : FontWeight.normal,
@@ -1009,7 +999,7 @@ class _CookiePolicyScreenState extends State<CookiePolicyScreen> {
 
   Future<void> _launchExternalUrl(String url) async {
     final Uri uri = Uri.parse(url);
-    final errorMessage = AppLocalizations.of(context)!.errorOpeningUrl;
+    final errorMessage = Translations.of(context).ui.errorOpeningUrl;
     try {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (e) {

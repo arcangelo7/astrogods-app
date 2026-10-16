@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../models/birth_chart.dart';
 import '../services/birth_chart_service.dart';
 import '../services/api_client.dart';
@@ -17,10 +14,7 @@ import '../providers/auth_provider.dart';
 class CreateBirthChartDialog extends StatefulWidget {
   final Function(BirthChart)? onCreated;
 
-  const CreateBirthChartDialog({
-    super.key,
-    this.onCreated,
-  });
+  const CreateBirthChartDialog({super.key, this.onCreated});
 
   @override
   State<CreateBirthChartDialog> createState() => _CreateBirthChartDialogState();
@@ -28,7 +22,8 @@ class CreateBirthChartDialog extends StatefulWidget {
 
 class _CreateBirthChartDialogState extends State<CreateBirthChartDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<BirthChartFormWidgetState> _formStateKey = GlobalKey<BirthChartFormWidgetState>();
+  final GlobalKey<BirthChartFormWidgetState> _formStateKey =
+      GlobalKey<BirthChartFormWidgetState>();
   late BirthChartFormWidget _formWidget;
   late BirthChartService _birthChartService;
 
@@ -38,10 +33,7 @@ class _CreateBirthChartDialogState extends State<CreateBirthChartDialog> {
   void initState() {
     super.initState();
     _birthChartService = BirthChartService(context: context);
-    _formWidget = BirthChartFormWidget(
-      key: _formStateKey,
-      isEditMode: false,
-    );
+    _formWidget = BirthChartFormWidget(key: _formStateKey, isEditMode: false);
   }
 
   @override
@@ -62,45 +54,42 @@ class _CreateBirthChartDialogState extends State<CreateBirthChartDialog> {
     final formState = _formStateKey.currentState;
     if (formState == null) return;
 
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     setState(() {
       _isLoading = true;
     });
 
     try {
-      DateTime birthDateTime = DateTime(
-        formState.selectedDate.year,
-        formState.selectedDate.month,
-        formState.selectedDate.day,
-        formState.unknownTime ? 12 : (formState.selectedTime?.hour ?? 12),
-        formState.unknownTime ? 0 : (formState.selectedTime?.minute ?? 0),
-      );
-
       final birthChart = await _birthChartService.createBirthChart(
         givenName: formState.givenName,
         familyName: formState.familyName,
-        date: birthDateTime,
+        date: formState.birthDateTime,
         placeId: formState.selectedLocation!.placeId,
         place: formState.selectedLocation!.formattedAddress,
         unknownTime: formState.unknownTime,
+        timeFold: formState.birthTime.fold,
       );
 
       await _birthChartService.calculateBirthChart(birthChart.id);
 
       if (mounted) {
         Navigator.of(context).pop();
-        SnackbarUtils.showSuccess(context, l10n.birthChartCreated);
+        SnackbarUtils.showSuccess(context, t.ui.birthChartCreated);
         widget.onCreated?.call(birthChart);
       }
     } catch (e) {
-      if (mounted) {
+      if (!mounted) return;
+      final handledInForm =
+          e is ApiException &&
+          formState.birthTime.handle(e.errorKey, e.message);
+      if (!handledInForm) {
         if (e is ApiException && e.isSubscriptionError) {
           SnackbarUtils.showInfo(context, e.message);
         } else {
           final errorMessage = e is ApiException && e.message.isNotEmpty
               ? e.message
-              : l10n.errorCreatingBirthChart(e.toString());
+              : t.ui.errorCreatingBirthChart(error: e.toString());
           SnackbarUtils.showCopyableErrorSnackBar(context, errorMessage);
         }
       }
@@ -114,17 +103,17 @@ class _CreateBirthChartDialogState extends State<CreateBirthChartDialog> {
   }
 
   void _showAuthenticationRequired() {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(l10n.authenticationRequired),
-        content: Text(l10n.pleaseLoginToSaveCharts),
+        title: Text(t.ui.authenticationRequired),
+        content: Text(t.ui.pleaseLoginToSaveCharts),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.cancel),
+            child: Text(t.ui.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -132,7 +121,7 @@ class _CreateBirthChartDialogState extends State<CreateBirthChartDialog> {
               Navigator.of(context).pop(); // Close create dialog
               context.go('/login'); // Navigate to login
             },
-            child: Text(l10n.login),
+            child: Text(t.ui.login),
           ),
         ],
       ),
@@ -141,14 +130,14 @@ class _CreateBirthChartDialogState extends State<CreateBirthChartDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return GenericDialog(
-      title: l10n.createBirthChart,
+      title: t.ui.createBirthChart,
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: Text(l10n.cancel),
+          child: Text(t.ui.cancel),
         ),
         const SizedBox(width: 8),
         ElevatedButton(
@@ -159,13 +148,10 @@ class _CreateBirthChartDialogState extends State<CreateBirthChartDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Text(l10n.create),
+              : Text(t.ui.create),
         ),
       ],
-      child: Form(
-        key: _formKey,
-        child: _formWidget,
-      ),
+      child: Form(key: _formKey, child: _formWidget),
     );
   }
 }

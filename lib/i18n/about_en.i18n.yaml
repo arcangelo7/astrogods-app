@@ -1,0 +1,65 @@
+aboutAndFaq: About and FAQ
+aboutFaqTableOfContents: Table of contents
+aboutFaqTitle: About AstroGods
+additionalInfoContent: |-
+  ### Legal action
+
+  The User's Personal Data may be used for legal purposes by the Owner in Court or in the stages leading to possible legal action arising from improper use of this Application or the related Services.
+
+  The User declares to be aware that the Owner may be required to reveal personal data upon request of public authorities.
+
+  ### Additional information about User's Personal Data
+
+  In addition to the information contained in this privacy policy, this Application may provide the User with additional and contextual information concerning particular Services or the collection and processing of Personal Data upon request.
+
+  ### System logs and maintenance
+
+  For operation and maintenance purposes, this Application and any third-party services may collect files that record interaction with this Application (System logs) or use other Personal Data (such as the IP Address) for this purpose.
+
+  ### Information not contained in this policy
+
+  More details concerning the collection or processing of Personal Data may be requested from the Owner at any time. Please see the contact information at the beginning of this document.
+
+  Users are also encouraged to check the privacy policies of any third-party services used by this Application.
+
+  ### Changes to this privacy policy
+
+  The Owner reserves the right to make changes to this privacy policy at any time by notifying its Users on this page and possibly within this Application and/or - as far as technically and legally feasible - sending a notice to Users via any contact information available to the Owner. It is strongly recommended to check this page often, referring to the date of the last modification listed at the bottom.
+
+  Should the changes affect processing activities performed on the basis of the User's consent, the Owner shall collect new consent from the User, where required.
+additionalInfoSection: Additional information
+chooseAstrologicalPath: Nourish to be nourished
+faq1Answer: AI plays a minor role in AstroGods. The interpretations are handwritten and curated by Jacopo Trombetti and Arcangelo Massari. The astronomical calculations use the Swiss Ephemeris, the most precise in the world. AI only assembles the various interpretive pieces into coherent sentences, nothing more.
+faq1Question: Does artificial intelligence make interpretations random?
+faq2Answer: 'According to this interpretive approach, the human energy constitution articulates across seven chakras corresponding to seven planets, from the Moon to Saturn. Beyond these, the human constitution simply has no receptive channels for superior planetary powers. These planets have an impact, but of a generational type: for example, Pluto in Scorpio (1983-1995) characterizes an entire generation. They are more useful for studying historical periods than individuals, and therefore are not included.'
+faq2Question: Why are Uranus, Neptune, and Pluto not included?
+faq3Answer: 'Domification is the method used to calculate the twelve astrological Houses. Most apps use Placidus, which divides the sky based on time, creating unequal Houses that vary by latitude: some can be enormous, others tiny. We use Vehlow, which divides the zodiac into twelve equal Houses of 30 degrees each. It makes no symbolic sense to divide the human soul into unequal parts: no area of life is less important than another.'
+faq3Question: Why are the planets in different Houses compared to other apps?
+faq4Answer: 'The Ascendant and Houses depend on the exact birth time. The entire chart rotates completely in 24 hours. Without the time of birth, we can only analyze planetary positions in signs, missing half of the symbolic picture: the Houses that describe in which areas of life planetary energies manifest.'
+faq4Question: Why is the birth time important?
+faq5Answer: We use the Swiss Ephemeris, the most precise astronomical tables in the world. Developed and maintained by Astrodienst (astro.com), they calculate exact planetary positions for any date in history or the future. They are the standard reference for professional astrological software.
+faq5Question: What is the source of the astrological calculations?
+faq6Answer: 'Egypt is the hermetic matrix of Western culture. Horoscopic Astrology was born in Alexandria, Egypt, where Pharaoh Nechepso and priest Petosiris wrote the foundational texts (~150-120 BCE) from which all Greek and Roman astrologers drew. Ptolemy, author of the Tetrabiblos (foundation of Western Astrology), worked in Alexandria. Hermes Trismegistus, the fusion of Greek Hermes and Egyptian Thoth, is considered the founder of this tradition. Egyptian Astrology is not a variant: it is the original source.'
+faq6Question: Why Egyptian Astrology?
+faq7Answer: 'No. Astrological elements have multiple symbolic meanings, and interpreting them within a specific energetic constitution requires an exchange between souls, hearts, and sensibilities. Moreover, the birth chart reveals a person''s potentials, but not how much these have been developed or transcended: two individuals with identical charts can live in radically different ways. Only an astrologer, by knowing the person, can calibrate the interpretation.'
+faq7Question: Does this app replace consultation with an astrologer?
+faqNotSeriousSectionTitle: Not serious stuff
+faqRefundAnswerAfter: ' and we''ll refund you. We''ll ask what went wrong because we want to improve, but you don''t have to answer.'
+faqRefundAnswerBefore: 'Yes. Email '
+faqRefundQuestion: I didn't like the service, can I get a refund?
+faqSectionTitle: Frequently asked questions
+faqSeriousSectionTitle: Serious stuff
+missionSectionTitle: Our mission
+missionText: 'Ours is first and foremost a research mission: we ourselves are curious to discover what is possible with this tool. We use software that considers all factors simultaneously to reach increasingly precise interpretations. AstroGods makes astrological interpretation more accessible to non-experts, while also simplifying the work of astrologers: no matter how skilled or experienced, they must symbolically blend infinite elements. Having a tool that keeps them all in consideration means nothing gets forgotten: a support that enhances, not replaces, human expertise.'
+storySectionTitle: Our story
+storyText: 'AstroGods was born from a friendship. Arcangelo has always been struck by Jacopo''s ability to describe people with precision based only on their birth date, and to read moments of his life with an inexplicable depth. He wanted to always carry that perspective with him, and so AstroGods was born: an attempt to translate into an algorithm the method Jacopo uses to decipher reality through Astrology.'
+teamMemberArcangeloDescription: Student of Jacopo and responsible for the technical side of AstroGods. Passionate about Astrology, studying the subject since 2016.
+teamMemberArcangeloRole: Technical development
+teamMemberArcangeloTitle: Arcangelo Massari
+teamMemberCorradoDescription: Explorer of various paths of self-knowledge, Corrado is responsible for spreading AstroGods to the world and building bridges between Astrology and other disciplines.
+teamMemberCorradoRole: Community
+teamMemberCorradoTitle: Corrado Camponeschi
+teamMemberJacopoDescription: Trained at the Accademia di Astrologia Egizia founded by Pascal Fabio Patruno, Jacopo is a brilliant astrologer capable of computing synastry mentally, memorizing degrees and planets from charts he has seen only once in his life.
+teamMemberJacopoRole: Astrologer
+teamMemberJacopoTitle: Jacopo Trombetti
+teamSectionTitle: The team

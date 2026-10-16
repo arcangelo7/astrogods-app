@@ -1,18 +1,24 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:gpt_markdown/gpt_markdown.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../config/image_urls.dart';
 import '../constants/text_styles.dart';
 import '../constants/cavern_names.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import 'cavern_tables.dart';
+import 'codex/placido_diagram.dart';
+import 'codex/celestial_sphere_diagram.dart';
+import 'codex/ecliptic_horizon_diagram.dart';
+import 'codex/ecliptic_rising_comparison_diagram.dart';
+import 'codex/equator_ecliptic_diagram.dart';
+import 'codex/latitude_sky_diagram.dart';
+import 'codex/semidiurnal_arc_diagram.dart';
+import 'codex/precession_diagram.dart';
+import 'codex/whole_sign_houses_diagram.dart';
 
 enum _MatchType { image, table, illustration }
 
@@ -42,11 +48,12 @@ void _preloadPdfImage(String webpFilename) {
   }
 }
 
-String _buildImageUrl(String filename, {bool hd = false}) {
-  if (filename.contains('_divisione')) {
-    return hd ? ImageUrls.divisionHd(filename) : ImageUrls.division(filename);
+String _buildImageUrl(String path, {bool hd = false}) {
+  if (!path.contains('/')) {
+    final category = path.contains('_divisione') ? 'divisions' : 'caverns';
+    path = '$category/$path';
   }
-  return hd ? ImageUrls.cavernHd(filename) : ImageUrls.cavern(filename);
+  return ImageUrls.image(path, hd: hd);
 }
 
 class FormattedMarkdownContent extends StatefulWidget {
@@ -60,7 +67,8 @@ class FormattedMarkdownContent extends StatefulWidget {
   });
 
   @override
-  State<FormattedMarkdownContent> createState() => _FormattedMarkdownContentState();
+  State<FormattedMarkdownContent> createState() =>
+      _FormattedMarkdownContentState();
 }
 
 class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
@@ -69,6 +77,10 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
   Map<String, Map<String, String>> _illustrationMap = {};
 
   static final _imageRegex = RegExp(r'!\[([^\]]*)\]\(([^)]+)\)');
+  static final _citationQuoteRegex = RegExp(
+    r'\[([^\]]+)\]\(([^)]+)\)\{\{(.+?)\}\}',
+    dotAll: true,
+  );
 
   static final _tableMap = <String, Widget Function(BuildContext)>{
     '[TABLE_CAVERNA_1]': CavernTables.getPrimaDivisioneTable,
@@ -77,24 +89,84 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
     '[TABLE_CAVERNA_4]': CavernTables.getQuartaDivisioneTable,
     '[TABLE_CAVERNA_5]': CavernTables.getQuintaDivisioneTable,
     '[TABLE_CAVERNA_6]': CavernTables.getSestaDivisioneTable,
+    '[PLACIDO_DIAGRAM]': (_) => const PlacidoDiagram(),
+    '[ECLIPTIC_HORIZON_DIAGRAM]': (_) => const EclipticHorizonDiagram(),
+    '[ECLIPTIC_RISING_COMPARISON_DIAGRAM]': (_) =>
+        const EclipticRisingComparisonDiagram(),
+    '[CELESTIAL_SPHERE_DIAGRAM]': (_) => const CelestialSphereDiagram(),
+    '[EQUATOR_ECLIPTIC_DIAGRAM]': (_) => const EquatorEclipticDiagram(),
+    '[LATITUDE_SKY_DIAGRAM]': (_) => const LatitudeSkyDiagram(),
+    '[SEMIDIURNAL_ARC_DIAGRAM]': (_) => const SemidiurnalArcDiagram(),
+    '[PRECESSION_DIAGRAM]': (_) => const PrecessionDiagram(),
+    '[WHOLE_SIGN_HOUSES_DIAGRAM]': (_) => const WholeSignHousesDiagram(),
   };
+
+  static String? _diagramCaption(String tag, BuildContext context) {
+    final t = Translations.of(context);
+    return switch (tag) {
+      '[CELESTIAL_SPHERE_DIAGRAM]' => t.codex.diagramCaptionCelestialSphere,
+      '[EQUATOR_ECLIPTIC_DIAGRAM]' => t.codex.diagramCaptionEquatorEcliptic,
+      '[LATITUDE_SKY_DIAGRAM]' => t.codex.diagramCaptionLatitudeSky,
+      '[ECLIPTIC_RISING_COMPARISON_DIAGRAM]' =>
+        t.codex.diagramCaptionEclipticRising,
+      '[ECLIPTIC_HORIZON_DIAGRAM]' => t.codex.diagramCaptionEclipticHorizon,
+      '[SEMIDIURNAL_ARC_DIAGRAM]' => t.codex.diagramCaptionSemidiurnalArc,
+      '[PLACIDO_DIAGRAM]' => t.codex.diagramCaptionPlacido,
+      '[PRECESSION_DIAGRAM]' => t.codex.diagramCaptionPrecession,
+      '[WHOLE_SIGN_HOUSES_DIAGRAM]' => t.codex.diagramCaptionWholeSign,
+      _ => null,
+    };
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     _illustrationMap = {
-      '[HOUSE_1_ILLUSTRATION]': {'image': 'prima_caverna.webp', 'alt': l10n.house1Alt},
-      '[HOUSE_2_ILLUSTRATION]': {'image': 'seconda_caverna.webp', 'alt': l10n.house2Alt},
-      '[HOUSE_3_ILLUSTRATION]': {'image': 'terza_caverna.webp', 'alt': l10n.house3Alt},
-      '[HOUSE_4_ILLUSTRATION]': {'image': 'quarta_caverna.webp', 'alt': l10n.house4Alt},
-      '[HOUSE_5_ILLUSTRATION]': {'image': 'quinta_caverna.webp', 'alt': l10n.house5Alt},
-      '[HOUSE_6_ILLUSTRATION]': {'image': 'sesta_caverna.webp', 'alt': l10n.house6Alt},
-      '[HOUSE_8_ILLUSTRATION]': {'image': 'ottava_caverna.webp', 'alt': l10n.house8Alt},
-      '[HOUSE_9_ILLUSTRATION]': {'image': 'nona_caverna.webp', 'alt': l10n.house9Alt},
-      '[HOUSE_10_ILLUSTRATION]': {'image': 'decima_caverna.webp', 'alt': l10n.house10Alt},
-      '[HOUSE_11_ILLUSTRATION]': {'image': 'undicesima_caverna.webp', 'alt': l10n.house11Alt},
-      '[HOUSE_12_ILLUSTRATION]': {'image': 'dodicesima_caverna.webp', 'alt': l10n.house12Alt},
+      '[HOUSE_1_ILLUSTRATION]': {
+        'image': 'prima_caverna.webp',
+        'alt': t.caverns.house1Alt,
+      },
+      '[HOUSE_2_ILLUSTRATION]': {
+        'image': 'seconda_caverna.webp',
+        'alt': t.caverns.house2Alt,
+      },
+      '[HOUSE_3_ILLUSTRATION]': {
+        'image': 'terza_caverna.webp',
+        'alt': t.caverns.house3Alt,
+      },
+      '[HOUSE_4_ILLUSTRATION]': {
+        'image': 'quarta_caverna.webp',
+        'alt': t.caverns.house4Alt,
+      },
+      '[HOUSE_5_ILLUSTRATION]': {
+        'image': 'quinta_caverna.webp',
+        'alt': t.caverns.house5Alt,
+      },
+      '[HOUSE_6_ILLUSTRATION]': {
+        'image': 'sesta_caverna.webp',
+        'alt': t.caverns.house6Alt,
+      },
+      '[HOUSE_8_ILLUSTRATION]': {
+        'image': 'ottava_caverna.webp',
+        'alt': t.caverns.house8Alt,
+      },
+      '[HOUSE_9_ILLUSTRATION]': {
+        'image': 'nona_caverna.webp',
+        'alt': t.caverns.house9Alt,
+      },
+      '[HOUSE_10_ILLUSTRATION]': {
+        'image': 'decima_caverna.webp',
+        'alt': t.caverns.house10Alt,
+      },
+      '[HOUSE_11_ILLUSTRATION]': {
+        'image': 'undicesima_caverna.webp',
+        'alt': t.caverns.house11Alt,
+      },
+      '[HOUSE_12_ILLUSTRATION]': {
+        'image': 'dodicesima_caverna.webp',
+        'alt': t.caverns.house12Alt,
+      },
     };
   }
 
@@ -105,6 +177,15 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
     '[TABLE_CAVERNA_4]',
     '[TABLE_CAVERNA_5]',
     '[TABLE_CAVERNA_6]',
+    '[PLACIDO_DIAGRAM]',
+    '[ECLIPTIC_HORIZON_DIAGRAM]',
+    '[ECLIPTIC_RISING_COMPARISON_DIAGRAM]',
+    '[CELESTIAL_SPHERE_DIAGRAM]',
+    '[EQUATOR_ECLIPTIC_DIAGRAM]',
+    '[LATITUDE_SKY_DIAGRAM]',
+    '[SEMIDIURNAL_ARC_DIAGRAM]',
+    '[PRECESSION_DIAGRAM]',
+    '[WHOLE_SIGN_HOUSES_DIAGRAM]',
   ];
 
   static const _illustrationTags = [
@@ -128,13 +209,15 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
     final matches = <_ParsedMatch>[];
 
     for (final match in _imageRegex.allMatches(widget.content)) {
-      matches.add(_ParsedMatch(
-        type: _MatchType.image,
-        start: match.start,
-        end: match.end,
-        alt: match.group(1) ?? '',
-        src: match.group(2) ?? '',
-      ));
+      matches.add(
+        _ParsedMatch(
+          type: _MatchType.image,
+          start: match.start,
+          end: match.end,
+          alt: match.group(1) ?? '',
+          src: match.group(2) ?? '',
+        ),
+      );
     }
 
     for (final tag in _tableTags) {
@@ -142,12 +225,14 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
       while (true) {
         final index = widget.content.indexOf(tag, startIndex);
         if (index == -1) break;
-        matches.add(_ParsedMatch(
-          type: _MatchType.table,
-          start: index,
-          end: index + tag.length,
-          tag: tag,
-        ));
+        matches.add(
+          _ParsedMatch(
+            type: _MatchType.table,
+            start: index,
+            end: index + tag.length,
+            tag: tag,
+          ),
+        );
         startIndex = index + tag.length;
       }
     }
@@ -157,12 +242,14 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
       while (true) {
         final index = widget.content.indexOf(tag, startIndex);
         if (index == -1) break;
-        matches.add(_ParsedMatch(
-          type: _MatchType.illustration,
-          start: index,
-          end: index + tag.length,
-          tag: tag,
-        ));
+        matches.add(
+          _ParsedMatch(
+            type: _MatchType.illustration,
+            start: index,
+            end: index + tag.length,
+            tag: tag,
+          ),
+        );
         startIndex = index + tag.length;
       }
     }
@@ -198,87 +285,89 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
   ) {
     showDialog(
       context: context,
+      useSafeArea: false,
       builder: (BuildContext dialogContext) {
-        final screenSize = MediaQuery.of(dialogContext).size;
+        final padding = MediaQuery.of(dialogContext).padding;
         return Dialog(
           backgroundColor: Colors.transparent,
-          insetPadding: const EdgeInsets.all(0),
-          child: Container(
-            width: screenSize.width,
-            height: screenSize.height,
-            decoration: BoxDecoration(
+          insetPadding: EdgeInsets.zero,
+          child: SizedBox.expand(
+            child: Container(
               color: Colors.black.withValues(alpha: 0.95),
-            ),
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: InteractiveViewer(
-                    panEnabled: true,
-                    boundaryMargin: const EdgeInsets.all(100.0),
-                    minScale: 1.0,
-                    maxScale: 4.0,
-                    child: Center(
-                      child: _LoadableImage(
-                        imagePath: imagePath,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: InteractiveViewer(
+                      panEnabled: true,
+                      boundaryMargin: const EdgeInsets.all(100.0),
+                      minScale: 1.0,
+                      maxScale: 4.0,
+                      child: Center(
+                        child: _LoadableImage(
+                          imagePath: imagePath,
+                          hd: !imagePath.startsWith('codex/'),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                      size: 30,
+                  Positioned(
+                    top: padding.top + 10,
+                    right: 10,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                      onPressed: () => Navigator.of(dialogContext).pop(),
                     ),
-                    onPressed: () => Navigator.of(dialogContext).pop(),
                   ),
-                ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 20,
-                  child: Center(
-                    child: houseNumber != null
-                        ? ElevatedButton.icon(
-                            onPressed: () {
-                              Navigator.of(dialogContext).pop();
-                              context.push('/codex/cavern/$houseNumber');
-                            },
-                            icon: const Icon(Icons.explore, size: 18),
-                            label: Text(
-                              AppLocalizations.of(context)!.exploreMore,
-                            ),
-                            style: ElevatedButton.styleFrom(
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: padding.bottom + 20,
+                    child: Center(
+                      child: houseNumber != null
+                          ? ElevatedButton.icon(
+                              onPressed: () {
+                                Navigator.of(dialogContext).pop();
+                                context.push(
+                                  '/codex/domification/book-of-caves/cavern/$houseNumber',
+                                );
+                              },
+                              icon: const Icon(Icons.explore, size: 18),
+                              label: Text(
+                                Translations.of(context).codex.exploreMore,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 12,
+                                ),
+                              ),
+                            )
+                          : Container(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 12,
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.7),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                alt,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
                             ),
-                          )
-                        : Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.black.withValues(alpha: 0.7),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              alt,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -286,7 +375,10 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
     );
   }
 
-  Widget _buildClickableImage(Map<String, String> imageData, BuildContext context) {
+  Widget _buildClickableImage(
+    Map<String, String> imageData,
+    BuildContext context,
+  ) {
     return _buildClickableImageWidget(
       imageData['image']!,
       imageData['alt']!,
@@ -294,7 +386,11 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
     );
   }
 
-  Widget _buildClickableImageWidget(String src, String alt, BuildContext context) {
+  Widget _buildClickableImageWidget(
+    String src,
+    String alt,
+    BuildContext context,
+  ) {
     final screenWidth = MediaQuery.of(context).size.width;
     const maxImageWidth = 700.0;
     final containerWidth = screenWidth > maxImageWidth
@@ -337,10 +433,15 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
                         imageUrl: _buildImageUrl(src),
                         width: double.infinity,
                         fit: BoxFit.cover,
-                        memCacheWidth: (MediaQuery.of(context).size.width * MediaQuery.of(context).devicePixelRatio).toInt(),
+                        memCacheWidth:
+                            (MediaQuery.of(context).size.width *
+                                    MediaQuery.of(context).devicePixelRatio)
+                                .toInt(),
                         placeholder: (context, url) => Container(
                           height: 200,
-                          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surfaceContainerHighest,
                           child: const Center(
                             child: CircularProgressIndicator(),
                           ),
@@ -348,7 +449,9 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
                         errorWidget: (context, url, error) {
                           return Container(
                             height: 200,
-                            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .surfaceContainerHighest,
                             child: Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -356,13 +459,17 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
                                   Icon(
                                     Icons.image_not_supported,
                                     size: 32,
-                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant,
                                   ),
                                   if (alt.isNotEmpty) ...[
                                     const SizedBox(height: 8),
                                     Text(
                                       alt,
-                                      style: Theme.of(context).textTheme.bodySmall,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall,
                                       textAlign: TextAlign.center,
                                     ),
                                   ],
@@ -414,18 +521,44 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
 
       switch (match.type) {
         case _MatchType.image:
-          widgets.add(_buildClickableImageWidget(
-            match.src!,
-            match.alt!,
-            context,
-          ));
+          widgets.add(
+            _buildClickableImageWidget(match.src!, match.alt!, context),
+          );
         case _MatchType.table:
           final tableBuilder = _tableMap[match.tag];
           if (tableBuilder != null) {
-            widgets.add(Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: tableBuilder(context),
-            ));
+            final caption = _diagramCaption(match.tag!, context);
+            widgets.add(
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: caption != null
+                    ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          tableBuilder(context),
+                          Center(
+                            child: Container(
+                              constraints: const BoxConstraints(
+                                maxWidth: 700.0,
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 8,
+                              ),
+                              child: Text(
+                                caption,
+                                style: AppTextStyles.getMarkdownParagraphStyle(
+                                  context,
+                                ).copyWith(fontStyle: FontStyle.italic),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : tableBuilder(context),
+              ),
+            );
           }
         case _MatchType.illustration:
           final imageData = _illustrationMap[match.tag];
@@ -451,7 +584,10 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
     return widgets;
   }
 
-  Widget _buildConstrainedMarkdownContent(String content, BuildContext context) {
+  Widget _buildConstrainedMarkdownContent(
+    String content,
+    BuildContext context,
+  ) {
     final screenWidth = MediaQuery.of(context).size.width;
     const maxTextWidth = 700.0;
     final containerWidth = screenWidth > maxTextWidth
@@ -478,42 +614,140 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
     );
   }
 
-  Future<void> _launchUrl(String url) async {
+  static Map<String, String> _extractCitationQuotes(String content) {
+    final quotes = <String, String>{};
+    final urlCount = <String, int>{};
+    for (final match in _citationQuoteRegex.allMatches(content)) {
+      final url = match.group(2)!;
+      final count = urlCount[url] ?? 0;
+      urlCount[url] = count + 1;
+      final key = count == 0 ? url : '$url#cite-$count';
+      quotes[key] = match.group(3)!;
+    }
+    return quotes;
+  }
+
+  static String _stripCitationQuotes(String content) {
+    final urlCount = <String, int>{};
+    return content.replaceAllMapped(_citationQuoteRegex, (match) {
+      final url = match.group(2)!;
+      final count = urlCount[url] ?? 0;
+      urlCount[url] = count + 1;
+      final key = count == 0 ? url : '$url#cite-$count';
+      return '[${match.group(1)}]($key)';
+    });
+  }
+
+  Future<void> _launchUrl(String url, BuildContext context) async {
+    if (url.startsWith('/')) {
+      context.go(url);
+      return;
+    }
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
 
+  static String _cleanCiteFragment(String url) =>
+      url.replaceFirst(RegExp(r'#cite-\d+$'), '');
+
+  void _showCitationSheet(BuildContext context, String url, String quote) {
+    url = _cleanCiteFragment(url);
+    final t = Translations.of(context);
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (sheetContext) => Padding(
+        padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Theme.of(sheetContext).colorScheme.onSurfaceVariant
+                      .withValues(alpha: 0.4),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              '\u00AB$quote\u00BB',
+              style: AppTextStyles.getMarkdownParagraphStyle(sheetContext)
+                  .copyWith(fontStyle: FontStyle.italic),
+            ),
+            const SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton.icon(
+                onPressed: () {
+                  Navigator.pop(sheetContext);
+                  _launchUrl(url, context);
+                },
+                icon: const Icon(Icons.open_in_new, size: 18),
+                label: Text(t.ui.visitSource),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildMarkdownWidget(String content, BuildContext context) {
-    // Fix markdown formatting issues: ensure headers are on separate lines
+    final citationQuotes = _extractCitationQuotes(content);
+    content = _stripCitationQuotes(content);
+
     String fixedContent = content
-        .replaceAllMapped(RegExp(r'(\S)\s+(##\s+)'), (match) => '${match.group(1)}\n\n${match.group(2)}')
-        .replaceAllMapped(RegExp(r'(\S)\s+(###\s+)'), (match) => '${match.group(1)}\n\n${match.group(2)}')
-        .replaceAllMapped(RegExp(r'(\S)\s+(####\s+)'), (match) => '${match.group(1)}\n\n${match.group(2)}');
+        .replaceAllMapped(
+          RegExp(r'(\S)\s+(##\s+)'),
+          (match) => '${match.group(1)}\n\n${match.group(2)}',
+        )
+        .replaceAllMapped(
+          RegExp(r'(\S)\s+(###\s+)'),
+          (match) => '${match.group(1)}\n\n${match.group(2)}',
+        )
+        .replaceAllMapped(
+          RegExp(r'(\S)\s+(####\s+)'),
+          (match) => '${match.group(1)}\n\n${match.group(2)}',
+        );
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final linkColor = isDark ? Colors.blue[300]! : Theme.of(context).colorScheme.primary;
+    final linkColor = isDark
+        ? Colors.blue[300]!
+        : Theme.of(context).colorScheme.primary;
     final linkStyle = AppTextStyles.getMarkdownParagraphStyle(context).copyWith(
       color: linkColor,
       decoration: TextDecoration.underline,
       decorationColor: linkColor,
     );
 
+    void handleTap(String url) {
+      final quote = citationQuotes[url];
+      if (quote != null) {
+        _showCitationSheet(context, url, quote);
+      } else {
+        _launchUrl(url, context);
+      }
+    }
+
     return GptMarkdown(
       fixedContent,
       style: AppTextStyles.getMarkdownParagraphStyle(context),
-      onLinkTap: (url, title) => _launchUrl(url),
-      linkBuilder: (context, text, url, style) {
-        final linkText = (text as TextSpan).toPlainText();
-        return MouseRegion(
+      onLinkTap: (url, title) => handleTap(url),
+      inlineLinkBuilder: (link) => link.asWidgetSpan(
+        MouseRegion(
           cursor: SystemMouseCursors.click,
-          child: Text(
-            linkText,
-            style: linkStyle,
-          ),
-        );
-      },
+          child: Text(link.label, style: linkStyle),
+        ),
+      ),
     );
   }
 
@@ -529,17 +763,19 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
 
 class _LoadableImage extends StatelessWidget {
   final String imagePath;
+  final bool hd;
 
-  const _LoadableImage({
-    required this.imagePath,
-  });
+  const _LoadableImage({required this.imagePath, this.hd = true});
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: _buildImageUrl(imagePath, hd: true),
+      imageUrl: _buildImageUrl(imagePath, hd: hd),
       fit: BoxFit.contain,
-      memCacheWidth: (MediaQuery.of(context).size.width * MediaQuery.of(context).devicePixelRatio).toInt(),
+      memCacheWidth:
+          (MediaQuery.of(context).size.width *
+                  MediaQuery.of(context).devicePixelRatio)
+              .toInt(),
       placeholder: (context, url) => Container(
         decoration: BoxDecoration(
           color: Colors.black.withValues(alpha: 0.7),
@@ -559,23 +795,15 @@ class _LoadableImage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              AppLocalizations.of(context)!.loadingImage,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-              ),
+              Translations.of(context).ui.loadingImage,
+              style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
           ],
         ),
       ),
       errorWidget: (context, url, error) => const Center(
-        child: Icon(
-          Icons.error_outline,
-          color: Colors.white,
-          size: 48,
-        ),
+        child: Icon(Icons.error_outline, color: Colors.white, size: 48),
       ),
     );
   }
 }
-

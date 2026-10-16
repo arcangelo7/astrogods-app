@@ -1,15 +1,11 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:dropdown_search/dropdown_search.dart';
+
 import '../models/birth_chart.dart';
 import '../services/birth_chart_service.dart';
 import '../services/api_client.dart';
 import '../utils/session_utils.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../constants/text_styles.dart';
 import 'gradient_button.dart';
 import 'create_birth_chart_dialog.dart';
@@ -98,7 +94,7 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
           setState(() {
             _error = apiException.message.isNotEmpty
                 ? apiException.message
-                : AppLocalizations.of(context)!.errorLoadingSavedCharts;
+                : Translations.of(context).ui.errorLoadingSavedCharts;
             _isLoading = false;
           });
         }
@@ -132,34 +128,33 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
   }
 
   Widget _buildErrorState() {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           _error!,
-          style: AppTextStyles.getBodyStyle(
-            context,
-          ).copyWith(color: Theme.of(context).colorScheme.error),
+          style: AppTextStyles.getBodyStyle(context)
+              .copyWith(color: Theme.of(context).colorScheme.error),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 16),
-        ElevatedButton(onPressed: _loadSavedCharts, child: Text(l10n.retry)),
+        ElevatedButton(onPressed: _loadSavedCharts, child: Text(t.ui.retry)),
       ],
     );
   }
 
   Widget _buildEmptyState() {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return EmptyStateWidget(
       icon: Icons.person_add_outlined,
-      title: l10n.noSavedCharts,
-      description: l10n.noSavedChartsDescription,
+      title: t.ui.noSavedCharts,
+      description: t.ui.noSavedChartsDescription,
       compact: true,
       primaryAction: GradientButton(
-        text: l10n.createBirthChart,
+        text: t.ui.createBirthChart,
         onPressed: widget.showCreateButton
             ? _showCreateDialog
             : () => context.go('/personality'),
@@ -169,7 +164,7 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     if (_isLoading) {
       return const SizedBox(
@@ -228,187 +223,80 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
       }
     }
 
-    final dropdown = FormField<BirthChart>(
-      initialValue: widget.selectedChart,
-      validator: widget.validator,
-      builder: (FormFieldState<BirthChart> field) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DropdownSearch<BirthChart>(
-              items: (filter, loadProps) => sortedCharts,
-              selectedItem: widget.selectedChart,
-              onChanged: (chart) {
-                field.didChange(chart);
-                widget.onChanged?.call(chart);
-              },
-              itemAsString: (chart) => chart.fullName,
-              compareFn: (chart1, chart2) => chart1.id == chart2.id,
-              filterFn: (item, filter) {
-                final query = filter.toLowerCase();
-                final fullName = item.fullName.toLowerCase();
-                final givenName = item.givenName.toLowerCase();
-                final familyName = item.familyName.toLowerCase();
-                final place = (item.place ?? '').toLowerCase();
+    final entries = sortedCharts.map((chart) {
+      return DropdownMenuEntry<BirthChart>(
+        value: chart,
+        label: chart.fullName,
+        labelWidget: _buildDropdownItem(context, chart),
+      );
+    }).toList();
 
-                return fullName.contains(query) ||
-                    givenName.contains(query) ||
-                    familyName.contains(query) ||
-                    place.contains(query);
-              },
-              popupProps: PopupProps.menu(
-                showSearchBox: true,
-                searchFieldProps: TextFieldProps(
-                  decoration: InputDecoration(
-                    hintText: l10n.searchByNameOrPlace,
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withValues(alpha: 0.6),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.outline.withValues(alpha: 0.5),
-                        width: 1,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.primary,
-                        width: 2,
-                      ),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    filled: true,
-                    fillColor: Theme.of(context)
-                        .colorScheme
-                        .surfaceContainerHighest
-                        .withValues(alpha: 0.3),
-                  ),
-                  style: AppTextStyles.getBodyStyle(context),
-                ),
-                searchDelay: const Duration(milliseconds: 300),
-                showSelectedItems: true,
-                menuProps: MenuProps(
-                  elevation: 8,
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  shadowColor: Theme.of(
-                    context,
-                  ).colorScheme.shadow.withValues(alpha: 0.1),
-                ),
-                itemBuilder: _buildDropdownItem,
-                loadingBuilder: (context, searchEntry) => Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        ),
-                        const SizedBox(width: 12),
-                        Text(l10n.searchInProgress),
-                      ],
-                    ),
-                  ),
-                ),
-                emptyBuilder: (context, searchEntry) => Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.search_off,
-                          size: 32,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.4),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          l10n.noResultsFound,
-                          style: AppTextStyles.getBodyStyle(context).copyWith(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onSurface.withValues(alpha: 0.6),
-                          ),
-                        ),
-                        if (searchEntry.isNotEmpty) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            l10n.forSearchTerm(searchEntry),
-                            style: AppTextStyles.getCaptionStyle(context)
-                                .copyWith(
-                                  color: Theme.of(context).colorScheme.onSurface
-                                      .withValues(alpha: 0.5),
-                                ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              decoratorProps: DropDownDecoratorProps(
-                decoration: InputDecoration(
-                  labelText: widget.labelText ?? l10n.selectChart,
-                  labelStyle: AppTextStyles.getFormLabelStyle(context),
-                  floatingLabelStyle: AppTextStyles.getFloatingLabelStyle(
-                    context,
-                  ),
-                  errorText: field.errorText,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: field.hasError
-                          ? Theme.of(context).colorScheme.error
-                          : Theme.of(
-                              context,
-                            ).colorScheme.outline.withValues(alpha: 0.5),
-                      width: 1,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: field.hasError
-                          ? Theme.of(context).colorScheme.error
-                          : Theme.of(context).colorScheme.primary,
-                      width: 2,
-                    ),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 16,
-                  ),
-                  filled: true,
-                  fillColor: Theme.of(
-                    context,
-                  ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-                ),
-              ),
+    final dropdown = DropdownMenuFormField<BirthChart>(
+      expandedInsets: EdgeInsets.zero,
+      initialSelection: widget.selectedChart,
+      enableFilter: true,
+      requestFocusOnTap: true,
+      label: Text(widget.labelText ?? t.ui.selectChart),
+      textStyle: AppTextStyles.getBodyStyle(context),
+      onSelected: (chart) {
+        widget.onChanged?.call(chart);
+      },
+      validator: widget.validator,
+      filterCallback: (entries, filter) {
+        final query = filter.toLowerCase();
+        if (query.isEmpty) return entries;
+        return entries.where((entry) {
+          final chart = entry.value;
+          return chart.fullName.toLowerCase().contains(query) ||
+              chart.givenName.toLowerCase().contains(query) ||
+              chart.familyName.toLowerCase().contains(query) ||
+              (chart.place ?? '').toLowerCase().contains(query);
+        }).toList();
+      },
+      menuHeight: 300,
+      menuStyle: MenuStyle(
+        elevation: WidgetStatePropertyAll(8),
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+        backgroundColor: WidgetStatePropertyAll(
+          Theme.of(context).colorScheme.surface,
+        ),
+        shadowColor: WidgetStatePropertyAll(
+          Theme.of(context).colorScheme.shadow.withValues(alpha: 0.1),
+        ),
+      ),
+      decorationBuilder: (context, controller) {
+        return InputDecoration(
+          labelStyle: AppTextStyles.getFormLabelStyle(context),
+          floatingLabelStyle: AppTextStyles.getFloatingLabelStyle(context),
+          hintText: t.ui.searchByNameOrPlace,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.outline
+                  .withValues(alpha: 0.5),
+              width: 1,
             ),
-          ],
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 2,
+            ),
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.surfaceContainerHighest
+              .withValues(alpha: 0.3),
         );
       },
+      dropdownMenuEntries: entries,
     );
 
     // Return dropdown with optional create button
@@ -429,9 +317,8 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
                 elevation: 2,
-                shadowColor: Theme.of(
-                  context,
-                ).colorScheme.shadow.withValues(alpha: 0.3),
+                shadowColor: Theme.of(context).colorScheme.shadow
+                    .withValues(alpha: 0.3),
               ),
               child: Icon(
                 Icons.add,
@@ -447,29 +334,17 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
     return dropdown;
   }
 
-  Widget _buildDropdownItem(
-    BuildContext context,
-    BirthChart chart,
-    bool isSelected,
-    bool isHighlighted,
-  ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: isHighlighted
-            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
-            : null,
-      ),
+  Widget _buildDropdownItem(BuildContext context, BirthChart chart) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             chart.fullName,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-              color: isSelected ? Theme.of(context).colorScheme.primary : null,
-            ),
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w500),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
@@ -480,9 +355,8 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
                 child: Text(
                   chart.place ?? '',
                   style: AppTextStyles.getCaptionStyle(context).copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withValues(alpha: 0.7),
+                    color: Theme.of(context).colorScheme.onSurface
+                        .withValues(alpha: 0.7),
                   ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
@@ -492,9 +366,8 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
               Text(
                 '${chart.date.day}/${chart.date.month}/${chart.date.year}',
                 style: AppTextStyles.getCaptionStyle(context).copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.7),
+                  color: Theme.of(context).colorScheme.onSurface
+                      .withValues(alpha: 0.7),
                 ),
               ),
             ],

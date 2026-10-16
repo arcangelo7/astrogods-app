@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../constants/text_styles.dart';
 import '../widgets/starry_night_background.dart';
 import '../widgets/gradient_button.dart';
@@ -14,6 +11,8 @@ import '../widgets/mystical_text_field.dart';
 import '../widgets/date_picker_field.dart';
 import '../widgets/time_picker_field.dart';
 import '../widgets/unknown_time_checkbox.dart';
+import '../widgets/birth_time_check.dart';
+import '../utils/date_utils.dart' as app_date_utils;
 import '../widgets/mystical_checkbox.dart';
 import '../services/birth_chart_service.dart';
 import '../services/api_client.dart';
@@ -46,11 +45,15 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
   TimeOfDay? _selectedTime;
   PlaceDetails? _selectedLocation;
   late final BirthChartService _birthChartService;
+  late final BirthTimeController _birthTime;
 
   @override
   void initState() {
     super.initState();
     _birthChartService = BirthChartService(context: context);
+    _birthTime = BirthTimeController(
+      widget.prefillData?['birthTimeFold'] as int?,
+    );
     _applyPrefillData();
   }
 
@@ -69,14 +72,16 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
       _birthDateController.text =
           '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
     }
-    if (prefillData['birthTimeHour'] != null && prefillData['birthTimeMinute'] != null) {
+    if (prefillData['birthTimeHour'] != null &&
+        prefillData['birthTimeMinute'] != null) {
       final hour = prefillData['birthTimeHour'] as int;
       final minute = prefillData['birthTimeMinute'] as int;
       _selectedTime = TimeOfDay(hour: hour, minute: minute);
       _birthTimeController.text =
           '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
     }
-    if (prefillData['birthPlace'] != null && prefillData['birthPlaceId'] != null) {
+    if (prefillData['birthPlace'] != null &&
+        prefillData['birthPlaceId'] != null) {
       final birthPlace = prefillData['birthPlace'] as String;
       _birthPlaceController.text = birthPlace;
       _selectedLocation = PlaceDetails(
@@ -98,20 +103,24 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
     _birthDateController.dispose();
     _birthTimeController.dispose();
     _birthChartService.dispose();
+    _birthTime.dispose();
     super.dispose();
   }
 
   Future<void> _submitBirthChart() async {
     if (!_formKey.currentState!.validate()) return;
     if (_selectedDate == null) {
-      SnackbarUtils.showErrorSnackBar(context, AppLocalizations.of(context)!.pleaseSelectBirthDate);
+      SnackbarUtils.showErrorSnackBar(
+        context,
+        Translations.of(context).ui.pleaseSelectBirthDate,
+      );
       return;
     }
 
     if (_selectedLocation == null) {
       SnackbarUtils.showErrorSnackBar(
         context,
-        AppLocalizations.of(context)!.pleaseSelectBirthPlace,
+        Translations.of(context).ui.pleaseSelectBirthPlace,
       );
       return;
     }
@@ -119,23 +128,20 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
     setState(() => _isLoading = true);
 
     try {
-      // Combine date and time
-      DateTime birthDateTime = DateTime(
-        _selectedDate!.year,
-        _selectedDate!.month,
-        _selectedDate!.day,
-        _dontKnowBirthTime ? 12 : (_selectedTime?.hour ?? 12),
-        _dontKnowBirthTime ? 0 : (_selectedTime?.minute ?? 0),
-      );
-
       // Create birth chart with place_id (backend will do geocoding)
       final birthChart = await _birthChartService.createBirthChart(
         givenName: _firstNameController.text.trim(),
         familyName: _lastNameController.text.trim(),
-        date: birthDateTime,
+        date: app_date_utils.DateUtils.toBirthDateTimeIso(
+          _selectedDate!,
+          _dontKnowBirthTime
+              ? const TimeOfDay(hour: 12, minute: 0)
+              : _selectedTime!,
+        ),
         placeId: _selectedLocation!.placeId,
         place: _selectedLocation!.formattedAddress,
         unknownTime: _dontKnowBirthTime,
+        timeFold: _birthTime.fold,
         chartOnly: _chartOnly,
       );
 
@@ -157,7 +163,7 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
       }
     } catch (e) {
       if (mounted) {
-        if (e is ApiException) {
+        if (e is ApiException && !_birthTime.handle(e.errorKey, e.message)) {
           if (e.isSubscriptionError) {
             SnackbarUtils.showInfo(context, e.message);
             context.go('/subscription-plans');
@@ -165,7 +171,8 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
             SessionUtils.handleApiException(
               context,
               e,
-              (message) => SnackbarUtils.showCopyableErrorSnackBar(context, message),
+              (message) =>
+                  SnackbarUtils.showCopyableErrorSnackBar(context, message),
             );
           }
         }
@@ -177,286 +184,306 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return StarryNightBackground(
       showPlanet: false,
       subtle: true,
       child: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              // Sottrai l'altezza della bottom navigation (circa 80px) per centrare solo nella porzione visibile
-              final availableHeight = constraints.maxHeight - 80.0;
-              return SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 8.0,
-                ),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: availableHeight - 16.0,
-                  ),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 8),
+        bottom: false,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // Sottrai l'altezza della bottom navigation (circa 80px) per centrare solo nella porzione visibile
+            final availableHeight = constraints.maxHeight - 80.0;
+            final bottomPadding = MediaQuery.of(context).padding.bottom;
+            return SingleChildScrollView(
+              padding: EdgeInsets.only(
+                left: 24.0,
+                right: 24.0,
+                top: 8.0,
+                bottom: 100.0 + bottomPadding,
+              ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: availableHeight - 16.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 8),
 
-                          Text(
-                            AppLocalizations.of(context)!.unveilHeart,
-                            style: AppTextStyles.getH4Style(context),
-                            textAlign: TextAlign.center,
-                          ),
+                      Text(
+                        Translations.of(context).ui.unveilHeart,
+                        style: AppTextStyles.getH4Style(context),
+                        textAlign: TextAlign.center,
+                      ),
 
-                          const SizedBox(height: 40),
+                      const SizedBox(height: 40),
 
-                          // Use vertical layout on small screens
-                          MediaQuery.of(context).size.width < 600
-                              ? Column(
-                                  children: [
-                                    MysticalTextField(
-                                      controller: _firstNameController,
-                                      labelText: AppLocalizations.of(
-                                        context,
-                                      )!.firstName,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return AppLocalizations.of(context)!.pleaseEnterFirstName;
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    MysticalTextField(
-                                      controller: _lastNameController,
-                                      labelText: AppLocalizations.of(
-                                        context,
-                                      )!.lastName,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return AppLocalizations.of(context)!.pleaseEnterLastName;
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ],
-                                )
-                              : Row(
-                                  children: [
-                                    Expanded(
-                                      child: MysticalTextField(
-                                        controller: _firstNameController,
-                                        labelText: AppLocalizations.of(
-                                          context,
-                                        )!.firstName,
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return AppLocalizations.of(context)!.pleaseEnterFirstName;
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    Expanded(
-                                      child: MysticalTextField(
-                                        controller: _lastNameController,
-                                        labelText: AppLocalizations.of(
-                                          context,
-                                        )!.lastName,
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return AppLocalizations.of(context)!.pleaseEnterLastName;
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                      // Use vertical layout on small screens
+                      MediaQuery.of(context).size.width < 600
+                          ? Column(
+                              children: [
+                                MysticalTextField(
+                                  controller: _firstNameController,
+                                  labelText: Translations.of(context)
+                                      .ui
+                                      .firstName,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return Translations.of(context)
+                                          .ui
+                                          .pleaseEnterFirstName;
+                                    }
+                                    return null;
+                                  },
                                 ),
-
-                          const SizedBox(height: 20),
-
-                          LocationSearchField(
-                            controller: _birthPlaceController,
-                            labelText: AppLocalizations.of(context)!.birthPlace,
-                            language: Localizations.localeOf(
-                              context,
-                            ).languageCode,
-                            validator: (value) {
-                              if (_selectedLocation == null) {
-                                return AppLocalizations.of(
-                                  context,
-                                )!.pleaseSelectBirthPlace;
-                              }
-                              return null;
-                            },
-                            onLocationSelected: (PlaceDetails? location) {
-                              setState(() {
-                                _selectedLocation = location;
-                              });
-                            },
-                          ),
-
-                          const SizedBox(height: 20),
-
-                          // Use vertical layout on small screens
-                          MediaQuery.of(context).size.width < 600
-                              ? Column(
-                                  children: [
-                                    MysticalDatePickerField(
-                                      controller: _birthDateController,
-                                      selectedDate: _selectedDate,
-                                      labelText: AppLocalizations.of(
-                                        context,
-                                      )!.birthDate,
-                                      onDateSelected: (date) {
-                                        setState(() {
-                                          _selectedDate = date;
-                                        });
-                                      },
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return AppLocalizations.of(context)!.pleaseSelectBirthDate;
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-                                    MysticalTimePickerField(
-                                      controller: _birthTimeController,
-                                      selectedTime: _selectedTime,
-                                      labelText: AppLocalizations.of(
-                                        context,
-                                      )!.birthTime,
-                                      onTimeSelected: (time) {
-                                        setState(() {
-                                          _selectedTime = time;
-                                        });
-                                      },
-                                      enabled: !_dontKnowBirthTime,
-                                      validator: (value) {
-                                        if (!_dontKnowBirthTime &&
-                                            (value == null || value.isEmpty)) {
-                                          return AppLocalizations.of(context)!.pleaseSelectBirthTime;
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ],
-                                )
-                              : Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: MysticalDatePickerField(
-                                        controller: _birthDateController,
-                                        selectedDate: _selectedDate,
-                                        labelText: AppLocalizations.of(
-                                          context,
-                                        )!.birthDate,
-                                        onDateSelected: (date) {
-                                          setState(() {
-                                            _selectedDate = date;
-                                          });
-                                        },
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return AppLocalizations.of(context)!.pleaseSelectBirthDate;
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    Expanded(
-                                      child: MysticalTimePickerField(
-                                        controller: _birthTimeController,
-                                        selectedTime: _selectedTime,
-                                        labelText: AppLocalizations.of(
-                                          context,
-                                        )!.birthTime,
-                                        onTimeSelected: (time) {
-                                          setState(() {
-                                            _selectedTime = time;
-                                          });
-                                        },
-                                        enabled: !_dontKnowBirthTime,
-                                        validator: (value) {
-                                          if (!_dontKnowBirthTime &&
-                                              (value == null ||
-                                                  value.isEmpty)) {
-                                            return AppLocalizations.of(context)!.pleaseSelectBirthTime;
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                                const SizedBox(height: 20),
+                                MysticalTextField(
+                                  controller: _lastNameController,
+                                  labelText: Translations.of(context)
+                                      .ui
+                                      .lastName,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return Translations.of(context)
+                                          .ui
+                                          .pleaseEnterLastName;
+                                    }
+                                    return null;
+                                  },
                                 ),
-
-                          const SizedBox(height: 24),
-
-                          UnknownTimeCheckbox(
-                            value: _dontKnowBirthTime,
-                            onChanged: (value) {
-                              setState(() {
-                                _dontKnowBirthTime = value;
-                                if (_dontKnowBirthTime) {
-                                  _birthTimeController.clear();
-                                }
-                              });
-                            },
-                          ),
-
-                          const SizedBox(height: 16),
-
-                          MysticalCheckbox(
-                            title: AppLocalizations.of(context)!.chartOnlyMode,
-                            value: _chartOnly,
-                            onChanged: (value) {
-                              setState(() {
-                                _chartOnly = value;
-                              });
-                            },
-                          ),
-
-                          const SizedBox(height: 24),
-
-                          GradientButton(
-                            text: _isLoading
-                                ? AppLocalizations.of(context)!.analyzing
-                                : AppLocalizations.of(
-                                    context,
-                                  )!.read.toUpperCase(),
-                            onPressed: !_isLoading ? _submitBirthChart : () {},
-                          ),
-
-                          const SizedBox(height: 24),
-
-                          // Info text
-                          Text(
-                            AppLocalizations.of(context)!.birthChartDescription,
-                            style: AppTextStyles.getCaptionStyle(context).copyWith(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.onSurface.withValues(alpha: 0.7),
+                              ],
+                            )
+                          : Row(
+                              children: [
+                                Expanded(
+                                  child: MysticalTextField(
+                                    controller: _firstNameController,
+                                    labelText: Translations.of(context)
+                                        .ui
+                                        .firstName,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return Translations.of(context)
+                                            .ui
+                                            .pleaseEnterFirstName;
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: MysticalTextField(
+                                    controller: _lastNameController,
+                                    labelText: Translations.of(context)
+                                        .ui
+                                        .lastName,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return Translations.of(context)
+                                            .ui
+                                            .pleaseEnterLastName;
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                            textAlign: TextAlign.center,
-                          ),
 
-                          const SizedBox(height: 24),
-                      ],
-                    ),
+                      const SizedBox(height: 20),
+
+                      LocationSearchField(
+                        controller: _birthPlaceController,
+                        labelText: Translations.of(context).ui.birthPlace,
+                        language: Localizations.localeOf(context).languageCode,
+                        validator: (value) {
+                          if (_selectedLocation == null) {
+                            return Translations.of(context)
+                                .ui
+                                .pleaseSelectBirthPlace;
+                          }
+                          return null;
+                        },
+                        onLocationSelected: (PlaceDetails? location) {
+                          setState(() {
+                            _selectedLocation = location;
+                          });
+                          _birthTime.reset();
+                        },
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // Use vertical layout on small screens
+                      MediaQuery.of(context).size.width < 600
+                          ? Column(
+                              children: [
+                                MysticalDatePickerField(
+                                  controller: _birthDateController,
+                                  selectedDate: _selectedDate,
+                                  labelText: Translations.of(context)
+                                      .ui
+                                      .birthDate,
+                                  onDateSelected: (date) {
+                                    setState(() {
+                                      _selectedDate = date;
+                                    });
+                                    _birthTime.reset();
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return Translations.of(context)
+                                          .ui
+                                          .pleaseSelectBirthDate;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 20),
+                                MysticalTimePickerField(
+                                  controller: _birthTimeController,
+                                  birthTime: _birthTime,
+                                  selectedTime: _selectedTime,
+                                  labelText: Translations.of(context)
+                                      .ui
+                                      .birthTime,
+                                  onTimeSelected: (time) {
+                                    setState(() {
+                                      _selectedTime = time;
+                                    });
+                                    _birthTime.reset();
+                                  },
+                                  enabled: !_dontKnowBirthTime,
+                                  validator: (value) {
+                                    if (!_dontKnowBirthTime &&
+                                        (value == null || value.isEmpty)) {
+                                      return Translations.of(context)
+                                          .ui
+                                          .pleaseSelectBirthTime;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
+                            )
+                          : Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: MysticalDatePickerField(
+                                    controller: _birthDateController,
+                                    selectedDate: _selectedDate,
+                                    labelText: Translations.of(context)
+                                        .ui
+                                        .birthDate,
+                                    onDateSelected: (date) {
+                                      setState(() {
+                                        _selectedDate = date;
+                                      });
+                                      _birthTime.reset();
+                                    },
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return Translations.of(context)
+                                            .ui
+                                            .pleaseSelectBirthDate;
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: MysticalTimePickerField(
+                                    controller: _birthTimeController,
+                                    birthTime: _birthTime,
+                                    selectedTime: _selectedTime,
+                                    labelText: Translations.of(context)
+                                        .ui
+                                        .birthTime,
+                                    onTimeSelected: (time) {
+                                      setState(() {
+                                        _selectedTime = time;
+                                      });
+                                      _birthTime.reset();
+                                    },
+                                    enabled: !_dontKnowBirthTime,
+                                    validator: (value) {
+                                      if (!_dontKnowBirthTime &&
+                                          (value == null || value.isEmpty)) {
+                                        return Translations.of(context)
+                                            .ui
+                                            .pleaseSelectBirthTime;
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                      RepeatedTimeChoice(controller: _birthTime),
+
+                      const SizedBox(height: 24),
+
+                      UnknownTimeCheckbox(
+                        value: _dontKnowBirthTime,
+                        onChanged: (value) {
+                          setState(() {
+                            _dontKnowBirthTime = value;
+                            if (_dontKnowBirthTime) {
+                              _birthTimeController.clear();
+                            }
+                          });
+                          _birthTime.reset();
+                        },
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      MysticalCheckbox(
+                        title: Translations.of(context).ui.chartOnlyMode,
+                        value: _chartOnly,
+                        onChanged: (value) {
+                          setState(() {
+                            _chartOnly = value;
+                          });
+                        },
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      GradientButton(
+                        text: _isLoading
+                            ? Translations.of(context).ui.analyzing
+                            : Translations.of(context).ui.read.toUpperCase(),
+                        onPressed: !_isLoading ? _submitBirthChart : () {},
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      // Info text
+                      Text(
+                        Translations.of(context).ui.birthChartDescription,
+                        style: AppTextStyles.getCaptionStyle(context).copyWith(
+                          color: Theme.of(context).colorScheme.onSurface
+                              .withValues(alpha: 0.7),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+
+                      const SizedBox(height: 24),
+                    ],
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
+      ),
     );
   }
-
 }

@@ -1,8 +1,5 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../models/reading_chunk.dart';
 import '../models/transit.dart';
 import 'api_client.dart';
@@ -107,10 +104,7 @@ class TransitService {
         body['longitude'] = location['longitude'];
       }
 
-      final response = await _apiClient.post(
-        '/transits/daily',
-        body: body,
-      );
+      final response = await _apiClient.post('/transits/daily', body: body);
 
       return response['transit'];
     } catch (e) {
@@ -143,10 +137,7 @@ class TransitService {
         body['longitude'] = location['longitude'];
       }
 
-      final response = await _apiClient.post(
-        '/transits/monthly',
-        body: body,
-      );
+      final response = await _apiClient.post('/transits/monthly', body: body);
 
       return response['transit'];
     } catch (e) {

@@ -1,15 +1,13 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:async';
-import 'package:flutter/material.dart';
+
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
 import '../widgets/accent_icon.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../models/analysis_item.dart';
 import '../models/birth_chart.dart';
 import '../services/birth_chart_service.dart';
@@ -54,7 +52,9 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
     _transitService = TransitService(context: context);
     _readingStateService = ReadingStateService();
     _subscriptionService = SubscriptionService(context: context);
-    _readingStateService.readingCompletedNotifier.addListener(_onReadingCompleted);
+    _readingStateService.readingCompletedNotifier.addListener(
+      _onReadingCompleted,
+    );
     _loadSavedAnalyses();
   }
 
@@ -64,7 +64,9 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
 
   @override
   void dispose() {
-    _readingStateService.readingCompletedNotifier.removeListener(_onReadingCompleted);
+    _readingStateService.readingCompletedNotifier.removeListener(
+      _onReadingCompleted,
+    );
     _debounceTimer?.cancel();
     _searchController.dispose();
     _birthChartService.dispose();
@@ -150,7 +152,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
   }
 
   Future<void> _removeAnalysis(AnalysisItem analysis) async {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final itemKey = '${analysis.type.name}_${analysis.id}';
 
     if (mounted) {
@@ -182,11 +184,11 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
         });
         String successMessage;
         if (analysis is BirthChartAnalysisItem) {
-          successMessage = l10n.chartRemovedFromSaved;
+          successMessage = t.ui.chartRemovedFromSaved;
         } else if (analysis is SynastryAnalysisItem) {
-          successMessage = l10n.synastryRemovedFromSaved;
+          successMessage = t.ui.synastryRemovedFromSaved;
         } else {
-          successMessage = l10n.transitRemovedFromSaved;
+          successMessage = t.ui.transitRemovedFromSaved;
         }
         SnackbarUtils.showSuccess(context, successMessage);
       }
@@ -212,7 +214,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
   }
 
   Future<void> _setPersonalChart(BirthChartAnalysisItem chartAnalysis) async {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     try {
       final updatedChart = await _birthChartService.setPersonalChart(
         chartAnalysis.id,
@@ -253,8 +255,8 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
         SnackbarUtils.showSuccess(
           context,
           updatedChart.isPersonal == true
-              ? l10n.chartSetAsPersonal
-              : l10n.chartRemovedFromPersonal,
+              ? t.ui.chartSetAsPersonal
+              : t.ui.chartRemovedFromPersonal,
         );
       }
     } catch (e) {
@@ -277,42 +279,61 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
 
   void _navigateToReading(AnalysisItem analysis) {
     if (analysis is BirthChartAnalysisItem) {
-      context.push(
-        '/birth-chart-reading/${analysis.id}',
-        extra: {'birthChart': analysis.birthChart.toJson()},
-      ).then((_) => _loadSavedAnalyses());
+      context
+          .push(
+            '/birth-chart-reading/${analysis.id}',
+            extra: {'birthChart': analysis.birthChart.toJson()},
+          )
+          .then((_) => _loadSavedAnalyses());
     } else if (analysis is SynastryAnalysisItem) {
-      context.push(
-        '/synastry/${analysis.id}',
-        extra: {'synastry': analysis.synastry.toJson()},
-      ).then((_) => _loadSavedAnalyses());
+      context
+          .push(
+            '/synastry/${analysis.id}',
+            extra: {'synastry': analysis.synastry.toJson()},
+          )
+          .then((_) => _loadSavedAnalyses());
     } else if (analysis is DailyTransitAnalysisItem) {
-      context.push('/daily-transit/${analysis.id}').then((_) => _loadSavedAnalyses());
+      context
+          .push('/daily-transit/${analysis.id}')
+          .then((_) => _loadSavedAnalyses());
     } else if (analysis is MonthlyTransitAnalysisItem) {
-      context.push('/monthly-transit/${analysis.id}').then((_) => _loadSavedAnalyses());
+      context
+          .push('/monthly-transit/${analysis.id}')
+          .then((_) => _loadSavedAnalyses());
     }
   }
 
   void _navigateToChartOnly(AnalysisItem analysis) {
     if (analysis is BirthChartAnalysisItem) {
-      context.push(
-        '/birth-chart-reading/${analysis.id}',
-        extra: {'birthChart': analysis.birthChart.toJson(), 'chartOnly': true},
-      ).then((_) => _loadSavedAnalyses());
+      context
+          .push(
+            '/birth-chart-reading/${analysis.id}',
+            extra: {
+              'birthChart': analysis.birthChart.toJson(),
+              'chartOnly': true,
+            },
+          )
+          .then((_) => _loadSavedAnalyses());
     } else if (analysis is SynastryAnalysisItem) {
-      context.push(
-        '/synastry/${analysis.id}',
-        extra: {'synastry': analysis.synastry.toJson(), 'chartOnly': true},
-      ).then((_) => _loadSavedAnalyses());
+      context
+          .push(
+            '/synastry/${analysis.id}',
+            extra: {'synastry': analysis.synastry.toJson(), 'chartOnly': true},
+          )
+          .then((_) => _loadSavedAnalyses());
     } else if (analysis is DailyTransitAnalysisItem) {
-      context.push('/daily-transit/${analysis.id}', extra: {'chartOnly': true}).then((_) => _loadSavedAnalyses());
+      context
+          .push('/daily-transit/${analysis.id}', extra: {'chartOnly': true})
+          .then((_) => _loadSavedAnalyses());
     } else if (analysis is MonthlyTransitAnalysisItem) {
-      context.push('/monthly-transit/${analysis.id}', extra: {'chartOnly': true}).then((_) => _loadSavedAnalyses());
+      context
+          .push('/monthly-transit/${analysis.id}', extra: {'chartOnly': true})
+          .then((_) => _loadSavedAnalyses());
     }
   }
 
   void _showAnalysisActions(AnalysisItem analysis) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -332,9 +353,8 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                color: Theme.of(context).colorScheme.onSurface
+                    .withValues(alpha: 0.6),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -348,10 +368,10 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
                         ? Icons.auto_stories
                         : Icons.edit_note),
               title: analysis.readingOutdated == true
-                  ? l10n.newImprovedVersion
+                  ? t.ui.newImprovedVersion
                   : (analysis.hasReading == true
-                        ? l10n.viewReading
-                        : l10n.generateReading),
+                        ? t.ui.viewReading
+                        : t.ui.generateReading),
               onTap: () {
                 Navigator.pop(context);
                 _navigateToReading(analysis);
@@ -359,7 +379,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
             ),
             _ActionTile(
               icon: Icons.pie_chart_outline,
-              title: l10n.viewChart,
+              title: t.ui.viewChart,
               onTap: () {
                 Navigator.pop(context);
                 _navigateToChartOnly(analysis);
@@ -372,8 +392,8 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
                     ? Icons.person_remove
                     : Icons.person_add,
                 title: analysis.isPersonal == true
-                    ? l10n.removeFromPersonal
-                    : l10n.setAsPersonal,
+                    ? t.ui.removeFromPersonal
+                    : t.ui.setAsPersonal,
                 onTap: () {
                   Navigator.pop(context);
                   _setPersonalChart(analysis);
@@ -383,7 +403,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
             if (analysis is BirthChartAnalysisItem)
               _ActionTile(
                 icon: Icons.edit,
-                title: l10n.edit,
+                title: t.ui.edit,
                 onTap: () {
                   Navigator.pop(context);
                   _showEditDialog(analysis);
@@ -391,7 +411,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
               ),
             _ActionTile(
               icon: Icons.delete,
-              title: l10n.removeFromSaved,
+              title: t.ui.removeFromSaved,
               isDestructive: true,
               onTap: () {
                 Navigator.pop(context);
@@ -433,37 +453,37 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
     });
   }
 
-  String _getSubtitleText(AppLocalizations l10n, int count) {
+  String _getSubtitleText(Translations t, int count) {
     switch (_selectedFilter) {
       case AnalysisType.birthChart:
         return count == 1
-            ? l10n.birthChartsCountSingular
-            : l10n.birthChartsCountPlural(count);
+            ? t.ui.birthChartsCountSingular
+            : t.ui.birthChartsCountPlural(count: count);
       case AnalysisType.synastry:
         return count == 1
-            ? l10n.synastriesCountSingular
-            : l10n.synastriesCountPlural(count);
+            ? t.ui.synastriesCountSingular
+            : t.ui.synastriesCountPlural(count: count);
       case AnalysisType.dailyTransit:
         return count == 1
-            ? l10n.dailyTransitsCountSingular
-            : l10n.dailyTransitsCountPlural(count);
+            ? t.ui.dailyTransitsCountSingular
+            : t.ui.dailyTransitsCountPlural(count: count);
       case AnalysisType.monthlyTransit:
         return count == 1
-            ? l10n.monthlyTransitsCountSingular
-            : l10n.monthlyTransitsCountPlural(count);
+            ? t.ui.monthlyTransitsCountSingular
+            : t.ui.monthlyTransitsCountPlural(count: count);
     }
   }
 
-  String _getSearchPlaceholder(AppLocalizations l10n) {
+  String _getSearchPlaceholder(Translations t) {
     switch (_selectedFilter) {
       case AnalysisType.birthChart:
-        return l10n.searchBirthCharts;
+        return t.ui.searchBirthCharts;
       case AnalysisType.synastry:
-        return l10n.searchSynastries;
+        return t.ui.searchSynastries;
       case AnalysisType.dailyTransit:
-        return l10n.searchDailyTransits;
+        return t.ui.searchDailyTransits;
       case AnalysisType.monthlyTransit:
-        return l10n.searchMonthlyTransits;
+        return t.ui.searchMonthlyTransits;
     }
   }
 
@@ -482,7 +502,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
     );
   }
 
-  Widget _buildSearchSection(AppLocalizations l10n, bool isDark) {
+  Widget _buildSearchSection(Translations t, bool isDark) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -491,10 +511,16 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
             spacing: 8,
             runSpacing: 8,
             children: [
-              _buildFilterChip(l10n.birthChartsFilter, AnalysisType.birthChart),
-              _buildFilterChip(l10n.synastriesFilter, AnalysisType.synastry),
-              _buildFilterChip(l10n.dailyTransitsFilter, AnalysisType.dailyTransit),
-              _buildFilterChip(l10n.monthlyTransitsFilter, AnalysisType.monthlyTransit),
+              _buildFilterChip(t.ui.birthChartsFilter, AnalysisType.birthChart),
+              _buildFilterChip(t.ui.synastriesFilter, AnalysisType.synastry),
+              _buildFilterChip(
+                t.ui.dailyTransitsFilter,
+                AnalysisType.dailyTransit,
+              ),
+              _buildFilterChip(
+                t.ui.monthlyTransitsFilter,
+                AnalysisType.monthlyTransit,
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -505,13 +531,12 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
             onChanged: (value) => _debouncedFilter(),
             style: AppTextStyles.getBodyStyle(context),
             decoration: InputDecoration(
-              hintText: _getSearchPlaceholder(l10n),
+              hintText: _getSearchPlaceholder(t),
               hintStyle: AppTextStyles.getCaptionStyle(context),
               prefixIcon: Icon(
                 Icons.search,
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                color: Theme.of(context).colorScheme.onSurface
+                    .withValues(alpha: 0.6),
               ),
               suffixIcon: _searchController.text.isNotEmpty
                   ? IconButton(
@@ -521,9 +546,8 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
                       },
                       icon: Icon(
                         Icons.clear,
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: Theme.of(context).colorScheme.onSurface
+                            .withValues(alpha: 0.6),
                       ),
                     )
                   : null,
@@ -559,7 +583,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
   }
 
   Future<void> _showDeleteConfirmation(AnalysisItem analysis) async {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     bool showFreeReadingWarning = false;
     if (_isOnlyBirthChartWithReading(analysis)) {
@@ -579,25 +603,26 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
           return AlertDialog(
             backgroundColor: Theme.of(context).colorScheme.surface,
             title: Text(
-              showFreeReadingWarning ? l10n.deleteFreeReadingTitle : l10n.removeChart,
+              showFreeReadingWarning
+                  ? t.ui.deleteFreeReadingTitle
+                  : t.ui.removeChart,
               style: AppTextStyles.getH6Style(context),
             ),
             content: Text(
               showFreeReadingWarning
-                  ? l10n.deleteFreeReadingWarning
-                  : l10n.removeChartConfirmation(analysis.title),
+                  ? t.ui.deleteFreeReadingWarning
+                  : t.ui.removeChartConfirmation(name: analysis.title),
               style: AppTextStyles.getBodyStyle(context),
             ),
             actions: [
               TextButton(
                 onPressed: isDeleting ? null : () => Navigator.pop(context),
                 child: Text(
-                  l10n.cancel,
+                  t.ui.cancel,
                   style: TextStyle(
                     color: isDeleting
-                        ? Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.4)
+                        ? Theme.of(context).colorScheme.onSurface
+                              .withValues(alpha: 0.4)
                         : Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
@@ -619,25 +644,23 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                Theme.of(
-                                  context,
-                                ).colorScheme.error.withValues(alpha: 0.6),
+                                Theme.of(context).colorScheme.error
+                                    .withValues(alpha: 0.6),
                               ),
                             ),
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            l10n.remove,
+                            t.ui.remove,
                             style: TextStyle(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.error.withValues(alpha: 0.6),
+                              color: Theme.of(context).colorScheme.error
+                                  .withValues(alpha: 0.6),
                             ),
                           ),
                         ],
                       )
                     : Text(
-                        l10n.remove,
+                        t.ui.remove,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.error,
                         ),
@@ -669,10 +692,9 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -681,6 +703,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
         showPlanet: false,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -700,7 +723,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
                     }
                   },
                 ),
-                title: Text(l10n.savedChartsTitle),
+                title: Text(t.ui.savedChartsTitle),
               ),
               // Header
               Padding(
@@ -714,12 +737,12 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            l10n.savedChartsTitle,
+                            t.ui.savedChartsTitle,
                             style: AppTextStyles.getH4Style(context),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            _getSubtitleText(l10n, _filteredAnalyses.length),
+                            _getSubtitleText(t, _filteredAnalyses.length),
                             style: AppTextStyles.getCaptionStyle(context),
                           ),
                         ],
@@ -738,10 +761,10 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
               ),
 
               // Search
-              _buildSearchSection(l10n, isDark),
+              _buildSearchSection(t, isDark),
 
               // Content
-              Expanded(child: _buildContent(l10n, isDark)),
+              Expanded(child: _buildContent(t, isDark)),
             ],
           ),
         ),
@@ -749,7 +772,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
     );
   }
 
-  Widget _buildContent(AppLocalizations l10n, bool isDark) {
+  Widget _buildContent(Translations t, bool isDark) {
     if (_isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -764,14 +787,14 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
               const AccentIcon(icon: Icons.error_outline, useSecondary: false),
               const SizedBox(height: 20),
               Text(
-                l10n.errorLoadingSavedCharts,
+                t.ui.errorLoadingSavedCharts,
                 style: AppTextStyles.getH6Style(context),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _loadSavedAnalyses,
-                child: Text(l10n.retry),
+                child: Text(t.ui.retry),
               ),
             ],
           ),
@@ -787,20 +810,20 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
 
       switch (_selectedFilter) {
         case AnalysisType.birthChart:
-          title = l10n.noSavedBirthCharts;
-          description = l10n.noSavedBirthChartsDescription;
+          title = t.ui.noSavedBirthCharts;
+          description = t.ui.noSavedBirthChartsDescription;
           iconData = Icons.person;
         case AnalysisType.synastry:
-          title = l10n.noSavedSynastries;
-          description = l10n.noSavedSynastriesDescription;
+          title = t.ui.noSavedSynastries;
+          description = t.ui.noSavedSynastriesDescription;
           iconData = Icons.favorite;
         case AnalysisType.dailyTransit:
-          title = l10n.noSavedDailyTransits;
-          description = l10n.noSavedDailyTransitsDescription;
+          title = t.ui.noSavedDailyTransits;
+          description = t.ui.noSavedDailyTransitsDescription;
           iconData = Icons.today;
         case AnalysisType.monthlyTransit:
-          title = l10n.noSavedMonthlyTransits;
-          description = l10n.noSavedMonthlyTransitsDescription;
+          title = t.ui.noSavedMonthlyTransits;
+          description = t.ui.noSavedMonthlyTransitsDescription;
           iconData = Icons.calendar_month;
       }
 
@@ -830,7 +853,11 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.only(
+        left: 20,
+        right: 20,
+        bottom: MediaQuery.of(context).padding.bottom + 12,
+      ),
       itemCount: _filteredAnalyses.length,
       itemBuilder: (context, index) {
         final analysis = _filteredAnalyses[index];
@@ -841,7 +868,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
           padding: const EdgeInsets.only(bottom: 12),
           child: _AnalysisCard(
             analysis: analysis,
-            l10n: l10n,
+            t: t,
             isDark: isDark,
             isDeleting: isDeleting,
             onTap: () => _navigateToReading(analysis),
@@ -855,7 +882,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
 
 class _AnalysisCard extends StatelessWidget {
   final AnalysisItem analysis;
-  final AppLocalizations l10n;
+  final Translations t;
   final bool isDark;
   final bool isDeleting;
   final VoidCallback onTap;
@@ -863,7 +890,7 @@ class _AnalysisCard extends StatelessWidget {
 
   const _AnalysisCard({
     required this.analysis,
-    required this.l10n,
+    required this.t,
     required this.isDark,
     required this.isDeleting,
     required this.onTap,
@@ -882,9 +909,8 @@ class _AnalysisCard extends StatelessWidget {
         boxShadow: isPersonal
             ? [
                 BoxShadow(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.primary.withValues(alpha: 0.3),
+                  color: Theme.of(context).colorScheme.primary
+                      .withValues(alpha: 0.3),
                   blurRadius: 12,
                   spreadRadius: 2,
                 ),
@@ -894,9 +920,8 @@ class _AnalysisCard extends StatelessWidget {
       child: Card(
         color: isPersonal
             ? (isDark
-                  ? Theme.of(
-                      context,
-                    ).colorScheme.primary.withValues(alpha: 0.15)
+                  ? Theme.of(context).colorScheme.primary
+                        .withValues(alpha: 0.15)
                   : Theme.of(context).colorScheme.primaryContainer)
             : Theme.of(context).colorScheme.surface,
         elevation: isPersonal ? 4 : 2,
@@ -904,9 +929,8 @@ class _AnalysisCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           side: isPersonal
               ? BorderSide(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.primary.withValues(alpha: 0.3),
+                  color: Theme.of(context).colorScheme.primary
+                      .withValues(alpha: 0.3),
                   width: 1.5,
                 )
               : BorderSide.none,
@@ -949,19 +973,18 @@ class _AnalysisCard extends StatelessWidget {
                                   vertical: 4,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.primary.withValues(alpha: 0.2),
+                                  color: Theme.of(context).colorScheme.primary
+                                      .withValues(alpha: 0.2),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Text(
-                                  l10n.personal,
+                                  t.ui.personal,
                                   style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.primary,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary,
                                   ),
                                 ),
                               ),
@@ -1000,9 +1023,9 @@ class _AnalysisCard extends StatelessWidget {
                                       Icon(
                                         Icons.person,
                                         size: 12,
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                       ),
                                       const SizedBox(width: 6),
                                       Text(
@@ -1015,9 +1038,9 @@ class _AnalysisCard extends StatelessWidget {
                                               context,
                                             ).copyWith(
                                               fontWeight: FontWeight.w600,
-                                              color: Theme.of(
-                                                context,
-                                              ).colorScheme.primary,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
                                             ),
                                       ),
                                     ],
@@ -1087,9 +1110,9 @@ class _AnalysisCard extends StatelessWidget {
                                       Icon(
                                         Icons.person,
                                         size: 12,
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.secondary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
                                       ),
                                       const SizedBox(width: 6),
                                       Text(
@@ -1102,9 +1125,9 @@ class _AnalysisCard extends StatelessWidget {
                                               context,
                                             ).copyWith(
                                               fontWeight: FontWeight.w600,
-                                              color: Theme.of(
-                                                context,
-                                              ).colorScheme.secondary,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
                                             ),
                                       ),
                                     ],
@@ -1164,7 +1187,8 @@ class _AnalysisCard extends StatelessWidget {
                           Text(
                             date_utils.DateUtils.formatDate(
                               context,
-                              (analysis as DailyTransitAnalysisItem).transitDate,
+                              (analysis as DailyTransitAnalysisItem)
+                                  .transitDate,
                             ),
                             style: AppTextStyles.getCaptionStyle(context),
                           ),
@@ -1198,17 +1222,19 @@ class _AnalysisCard extends StatelessWidget {
                         const SizedBox(height: 12),
                         Builder(
                           builder: (context) {
-                            final currentLang = Localizations.localeOf(context).languageCode;
-                            final showLangIndicator = analysis.hasReading == true &&
+                            final currentLang = Localizations.localeOf(context)
+                                .languageCode;
+                            final showLangIndicator =
+                                analysis.hasReading == true &&
                                 analysis.readingLanguage != null &&
                                 analysis.readingLanguage != currentLang;
                             final statusText = analysis.readingOutdated == true
-                                ? l10n.newImprovedVersion
+                                ? t.ui.newImprovedVersion
                                 : (analysis.hasReading == true
-                                    ? (showLangIndicator
-                                        ? '${l10n.readingAvailable} (${analysis.readingLanguage!.toUpperCase()})'
-                                        : l10n.readingAvailable)
-                                    : l10n.generateReadingAction);
+                                      ? (showLangIndicator
+                                            ? '${t.ui.readingAvailable} (${analysis.readingLanguage!.toUpperCase()})'
+                                            : t.ui.readingAvailable)
+                                      : t.ui.generateReadingAction);
 
                             return Row(
                               children: [
@@ -1216,14 +1242,18 @@ class _AnalysisCard extends StatelessWidget {
                                   analysis.readingOutdated == true
                                       ? Icons.new_releases
                                       : (analysis.hasReading == true
-                                          ? Icons.auto_stories
-                                          : Icons.edit_note),
+                                            ? Icons.auto_stories
+                                            : Icons.edit_note),
                                   size: 16,
                                   color: analysis.readingOutdated == true
                                       ? Theme.of(context).colorScheme.tertiary
                                       : (analysis.hasReading == true
-                                          ? Theme.of(context).colorScheme.secondary
-                                          : Theme.of(context).colorScheme.error),
+                                            ? Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .error),
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
@@ -1233,8 +1263,12 @@ class _AnalysisCard extends StatelessWidget {
                                     color: analysis.readingOutdated == true
                                         ? Theme.of(context).colorScheme.tertiary
                                         : (analysis.hasReading == true
-                                            ? Theme.of(context).colorScheme.secondary
-                                            : Theme.of(context).colorScheme.error),
+                                              ? Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary
+                                              : Theme.of(context)
+                                                    .colorScheme
+                                                    .error),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -1265,9 +1299,8 @@ class _AnalysisCard extends StatelessWidget {
                           onPressed: onMoreActions,
                           icon: Icon(
                             Icons.more_vert,
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onSurface.withValues(alpha: 0.6),
+                            color: Theme.of(context).colorScheme.onSurface
+                                .withValues(alpha: 0.6),
                           ),
                         ),
                 ],
@@ -1322,12 +1355,10 @@ class _ActionTile extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(8),
-        highlightColor: Theme.of(
-          context,
-        ).colorScheme.onSurface.withValues(alpha: isDark ? 0.1 : 0.05),
-        splashColor: Theme.of(
-          context,
-        ).colorScheme.onSurface.withValues(alpha: isDark ? 0.2 : 0.1),
+        highlightColor: Theme.of(context).colorScheme.onSurface
+            .withValues(alpha: isDark ? 0.1 : 0.05),
+        splashColor: Theme.of(context).colorScheme.onSurface
+            .withValues(alpha: isDark ? 0.2 : 0.1),
         child: ListTile(
           leading: Icon(icon, color: color),
           title: Text(

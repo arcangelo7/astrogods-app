@@ -1,8 +1,5 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import 'starry_night_background.dart';
 import 'chart_svg_display.dart';
 import 'lunar_phase_display.dart';
@@ -44,6 +41,7 @@ class ReadingScreenLayout extends StatelessWidget {
         showPlanet: true,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: CustomScrollView(
             slivers: [
               // Header
@@ -76,9 +74,7 @@ class ReadingScreenLayout extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Container(
                     margin: const EdgeInsets.all(16.0),
-                    child: LunarPhaseDisplay(
-                      birthChartId: birthChartId!,
-                    ),
+                    child: LunarPhaseDisplay(birthChartId: birthChartId!),
                   ),
                 ),
 
@@ -87,6 +83,13 @@ class ReadingScreenLayout extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.all(16.0),
                   child: content,
+                ),
+              ),
+
+              // Bottom safe area padding
+              SliverPadding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).padding.bottom,
                 ),
               ),
             ],

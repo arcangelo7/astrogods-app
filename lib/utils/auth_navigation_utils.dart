@@ -1,11 +1,11 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:convert';
+
+import 'package:material_ui/material_ui.dart' show TimeOfDay;
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../config/router.dart';
 import '../services/birth_chart_service.dart';
+import 'date_utils.dart';
 
 Future<void> saveReturnUrl(String url) async {
   final prefs = await SharedPreferences.getInstance();
@@ -49,7 +49,8 @@ Future<void> navigateAfterAuth() async {
     await prefs.remove('pending_registration_data');
     final data = jsonDecode(registrationDataJson) as Map<String, dynamic>;
 
-    final hasCompleteBirthData = data['birthDate'] != null &&
+    final hasCompleteBirthData =
+        data['birthDate'] != null &&
         data['birthPlaceId'] != null &&
         (data['birthTimeHour'] != null || data['unknownTime'] == true);
 
@@ -70,24 +71,26 @@ Future<void> _createBirthChartAndNavigate(Map<String, dynamic> data) async {
   final birthChartService = BirthChartService();
 
   try {
-    DateTime birthDateTime = DateTime.parse(data['birthDate']);
-    if (data['birthTimeHour'] != null && data['unknownTime'] != true) {
-      birthDateTime = DateTime(
-        birthDateTime.year,
-        birthDateTime.month,
-        birthDateTime.day,
-        data['birthTimeHour'],
-        data['birthTimeMinute'] ?? 0,
-      );
-    }
+    final hasBirthTime =
+        data['birthTimeHour'] != null && data['unknownTime'] != true;
+    final birthTime = hasBirthTime
+        ? TimeOfDay(
+            hour: data['birthTimeHour'],
+            minute: data['birthTimeMinute'] ?? 0,
+          )
+        : const TimeOfDay(hour: 12, minute: 0);
 
     final birthChart = await birthChartService.createBirthChart(
       givenName: data['givenName'] ?? '',
       familyName: data['familyName'] ?? '',
-      date: birthDateTime,
+      date: DateUtils.toBirthDateTimeIso(
+        DateTime.parse(data['birthDate']),
+        birthTime,
+      ),
       placeId: data['birthPlaceId'],
       place: data['birthPlace'] ?? '',
       unknownTime: data['unknownTime'] ?? false,
+      timeFold: data['birthTimeFold'],
     );
 
     await birthChartService.calculateBirthChart(birthChart.id);

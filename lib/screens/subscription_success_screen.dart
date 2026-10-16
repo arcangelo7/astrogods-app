@@ -1,25 +1,18 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../widgets/starry_night_background.dart';
 
 class SubscriptionSuccessScreen extends StatelessWidget {
   final bool isPremium;
 
-  const SubscriptionSuccessScreen({
-    super.key,
-    this.isPremium = true,
-  });
+  const SubscriptionSuccessScreen({super.key, this.isPremium = true});
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -27,28 +20,30 @@ class SubscriptionSuccessScreen extends StatelessWidget {
         showPlanet: true,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.only(
+              left: 24,
+              right: 24,
+              top: 24,
+              bottom: MediaQuery.of(context).padding.bottom + 24,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 40),
-                Icon(
-                  Icons.check_circle,
-                  size: 80,
-                  color: colorScheme.primary,
-                ),
+                Icon(Icons.check_circle, size: 80, color: colorScheme.primary),
                 const SizedBox(height: 24),
                 Text(
-                  l10n.subscriptionSuccessTitle,
+                  t.ui.subscriptionSuccessTitle,
                   style: AppTextStyles.getH2Style(context),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
                 Text(
                   isPremium
-                      ? l10n.subscriptionSuccessMessagePremium
-                      : l10n.subscriptionSuccessMessageStandard,
+                      ? t.ui.subscriptionSuccessMessagePremium
+                      : t.ui.subscriptionSuccessMessageStandard,
                   style: AppTextStyles.getBodyStyle(context),
                   textAlign: TextAlign.center,
                 ),
@@ -63,7 +58,7 @@ class SubscriptionSuccessScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    l10n.subscriptionSuccessTrialInfo,
+                    t.ui.subscriptionSuccessTrialInfo,
                     style: AppTextStyles.getCaptionStyle(context).copyWith(
                       color: colorScheme.onPrimaryContainer,
                       fontWeight: FontWeight.w600,
@@ -75,8 +70,8 @@ class SubscriptionSuccessScreen extends StatelessWidget {
                 _buildCtaCard(
                   context,
                   icon: Icons.person,
-                  title: l10n.personalityTitle,
-                  description: l10n.unveilHeart,
+                  title: t.ui.personalityTitle,
+                  description: t.ui.unveilHeart,
                   onTap: () => context.go('/personality'),
                 ),
                 if (isPremium) ...[
@@ -84,16 +79,16 @@ class SubscriptionSuccessScreen extends StatelessWidget {
                   _buildCtaCard(
                     context,
                     icon: Icons.favorite,
-                    title: l10n.relationshipsTitle,
-                    description: l10n.discoverHeartOfRelationship,
+                    title: t.ui.relationshipsTitle,
+                    description: t.ui.discoverHeartOfRelationship,
                     onTap: () => context.go('/relationships'),
                   ),
                   const SizedBox(height: 16),
                   _buildCtaCard(
                     context,
                     icon: Icons.schedule,
-                    title: l10n.predictionsTitle,
-                    description: l10n.anticipateYourDayWithTransits,
+                    title: t.ui.predictionsTitle,
+                    description: t.ui.anticipateYourDayWithTransits,
                     onTap: () => context.go('/predictions'),
                   ),
                 ],
@@ -103,7 +98,7 @@ class SubscriptionSuccessScreen extends StatelessWidget {
                   style: FilledButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                  child: Text(l10n.subscriptionSuccessGoHome),
+                  child: Text(t.ui.subscriptionSuccessGoHome),
                 ),
                 const SizedBox(height: 24),
               ],
@@ -150,10 +145,7 @@ class SubscriptionSuccessScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: AppTextStyles.getH6Style(context),
-                    ),
+                    Text(title, style: AppTextStyles.getH6Style(context)),
                     const SizedBox(height: 4),
                     Text(
                       description,
@@ -164,10 +156,7 @@ class SubscriptionSuccessScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(
-                Icons.chevron_right,
-                color: colorScheme.primary,
-              ),
+              Icon(Icons.chevron_right, color: colorScheme.primary),
             ],
           ),
         ),

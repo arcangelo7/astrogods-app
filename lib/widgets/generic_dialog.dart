@@ -1,8 +1,5 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../constants/text_styles.dart';
 
 class GenericDialog extends StatelessWidget {
@@ -20,9 +17,7 @@ class GenericDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
         constraints: BoxConstraints(
@@ -52,8 +47,8 @@ class GenericDialog extends StatelessWidget {
             // Actions
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              child: OverflowBar(
+                alignment: MainAxisAlignment.end,
                 children: actions,
               ),
             ),

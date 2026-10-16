@@ -1,0 +1,65 @@
+aboutAndFaq: Chi siamo e FAQ
+aboutFaqTableOfContents: Indice
+aboutFaqTitle: Chi siamo
+additionalInfoContent: |-
+  ### Difesa in giudizio
+
+  I Dati Personali dell'Utente possono essere utilizzati da parte del Titolare in giudizio o nelle fasi preparatorie alla sua eventuale instaurazione per la difesa da abusi nell'utilizzo di AstroGods o dei Servizi connessi da parte dell'Utente.
+
+  L'Utente dichiara di essere consapevole che il Titolare potrebbe essere obbligato a rivelare i Dati per ordine delle autorità pubbliche.
+
+  ### Informative specifiche
+
+  Su richiesta dell'Utente, in aggiunta alle informazioni contenute in questa privacy policy, AstroGods potrebbe fornire all'Utente delle informative aggiuntive e contestuali riguardanti Servizi specifici, o la raccolta ed il trattamento di Dati Personali.
+
+  ### Log di sistema e manutenzione
+
+  Per necessità legate al funzionamento ed alla manutenzione, AstroGods e gli eventuali servizi terzi da essa utilizzati potrebbero raccogliere log di sistema, ossia file che registrano le interazioni e che possono contenere anche Dati Personali, quali l'indirizzo IP dell'Utente.
+
+  ### Informazioni non contenute in questa policy
+
+  Maggiori informazioni in relazione al trattamento dei Dati Personali potranno essere richieste in qualsiasi momento al Titolare del Trattamento utilizzando gli estremi di contatto.
+
+  Per scoprire se gli eventuali servizi di terze parti utilizzati le supportino, l'Utente è invitato a consultare le rispettive privacy policy.
+
+  ### Modifiche a questa privacy policy
+
+  Il Titolare del Trattamento si riserva il diritto di apportare modifiche alla presente privacy policy in qualunque momento notificandolo agli Utenti su questa pagina e, se possibile, su AstroGods nonché, qualora tecnicamente e legalmente fattibile, inviando una notifica agli Utenti attraverso uno degli estremi di contatto di cui è in possesso. Si prega dunque di consultare con frequenza questa pagina, facendo riferimento alla data di ultima modifica indicata in fondo.
+
+  Qualora le modifiche interessino trattamenti la cui base giuridica è il consenso, il Titolare provvederà a raccogliere nuovamente il consenso dell'Utente, se necessario.
+additionalInfoSection: Ulteriori informazioni
+chooseAstrologicalPath: Nutrire per essere nutriti
+faq1Answer: L'IA svolge un ruolo minore in AstroGods. Le interpretazioni sono scritte a mano e curate da Jacopo Trombetti e Arcangelo Massari. I calcoli astronomici utilizzano le Effemeridi Svizzere, le più precise al mondo. L'IA si limita ad assemblare i vari pezzi interpretativi in frasi di senso compiuto, niente di più.
+faq1Question: L'intelligenza artificiale non rende le interpretazioni casuali?
+faq2Answer: 'Secondo questo approccio interpretativo, la costituzione energetica umana si articola su sette chakra che corrispondono a sette pianeti, dalla Luna a Saturno. Oltre questi, la costituzione umana semplicemente non ha canali ricettivi nei confronti di potenze planetarie superiori. Questi pianeti hanno comunque un impatto, ma di tipo generazionale: per esempio, Plutone in Scorpione (1983-1995) caratterizza un''intera generazione. Sono più utili per studiare periodi storici che non individui e quindi non vengono inclusi.'
+faq2Question: Perché non ci sono Urano, Nettuno e Plutone?
+faq3Answer: 'La domificazione è il metodo con cui si calcolano le dodici Case astrologiche. La maggior parte delle app usa Placido, che divide il cielo in base al tempo creando Case disuguali che variano per latitudine: alcune possono essere enormi, altre minuscole. Noi utilizziamo Vehlow, che divide lo zodiaco in dodici Case uguali di 30 gradi ciascuna. Non ha senso simbolico dividere l''animo umano in parti disuguali: nessun ambito della vita è meno importante di un altro.'
+faq3Question: Perché i pianeti sono in Case diverse rispetto ad altre app?
+faq4Answer: 'L''Ascendente e le Case dipendono dall''ora esatta di nascita. L''intero tema ruota completamente in 24 ore. Senza l''ora di nascita, possiamo analizzare solo le posizioni planetarie nei segni, perdendo metà del quadro simbolico: le Case che descrivono in quali ambiti della vita si manifestano le energie planetarie.'
+faq4Question: Perché l'ora di nascita è importante?
+faq5Answer: Utilizziamo le Effemeridi Svizzere, le tavole astronomiche più precise al mondo. Sviluppate e mantenute da Astrodienst (astro.com), calcolano le posizioni planetarie esatte per qualsiasi data nella storia o nel futuro. Sono lo standard di riferimento per i software astrologici professionali.
+faq5Question: Qual è la fonte dei calcoli astrologici?
+faq6Answer: 'L''Egitto è la matrice ermetica della cultura occidentale. L''Astrologia oroscopica nacque ad Alessandria d''Egitto, dove il faraone Nechepso e il sacerdote Petosiris scrissero i testi fondamentali (~150-120 a.C.) da cui tutti gli astrologi greci e romani hanno attinto. Tolomeo, autore del Tetrabiblos (fondamento dell''Astrologia occidentale), lavorava ad Alessandria. Ermete Trismegisto, fusione del dio greco Hermes e del dio egizio Thoth, è considerato il fondatore di questa tradizione. L''Astrologia egizia non è una variante: è la fonte originale.'
+faq6Question: Perché l'Astrologia egizia?
+faq7Answer: 'No. Gli elementi astrologici hanno molteplici significati simbolici e declinarli nell''ambito di una determinata costituzione energetica richiede uno scambio tra anime, cuori e sensibilità. Inoltre, il Tema Natale rivela le potenzialità di una persona, ma non quanto queste siano state sviluppate o trascese: due individui con temi identici possono vivere in modi radicalmente diversi. Solo un astrologo, conoscendo la persona, può calibrare l''interpretazione.'
+faq7Question: Questa app sostituisce il confronto con un astrologo?
+faqNotSeriousSectionTitle: Cose non serie
+faqRefundAnswerAfter: ' e ti rimborsiamo. Ti chiederemo cosa è andato storto perché vogliamo migliorare, ma non sei obbligato a rispondere.'
+faqRefundAnswerBefore: 'Sì. Scrivi a '
+faqRefundQuestion: Non mi è piaciuto il servizio, posso ottenere un rimborso?
+faqSectionTitle: Domande frequenti
+faqSeriousSectionTitle: Cose serie
+missionSectionTitle: La nostra missione
+missionText: 'La nostra è innanzitutto una missione di ricerca: siamo i primi a essere curiosi di scoprire cosa è possibile fare con questo strumento. Utilizziamo un software che tiene in considerazione tutti i fattori contemporaneamente per raggiungere interpretazioni sempre più precise. AstroGods rende l''interpretazione astrologica più accessibile a chi non è esperto e allo stesso tempo semplifica il lavoro dell''astrologo: per quanto bravo e per quanto esperto, si trova a dover miscelare simbolicamente infiniti elementi. Avere uno strumento che li tenga tutti in considerazione permette di non scordarsi niente: un supporto che potenzia, non sostituisce, l''esperienza umana.'
+storySectionTitle: La nostra storia
+storyText: 'AstroGods nasce da un''amicizia. Arcangelo è sempre stato colpito dalla capacità di Jacopo di descrivere con precisione persone basandosi solo sulla loro data di nascita e di leggere momenti della sua vita con una profondità inspiegabile. Ha voluto portare sempre con sé quello sguardo e così è nato AstroGods: un tentativo di tradurre in algoritmo il metodo che Jacopo usa per decifrare la realtà attraverso l''Astrologia.'
+teamMemberArcangeloDescription: Allievo di Jacopo e responsabile della parte tecnica di AstroGods. Appassionato di Astrologia, studia l'argomento dal 2016.
+teamMemberArcangeloRole: Sviluppo tecnico
+teamMemberArcangeloTitle: Arcangelo Massari
+teamMemberCorradoDescription: Esploratore di vari percorsi di autoconoscenza, Corrado si occupa di far conoscere AstroGods al mondo e di creare ponti tra l'Astrologia e altre discipline.
+teamMemberCorradoRole: Comunità
+teamMemberCorradoTitle: Corrado Camponeschi
+teamMemberJacopoDescription: Formato presso l'Accademia di Astrologia Egizia fondata da Pascal Fabio Patruno, Jacopo è un astrologo geniale, capace di computare a mente la sinastria tra due persone, memorizzando gradi e pianeti di temi che ha visto una sola volta nella sua vita.
+teamMemberJacopoRole: Astrologo
+teamMemberJacopoTitle: Jacopo Trombetti
+teamSectionTitle: Il team

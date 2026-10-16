@@ -1,8 +1,5 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../models/birth_chart.dart';
 import '../models/reading.dart';
 import '../models/reading_chunk.dart';
@@ -17,10 +14,11 @@ class BirthChartService {
   Future<BirthChart> createBirthChart({
     required String givenName,
     required String familyName,
-    required DateTime date,
+    required String date,
     required String placeId,
     String? place,
     bool unknownTime = false,
+    int? timeFold,
     bool chartOnly = false,
   }) async {
     try {
@@ -29,10 +27,11 @@ class BirthChartService {
         body: {
           'given_name': givenName,
           'family_name': familyName,
-          'date': date.toIso8601String(),
+          'date': date,
           'place_id': placeId,
           'place': place,
           'unknown_time': unknownTime,
+          'time_fold': timeFold,
           'chart_only': chartOnly,
         },
       );
@@ -99,10 +98,7 @@ class BirthChartService {
     }
   }
 
-  Future<String> getBirthChartSvg(
-    int birthChartId, {
-    double zoom = 1.0,
-  }) async {
+  Future<String> getBirthChartSvg(int birthChartId, {double zoom = 1.0}) async {
     try {
       final svg = await _apiClient.getRawText(
         '/birth-chart/$birthChartId/svg?zoom=${zoom.toString()}',
@@ -126,12 +122,16 @@ class BirthChartService {
       );
       return svg;
     } catch (e) {
-      throw BirthChartException('Failed to get chart details SVG: ${e.toString()}');
+      throw BirthChartException(
+        'Failed to get chart details SVG: ${e.toString()}',
+      );
     }
   }
 
   Future<Map<String, dynamic>> getLunarPhase(int birthChartId) async {
-    final response = await _apiClient.get('/birth-chart/$birthChartId/lunar-phase');
+    final response = await _apiClient.get(
+      '/birth-chart/$birthChartId/lunar-phase',
+    );
     return response;
   }
 

@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/app_localizations.dart';
+
+import '../../i18n/translations.g.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/starry_night_background.dart';
 import '../../widgets/gradient_button.dart';
@@ -19,10 +16,7 @@ import '../../utils/error_utils.dart';
 class ResetPasswordScreen extends StatefulWidget {
   final String token;
 
-  const ResetPasswordScreen({
-    super.key,
-    required this.token,
-  });
+  const ResetPasswordScreen({super.key, required this.token});
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -56,7 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       if (success) {
         SnackbarUtils.showSuccess(
           context,
-          AppLocalizations.of(context)!.passwordResetSuccessful,
+          Translations.of(context).ui.passwordResetSuccessful,
         );
         // Navigate to login screen
         context.go('/login');
@@ -66,7 +60,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           translateConnectionError(
             context,
             authProvider.errorMessage ??
-                AppLocalizations.of(context)!.invalidResetToken,
+                Translations.of(context).ui.invalidResetToken,
           ),
         );
       }
@@ -75,7 +69,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -83,6 +77,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         showPlanet: true,
         subtle: false,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -91,112 +86,122 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 iconTheme: IconThemeData(
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
-                title: Text(l10n.resetPassword),
+                title: Text(t.ui.resetPassword),
               ),
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return SingleChildScrollView(
-                      padding: const EdgeInsets.all(24.0),
+                      padding: EdgeInsets.only(
+                        left: 24,
+                        right: 24,
+                        top: 24,
+                        bottom: MediaQuery.of(context).padding.bottom + 24,
+                      ),
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
                           minHeight: constraints.maxHeight - 48.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 60),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 60),
 
-                      // Icon
-                      Icon(
-                        Icons.lock_reset,
-                        size: 80,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(height: 24),
+                            // Icon
+                            Icon(
+                              Icons.lock_reset,
+                              size: 80,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            const SizedBox(height: 24),
 
-                      // Title
-                      Text(
-                        l10n.enterNewPassword,
-                        style: AppTextStyles.getH3Style(context),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        l10n.resetPasswordTitle,
-                        style: AppTextStyles.getSubtitleLargeStyle(context),
-                        textAlign: TextAlign.center,
-                      ),
-
-                      const SizedBox(height: 60),
-
-                      // Reset Password Form
-                      AuthContainer(
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              // New Password Field
-                              MysticalPasswordField(
-                                controller: _passwordController,
-                                labelText: l10n.newPassword,
-                                textInputAction: TextInputAction.next,
-                                validator: (value) =>
-                                    AuthValidators.validatePassword(value, l10n),
+                            // Title
+                            Text(
+                              t.ui.enterNewPassword,
+                              style: AppTextStyles.getH3Style(context),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              t.ui.resetPasswordTitle,
+                              style: AppTextStyles.getSubtitleLargeStyle(
+                                context,
                               ),
+                              textAlign: TextAlign.center,
+                            ),
 
-                              const SizedBox(height: 20),
+                            const SizedBox(height: 60),
 
-                              // Confirm Password Field
-                              MysticalPasswordField(
-                                controller: _confirmPasswordController,
-                                labelText: l10n.confirmNewPassword,
-                                textInputAction: TextInputAction.done,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return l10n.pleaseFillAllFields;
-                                  }
-                                  if (value != _passwordController.text) {
-                                    return l10n.passwordsDoNotMatch;
-                                  }
-                                  return null;
-                                },
-                                onFieldSubmitted: _handleResetPassword,
+                            // Reset Password Form
+                            AuthContainer(
+                              child: Form(
+                                key: _formKey,
+                                child: Column(
+                                  children: [
+                                    // New Password Field
+                                    MysticalPasswordField(
+                                      controller: _passwordController,
+                                      labelText: t.ui.newPassword,
+                                      textInputAction: TextInputAction.next,
+                                      validator: (value) =>
+                                          AuthValidators.validatePassword(
+                                            value,
+                                            t,
+                                          ),
+                                    ),
+
+                                    const SizedBox(height: 20),
+
+                                    // Confirm Password Field
+                                    MysticalPasswordField(
+                                      controller: _confirmPasswordController,
+                                      labelText: t.ui.confirmNewPassword,
+                                      textInputAction: TextInputAction.done,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return t.ui.pleaseFillAllFields;
+                                        }
+                                        if (value != _passwordController.text) {
+                                          return t.ui.passwordsDoNotMatch;
+                                        }
+                                        return null;
+                                      },
+                                      onFieldSubmitted: _handleResetPassword,
+                                    ),
+
+                                    const SizedBox(height: 24),
+
+                                    // Reset Password Button
+                                    Consumer<AuthProvider>(
+                                      builder: (context, authProvider, child) {
+                                        return GradientButton(
+                                          text: t.ui.resetPassword,
+                                          onPressed: _handleResetPassword,
+                                          enabled: !authProvider.isLoading,
+                                          width: double.infinity,
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
+                            ),
 
-                              const SizedBox(height: 24),
+                            const SizedBox(height: 24),
 
-                              // Reset Password Button
-                              Consumer<AuthProvider>(
-                                builder: (context, authProvider, child) {
-                                  return GradientButton(
-                                    text: l10n.resetPassword,
-                                    onPressed: _handleResetPassword,
-                                    enabled: !authProvider.isLoading,
-                                    width: double.infinity,
-                                  );
-                                },
+                            // Back to Login Link
+                            TextButton(
+                              onPressed: () {
+                                context.go('/login');
+                              },
+                              child: Text(
+                                t.ui.backToLogin,
+                                style: AppTextStyles.getLinkStyle(context),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-
-                      const SizedBox(height: 24),
-
-                      // Back to Login Link
-                      TextButton(
-                        onPressed: () {
-                          context.go('/login');
-                        },
-                        child: Text(
-                          l10n.backToLogin,
-                          style: AppTextStyles.getLinkStyle(context),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                     );
                   },
                 ),

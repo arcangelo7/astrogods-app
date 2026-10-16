@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/app_localizations.dart';
+
+import '../../i18n/translations.g.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/language_provider.dart';
 import '../../models/auth_request.dart';
@@ -15,6 +12,8 @@ import '../../widgets/gradient_button.dart';
 import '../../widgets/location_search_field.dart';
 import '../../widgets/mystical_text_field.dart';
 import '../../widgets/mystical_password_field.dart';
+import '../../widgets/birth_time_check.dart';
+import '../../utils/date_utils.dart' as app_date_utils;
 import '../../widgets/auth/auth_container.dart';
 import '../../widgets/auth/google_signin_widget.dart';
 import '../../constants/text_styles.dart';
@@ -22,6 +21,7 @@ import '../../utils/snackbar_utils.dart';
 import '../../utils/auth_validators.dart';
 import '../../utils/error_utils.dart';
 import '../../utils/auth_navigation_utils.dart';
+
 import 'package:intl/intl.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -49,6 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TimeOfDay? _birthTime;
   bool _unknownTime = false;
   PlaceDetails? _selectedLocation;
+  final _birthTimeCheck = BirthTimeController();
 
   @override
   void dispose() {
@@ -59,6 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _familyNameController.dispose();
     _birthPlaceController.dispose();
     _pageController.dispose();
+    _birthTimeCheck.dispose();
     super.dispose();
   }
 
@@ -111,8 +113,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             isValid = false;
             SnackbarUtils.showErrorWithAction(
               context,
-              AppLocalizations.of(context)!.emailAlreadyExists,
-              AppLocalizations.of(context)!.goToLogin,
+              Translations.of(context).ui.emailAlreadyExists,
+              Translations.of(context).ui.goToLogin,
               () {
                 context.go('/login');
               },
@@ -143,7 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (mounted) {
         SnackbarUtils.showError(
           context,
-          AppLocalizations.of(context)!.pleaseFillAllFields,
+          Translations.of(context).ui.pleaseFillAllFields,
         );
       }
     }
@@ -156,13 +158,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
       context: context,
       initialDate:
           _birthDate ?? DateTime.now().subtract(const Duration(days: 365 * 25)),
-      firstDate: DateTime(1900),
+      firstDate: DateTime(1800),
       lastDate: DateTime.now(),
     );
     if (picked != null && picked != _birthDate) {
       setState(() {
         _birthDate = picked;
       });
+      _birthTimeCheck.reset();
     }
   }
 
@@ -175,6 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() {
         _birthTime = picked;
       });
+      _birthTimeCheck.reset();
     }
   }
 
@@ -190,7 +194,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     final birthDateTimeString = _birthDate != null
-        ? _buildBirthDateTime().toIso8601String()
+        ? _buildBirthDateTime()
         : null;
 
     final request = RegisterRequest(
@@ -211,6 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           : null,
       birthPlaceId: _selectedLocation?.placeId,
       unknownTime: _unknownTime,
+      birthTimeFold: _birthTimeCheck.fold,
     );
 
     // Save registration data before calling register
@@ -225,10 +230,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (success) {
       SnackbarUtils.showSuccess(
         context,
-        AppLocalizations.of(context)!.registrationSuccessful,
+        Translations.of(context).legal.registrationSuccessful,
       );
       await navigateAfterAuth();
-    } else {
+    } else if (!_birthTimeCheck.handle(
+      authProvider.errorKey,
+      authProvider.errorMessage!,
+    )) {
       SnackbarUtils.showCopyableErrorSnackBar(
         context,
         translateConnectionError(context, authProvider.errorMessage!),
@@ -259,57 +267,56 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (_unknownTime) {
       data['unknownTime'] = true;
     }
+    if (_birthTimeCheck.fold != null) {
+      data['birthTimeFold'] = _birthTimeCheck.fold;
+    }
 
     return data;
   }
 
-  DateTime _buildBirthDateTime() {
-    if (_birthTime != null && !_unknownTime) {
-      return DateTime(
-        _birthDate!.year,
-        _birthDate!.month,
-        _birthDate!.day,
-        _birthTime!.hour,
-        _birthTime!.minute,
-      );
-    }
-    return _birthDate!;
+  String _buildBirthDateTime() {
+    return app_date_utils.DateUtils.toBirthDateTimeIso(
+      _birthDate!,
+      _birthTime != null && !_unknownTime
+          ? _birthTime!
+          : const TimeOfDay(hour: 12, minute: 0),
+    );
   }
 
   Widget _buildAccountInfoPage(bool isDark) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MysticalTextField(
           controller: _emailController,
-          labelText: l10n.email,
+          labelText: t.ui.email,
           prefixIcon: Icons.email_outlined,
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
-          validator: (value) => AuthValidators.validateEmail(value, l10n),
+          validator: (value) => AuthValidators.validateEmail(value, t),
         ),
 
         const SizedBox(height: 20),
 
         MysticalPasswordField(
           controller: _passwordController,
-          labelText: l10n.password,
+          labelText: t.ui.password,
           textInputAction: TextInputAction.next,
-          validator: (value) => AuthValidators.validatePassword(value, l10n),
+          validator: (value) => AuthValidators.validatePassword(value, t),
         ),
 
         const SizedBox(height: 20),
 
         MysticalPasswordField(
           controller: _confirmPasswordController,
-          labelText: l10n.confirmPassword,
+          labelText: t.ui.confirmPassword,
           textInputAction: TextInputAction.done,
           validator: (value) => AuthValidators.validateConfirmPassword(
             value,
             _passwordController.text,
-            l10n,
+            t,
           ),
         ),
       ],
@@ -317,7 +324,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildPersonalInfoPage(bool isDark) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,11 +332,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // First Name Field
         MysticalTextField(
           controller: _givenNameController,
-          labelText: l10n.firstName,
+          labelText: t.ui.firstName,
           prefixIcon: Icons.person_outline,
           textInputAction: TextInputAction.next,
-          validator: (value) =>
-              AuthValidators.validateRequiredField(value, l10n),
+          validator: (value) => AuthValidators.validateRequiredField(value, t),
         ),
 
         const SizedBox(height: 20),
@@ -337,18 +343,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // Last Name Field
         MysticalTextField(
           controller: _familyNameController,
-          labelText: l10n.lastName,
+          labelText: t.ui.lastName,
           prefixIcon: Icons.person_outline,
           textInputAction: TextInputAction.done,
-          validator: (value) =>
-              AuthValidators.validateRequiredField(value, l10n),
+          validator: (value) => AuthValidators.validateRequiredField(value, t),
         ),
       ],
     );
   }
 
   Widget _buildBirthInfoPage() {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -359,23 +364,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.1),
+              color: Theme.of(context).colorScheme.surface
+                  .withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3)),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.outline
+                    .withValues(alpha: 0.3),
+              ),
             ),
             child: Row(
               children: [
-                Icon(Icons.calendar_today, color: Theme.of(context).colorScheme.primary),
+                Icon(
+                  Icons.calendar_today,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     _birthDate != null
                         ? DateFormat.yMMMd().format(_birthDate!)
-                        : l10n.birthDate,
+                        : t.ui.birthDate,
                     style: TextStyle(
-                      color: _birthDate != null 
+                      color: _birthDate != null
                           ? Theme.of(context).colorScheme.onSurface
-                          : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                          : Theme.of(context).colorScheme.onSurface
+                                .withValues(alpha: 0.7),
                       fontSize: AppTextStyles.bodySize,
                     ),
                   ),
@@ -395,21 +408,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: _unknownTime
-                    ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3)
-                    : Theme.of(context).colorScheme.surface.withValues(alpha: 0.1),
+                    ? Theme.of(context).colorScheme.onSurface
+                          .withValues(alpha: 0.3)
+                    : Theme.of(context).colorScheme.surface
+                          .withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: _unknownTime
-                      ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5)
-                      : Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+                      ? Theme.of(context).colorScheme.onSurface
+                            .withValues(alpha: 0.5)
+                      : Theme.of(context).colorScheme.outline
+                            .withValues(alpha: 0.3),
                 ),
               ),
               child: Row(
                 children: [
                   Icon(
                     Icons.access_time,
-                    color: _unknownTime 
-                        ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5)
+                    color: _unknownTime
+                        ? Theme.of(context).colorScheme.onSurface
+                              .withValues(alpha: 0.5)
                         : Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(width: 12),
@@ -417,13 +435,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Text(
                       _birthTime != null && !_unknownTime
                           ? _birthTime!.format(context)
-                          : l10n.birthTime,
+                          : t.ui.birthTime,
                       style: TextStyle(
                         color: _birthTime != null && !_unknownTime
                             ? Theme.of(context).colorScheme.onSurface
                             : _unknownTime
-                            ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5)
-                            : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                            ? Theme.of(context).colorScheme.onSurface
+                                  .withValues(alpha: 0.5)
+                            : Theme.of(context).colorScheme.onSurface
+                                  .withValues(alpha: 0.7),
                         fontSize: AppTextStyles.bodySize,
                       ),
                     ),
@@ -431,6 +451,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ],
               ),
             ),
+          ),
+
+          ListenableBuilder(
+            listenable: _birthTimeCheck,
+            builder: (context, _) {
+              final message = _birthTimeCheck.missingMessage;
+              if (message == null) return const SizedBox.shrink();
+              return Padding(
+                padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
+                child: Text(
+                  message,
+                  style: AppTextStyles.getCaptionStyle(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.error),
+                ),
+              );
+            },
           ),
 
           const SizedBox(height: 12),
@@ -446,13 +483,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       _birthTime = null;
                     }
                   });
+                  _birthTimeCheck.reset();
                 },
                 activeColor: Theme.of(context).colorScheme.primary,
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  l10n.dontKnowBirthTime,
+                  t.ui.dontKnowBirthTime,
                   style: AppTextStyles.getCaptionStyle(context),
                 ),
               ),
@@ -465,20 +503,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // Birth Place
         LocationSearchField(
           controller: _birthPlaceController,
-          labelText: l10n.birthPlace,
+          labelText: t.ui.birthPlace,
           onLocationSelected: (PlaceDetails? location) {
             setState(() {
               _selectedLocation = location;
             });
+            _birthTimeCheck.reset();
           },
         ),
+        RepeatedTimeChoice(controller: _birthTimeCheck),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -487,6 +527,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         showPlanet: true,
         subtle: false,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -495,187 +536,208 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 iconTheme: IconThemeData(
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
-                title: Text(l10n.createAccount),
+                title: Text(t.ui.createAccount),
               ),
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return SingleChildScrollView(
-                      padding: const EdgeInsets.all(24.0),
+                      padding: EdgeInsets.only(
+                        left: 24,
+                        right: 24,
+                        top: 24,
+                        bottom: MediaQuery.of(context).padding.bottom + 24,
+                      ),
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
                           minHeight: constraints.maxHeight - 48.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 60),
-
-                      // Title and Subtitle
-                      Text(
-                        l10n.createAccount,
-                        style: AppTextStyles.getH3Style(context),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        l10n.signUp,
-                        style: AppTextStyles.getSubtitleLargeStyle(context),
-                        textAlign: TextAlign.center,
-                      ),
-
-                      const SizedBox(height: 40),
-
-                      // Progress Indicator
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Row(
-                          children: List.generate(3, (index) {
-                            return Expanded(
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                  right: index < 2 ? 8 : 0,
-                                ),
-                                height: 4,
-                                decoration: BoxDecoration(
-                                  color: index <= _currentPage
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3),
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                              ),
-                            );
-                          }),
                         ),
-                      ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 60),
 
-                      const SizedBox(height: 20),
-
-                      // Form Content
-                      AuthContainer(
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                height: 280,
-                                child: PageView(
-                                  controller: _pageController,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  children: [
-                                    _buildAccountInfoPage(isDark),
-                                    _buildPersonalInfoPage(isDark),
-                                    _buildBirthInfoPage(),
-                                  ],
-                                ),
+                            // Title and Subtitle
+                            Text(
+                              t.ui.createAccount,
+                              style: AppTextStyles.getH3Style(context),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              t.ui.signUp,
+                              style: AppTextStyles.getSubtitleLargeStyle(
+                                context,
                               ),
+                              textAlign: TextAlign.center,
+                            ),
 
-                              const SizedBox(height: 24),
+                            const SizedBox(height: 40),
 
-                              // Navigation Buttons
-                              Row(
-                                children: [
-                                  if (_currentPage > 0)
-                                    Expanded(
-                                      child: OutlinedButton(
-                                        onPressed: _previousPage,
-                                        style: OutlinedButton.styleFrom(
-                                          side: BorderSide(
-                                            color: Theme.of(context).colorScheme.outline,
-                                          ),
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 16,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              12,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          l10n.previous,
-                                          style: AppTextStyles.getBodyStyle(
-                                            context,
-                                          ),
-                                        ),
+                            // Progress Indicator
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 40,
+                              ),
+                              child: Row(
+                                children: List.generate(3, (index) {
+                                  return Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                        right: index < 2 ? 8 : 0,
+                                      ),
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        color: index <= _currentPage
+                                            ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface
+                                                  .withValues(alpha: 0.3),
+                                        borderRadius: BorderRadius.circular(2),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ),
+
+                            const SizedBox(height: 20),
+
+                            // Form Content
+                            AuthContainer(
+                              child: Form(
+                                key: _formKey,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      height: 280,
+                                      child: PageView(
+                                        controller: _pageController,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        children: [
+                                          _buildAccountInfoPage(isDark),
+                                          _buildPersonalInfoPage(isDark),
+                                          _buildBirthInfoPage(),
+                                        ],
                                       ),
                                     ),
 
-                                  if (_currentPage > 0)
-                                    const SizedBox(width: 16),
+                                    const SizedBox(height: 24),
 
-                                  Expanded(
-                                    child: Consumer<AuthProvider>(
-                                      builder: (context, authProvider, child) {
-                                        return GradientButton(
-                                          text: _currentPage < 2
-                                              ? l10n.next
-                                              : l10n.finish,
-                                          onPressed: _currentPage < 2
-                                              ? _nextPage
-                                              : _handleRegister,
-                                          enabled: !authProvider.isLoading,
-                                          padding: _currentPage == 2
-                                              ? const EdgeInsets.symmetric(
-                                                  horizontal: 16,
-                                                  vertical: 18,
-                                                )
-                                              : null,
-                                        );
-                                      },
+                                    // Navigation Buttons
+                                    Row(
+                                      children: [
+                                        if (_currentPage > 0)
+                                          Expanded(
+                                            child: OutlinedButton(
+                                              onPressed: _previousPage,
+                                              style: OutlinedButton.styleFrom(
+                                                side: BorderSide(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .outline,
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      vertical: 16,
+                                                    ),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                t.ui.previous,
+                                                style:
+                                                    AppTextStyles.getBodyStyle(
+                                                      context,
+                                                    ),
+                                              ),
+                                            ),
+                                          ),
+
+                                        if (_currentPage > 0)
+                                          const SizedBox(width: 16),
+
+                                        Expanded(
+                                          child: Consumer<AuthProvider>(
+                                            builder: (context, authProvider, child) {
+                                              return GradientButton(
+                                                text: _currentPage < 2
+                                                    ? t.ui.next
+                                                    : t.ui.finish,
+                                                onPressed: _currentPage < 2
+                                                    ? _nextPage
+                                                    : _handleRegister,
+                                                enabled:
+                                                    !authProvider.isLoading,
+                                                padding: _currentPage == 2
+                                                    ? const EdgeInsets.symmetric(
+                                                        horizontal: 16,
+                                                        vertical: 18,
+                                                      )
+                                                    : null,
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    // Google Sign-In (only on first page)
+                                    if (_currentPage == 0)
+                                      GoogleSignInWidget(isRegisterMode: true),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 24),
+
+                            // Login Link
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface
+                                    .withValues(alpha: 0.85),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    t.ui.alreadyHaveAccount,
+                                    style: AppTextStyles.getCaptionStyle(
+                                      context,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () => context.go('/login'),
+                                    child: Text(
+                                      t.ui.signIn,
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        fontWeight: AppTextStyles.semibold,
+                                      ),
                                     ),
                                   ),
                                 ],
-                              ),
-
-                              // Google Sign-In (only on first page)
-                              if (_currentPage == 0)
-                                GoogleSignInWidget(
-                                  isRegisterMode: true,
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      // Login Link
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .surface
-                              .withValues(alpha: 0.85),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              l10n.alreadyHaveAccount,
-                              style: AppTextStyles.getCaptionStyle(context),
-                            ),
-                            TextButton(
-                              onPressed: () => context.go('/login'),
-                              child: Text(
-                                l10n.signIn,
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: AppTextStyles.semibold,
-                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
                     );
                   },
                 ),

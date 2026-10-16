@@ -1,10 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:convert';
-import 'package:flutter/material.dart';
+
+import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/user.dart';
 import '../models/auth_request.dart';
 import 'api_client.dart';
@@ -23,6 +21,14 @@ class AuthService {
       return error.userMessage;
     }
     return error.toString();
+  }
+
+  static AuthResponse _failureResponse(Object error) {
+    return AuthResponse(
+      success: false,
+      message: extractUserMessage(error),
+      errorKey: error is ApiException ? error.errorKey : null,
+    );
   }
 
   Future<AuthResponse> login(String email, String password) async {
@@ -44,7 +50,7 @@ class AuthService {
       final authResponse = AuthResponse.fromJson(response);
       return authResponse;
     } catch (e) {
-      return AuthResponse(success: false, message: extractUserMessage(e));
+      return _failureResponse(e);
     }
   }
 
@@ -69,7 +75,7 @@ class AuthService {
       final authResponse = AuthResponse.fromJson(response);
       return authResponse;
     } catch (e) {
-      return AuthResponse(success: false, message: extractUserMessage(e));
+      return _failureResponse(e);
     }
   }
 
@@ -93,7 +99,7 @@ class AuthService {
       final authResponse = AuthResponse.fromJson(response);
       return authResponse;
     } catch (e) {
-      return AuthResponse(success: false, message: extractUserMessage(e));
+      return _failureResponse(e);
     }
   }
 
@@ -153,7 +159,7 @@ class AuthService {
 
       return AuthResponse(success: true, user: user);
     } catch (e) {
-      return AuthResponse(success: false, message: extractUserMessage(e));
+      return _failureResponse(e);
     }
   }
 
@@ -169,7 +175,7 @@ class AuthService {
 
       return AuthResponse(success: true, user: user);
     } catch (e) {
-      return AuthResponse(success: false, message: extractUserMessage(e));
+      return _failureResponse(e);
     }
   }
 
@@ -215,7 +221,7 @@ class AuthService {
         message: 'Account deleted successfully',
       );
     } catch (e) {
-      return AuthResponse(success: false, message: extractUserMessage(e));
+      return _failureResponse(e);
     }
   }
 
@@ -224,7 +230,7 @@ class AuthService {
       await _apiClient.post('/forgot-password', body: {'email': email});
       return AuthResponse(success: true, message: 'Password reset email sent');
     } catch (e) {
-      return AuthResponse(success: false, message: extractUserMessage(e));
+      return _failureResponse(e);
     }
   }
 
@@ -239,7 +245,7 @@ class AuthService {
         message: 'Password reset successfully',
       );
     } catch (e) {
-      return AuthResponse(success: false, message: extractUserMessage(e));
+      return _failureResponse(e);
     }
   }
 }

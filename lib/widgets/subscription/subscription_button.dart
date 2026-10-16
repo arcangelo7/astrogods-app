@@ -1,15 +1,9 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../../constants/text_styles.dart';
-import '../../l10n/app_localizations.dart';
+import '../../i18n/translations.g.dart';
 
-enum SubscriptionButtonStyle {
-  main,
-  alternative,
-}
+enum SubscriptionButtonStyle { main, alternative }
 
 class SubscriptionButton extends StatelessWidget {
   final bool isLoading;
@@ -29,7 +23,7 @@ class SubscriptionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return ElevatedButton(
       onPressed: isLoading ? () {} : onPressed,
@@ -43,10 +37,7 @@ class SubscriptionButton extends StatelessWidget {
                 color: _getTextColor(context),
               ),
             )
-          : Text(
-              _getButtonText(localizations),
-              style: _getTextStyle(context),
-            ),
+          : Text(_getButtonText(t), style: _getTextStyle(context)),
     );
   }
 
@@ -70,9 +61,7 @@ class SubscriptionButton extends StatelessWidget {
           backgroundColor: colorScheme.primary,
           foregroundColor: colorScheme.onPrimary,
           padding: const EdgeInsets.symmetric(vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         );
     }
   }
@@ -92,15 +81,15 @@ class SubscriptionButton extends StatelessWidget {
     );
   }
 
-  String _getButtonText(AppLocalizations localizations) {
+  String _getButtonText(Translations t) {
     if (customText != null) {
       return customText!;
     }
 
     if (hasTrialEligibility) {
-      return localizations.startFreeSevenDays;
+      return t.ui.startFreeSevenDays;
     }
 
-    return localizations.startNow;
+    return t.ui.startNow;
   }
 }

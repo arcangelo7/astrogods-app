@@ -1,8 +1,4 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class AuthContainer extends StatelessWidget {
   final Widget child;
@@ -22,7 +18,9 @@ class AuthContainer extends StatelessWidget {
             : theme.colorScheme.surface.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: theme.colorScheme.outline.withValues(alpha: isDark ? 0.3 : 0.5),
+          color: theme.colorScheme.outline.withValues(
+            alpha: isDark ? 0.3 : 0.5,
+          ),
           width: 1,
         ),
       ),

@@ -1,15 +1,14 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/starry_night_background.dart';
 import '../widgets/location_search_field.dart';
@@ -17,6 +16,7 @@ import '../widgets/date_picker_field.dart';
 import '../widgets/time_picker_field.dart';
 import '../widgets/mystical_text_field.dart';
 import '../widgets/unknown_time_checkbox.dart';
+import '../widgets/birth_time_check.dart';
 import '../constants/text_styles.dart';
 import '../utils/snackbar_utils.dart';
 import '../utils/date_utils.dart' as app_date_utils;
@@ -43,6 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TimeOfDay? _selectedBirthTime;
   PlaceDetails? _selectedLocation;
   bool _unknownTime = false;
+  final _birthTime = BirthTimeController();
   bool _isEditing = false;
   bool _isLoading = false;
   final ImagePicker _picker = ImagePicker();
@@ -66,6 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _birthDateController.dispose();
     _birthTimeController.dispose();
     _birthChartService?.dispose();
+    _birthTime.dispose();
     super.dispose();
   }
 
@@ -79,6 +81,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _birthPlaceController.text = user.birthPlace ?? '';
       _selectedBirthDate = user.birthDatetime;
       _unknownTime = user.unknownTime ?? false;
+      _birthTime.reset();
+      final birthTimeFold = user.birthTimeFold;
+      if (birthTimeFold != null) {
+        _birthTime.choose(birthTimeFold);
+      }
 
       // If we have a birth place, create a PlaceDetails object
       if (user.birthPlace != null && user.birthPlace!.isNotEmpty) {
@@ -106,27 +113,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  DateTime? _getCombinedDateTime() {
+  String? _getCombinedDateTime() {
     if (_selectedBirthDate == null) return null;
 
     if (_unknownTime) {
-      return DateTime(
-        _selectedBirthDate!.year,
-        _selectedBirthDate!.month,
-        _selectedBirthDate!.day,
-        12,
-        0,
+      return app_date_utils.DateUtils.toBirthDateTimeIso(
+        _selectedBirthDate!,
+        const TimeOfDay(hour: 12, minute: 0),
       );
     }
 
     if (_selectedBirthTime == null) return null;
 
-    return DateTime(
-      _selectedBirthDate!.year,
-      _selectedBirthDate!.month,
-      _selectedBirthDate!.day,
-      _selectedBirthTime!.hour,
-      _selectedBirthTime!.minute,
+    return app_date_utils.DateUtils.toBirthDateTimeIso(
+      _selectedBirthDate!,
+      _selectedBirthTime!,
     );
   }
 
@@ -138,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     final combinedDateTime = _getCombinedDateTime();
 
@@ -155,8 +156,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ? null
               : _birthPlaceController.text.trim()),
       'birthPlaceId': _selectedLocation?.placeId,
-      'birthDateTime': combinedDateTime?.toIso8601String(),
+      'birthDateTime': combinedDateTime,
       'unknownTime': _unknownTime,
+      'birthTimeFold': _birthTime.fold,
     };
 
     final success = await authProvider.updateProfile(profileData);
@@ -171,10 +173,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _isEditing = false;
       });
 
-      SnackbarUtils.showSuccess(context, l10n.profileUpdatedSuccessfully);
+      SnackbarUtils.showSuccess(context, t.ui.profileUpdatedSuccessfully);
 
       _syncPersonalCharts();
-    } else {
+    } else if (!_birthTime.handle(
+      authProvider.errorKey,
+      authProvider.errorMessage!,
+    )) {
       SnackbarUtils.showError(
         context,
         translateConnectionError(context, authProvider.errorMessage!),
@@ -210,7 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
@@ -231,6 +236,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         showPlanet: false,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -250,7 +256,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                 ),
                 title: Text(
-                  l10n.profileTitle,
+                  t.ui.profileTitle,
                   style: AppTextStyles.getH4Style(context),
                 ),
                 actions: [
@@ -263,12 +269,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 16,
+                    bottom: MediaQuery.of(context).padding.bottom + 16,
+                  ),
                   child: Consumer<AuthProvider>(
                     builder: (context, authProvider, child) {
                       final user = authProvider.currentUser;
                       if (user == null) {
-                        return Center(child: Text(l10n.userNotFound));
+                        return Center(child: Text(t.ui.userNotFound));
                       }
 
                       return Form(
@@ -283,43 +294,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             const SizedBox(height: 16),
                             Card(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.surface.withValues(alpha: 0.85),
+                              color: Theme.of(context).colorScheme.surface
+                                  .withValues(alpha: 0.85),
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      l10n.personalInfo,
+                                      t.ui.personalInfo,
                                       style: AppTextStyles.getH5Style(context),
                                     ),
                                     const SizedBox(height: 16),
                                     if (_isEditing) ...[
                                       MysticalTextField(
                                         controller: _givenNameController,
-                                        labelText: l10n.firstName,
+                                        labelText: t.ui.firstName,
                                         enabled: !_isLoading,
                                       ),
                                       const SizedBox(height: 16),
                                       MysticalTextField(
                                         controller: _familyNameController,
-                                        labelText: l10n.lastName,
+                                        labelText: t.ui.lastName,
                                         enabled: !_isLoading,
                                       ),
                                     ] else ...[
                                       _buildInfoRow(
-                                        l10n.firstName,
-                                        user.givenName ?? l10n.notProvided,
+                                        t.ui.firstName,
+                                        user.givenName ?? t.ui.notProvided,
                                       ),
                                       const SizedBox(height: 8),
                                       _buildInfoRow(
-                                        l10n.lastName,
-                                        user.familyName ?? l10n.notProvided,
+                                        t.ui.lastName,
+                                        user.familyName ?? t.ui.notProvided,
                                       ),
                                       const SizedBox(height: 8),
-                                      _buildInfoRow(l10n.email, user.email),
+                                      _buildInfoRow(t.ui.email, user.email),
                                     ],
                                   ],
                                 ),
@@ -327,23 +337,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             const SizedBox(height: 16),
                             Card(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.surface.withValues(alpha: 0.85),
+                              color: Theme.of(context).colorScheme.surface
+                                  .withValues(alpha: 0.85),
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      l10n.birthInfo,
+                                      t.ui.birthInfo,
                                       style: AppTextStyles.getH5Style(context),
                                     ),
                                     const SizedBox(height: 16),
                                     if (_isEditing) ...[
                                       LocationSearchField(
                                         controller: _birthPlaceController,
-                                        labelText: l10n.birthPlace,
+                                        labelText: t.ui.birthPlace,
                                         language: Localizations.localeOf(
                                           context,
                                         ).languageCode,
@@ -356,17 +365,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               setState(() {
                                                 _selectedLocation = location;
                                               });
+                                              _birthTime.reset();
                                             },
                                       ),
                                       const SizedBox(height: 16),
                                       MysticalDatePickerField(
                                         controller: _birthDateController,
                                         selectedDate: _selectedBirthDate,
-                                        labelText: l10n.birthDate,
+                                        labelText: t.ui.birthDate,
                                         onDateSelected: (date) {
                                           setState(() {
                                             _selectedBirthDate = date;
                                           });
+                                          _birthTime.reset();
                                         },
                                         enabled: !_isLoading,
                                       ),
@@ -380,6 +391,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               _selectedBirthTime = null;
                                             }
                                           });
+                                          _birthTime.reset();
                                         },
                                         enabled: !_isLoading,
                                       ),
@@ -387,42 +399,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       if (!_unknownTime) ...[
                                         MysticalTimePickerField(
                                           controller: _birthTimeController,
+                                          birthTime: _birthTime,
                                           selectedTime: _selectedBirthTime,
-                                          labelText: l10n.birthTime,
+                                          labelText: t.ui.birthTime,
                                           onTimeSelected: (time) {
                                             setState(() {
                                               _selectedBirthTime = time;
                                             });
+                                            _birthTime.reset();
                                           },
                                           enabled: !_isLoading,
                                         ),
                                       ],
+                                      RepeatedTimeChoice(
+                                        controller: _birthTime,
+                                      ),
                                     ] else ...[
                                       _buildInfoRow(
-                                        l10n.birthPlace,
-                                        user.birthPlace ?? l10n.notProvided,
+                                        t.ui.birthPlace,
+                                        user.birthPlace ?? t.ui.notProvided,
                                       ),
                                       const SizedBox(height: 8),
                                       _buildInfoRow(
-                                        l10n.birthDate,
+                                        t.ui.birthDate,
                                         user.birthDatetime != null
                                             ? app_date_utils
                                                   .DateUtils.formatDate(
                                                 context,
                                                 user.birthDatetime!,
                                               )
-                                            : l10n.notProvided,
+                                            : t.ui.notProvided,
                                       ),
                                       const SizedBox(height: 8),
                                       _buildInfoRow(
-                                        l10n.birthTime,
+                                        t.ui.birthTime,
                                         user.unknownTime == true
-                                            ? l10n.unknown
+                                            ? t.ui.unknown
                                             : user.birthDatetime != null
                                             ? TimeOfDay.fromDateTime(
                                                 user.birthDatetime!,
                                               ).format(context)
-                                            : l10n.notProvided,
+                                            : t.ui.notProvided,
                                       ),
                                     ],
                                   ],
@@ -434,12 +451,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ElevatedButton(
                                 onPressed: _isLoading ? null : _saveProfile,
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(
-                                    context,
-                                  ).colorScheme.primary,
-                                  foregroundColor: Theme.of(
-                                    context,
-                                  ).colorScheme.onPrimary,
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .primary,
+                                  foregroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimary,
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 16,
                                   ),
@@ -452,13 +469,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           strokeWidth: 2,
                                           valueColor:
                                               AlwaysStoppedAnimation<Color>(
-                                                Theme.of(
-                                                  context,
-                                                ).colorScheme.onPrimary,
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimary,
                                               ),
                                         ),
                                       )
-                                    : Text(l10n.saveChanges),
+                                    : Text(t.ui.saveChanges),
                               ),
                             ],
                           ],
@@ -605,7 +622,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     final updatedUser = kIsWeb
         ? await authProvider.uploadProfilePictureBytes(_profileImageBytes!)
@@ -622,7 +639,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _imageRefreshKey = DateTime.now().millisecondsSinceEpoch.toString();
       });
       if (mounted) {
-        SnackbarUtils.showSuccess(context, l10n.profileUpdatedSuccessfully);
+        SnackbarUtils.showSuccess(context, t.ui.profileUpdatedSuccessfully);
       }
     } else {
       if (mounted) {
@@ -653,9 +670,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           width: 120,
           child: Text(
             '$label:',
-            style: AppTextStyles.getBodyStyle(
-              context,
-            ).copyWith(fontWeight: FontWeight.w600),
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
         ),
         Expanded(

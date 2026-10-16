@@ -1,15 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../../constants/text_styles.dart';
 
-enum FeaturesDisplayStyle {
-  main,
-  alternative,
-  normal,
-}
+enum FeaturesDisplayStyle { main, alternative, normal }
 
 class PlanFeatures extends StatelessWidget {
   final List<String> features;

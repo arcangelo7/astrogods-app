@@ -1,10 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../models/birth_chart.dart';
+import '../services/api_client.dart';
 import '../services/birth_chart_service.dart';
 import '../utils/snackbar_utils.dart';
 import '../widgets/birth_chart_form_widget.dart';
@@ -26,7 +24,8 @@ class EditBirthChartDialog extends StatefulWidget {
 
 class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<BirthChartFormWidgetState> _formStateKey = GlobalKey<BirthChartFormWidgetState>();
+  final GlobalKey<BirthChartFormWidgetState> _formStateKey =
+      GlobalKey<BirthChartFormWidgetState>();
   late BirthChartFormWidget _formWidget;
   late BirthChartService _birthChartService;
 
@@ -62,10 +61,22 @@ class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
     if (formState == null) return false;
 
     return formState.givenName != widget.birthChart.givenName ||
-           formState.familyName != widget.birthChart.familyName ||
-           formState.place != widget.birthChart.place ||
-           formState.selectedDate != widget.birthChart.date ||
-           formState.unknownTime != widget.birthChart.unknownTime;
+        formState.familyName != widget.birthChart.familyName ||
+        formState.place != widget.birthChart.place ||
+        _birthTimeChanged(formState);
+  }
+
+  // Compares the chosen values, since a DateTime built in the device time
+  // zone shifts times that do not exist there
+  bool _birthTimeChanged(BirthChartFormWidgetState formState) {
+    final saved = widget.birthChart.date;
+    final chosen = formState.selectedDate;
+    return chosen.year != saved.year ||
+        chosen.month != saved.month ||
+        chosen.day != saved.day ||
+        formState.unknownTime != widget.birthChart.unknownTime ||
+        (!formState.unknownTime &&
+            formState.selectedTime != TimeOfDay.fromDateTime(saved));
   }
 
   Future<void> _updateBirthChart() async {
@@ -82,7 +93,7 @@ class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
     final formState = _formStateKey.currentState;
     if (formState == null) return;
 
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     setState(() {
       _isLoading = true;
@@ -93,12 +104,12 @@ class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
       final updateData = <String, dynamic>{
         'given_name': formState.givenName,
         'family_name': formState.familyName,
+        'time_fold': formState.birthTime.fold,
       };
 
       // Add date/time if changed
-      if (formState.selectedDate != widget.birthChart.date ||
-          formState.unknownTime != widget.birthChart.unknownTime) {
-        updateData['date'] = formState.selectedDate.toIso8601String();
+      if (_birthTimeChanged(formState)) {
+        updateData['date'] = formState.birthDateTime;
         updateData['unknown_time'] = formState.unknownTime;
       }
 
@@ -115,12 +126,19 @@ class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
 
       if (mounted) {
         Navigator.of(context).pop();
-        SnackbarUtils.showSuccess(context, l10n.birthChartUpdated);
+        SnackbarUtils.showSuccess(context, t.ui.birthChartUpdated);
         widget.onUpdated?.call();
       }
     } catch (e) {
-      if (mounted) {
-        SnackbarUtils.showError(context, e.toString());
+      if (!mounted) return;
+      final handledInForm =
+          e is ApiException &&
+          formState.birthTime.handle(e.errorKey, e.message);
+      if (!handledInForm) {
+        SnackbarUtils.showError(
+          context,
+          e is ApiException ? e.message : e.toString(),
+        );
       }
     } finally {
       if (mounted) {
@@ -133,14 +151,14 @@ class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return GenericDialog(
-      title: l10n.editBirthChart,
+      title: t.ui.editBirthChart,
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: Text(l10n.cancel),
+          child: Text(t.ui.cancel),
         ),
         const SizedBox(width: 8),
         ElevatedButton(
@@ -151,13 +169,10 @@ class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Text(l10n.save),
+              : Text(t.ui.save),
         ),
       ],
-      child: Form(
-        key: _formKey,
-        child: _formWidget,
-      ),
+      child: Form(key: _formKey, child: _formWidget),
     );
   }
 }

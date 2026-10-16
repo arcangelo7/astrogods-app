@@ -1,16 +1,14 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
+
+import 'package:material_ui/material_ui.dart';
+
 import '../models/birth_chart.dart';
 import '../models/synastry.dart';
 import '../models/transit.dart';
 import '../models/reading.dart';
 import '../services/pdf_service.dart';
 import '../utils/snackbar_utils.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 enum PdfDownloadType { birthChart, synastry, dailyTransit, monthlyTransit }
 
@@ -64,19 +62,20 @@ class _PdfDownloadWidgetState extends State<PdfDownloadWidget> {
   }
 
   String _generateFilename() {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     if (widget.type == PdfDownloadType.birthChart &&
         widget.birthChart != null) {
       final name = widget.birthChart!.fullName;
-      final prefix =
-          widget.chartOnly ? l10n.birthChartGraph : l10n.birthChartReading;
+      final prefix = widget.chartOnly
+          ? t.ui.birthChartGraph
+          : t.ui.birthChartReading;
       return '$prefix - $name.pdf';
     } else if (widget.type == PdfDownloadType.synastry &&
         widget.synastry != null) {
       final nameA = widget.synastry!.birthChartA!.givenName;
       final nameB = widget.synastry!.birthChartB!.givenName;
-      final prefix = widget.chartOnly ? l10n.synastryGraph : l10n.synastry;
+      final prefix = widget.chartOnly ? t.ui.synastryGraph : t.ui.synastry;
       return '$prefix - $nameA & $nameB.pdf';
     } else if (widget.type == PdfDownloadType.dailyTransit &&
         widget.dailyTransit != null &&
@@ -84,8 +83,9 @@ class _PdfDownloadWidgetState extends State<PdfDownloadWidget> {
       final name = widget.birthChart!.fullName;
       final date = widget.dailyTransit!.date;
       final dateStr = '${date.day}-${date.month}-${date.year}';
-      final prefix =
-          widget.chartOnly ? l10n.dailyTransitGraph : l10n.dailyPredictions;
+      final prefix = widget.chartOnly
+          ? t.ui.dailyTransitGraph
+          : t.ui.dailyPredictions;
       return '$prefix - $name - $dateStr.pdf';
     } else if (widget.type == PdfDownloadType.monthlyTransit &&
         widget.monthlyTransit != null &&
@@ -93,11 +93,12 @@ class _PdfDownloadWidgetState extends State<PdfDownloadWidget> {
       final name = widget.birthChart!.fullName;
       final dateStr =
           '${widget.monthlyTransit!.month}-${widget.monthlyTransit!.year}';
-      final prefix =
-          widget.chartOnly ? l10n.monthlyTransitGraph : l10n.monthlyPredictions;
+      final prefix = widget.chartOnly
+          ? t.ui.monthlyTransitGraph
+          : t.ui.monthlyPredictions;
       return '$prefix - $name - $dateStr.pdf';
     }
-    return '${l10n.appTitle} - Reading.pdf';
+    return '${t.ui.appTitle} - Reading.pdf';
   }
 
   Future<void> _downloadPdf() async {
@@ -165,14 +166,14 @@ class _PdfDownloadWidgetState extends State<PdfDownloadWidget> {
       if (mounted && saved) {
         SnackbarUtils.showSuccess(
           context,
-          AppLocalizations.of(context)!.pdfDownloadedSuccessfully,
+          Translations.of(context).ui.pdfDownloadedSuccessfully,
         );
       }
     } catch (e) {
       if (mounted) {
         SnackbarUtils.showCopyableErrorSnackBar(
           context,
-          AppLocalizations.of(context)!.pdfGenerationError(e.toString()),
+          Translations.of(context).ui.pdfGenerationError(error: e.toString()),
         );
       }
     } finally {
@@ -203,13 +204,14 @@ class _PdfDownloadWidgetState extends State<PdfDownloadWidget> {
             : const Icon(Icons.picture_as_pdf),
         label: Text(
           _isGenerating
-              ? AppLocalizations.of(context)!.generatingPdf
-              : AppLocalizations.of(context)!.downloadPdf,
+              ? Translations.of(context).ui.generatingPdf
+              : Translations.of(context).ui.downloadPdf,
         ),
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          disabledBackgroundColor:
-              Theme.of(context).colorScheme.surfaceContainerHighest,
+          disabledBackgroundColor: Theme.of(context)
+              .colorScheme
+              .surfaceContainerHighest,
           disabledForegroundColor: Theme.of(context).colorScheme.onSurface,
         ),
       ),

@@ -1,0 +1,395 @@
+about: Informazioni
+account: Account
+accountDeleted: Account eliminato con successo
+activeSubscriptionDeleteWarning: |-
+  Hai un abbonamento attivo. Per eliminare il tuo account, il tuo abbonamento verrà prima annullato.
+
+  Questa azione non può essere annullata. Tutti i tuoi dati, analisi salvate e immagini del profilo saranno eliminati permanentemente.
+addNewsletter: Aggiungi oroscopo via email
+allNewsletters: Tutte le newsletter
+alreadyHaveAccount: Hai già un account?
+analyzing: ANALIZZANDO...
+annual: Annuale
+anticipateYourDayWithTransits: Anticipa la tua giornata con l'analisi dei transiti
+anticipateYourMonthWithTransits: Anticipa il tuo mese con l'analisi dei transiti
+appTitle: AstroGods
+appVersion: Versione App
+at: alle
+authenticationRequired: Autenticazione richiesta
+backToForm: Torna al modulo
+backToLogin: Torna al login
+billedAnnually: Fatturati annualmente
+billedAnnuallyAt: fatturati ${amount}/anno
+billedMonthly: Addebito mensile
+billedSemiannually: Fatturati ogni 6 mesi
+birthChart: Tema natale
+birthChartCreated: Tema natale creato con successo
+birthChartDescription: Il tema natale è la raffigurazione simbolica delle posizioni dei corpi celesti al momento della nascita.
+birthChartFor: Tema natale di ${name}
+birthChartGraph: Grafico del tema natale
+birthChartNotFound: Tema natale non trovato
+birthChartOf: Tema natale di ${name}
+birthChartPreview: Anteprima tema natale
+birthChartReading: Lettura del tema natale
+birthChartReadings: Letture del tema natale
+birthChartUpdated: Tema natale aggiornato con successo
+birthChartsCountPlural: ${count} temi natali salvati
+birthChartsCountSingular: 1 tema natale salvato
+birthChartsFilter: Temi natali
+birthChartsMustBeDifferent: I due temi natali devono essere diversi
+birthDate: data di nascita
+birthInfo: Informazioni di Nascita
+birthInformation: Informazioni di Nascita
+birthPlace: Luogo di nascita
+birthTime: ora di nascita
+birthTimeRequired: Inserisci ora o spunta ora sconosciuta
+cancel: Annulla
+cancelSubscriptionAndDelete: Annulla abbonamento ed elimina account
+cancellingSubscription: Cancellazione in corso...
+changePlan: Cambia piano
+chartNotAvailable: Grafico non disponibile.
+chartOnlyMode: Solo grafico, senza lettura
+chartRemovedFromPersonal: Tema rimosso dai personali
+chartRemovedFromSaved: Tema natale rimosso dai salvati
+chartSetAsPersonal: Tema impostato come personale
+chartsCountPlural: ${count} analisi salvate
+chartsCountSingular: 1 analisi salvata
+checkSpamFolder: Controlla anche la cartella spam o posta indesiderata
+checkYourEmail: Controlla la tua email
+checkoutCancelledMessage: Puoi chiudere questa finestra e tornare all'app
+checkoutCancelledTitle: Checkout annullato
+compatibilityAnalysis: Analisi di Compatibilità
+confirmNewPassword: Conferma nuova password
+confirmPassword: Conferma password
+confirmingSubscription: Conferma dell'abbonamento in corso...
+connectionError: Connessione non riuscita. Controlla la rete e riprova.
+connectionTimeout: La richiesta ha impiegato troppo tempo. Riprova.
+continueWithGoogle: Continua con Google
+couplesChartReadings: Letture del tema di coppia
+create: Crea
+createAccount: Crea il tuo account
+createBirthChart: Crea tema natale
+createFirstChart: Crea il primo tema
+createSecondChart: Crea il secondo tema
+createSynastry: Crea sinastria
+creating: Creazione in corso...
+currentLocation: Posizione attuale
+currentPlan: Piano attuale
+daily: Giornaliere
+dailyMonthlyTransits: Transiti giornalieri e mensili
+dailyPredictions: Previsioni del giorno
+dailyPredictionsContent: Le tue previsioni astrologiche giornaliere.
+dailyPredictionsTitle: Previsioni del giorno
+dailySkyOf: Cielo del giorno
+dailyTransitGraph: Grafico del transito giornaliero
+dailyTransitOf: Transito giornaliero di ${name}
+dailyTransitsCountPlural: ${count} transiti giornalieri salvati
+dailyTransitsCountSingular: 1 transito giornaliero salvato
+dailyTransitsFilter: Transiti giornalieri
+darkMode: Scuro
+dataCollectedByMatomo: 'Dati raccolti da Matomo:'
+dateOfBirth: Data di Nascita
+dayCount: Giorno ${day}
+dayNumber: giorno ${number}
+delete: Elimina
+deleteAccount: Elimina Account
+deleteAccountConfirmation: Sei assolutamente sicuro di voler eliminare il tuo account?
+deleteAccountTitle: Elimina Account
+deleteAccountWarning: Questa azione non può essere annullata. Tutti i tuoi dati, analisi salvate e immagini del profilo saranno eliminati permanentemente.
+deleteConfirmationWord: ELIMINA
+deleteFreeReadingTitle: Eliminare l'unica lettura?
+deleteFreeReadingWarning: Questa è la tua unica lettura salvata. Per generare nuove letture è necessario un abbonamento attivo.
+didntReceiveEmail: Non hai ricevuto l'email?
+discoverHeartOfRelationship: Scopri il cuore di una relazione attraverso la sua sinastria
+dontHaveAccount: Non hai un account?
+dontKnowBirthTime: Non conosco l'ora di nascita
+repeatedTimeFirst: La prima volta, durante l'ora legale
+repeatedTimeSecond: La seconda volta, durante l'ora solare
+downgrade: Passa a Standard
+downloadPdf: Scarica PDF
+edit: Modifica
+editBirthChart: Modifica tema natale
+editDaily: Modifica newsletter giornaliera
+editMonthly: Modifica newsletter mensile
+email: email
+emailAlreadyExists: Questo indirizzo email è già registrato
+emailNotifications: Oroscopo via email
+emailSentSuccessfully: Email inviata con successo
+english: Inglese
+enterNewPassword: Inserisci la nuova password
+errorCreatingBirthChart: 'Errore creando il tema natale: ${error}'
+errorLoadingChart: 'Errore caricando il grafico: ${error}'
+errorLoadingSavedCharts: Errore caricando le analisi salvate
+errorMessageCopied: Messaggio di errore copiato negli appunti
+errorOpeningUrl: Errore nell'aprire l'URL
+errorTitle: Errore
+exploreOtherPlans: Esplora altri piani
+failedToLoadSubscriptions: Impossibile caricare gli abbonamenti
+familyNameRequired: Il cognome è obbligatorio
+finish: Termina
+firstName: Nome
+firstQuarter: Primo quarto
+forSearchTerm: per "${term}"
+forgotPassword: Password dimenticata?
+fourMonthsFree: 4 mesi GRATIS
+fullMoon: Luna piena
+gender: sesso
+generateAnalysis: Genera Analisi
+generateDailyTransit: Genera Transito Giornaliero
+generateDetailedCompatibilityAnalysis: Genera un'analisi dettagliata della compatibilità tra ${relationshipTitle}
+generateMonthlyTransit: Genera Transito Mensile
+generateReading: Genera lettura
+generateReadingAction: Genera lettura
+generating: Generando...
+generatingPdf: Generazione PDF...
+generatingReading: Generazione lettura...
+generatingTopic: 'Generando: ${topic}...'
+getFullReading: Ottieni lettura completa
+getStarted: INIZIA
+givenNameRequired: Il nome è obbligatorio
+goHome: Vai alla Home
+goToHome: Vai alla Home
+goToLogin: Accedi
+googleSignInError: 'Errore accesso Google: ${error}'
+googleSignInSuccessful: Accesso con Google completato con successo
+googleSignUpError: 'Errore registrazione Google: ${error}'
+googleSignUpSuccessful: Registrazione con Google completata con successo
+hideOtherPlans: Nascondi altri piani
+homeTitle: Home
+horoscopeNewsletter: Newsletter oroscopo giornaliero e mensile
+invalidEmail: Inserisci un indirizzo email valido
+invalidResetToken: Token di reset non valido o scaduto
+italian: Italiano
+language: Lingua
+languageEnglish: inglese
+languageItalian: italiano
+lastName: Cognome
+lastQuarter: Ultimo quarto
+lightMode: Chiaro
+loadingImage: Caricamento immagine...
+loadingSubscriptions: Caricamento abbonamenti...
+login: Accedi
+loginRequiredForFullReading: Accedi per ottenere la tua lettura completa
+loginRequiredForSubscription: Accedi o crea un account per abbonarti
+loginSuccessful: Accesso effettuato con successo!
+loginToAccount: Accedi al tuo account
+logout: Esci
+logoutSuccessful: Logout effettuato con successo
+lunarPhase: Fase lunare
+manageSubscription: Gestisci abbonamento
+moneyBackGuarantee: Garanzia di rimborso di 30 giorni
+monthPeriod: mese
+monthly: Mensile
+monthlyPredictions: Previsioni del mese
+monthlyPredictionsContent: Le tue previsioni astrologiche mensili.
+monthlyPredictionsTitle: Previsioni del mese
+monthlySkyOf: Cielo del mese
+monthlyTransitGraph: Grafico del transito mensile
+monthlyTransitOf: Transito mensile di ${name}
+monthlyTransitsCountPlural: ${count} transiti mensili salvati
+monthlyTransitsCountSingular: 1 transito mensile salvato
+monthlyTransitsFilter: Transiti mensili
+name: nome
+needBirthChartForPredictions: Per le previsioni ti serve prima un tema natale
+needTwoBirthChartsForSynastry: Per creare una sinastria hai bisogno di almeno due temi natali salvati.
+networkErrorOccurred: Si è verificato un errore di rete
+newImprovedVersion: Nuova versione migliorata
+newMoon: Luna nuova
+newPassword: Nuova password
+newsletterType: Tipo newsletter
+next: Avanti
+nextRenewal: Prossimo rinnovo
+noActiveSubscription: Nessun abbonamento
+noNewsletterSubscriptions: Nessun oroscopo via email attivo
+noResultsFound: Nessun risultato trovato
+noSavedAnalyses: Nessuna analisi salvata
+noSavedAnalysesDescription: Le analisi che salvi appariranno qui.
+noSavedBirthCharts: Nessun tema natale salvato
+noSavedBirthChartsDescription: I temi natali che salvi appariranno qui.
+noSavedCharts: Nessun tema salvato
+noSavedChartsDescription: I temi natali che salvi appariranno qui.
+noSavedDailyTransits: Nessun transito giornaliero salvato
+noSavedDailyTransitsDescription: I transiti giornalieri che generi appariranno qui.
+noSavedMonthlyTransits: Nessun transito mensile salvato
+noSavedMonthlyTransitsDescription: I transiti mensili che generi appariranno qui.
+noSavedSynastries: Nessuna sinastria salvata
+noSavedSynastriesDescription: Le sinastrie che crei appariranno qui.
+notProvided: Non fornito
+oneMonthFree: 1 mese GRATIS
+oneMoreChartNeeded: Hai già un tema. Creane un secondo per la sinastria
+or: OPPURE
+password: password
+passwordResetSuccessful: Password reimpostata con successo
+passwordTooShort: La password deve essere lunga almeno 8 caratteri
+passwordsDoNotMatch: Le password non corrispondono
+pdfDownloadedSuccessfully: PDF scaricato con successo
+pdfGenerationError: 'Errore generazione PDF: ${error}'
+person: Persona
+personA: Persona A
+personB: Persona B
+personal: Personale
+personalInfo: Informazioni Personali
+personalityTitle: Personalità
+place: 'Luogo: ${place}'
+placeOfBirth: Luogo di Nascita
+pleaseEnterFirstName: Inserisci il nome
+pleaseEnterLastName: Inserisci il cognome
+pleaseFillAllFields: Compila tutti i campi obbligatori
+pleaseLoginToSaveCharts: Accedi per salvare i temi natali nel tuo account. Senza accesso, i temi non possono essere salvati per uso futuro.
+pleaseSelectBirthChart: Seleziona un tema natale
+pleaseSelectBirthDate: Seleziona una data di nascita
+pleaseSelectBirthPlace: Seleziona un luogo di nascita
+pleaseSelectBirthTime: Seleziona l'ora di nascita
+pleaseSelectDate: Seleziona una data
+pleaseSelectLocation: Seleziona una località
+portalReturnMessage: Puoi chiudere questa finestra e tornare all'app.
+portalReturnTitle: Fatto
+predictionsTitle: Previsioni
+preferences: Preferenze
+premiumAnnual: Premium - annuale
+premiumMonthly: Premium - mensile
+premiumRequiredForDailyTransit: Abbonamento Premium richiesto per generare letture di transiti giornalieri
+premiumRequiredForMonthlyTransit: Abbonamento Premium richiesto per generare letture di transiti mensili
+premiumRequiredForRegeneration: Per rigenerare questa lettura in un'altra lingua è necessario un abbonamento premium
+premiumRequiredForSynastry: Abbonamento Premium richiesto per creare analisi di coppia
+premiumSemiannual: Premium - semestrale
+preparingReading: Preparazione lettura...
+previewDescription: Accedi o crea un account per la tua lettura completa
+previewTitle: Il tuo tema natale ti attende
+previous: Indietro
+processingUnsubscribeRequest: Elaborazione richiesta di disiscrizione...
+profile: Profilo
+profilePhoto: foto profilo
+profileTitle: Profilo
+profileUpdatedSuccessfully: Profilo aggiornato con successo
+reactivateSubscription: Riattiva
+read: Leggi
+readingAvailable: Lettura disponibile
+readingGeneratedIn: Questa lettura è stata generata in ${language}
+readingGeneratedSuccessfully: Lettura generata con successo!
+recommendedPlan: MIGLIOR VALORE
+regenerateInLanguage: Rigenera in ${language}
+regenerateReading: Rigenera lettura
+register: Registrati
+relationshipsTitle: Relazioni
+remove: Rimuovi
+removeChart: Rimuovi tema
+removeChartConfirmation: Sei sicuro di voler rimuovere "${name}" dalle analisi salvate?
+removeFromPersonal: Non è il mio tema
+removeFromSaved: Rimuovi dai salvati
+resendEmail: Reinvia email
+resetLinkSent: Abbiamo inviato un link per reimpostare la password a ${email}
+resetPassword: Reimposta password
+resetPasswordTitle: Reimposta la tua password
+retry: Riprova
+save: Salva
+save20Percent: Risparmia 20%
+save33Percent: Risparmia 33%
+save40Percent: Risparmia 40%
+saveAmount: RISPARMI ${amount}/ANNO
+saveChanges: Salva modifiche
+savePdfDialogTitle: Salva PDF
+savedChartsTitle: Analisi salvate
+searchBirthCharts: Cerca temi natali...
+searchByNameOrPlace: Cerca per nome o luogo
+searchCharts: Cerca analisi...
+searchDailyTransits: Cerca transiti giornalieri...
+searchInProgress: Ricerca in corso...
+searchMonthlyTransits: Cerca transiti mensili...
+searchSynastries: Cerca sinastrie...
+searching: Cercando...
+selectChart: Seleziona tema
+selectDate: Seleziona data
+selectFirstBirthChart: Seleziona il primo tema natale
+selectLocation: Seleziona località
+selectMonth: Seleziona mese
+selectSecondBirthChart: Seleziona il secondo tema natale
+semiannual: Semestrale
+sendResetLink: Invia link di reset
+serverUnavailable: Stiamo facendo qualche miglioria. Torniamo tra un attimo!
+setAsPersonal: È il mio tema
+settingsTitle: Impostazioni
+sevenDaysFreeTrial: 7 giorni di prova gratuita
+sharePdf: Condividi PDF
+signIn: Accedi
+signUp: Registrati
+standardAnnual: Standard - annuale
+standardMonthly: Standard - mensile
+standardSemiannual: Standard - semestrale
+startFreeSevenDays: INIZIA GRATIS - 7 GIORNI
+startNow: Inizia ora
+subscribeSuccess: Iscrizione alla newsletter completata con successo
+subscribeToDaily: Iscriviti all'oroscopo giornaliero
+subscribeToMonthly: Iscriviti all'oroscopo mensile
+subscriptionActivated: Abbonamento attivato con successo!
+subscriptionActive: Attivo
+subscriptionAmount: Importo
+subscriptionCancelledSuccessfully: Abbonamento annullato con successo
+subscriptionCancelsOn: Termina il
+subscriptionConfirmationFailed: Impossibile confermare l'abbonamento. Contatta l'assistenza.
+subscriptionEndDate: Si rinnova il
+subscriptionIncomplete: Pagamento Incompleto
+subscriptionPastDue: Pagamento Scaduto
+subscriptionRequiredForRegeneration: Per rigenerare questa lettura in un'altra lingua è necessario un abbonamento (va bene anche lo standard)
+subscriptionStartDate: Iniziato il
+subscriptionSuccessGoHome: Vai alla home
+subscriptionSuccessMessagePremium: Grazie per il tuo supporto. Ora hai accesso a tutte le funzionalità.
+subscriptionSuccessMessageStandard: Grazie per il tuo supporto. Ora puoi leggere infiniti temi natali.
+subscriptionSuccessTitle: Benvenuto in AstroGods!
+subscriptionSuccessTrialInfo: Il tuo periodo di prova di 7 giorni è iniziato
+subscriptionTrialing: Prova
+subscriptionUnpaid: Pagamento Fallito
+subtitlePart1: Allineati
+subtitlePart2: al tuo
+subtitlePart3: cielo
+surname: cognome
+swipeToView: Scorri per visualizzare
+synastriesCountPlural: ${count} sinastrie salvate
+synastriesCountSingular: 1 sinastria salvata
+synastriesFilter: Sinastrie
+synastry: Sinastria
+synastryBetween: Sinastria tra ${person1} e ${person2}
+synastryDescription: La sinastria è l'arte di confrontare due temi natali per comprendere le dinamiche di una relazione.
+synastryGraph: Grafico della sinastria
+synastryNotFound: Sinastria non trovata
+synastryRemovedFromSaved: Sinastria rimossa dalle salvate
+systemMode: Sistema
+termsOfService: Termini di Servizio
+theme: Tema
+thenPricePerMonth: Poi ${price}/mese
+timeOfBirth: Ora di Nascita
+transitDate: Data del transito
+transitDescription: I transiti sono i movimenti dei pianeti che, passando sulle posizioni del cielo natale, attivano influenze astrologiche temporanee.
+transitFor: Transito per
+transitInformation: Informazioni sul transito
+transitLocation: Luogo del transito
+transitPeriod: Periodo del transito
+transitRemovedFromSaved: Transito rimosso dai salvati
+tryAgain: Riprova
+typeDeleteToConfirm: Digita ELIMINA per confermare
+unknown: Sconosciuto
+unknownErrorOccurred: Si è verificato un errore sconosciuto
+unknownTime: Sconosciuta
+unsubscribe: Cancella iscrizione
+unsubscribeError: Errore nella disiscrizione
+unsubscribeSuccess: Cancellazione dalla newsletter completata con successo
+unsubscribeSuccessMessage: Non riceverai più queste email. Puoi iscriverti nuovamente dalle impostazioni del tuo account.
+unveilHeart: Scopri il cuore di una persona attraverso il suo tema di nascita
+updateNow: Aggiorna
+updatePaymentMethod: Aggiorna Metodo di Pagamento
+updateRequired: Un attimo!
+updateSuccess: Newsletter aggiornata con successo
+upgrade: Passa a Premium
+userDefinition: Indica qualsiasi persona fisica che utilizzi AstroGods.
+userDefinitionTitle: Utente (o Tu)
+userNotFound: Utente non trovato
+viewChart: Visualizza grafico
+viewPlans: Visualizza piani
+viewReading: Visualizza lettura
+visitSource: Apri fonte
+waningCrescent: Luna calante
+waningGibbous: Gibbosa calante
+waxingCrescent: Luna crescente
+waxingGibbous: Gibbosa crescente
+welcomeBack: Bentornato!
+withoutBirthTimeWarning: Senza l'ora di nascita la lettura non prenderà in considerazione l'Ascendente

@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import '../services/stripe_service.dart';
 import 'subscription.dart';
 
@@ -244,49 +240,49 @@ class SubscriptionPlan {
     return sortedPlans;
   }
 
-  static List<String> getPremiumFeatures(dynamic localizations) {
+  static List<String> getPremiumFeatures(dynamic t) {
     return [
-      localizations.birthChartReadings,
-      localizations.couplesChartReadings,
-      localizations.dailyMonthlyTransits,
-      localizations.horoscopeNewsletter,
+      t.ui.birthChartReadings,
+      t.ui.couplesChartReadings,
+      t.ui.dailyMonthlyTransits,
+      t.ui.horoscopeNewsletter,
     ];
   }
 
-  static List<String> getStandardFeatures(dynamic localizations) {
-    return [localizations.birthChartReadings];
+  static List<String> getStandardFeatures(dynamic t) {
+    return [t.ui.birthChartReadings];
   }
 
-  static List<String> getStandardExcludedFeatures(dynamic localizations) {
+  static List<String> getStandardExcludedFeatures(dynamic t) {
     return [
-      localizations.couplesChartReadings,
-      localizations.dailyMonthlyTransits,
-      localizations.horoscopeNewsletter,
+      t.ui.couplesChartReadings,
+      t.ui.dailyMonthlyTransits,
+      t.ui.horoscopeNewsletter,
     ];
   }
 
   static List<SubscriptionPlan> getMonthlyPlans(
-    dynamic localizations,
+    dynamic t,
     StripeConfig stripeConfig,
   ) {
     return [
       SubscriptionPlan(
-        title: localizations.premiumMonthly,
+        title: t.ui.premiumMonthly,
         price: '4,99 €',
-        period: localizations.monthPeriod,
-        billingInfo: localizations.billedMonthly,
-        features: getPremiumFeatures(localizations),
+        period: t.ui.monthPeriod,
+        billingInfo: t.ui.billedMonthly,
+        features: getPremiumFeatures(t),
         tier: PlanTier.premium,
         type: PlanType.monthly,
         priceId: stripeConfig.premiumMonthly,
       ),
       SubscriptionPlan(
-        title: localizations.standardMonthly,
+        title: t.ui.standardMonthly,
         price: '2,99 €',
-        period: localizations.monthPeriod,
-        billingInfo: localizations.billedMonthly,
-        features: getStandardFeatures(localizations),
-        excludedFeatures: getStandardExcludedFeatures(localizations),
+        period: t.ui.monthPeriod,
+        billingInfo: t.ui.billedMonthly,
+        features: getStandardFeatures(t),
+        excludedFeatures: getStandardExcludedFeatures(t),
         tier: PlanTier.standard,
         type: PlanType.monthly,
         priceId: stripeConfig.standardMonthly,
@@ -295,35 +291,35 @@ class SubscriptionPlan {
   }
 
   static List<SubscriptionPlan> getSemiannualPlans(
-    dynamic localizations,
+    dynamic t,
     StripeConfig stripeConfig,
   ) {
     return [
       SubscriptionPlan(
-        title: localizations.premiumSemiannual,
+        title: t.ui.premiumSemiannual,
         price: '3,99 €',
-        period: localizations.monthPeriod,
-        billingInfo: localizations.billedSemiannually,
+        period: t.ui.monthPeriod,
+        billingInfo: t.ui.billedSemiannually,
         originalPrice: '29,94 €',
         discountedPrice: '23,94 €',
-        discount: localizations.save20Percent,
-        extraInfo: localizations.oneMonthFree,
-        features: getPremiumFeatures(localizations),
+        discount: t.ui.save20Percent,
+        extraInfo: t.ui.oneMonthFree,
+        features: getPremiumFeatures(t),
         tier: PlanTier.premium,
         type: PlanType.semiannual,
         priceId: stripeConfig.premiumSemestral,
       ),
       SubscriptionPlan(
-        title: localizations.standardSemiannual,
+        title: t.ui.standardSemiannual,
         price: '2,39 €',
-        period: localizations.monthPeriod,
-        billingInfo: localizations.billedSemiannually,
+        period: t.ui.monthPeriod,
+        billingInfo: t.ui.billedSemiannually,
         originalPrice: '17,94 €',
         discountedPrice: '14,35 €',
-        discount: localizations.save20Percent,
-        extraInfo: localizations.oneMonthFree,
-        features: getStandardFeatures(localizations),
-        excludedFeatures: getStandardExcludedFeatures(localizations),
+        discount: t.ui.save20Percent,
+        extraInfo: t.ui.oneMonthFree,
+        features: getStandardFeatures(t),
+        excludedFeatures: getStandardExcludedFeatures(t),
         tier: PlanTier.standard,
         type: PlanType.semiannual,
         priceId: stripeConfig.standardSemestral,
@@ -332,35 +328,35 @@ class SubscriptionPlan {
   }
 
   static List<SubscriptionPlan> getAnnualPlans(
-    dynamic localizations,
+    dynamic t,
     StripeConfig stripeConfig,
   ) {
     return [
       SubscriptionPlan(
-        title: localizations.premiumAnnual,
+        title: t.ui.premiumAnnual,
         price: '2,99 €',
-        period: localizations.monthPeriod,
-        billingInfo: localizations.billedAnnually,
+        period: t.ui.monthPeriod,
+        billingInfo: t.ui.billedAnnually,
         originalPrice: '59,88 €',
         discountedPrice: '35,88 €',
-        discount: localizations.save40Percent,
-        extraInfo: localizations.fourMonthsFree,
-        features: getPremiumFeatures(localizations),
+        discount: t.ui.save40Percent,
+        extraInfo: t.ui.fourMonthsFree,
+        features: getPremiumFeatures(t),
         tier: PlanTier.premium,
         type: PlanType.annual,
         priceId: stripeConfig.premiumAnnual,
       ),
       SubscriptionPlan(
-        title: localizations.standardAnnual,
+        title: t.ui.standardAnnual,
         price: '1,99 €',
-        period: localizations.monthPeriod,
-        billingInfo: localizations.billedAnnually,
+        period: t.ui.monthPeriod,
+        billingInfo: t.ui.billedAnnually,
         originalPrice: '35,88 €',
         discountedPrice: '23,88 €',
-        discount: localizations.save33Percent,
-        extraInfo: localizations.fourMonthsFree,
-        features: getStandardFeatures(localizations),
-        excludedFeatures: getStandardExcludedFeatures(localizations),
+        discount: t.ui.save33Percent,
+        extraInfo: t.ui.fourMonthsFree,
+        features: getStandardFeatures(t),
+        excludedFeatures: getStandardExcludedFeatures(t),
         tier: PlanTier.standard,
         type: PlanType.annual,
         priceId: stripeConfig.standardAnnual,
@@ -369,30 +365,30 @@ class SubscriptionPlan {
   }
 
   static List<SubscriptionPlan> getSimplifiedPlans(
-    dynamic localizations,
+    dynamic t,
     StripeConfig stripeConfig,
   ) {
     return [
       SubscriptionPlan(
-        title: localizations.premiumAnnual,
+        title: t.ui.premiumAnnual,
         price: '2,99 €',
         period: 'mese',
-        billingInfo: localizations.billedAnnually,
+        billingInfo: t.ui.billedAnnually,
         originalPrice: '4,99 €',
         saveAmount: '24 €',
         annualTotal: '35,88 €',
-        features: getPremiumFeatures(localizations),
+        features: getPremiumFeatures(t),
         tier: PlanTier.premium,
         type: PlanType.annual,
         cardStyle: CardStyle.main,
         priceId: stripeConfig.premiumAnnual,
       ),
       SubscriptionPlan(
-        title: localizations.premiumMonthly,
+        title: t.ui.premiumMonthly,
         price: '4,99 €',
         period: 'mese',
-        billingInfo: localizations.billedMonthly,
-        features: getPremiumFeatures(localizations),
+        billingInfo: t.ui.billedMonthly,
+        features: getPremiumFeatures(t),
         tier: PlanTier.premium,
         type: PlanType.monthly,
         cardStyle: CardStyle.alternative,

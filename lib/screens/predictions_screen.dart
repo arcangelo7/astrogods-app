@@ -1,10 +1,7 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../constants/text_styles.dart';
 import '../widgets/starry_night_background.dart';
 import '../widgets/birth_chart_selector.dart';
@@ -53,6 +50,7 @@ class _PredictionsScreenState extends State<PredictionsScreen>
         showPlanet: false,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               // Tab bar - at the top
@@ -61,8 +59,8 @@ class _PredictionsScreenState extends State<PredictionsScreen>
                 child: TabBar(
                   controller: _tabController,
                   tabs: [
-                    Tab(text: AppLocalizations.of(context)!.dailyPredictions),
-                    Tab(text: AppLocalizations.of(context)!.monthlyPredictions),
+                    Tab(text: Translations.of(context).ui.dailyPredictions),
+                    Tab(text: Translations.of(context).ui.monthlyPredictions),
                   ],
                 ),
               ),
@@ -262,7 +260,7 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -285,9 +283,9 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
                         const SizedBox(height: 8),
 
                         Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.anticipateYourDayWithTransits,
+                          Translations.of(context)
+                              .ui
+                              .anticipateYourDayWithTransits,
                           style: AppTextStyles.getH4Style(context),
                           textAlign: TextAlign.center,
                         ),
@@ -295,15 +293,15 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
 
                         // Birth Chart Selector
                         BirthChartSelector(
-                          labelText: AppLocalizations.of(context)!.selectChart,
+                          labelText: Translations.of(context).ui.selectChart,
                           selectedChart: _selectedChart,
                           allowNull: false,
                           autoSelectPersonal: true,
                           validator: (chart) {
                             if (chart == null) {
-                              return AppLocalizations.of(
-                                context,
-                              )!.pleaseSelectBirthChart;
+                              return Translations.of(context)
+                                  .ui
+                                  .pleaseSelectBirthChart;
                             }
                             return null;
                           },
@@ -328,12 +326,12 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
                         MysticalDatePickerField(
                           controller: _dateController,
                           selectedDate: _selectedDate,
-                          labelText: l10n.selectDate,
+                          labelText: t.ui.selectDate,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return AppLocalizations.of(
-                                context,
-                              )!.pleaseSelectDate;
+                              return Translations.of(context)
+                                  .ui
+                                  .pleaseSelectDate;
                             }
                             return null;
                           },
@@ -355,17 +353,14 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
                         // Location search
                         LocationSearchField(
                           controller: _locationController,
-                          labelText: AppLocalizations.of(
-                            context,
-                          )!.selectLocation,
-                          language: Localizations.localeOf(
-                            context,
-                          ).languageCode,
+                          labelText: Translations.of(context).ui.selectLocation,
+                          language: Localizations.localeOf(context)
+                              .languageCode,
                           validator: (value) {
                             if (_selectedLocation == null) {
-                              return AppLocalizations.of(
-                                context,
-                              )!.pleaseSelectLocation;
+                              return Translations.of(context)
+                                  .ui
+                                  .pleaseSelectLocation;
                             }
                             return null;
                           },
@@ -381,7 +376,7 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
                         const SizedBox(height: 16),
 
                         MysticalCheckbox(
-                          title: AppLocalizations.of(context)!.chartOnlyMode,
+                          title: Translations.of(context).ui.chartOnlyMode,
                           value: _chartOnly,
                           onChanged: (value) {
                             setState(() {
@@ -395,8 +390,8 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
                         // Generate button
                         GradientButton(
                           text: _isCreating
-                              ? AppLocalizations.of(context)!.generating
-                              : l10n.generateDailyTransit,
+                              ? Translations.of(context).ui.generating
+                              : t.ui.generateDailyTransit,
                           onPressed: !_isCreating
                               ? _generateDailyTransit
                               : () {},
@@ -406,12 +401,11 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
 
                         // Info text
                         Text(
-                          AppLocalizations.of(context)!.transitDescription,
+                          Translations.of(context).ui.transitDescription,
                           style: AppTextStyles.getCaptionStyle(context)
                               .copyWith(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withValues(alpha: 0.7),
+                                color: Theme.of(context).colorScheme.onSurface
+                                    .withValues(alpha: 0.7),
                               ),
                           textAlign: TextAlign.center,
                         ),
@@ -429,11 +423,11 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
   Widget _buildErrorState() {
     return EmptyStateWidget(
       icon: Icons.error_outline,
-      title: AppLocalizations.of(context)!.errorLoadingSavedCharts,
+      title: Translations.of(context).ui.errorLoadingSavedCharts,
       description: _error,
       compact: true,
       primaryAction: GradientButton(
-        text: AppLocalizations.of(context)!.tryAgain,
+        text: Translations.of(context).ui.tryAgain,
         onPressed: _loadSavedCharts,
       ),
     );
@@ -442,10 +436,10 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
   Widget _buildEmptyState() {
     return EmptyStateWidget(
       icon: Icons.calendar_month_outlined,
-      title: AppLocalizations.of(context)!.noSavedBirthCharts,
-      description: AppLocalizations.of(context)!.needBirthChartForPredictions,
+      title: Translations.of(context).ui.noSavedBirthCharts,
+      description: Translations.of(context).ui.needBirthChartForPredictions,
       primaryAction: GradientButton(
-        text: AppLocalizations.of(context)!.createBirthChart,
+        text: Translations.of(context).ui.createBirthChart,
         onPressed: _showCreateDialog,
       ),
     );
@@ -665,7 +659,7 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final theme = Theme.of(context);
 
     return LayoutBuilder(
@@ -689,9 +683,9 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
                         const SizedBox(height: 8),
 
                         Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.anticipateYourMonthWithTransits,
+                          Translations.of(context)
+                              .ui
+                              .anticipateYourMonthWithTransits,
                           style: AppTextStyles.getH4Style(context),
                           textAlign: TextAlign.center,
                         ),
@@ -699,15 +693,15 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
 
                         // Birth Chart Selector
                         BirthChartSelector(
-                          labelText: AppLocalizations.of(context)!.selectChart,
+                          labelText: Translations.of(context).ui.selectChart,
                           selectedChart: _selectedChart,
                           allowNull: false,
                           autoSelectPersonal: true,
                           validator: (chart) {
                             if (chart == null) {
-                              return AppLocalizations.of(
-                                context,
-                              )!.pleaseSelectBirthChart;
+                              return Translations.of(context)
+                                  .ui
+                                  .pleaseSelectBirthChart;
                             }
                             return null;
                           },
@@ -736,14 +730,14 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
                           style: AppTextStyles.getBodyStyle(context),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return AppLocalizations.of(
-                                context,
-                              )!.pleaseSelectDate;
+                              return Translations.of(context)
+                                  .ui
+                                  .pleaseSelectDate;
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: l10n.selectMonth,
+                            labelText: t.ui.selectMonth,
                             labelStyle: AppTextStyles.getFormLabelStyle(
                               context,
                             ),
@@ -790,17 +784,14 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
                         // Location search
                         LocationSearchField(
                           controller: _locationController,
-                          labelText: AppLocalizations.of(
-                            context,
-                          )!.selectLocation,
-                          language: Localizations.localeOf(
-                            context,
-                          ).languageCode,
+                          labelText: Translations.of(context).ui.selectLocation,
+                          language: Localizations.localeOf(context)
+                              .languageCode,
                           validator: (value) {
                             if (_selectedLocation == null) {
-                              return AppLocalizations.of(
-                                context,
-                              )!.pleaseSelectLocation;
+                              return Translations.of(context)
+                                  .ui
+                                  .pleaseSelectLocation;
                             }
                             return null;
                           },
@@ -816,7 +807,7 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
                         const SizedBox(height: 16),
 
                         MysticalCheckbox(
-                          title: AppLocalizations.of(context)!.chartOnlyMode,
+                          title: Translations.of(context).ui.chartOnlyMode,
                           value: _chartOnly,
                           onChanged: (value) {
                             setState(() {
@@ -830,8 +821,8 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
                         // Generate button
                         GradientButton(
                           text: _isCreating
-                              ? AppLocalizations.of(context)!.generating
-                              : l10n.generateMonthlyTransit,
+                              ? Translations.of(context).ui.generating
+                              : t.ui.generateMonthlyTransit,
                           onPressed: !_isCreating
                               ? _generateMonthlyTransit
                               : () {},
@@ -841,12 +832,11 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
 
                         // Info text
                         Text(
-                          AppLocalizations.of(context)!.transitDescription,
+                          Translations.of(context).ui.transitDescription,
                           style: AppTextStyles.getCaptionStyle(context)
                               .copyWith(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withValues(alpha: 0.7),
+                                color: Theme.of(context).colorScheme.onSurface
+                                    .withValues(alpha: 0.7),
                               ),
                           textAlign: TextAlign.center,
                         ),
@@ -864,11 +854,11 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
   Widget _buildErrorState() {
     return EmptyStateWidget(
       icon: Icons.error_outline,
-      title: AppLocalizations.of(context)!.errorLoadingSavedCharts,
+      title: Translations.of(context).ui.errorLoadingSavedCharts,
       description: _error,
       compact: true,
       primaryAction: GradientButton(
-        text: AppLocalizations.of(context)!.tryAgain,
+        text: Translations.of(context).ui.tryAgain,
         onPressed: _loadSavedCharts,
       ),
     );
@@ -877,10 +867,10 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
   Widget _buildEmptyState() {
     return EmptyStateWidget(
       icon: Icons.calendar_month_outlined,
-      title: AppLocalizations.of(context)!.noSavedBirthCharts,
-      description: AppLocalizations.of(context)!.needBirthChartForPredictions,
+      title: Translations.of(context).ui.noSavedBirthCharts,
+      description: Translations.of(context).ui.needBirthChartForPredictions,
       primaryAction: GradientButton(
-        text: AppLocalizations.of(context)!.createBirthChart,
+        text: Translations.of(context).ui.createBirthChart,
         onPressed: _showCreateDialog,
       ),
     );

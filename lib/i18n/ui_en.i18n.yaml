@@ -1,0 +1,395 @@
+about: About
+account: Account
+accountDeleted: Account deleted successfully
+activeSubscriptionDeleteWarning: |-
+  You have an active subscription. To delete your account, your subscription will be cancelled first.
+
+  This action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.
+addNewsletter: Add horoscope by email
+allNewsletters: All newsletters
+alreadyHaveAccount: Already have an account?
+analyzing: ANALYZING...
+annual: Annual
+anticipateYourDayWithTransits: Anticipate your day with transit analysis
+anticipateYourMonthWithTransits: Anticipate your month with transit analysis
+appTitle: AstroGods
+appVersion: App Version
+at: at
+authenticationRequired: Authentication required
+backToForm: Back to form
+backToLogin: Back to login
+billedAnnually: Billed annually
+billedAnnuallyAt: billed ${amount}/year
+billedMonthly: Billed monthly
+billedSemiannually: Billed every 6 months
+birthChart: Birth chart
+birthChartCreated: Birth chart created successfully
+birthChartDescription: The birth chart is the symbolic representation of the positions of celestial bodies at the moment of birth.
+birthChartFor: Birth Chart for ${name}
+birthChartGraph: Birth chart
+birthChartNotFound: Birth chart not found
+birthChartOf: Birth chart of ${name}
+birthChartPreview: Birth chart preview
+birthChartReading: Birth Chart Reading
+birthChartReadings: Birth chart readings
+birthChartUpdated: Birth chart updated successfully
+birthChartsCountPlural: ${count} saved birth charts
+birthChartsCountSingular: 1 saved birth chart
+birthChartsFilter: Birth charts
+birthChartsMustBeDifferent: The two birth charts must be different
+birthDate: birth date
+birthInfo: Birth Information
+birthInformation: Birth Information
+birthPlace: Birth Place
+birthTime: birth time
+birthTimeRequired: Enter time or check unknown time
+cancel: Cancel
+cancelSubscriptionAndDelete: Cancel subscription and delete account
+cancellingSubscription: Cancelling subscription...
+changePlan: Change plan
+chartNotAvailable: Chart not available.
+chartOnlyMode: Chart only, without reading
+chartRemovedFromPersonal: Chart removed from personal
+chartRemovedFromSaved: Chart removed from saved
+chartSetAsPersonal: Chart set as personal
+chartsCountPlural: ${count} saved analyses
+chartsCountSingular: 1 saved analysis
+checkSpamFolder: Please also check your spam or junk folder
+checkYourEmail: Check your email
+checkoutCancelledMessage: You can close this window and return to the app
+checkoutCancelledTitle: Checkout cancelled
+compatibilityAnalysis: Compatibility Analysis
+confirmNewPassword: Confirm new password
+confirmPassword: Confirm Password
+confirmingSubscription: Confirming your subscription...
+connectionError: Connection failed. Check your network and try again.
+connectionTimeout: The request took too long. Please try again.
+continueWithGoogle: Continue with Google
+couplesChartReadings: Couple's chart readings
+create: Create
+createAccount: Create your account
+createBirthChart: Create birth chart
+createFirstChart: Create first chart
+createSecondChart: Create second chart
+createSynastry: Create synastry
+creating: Creating...
+currentLocation: Current location
+currentPlan: Current plan
+daily: Daily
+dailyMonthlyTransits: Daily and monthly transits
+dailyPredictions: Daily predictions
+dailyPredictionsContent: Your daily astrological predictions.
+dailyPredictionsTitle: Daily Predictions
+dailySkyOf: Sky of the day
+dailyTransitGraph: Daily transit chart
+dailyTransitOf: Daily transit of ${name}
+dailyTransitsCountPlural: ${count} saved daily transits
+dailyTransitsCountSingular: 1 saved daily transit
+dailyTransitsFilter: Daily transits
+darkMode: Dark
+dataCollectedByMatomo: 'Data collected by Matomo:'
+dateOfBirth: Date of Birth
+dayCount: Day ${day}
+dayNumber: day ${number}
+delete: Delete
+deleteAccount: Delete Account
+deleteAccountConfirmation: Are you absolutely sure you want to delete your account?
+deleteAccountTitle: Delete Account
+deleteAccountWarning: This action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.
+deleteConfirmationWord: DELETE
+deleteFreeReadingTitle: Delete your only reading?
+deleteFreeReadingWarning: This is your only saved reading. An active subscription is required to generate new readings.
+didntReceiveEmail: Didn't receive the email?
+discoverHeartOfRelationship: Discover the heart of a relationship through its synastry
+dontHaveAccount: Don't have an account?
+dontKnowBirthTime: I don't know the birth time
+repeatedTimeFirst: The first time, during daylight saving time
+repeatedTimeSecond: The second time, during standard time
+downgrade: Downgrade to Standard
+downloadPdf: Download PDF
+edit: Edit
+editBirthChart: Edit Birth Chart
+editDaily: Edit daily newsletter
+editMonthly: Edit monthly newsletter
+email: email
+emailAlreadyExists: This email address is already registered
+emailNotifications: Horoscope by email
+emailSentSuccessfully: Email sent successfully
+english: English
+enterNewPassword: Enter new password
+errorCreatingBirthChart: 'Error creating birth chart: ${error}'
+errorLoadingChart: 'Error loading chart: ${error}'
+errorLoadingSavedCharts: Error loading saved charts
+errorMessageCopied: Error message copied to clipboard
+errorOpeningUrl: Error opening URL
+errorTitle: Error
+exploreOtherPlans: Explore other plans
+failedToLoadSubscriptions: Failed to load subscriptions
+familyNameRequired: Last name is required
+finish: Finish
+firstName: First Name
+firstQuarter: First quarter
+forSearchTerm: for "${term}"
+forgotPassword: Forgot Password?
+fourMonthsFree: 4 months FREE
+fullMoon: Full moon
+gender: gender
+generateAnalysis: Generate Analysis
+generateDailyTransit: Generate Daily Transit
+generateDetailedCompatibilityAnalysis: Generate a detailed compatibility analysis between ${relationshipTitle}
+generateMonthlyTransit: Generate Monthly Transit
+generateReading: Generate reading
+generateReadingAction: Generate reading
+generating: Generating...
+generatingPdf: Generating PDF...
+generatingReading: Generating reading...
+generatingTopic: 'Generating: ${topic}...'
+getFullReading: Get full reading
+getStarted: GET STARTED
+givenNameRequired: First name is required
+goHome: Go to Home
+goToHome: Go to Home
+goToLogin: Login
+googleSignInError: 'Google Sign-In error: ${error}'
+googleSignInSuccessful: Successfully signed in with Google
+googleSignUpError: 'Google Sign-Up error: ${error}'
+googleSignUpSuccessful: Successfully signed up with Google
+hideOtherPlans: Hide other plans
+homeTitle: Home
+horoscopeNewsletter: Daily and monthly horoscope newsletter
+invalidEmail: Please enter a valid email address
+invalidResetToken: Invalid or expired reset token
+italian: Italian
+language: Language
+languageEnglish: English
+languageItalian: Italian
+lastName: Last Name
+lastQuarter: Last quarter
+lightMode: Light
+loadingImage: Loading image...
+loadingSubscriptions: Loading subscriptions...
+login: Login
+loginRequiredForFullReading: Please login to get your complete reading
+loginRequiredForSubscription: Sign in or create an account to subscribe
+loginSuccessful: Login successful!
+loginToAccount: Login to your account
+logout: Logout
+logoutSuccessful: Logout successful
+lunarPhase: Lunar phase
+manageSubscription: Manage subscription
+moneyBackGuarantee: 30-day money-back guarantee
+monthPeriod: month
+monthly: Monthly
+monthlyPredictions: Monthly predictions
+monthlyPredictionsContent: Your monthly astrological predictions.
+monthlyPredictionsTitle: Monthly Predictions
+monthlySkyOf: Sky of the month
+monthlyTransitGraph: Monthly transit chart
+monthlyTransitOf: Monthly transit of ${name}
+monthlyTransitsCountPlural: ${count} saved monthly transits
+monthlyTransitsCountSingular: 1 saved monthly transit
+monthlyTransitsFilter: Monthly transits
+name: name
+needBirthChartForPredictions: You need a birth chart first for predictions
+needTwoBirthChartsForSynastry: To create a synastry you need at least two saved birth charts.
+networkErrorOccurred: Network error occurred
+newImprovedVersion: New improved version
+newMoon: New moon
+newPassword: New password
+newsletterType: Newsletter type
+next: Next
+nextRenewal: Next renewal
+noActiveSubscription: No subscription
+noNewsletterSubscriptions: No active horoscope by email
+noResultsFound: No results found
+noSavedAnalyses: No saved analyses
+noSavedAnalysesDescription: Analyses you save will appear here.
+noSavedBirthCharts: No saved birth charts
+noSavedBirthChartsDescription: Birth charts you save will appear here.
+noSavedCharts: No saved charts
+noSavedChartsDescription: Birth charts you save will appear here.
+noSavedDailyTransits: No saved daily transits
+noSavedDailyTransitsDescription: Daily transits you generate will appear here.
+noSavedMonthlyTransits: No saved monthly transits
+noSavedMonthlyTransitsDescription: Monthly transits you generate will appear here.
+noSavedSynastries: No saved synastries
+noSavedSynastriesDescription: Synastries you create will appear here.
+notProvided: Not provided
+oneMonthFree: 1 month FREE
+oneMoreChartNeeded: You have one chart. Create a second for synastry
+or: OR
+password: password
+passwordResetSuccessful: Password reset successful
+passwordTooShort: Password must be at least 8 characters long
+passwordsDoNotMatch: Passwords do not match
+pdfDownloadedSuccessfully: PDF downloaded successfully
+pdfGenerationError: 'Error generating PDF: ${error}'
+person: Person
+personA: Person A
+personB: Person B
+personal: Personal
+personalInfo: Personal Information
+personalityTitle: Personality
+place: 'Place: ${place}'
+placeOfBirth: Place of Birth
+pleaseEnterFirstName: Please enter first name
+pleaseEnterLastName: Please enter last name
+pleaseFillAllFields: Please fill all required fields
+pleaseLoginToSaveCharts: Please login to save birth charts to your account. Without login, charts cannot be saved for future use.
+pleaseSelectBirthChart: Please select a birth chart
+pleaseSelectBirthDate: Please select a birth date
+pleaseSelectBirthPlace: Please select a birth place
+pleaseSelectBirthTime: Please select birth time
+pleaseSelectDate: Please select a date
+pleaseSelectLocation: Please select a location
+portalReturnMessage: You can close this window and return to the app.
+portalReturnTitle: Done
+predictionsTitle: Forecast
+preferences: Preferences
+premiumAnnual: Premium - annual
+premiumMonthly: Premium - monthly
+premiumRequiredForDailyTransit: Premium subscription required to generate daily transit readings
+premiumRequiredForMonthlyTransit: Premium subscription required to generate monthly transit readings
+premiumRequiredForRegeneration: To regenerate this reading in another language you need a premium subscription
+premiumRequiredForSynastry: Premium subscription required to create couple compatibility analyses
+premiumSemiannual: Premium - semiannual
+preparingReading: Preparing reading...
+previewDescription: Sign in or create an account to access your complete reading
+previewTitle: Your birth chart awaits
+previous: Previous
+processingUnsubscribeRequest: Processing unsubscribe request...
+profile: Profile
+profilePhoto: profile photo
+profileTitle: Profile
+profileUpdatedSuccessfully: Profile updated successfully
+reactivateSubscription: Reactivate
+read: Read
+readingAvailable: Reading available
+readingGeneratedIn: This reading was generated in ${language}
+readingGeneratedSuccessfully: Reading generated successfully!
+recommendedPlan: BEST VALUE
+regenerateInLanguage: Regenerate in ${language}
+regenerateReading: Regenerate reading
+register: Register
+relationshipsTitle: Relationships
+remove: Remove
+removeChart: Remove chart
+removeChartConfirmation: Are you sure you want to remove "${name}" from saved charts?
+removeFromPersonal: Not my theme
+removeFromSaved: Remove from saved
+resendEmail: Resend email
+resetLinkSent: We've sent a password reset link to ${email}
+resetPassword: Reset password
+resetPasswordTitle: Reset your password
+retry: Retry
+save: Save
+save20Percent: Save 20%
+save33Percent: Save 33%
+save40Percent: Save 40%
+saveAmount: SAVE ${amount}/YEAR
+saveChanges: Save changes
+savePdfDialogTitle: Save PDF
+savedChartsTitle: Saved analyses
+searchBirthCharts: Search birth charts...
+searchByNameOrPlace: Search by name or place
+searchCharts: Search charts...
+searchDailyTransits: Search daily transits...
+searchInProgress: Search in progress...
+searchMonthlyTransits: Search monthly transits...
+searchSynastries: Search synastries...
+searching: Searching...
+selectChart: Select chart
+selectDate: Select Date
+selectFirstBirthChart: Select the first birth chart
+selectLocation: Select location
+selectMonth: Select Month
+selectSecondBirthChart: Select the second birth chart
+semiannual: Semiannual
+sendResetLink: Send reset link
+serverUnavailable: We're making some improvements. Back in a moment!
+setAsPersonal: This is my theme
+settingsTitle: Settings
+sevenDaysFreeTrial: 7 days of free trial
+sharePdf: Share PDF
+signIn: Sign in
+signUp: Sign up
+standardAnnual: Standard - annual
+standardMonthly: Standard - monthly
+standardSemiannual: Standard - semiannual
+startFreeSevenDays: START FREE - 7 DAYS
+startNow: Start now
+subscribeSuccess: Successfully subscribed to newsletter
+subscribeToDaily: Subscribe to daily horoscope
+subscribeToMonthly: Subscribe to monthly horoscope
+subscriptionActivated: Subscription activated successfully!
+subscriptionActive: Active
+subscriptionAmount: Amount
+subscriptionCancelledSuccessfully: Subscription cancelled successfully
+subscriptionCancelsOn: Ends on
+subscriptionConfirmationFailed: Failed to confirm subscription. Please contact support.
+subscriptionEndDate: Renews on
+subscriptionIncomplete: Payment Incomplete
+subscriptionPastDue: Payment Overdue
+subscriptionRequiredForRegeneration: To regenerate this reading in another language you need a subscription (standard is enough)
+subscriptionStartDate: Started on
+subscriptionSuccessGoHome: Go to home
+subscriptionSuccessMessagePremium: Thank you for your support. You now have access to all features.
+subscriptionSuccessMessageStandard: Thank you for your support. You can now read unlimited birth charts.
+subscriptionSuccessTitle: Welcome to AstroGods!
+subscriptionSuccessTrialInfo: Your 7-day trial has started
+subscriptionTrialing: Trial
+subscriptionUnpaid: Payment Failed
+subtitlePart1: Align
+subtitlePart2: with your
+subtitlePart3: sky
+surname: surname
+swipeToView: Swipe to view
+synastriesCountPlural: ${count} saved synastries
+synastriesCountSingular: 1 saved synastry
+synastriesFilter: Synastries
+synastry: Synastry
+synastryBetween: Synastry between ${person1} and ${person2}
+synastryDescription: Synastry is the art of comparing two birth charts to understand the dynamics of a relationship.
+synastryGraph: Synastry chart
+synastryNotFound: Synastry not found
+synastryRemovedFromSaved: Synastry removed from saved
+systemMode: System
+termsOfService: Terms of Service
+theme: Theme
+thenPricePerMonth: Then ${price}/month
+timeOfBirth: Time of Birth
+transitDate: Transit date
+transitDescription: Transits are the movements of planets that, passing over natal sky positions, activate temporary astrological influences.
+transitFor: Transit for
+transitInformation: Transit information
+transitLocation: Transit location
+transitPeriod: Transit period
+transitRemovedFromSaved: Transit removed from saved
+tryAgain: Try again
+typeDeleteToConfirm: Type DELETE to confirm
+unknown: Unknown
+unknownErrorOccurred: Unknown error occurred
+unknownTime: Unknown
+unsubscribe: Unsubscribe
+unsubscribeError: Failed to unsubscribe
+unsubscribeSuccess: Successfully unsubscribed from newsletter
+unsubscribeSuccessMessage: You will no longer receive these emails. You can resubscribe anytime from your account settings.
+unveilHeart: Unveil the heart of a person through their birth chart
+updateNow: Update
+updatePaymentMethod: Update Payment Method
+updateRequired: Just a moment!
+updateSuccess: Newsletter updated successfully
+upgrade: Upgrade to Premium
+userDefinition: Indicates any natural person who uses AstroGods.
+userDefinitionTitle: User (or You)
+userNotFound: User not found
+viewChart: View chart
+viewPlans: View plans
+viewReading: View reading
+visitSource: Visit source
+waningCrescent: Waning crescent
+waningGibbous: Waning gibbous
+waxingCrescent: Waxing crescent
+waxingGibbous: Waxing gibbous
+welcomeBack: Welcome back!
+withoutBirthTimeWarning: Without the time of birth the reading will not take the Ascendant into account

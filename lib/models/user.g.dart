@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'user.dart';
@@ -23,6 +19,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
   birthLongitude: (json['birth_longitude'] as num?)?.toDouble(),
   birthPlace: json['birth_place'] as String?,
   unknownTime: json['unknown_time'] as bool?,
+  birthTimeFold: (json['birth_time_fold'] as num?)?.toInt(),
   profilePicture: json['profile_picture'] as String?,
   nightMode: json['night_mode'] as bool? ?? true,
   hasBirthData: json['has_birth_data'] as bool?,
@@ -40,6 +37,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
   'birth_longitude': instance.birthLongitude,
   'birth_place': instance.birthPlace,
   'unknown_time': instance.unknownTime,
+  'birth_time_fold': instance.birthTimeFold,
   'profile_picture': instance.profilePicture,
   'night_mode': instance.nightMode,
   'has_birth_data': instance.hasBirthData,

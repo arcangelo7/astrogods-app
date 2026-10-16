@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'birth_chart.dart';
@@ -19,6 +15,7 @@ BirthChart _$BirthChartFromJson(Map<String, dynamic> json) => BirthChart(
   longitude: (json['longitude'] as num).toDouble(),
   place: json['place'] as String?,
   unknownTime: json['unknown_time'] as bool? ?? false,
+  timeFold: (json['time_fold'] as num?)?.toInt(),
   isPersonal: json['is_personal'] as bool?,
   createdOn: json['created_on'] == null
       ? null
@@ -41,6 +38,7 @@ Map<String, dynamic> _$BirthChartToJson(BirthChart instance) =>
       'longitude': instance.longitude,
       'place': instance.place,
       'unknown_time': instance.unknownTime,
+      'time_fold': instance.timeFold,
       'is_personal': instance.isPersonal,
       'created_on': instance.createdOn?.toIso8601String(),
       'has_reading': instance.hasReading,

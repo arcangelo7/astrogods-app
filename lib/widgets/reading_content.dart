@@ -1,9 +1,6 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../models/birth_chart.dart';
 import '../models/synastry.dart';
 import '../models/transit.dart';
@@ -94,14 +91,10 @@ class ReadingContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (reading != null || generatedContent.isNotEmpty) ...[
-            FormattedMarkdownContent(
-              content: reading ?? generatedContent,
-            ),
+            FormattedMarkdownContent(content: reading ?? generatedContent),
             if (!isGenerating && reading != null && _canShowPdfButton) ...[
               const SizedBox(height: 24),
-              Center(
-                child: _buildPdfDownloadWidget(),
-              ),
+              Center(child: _buildPdfDownloadWidget()),
             ],
           ],
           if (isGenerating) ...[
@@ -118,9 +111,9 @@ class ReadingContent extends StatelessWidget {
                   const SizedBox(width: 12),
                   Text(
                     currentTopic.isNotEmpty
-                        ? AppLocalizations.of(context)!
-                            .generatingTopic(currentTopic)
-                        : AppLocalizations.of(context)!.generatingReading,
+                        ? Translations.of(context).ui
+                              .generatingTopic(topic: currentTopic)
+                        : Translations.of(context).ui.generatingReading,
                   ),
                 ],
               ),

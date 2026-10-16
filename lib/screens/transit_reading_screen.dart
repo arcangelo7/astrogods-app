@@ -1,11 +1,9 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:async';
-import 'package:flutter/material.dart';
+
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
 import '../mixins/subscription_loader_mixin.dart';
 import '../models/birth_chart.dart';
 import '../models/transit.dart';
@@ -21,7 +19,7 @@ import '../widgets/reading_content.dart';
 import '../widgets/reading_language_banner.dart';
 import '../widgets/pdf_download_widget.dart';
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class TransitReadingScreen extends StatefulWidget {
   final BirthChart birthChart;
@@ -112,7 +110,9 @@ class _TransitReadingScreenState extends State<TransitReadingScreen>
 
   void _handleRegenerate() {
     startRegeneration(
-      () => setState(() { _generatedContent = ''; }),
+      () => setState(() {
+        _generatedContent = '';
+      }),
       _generateReading,
     );
   }
@@ -125,11 +125,11 @@ class _TransitReadingScreenState extends State<TransitReadingScreen>
   }
 
   String get _readingTitle {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     if (widget.transitType == 'daily') {
-      return '${l10n.dailyPredictions} - ${widget.birthChart.fullName}';
+      return '${t.ui.dailyPredictions} - ${widget.birthChart.fullName}';
     } else {
-      return '${l10n.monthlyPredictions} - ${widget.birthChart.fullName}';
+      return '${t.ui.monthlyPredictions} - ${widget.birthChart.fullName}';
     }
   }
 
@@ -148,8 +148,9 @@ class _TransitReadingScreenState extends State<TransitReadingScreen>
         widget.date == null) {
       return null;
     }
-    final reading =
-        _generatedContent.isNotEmpty ? _generatedContent : widget.existingReading;
+    final reading = _generatedContent.isNotEmpty
+        ? _generatedContent
+        : widget.existingReading;
     if (reading == null) return null;
 
     return DailyTransitReading(
@@ -167,8 +168,9 @@ class _TransitReadingScreenState extends State<TransitReadingScreen>
         widget.month == null) {
       return null;
     }
-    final reading =
-        _generatedContent.isNotEmpty ? _generatedContent : widget.existingReading;
+    final reading = _generatedContent.isNotEmpty
+        ? _generatedContent
+        : widget.existingReading;
     if (reading == null) return null;
 
     return MonthlyTransitReading(
@@ -305,8 +307,10 @@ class _TransitReadingScreenState extends State<TransitReadingScreen>
       return _buildChartOnlyContent();
     }
 
-    final hasReading = _generatedContent.isNotEmpty || widget.existingReading != null;
-    final showBanner = hasReading &&
+    final hasReading =
+        _generatedContent.isNotEmpty || widget.existingReading != null;
+    final showBanner =
+        hasReading &&
         _currentReadingLanguage != null &&
         !_isGenerating &&
         !_hasError;
@@ -318,7 +322,8 @@ class _TransitReadingScreenState extends State<TransitReadingScreen>
           ReadingLanguageBanner(
             readingLanguage: _currentReadingLanguage!,
             hasSubscription: subscriptionStatus?.hasActiveSubscription ?? false,
-            hasPremiumSubscription: subscriptionStatus?.hasPremiumSubscription ?? false,
+            hasPremiumSubscription:
+                subscriptionStatus?.hasPremiumSubscription ?? false,
             requiresPremium: true,
             isLoadingSubscription: subscriptionStatus == null,
             onRegenerate: _handleRegenerate,
@@ -373,7 +378,7 @@ class _TransitReadingScreenState extends State<TransitReadingScreen>
   }
 
   Widget _buildErrorState(String error) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Center(
       child: Padding(
@@ -388,7 +393,7 @@ class _TransitReadingScreenState extends State<TransitReadingScreen>
             ),
             const SizedBox(height: 24),
             Text(
-              l10n.errorTitle,
+              t.ui.errorTitle,
               style: AppTextStyles.getH5Style(context),
               textAlign: TextAlign.center,
             ),
@@ -409,7 +414,7 @@ class _TransitReadingScreenState extends State<TransitReadingScreen>
                 _generateReading();
               },
               icon: const Icon(Icons.refresh),
-              label: Text(l10n.retry),
+              label: Text(t.ui.retry),
             ),
           ],
         ),

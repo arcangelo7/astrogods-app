@@ -1,12 +1,9 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../models/birth_chart.dart';
 import '../constants/text_styles.dart';
 import '../utils/date_utils.dart' as date_utils;
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class TransitHeader extends StatelessWidget {
   final BirthChart birthChart;
@@ -28,7 +25,7 @@ class TransitHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -37,8 +34,8 @@ class TransitHeader extends StatelessWidget {
           // Main title
           Text(
             transitType == 'daily'
-              ? l10n.dailyPredictions
-              : l10n.monthlyPredictions,
+                ? t.ui.dailyPredictions
+                : t.ui.monthlyPredictions,
             style: AppTextStyles.getH5Style(context),
             textAlign: TextAlign.center,
           ),
@@ -46,7 +43,7 @@ class TransitHeader extends StatelessWidget {
 
           // Subtitle with person name
           Text(
-            '${l10n.transitFor} ${birthChart.fullName}',
+            '${t.ui.transitFor} ${birthChart.fullName}',
             style: AppTextStyles.getSubtitleLargeStyle(context),
             textAlign: TextAlign.center,
           ),
@@ -55,13 +52,9 @@ class TransitHeader extends StatelessWidget {
           // Transit info layout
           Row(
             children: [
-              Expanded(
-                child: _buildPersonInfo(context, birthChart),
-              ),
+              Expanded(child: _buildPersonInfo(context, birthChart)),
               const SizedBox(width: 24),
-              Expanded(
-                child: _buildTransitInfo(context),
-              ),
+              Expanded(child: _buildTransitInfo(context)),
             ],
           ),
         ],
@@ -75,9 +68,8 @@ class TransitHeader extends StatelessWidget {
       children: [
         Text(
           birthChart.fullName,
-          style: AppTextStyles.getBodyStyle(context).copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+          style: AppTextStyles.getBodyStyle(context)
+              .copyWith(fontWeight: FontWeight.w600),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 8),
@@ -90,9 +82,8 @@ class TransitHeader extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             birthChart.place!,
-            style: AppTextStyles.getCaptionStyle(context).copyWith(
-              fontSize: 11,
-            ),
+            style: AppTextStyles.getCaptionStyle(context)
+                .copyWith(fontSize: 11),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -107,10 +98,11 @@ class TransitHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          transitType == 'daily' ? AppLocalizations.of(context)!.dailySkyOf : AppLocalizations.of(context)!.monthlySkyOf,
-          style: AppTextStyles.getBodyStyle(context).copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+          transitType == 'daily'
+              ? Translations.of(context).ui.dailySkyOf
+              : Translations.of(context).ui.monthlySkyOf,
+          style: AppTextStyles.getBodyStyle(context)
+              .copyWith(fontWeight: FontWeight.w600),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 8),
@@ -118,8 +110,8 @@ class TransitHeader extends StatelessWidget {
           transitType == 'daily' && date != null
               ? date_utils.DateUtils.formatDate(context, date!)
               : transitType == 'monthly' && year != null && month != null
-                  ? date_utils.DateUtils.formatMonthYear(context, month!, year!)
-                  : '',
+              ? date_utils.DateUtils.formatMonthYear(context, month!, year!)
+              : '',
           style: AppTextStyles.getCaptionStyle(context),
           textAlign: TextAlign.center,
         ),
@@ -127,9 +119,8 @@ class TransitHeader extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             location!,
-            style: AppTextStyles.getCaptionStyle(context).copyWith(
-              fontSize: 11,
-            ),
+            style: AppTextStyles.getCaptionStyle(context)
+                .copyWith(fontSize: 11),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

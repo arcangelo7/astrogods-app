@@ -1,20 +1,17 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 String translateConnectionError(BuildContext context, String errorMessage) {
-  final l10n = AppLocalizations.of(context)!;
+  final t = Translations.of(context);
 
   switch (errorMessage) {
     case 'connection_error':
-      return l10n.connectionError;
+      return t.ui.connectionError;
     case 'server_unavailable':
-      return l10n.serverUnavailable;
+      return t.ui.serverUnavailable;
     case 'connection_timeout':
-      return l10n.connectionTimeout;
+      return t.ui.connectionTimeout;
     default:
       return errorMessage;
   }

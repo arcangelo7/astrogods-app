@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2014 The Flutter Authors
- *
- * SPDX-License-Identifier: BSD-3-Clause
- */
-
 #ifndef FLUTTER_MY_APPLICATION_H_
 #define FLUTTER_MY_APPLICATION_H_
 

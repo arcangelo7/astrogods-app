@@ -1,8 +1,5 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:json_annotation/json_annotation.dart';
+
 import 'birth_chart.dart';
 
 part 'synastry.g.dart';
@@ -56,11 +53,13 @@ class Synastry {
     final processedJson = Map<String, dynamic>.from(json);
 
     if (json['birth_chart_a'] != null && json['birth_chart_a'] is! Map) {
-      processedJson['birth_chart_a'] = (json['birth_chart_a'] as BirthChart).toJson();
+      processedJson['birth_chart_a'] = (json['birth_chart_a'] as BirthChart)
+          .toJson();
     }
 
     if (json['birth_chart_b'] != null && json['birth_chart_b'] is! Map) {
-      processedJson['birth_chart_b'] = (json['birth_chart_b'] as BirthChart).toJson();
+      processedJson['birth_chart_b'] = (json['birth_chart_b'] as BirthChart)
+          .toJson();
     }
 
     return _$SynastryFromJson(processedJson);

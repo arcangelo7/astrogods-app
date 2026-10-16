@@ -1,8 +1,5 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:json_annotation/json_annotation.dart';
+
 import 'user.dart';
 
 part 'auth_request.g.dart';
@@ -41,6 +38,8 @@ class RegisterRequest {
   final String? birthPlaceId;
   @JsonKey(name: 'unknown_time')
   final bool? unknownTime;
+  @JsonKey(name: 'birth_time_fold')
+  final int? birthTimeFold;
 
   const RegisterRequest({
     required this.email,
@@ -54,6 +53,7 @@ class RegisterRequest {
     this.birthPlace,
     this.birthPlaceId,
     this.unknownTime,
+    this.birthTimeFold,
   });
 
   factory RegisterRequest.fromJson(Map<String, dynamic> json) =>
@@ -68,12 +68,15 @@ class AuthResponse {
   final String? message;
   final User? user;
   final String? token;
+  @JsonKey(name: 'error_key')
+  final String? errorKey;
 
   const AuthResponse({
     required this.success,
     this.message,
     this.user,
     this.token,
+    this.errorKey,
   });
 
   factory AuthResponse.fromJson(Map<String, dynamic> json) =>

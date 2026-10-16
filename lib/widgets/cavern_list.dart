@@ -1,20 +1,17 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
+
 import '../models/cavern_details.dart';
 import '../services/cavern_details_service.dart';
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class CavernList extends StatelessWidget {
   const CavernList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final cavernDetails = CavernDetailsService.getAllCavernDetails(context);
 
     return Column(
@@ -23,15 +20,8 @@ class CavernList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            l10n.bookOfCaverns,
+            t.codex.bookOfCaverns,
             style: AppTextStyles.getH4Style(context),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            l10n.bookOfCavernsDescription,
-            style: AppTextStyles.getBodyStyle(context),
           ),
         ),
         const SizedBox(height: 16),
@@ -41,8 +31,7 @@ class CavernList extends StatelessWidget {
             (c) => c.houseNumber == houseNumber,
             orElse: () => CavernDetails(
               houseNumber: houseNumber,
-              title: l10n.cavernComingSoon(houseNumber),
-              introduction: '',
+              title: t.caverns.cavernComingSoon(number: houseNumber),
               literalMeaning: '',
               esotericMeaning: '',
               imagePath: '',
@@ -75,11 +64,11 @@ class CavernList extends StatelessWidget {
                 ),
                 subtitle: isAvailable
                     ? Text(
-                        l10n.tapToExploreCavern,
+                        t.caverns.tapToExploreCavern,
                         style: AppTextStyles.getCaptionStyle(context),
                       )
                     : Text(
-                        l10n.contentComingSoon,
+                        t.codex.contentComingSoon,
                         style: AppTextStyles.getCaptionStyle(context).copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
@@ -97,7 +86,9 @@ class CavernList extends StatelessWidget {
                       ),
                 enabled: isAvailable,
                 onTap: isAvailable
-                    ? () => context.push('/codex/cavern/$houseNumber')
+                    ? () => context.push(
+                        '/codex/domification/book-of-caves/cavern/$houseNumber',
+                      )
                     : null,
               ),
               if (index < 11) const Divider(height: 1),

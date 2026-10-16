@@ -1,11 +1,9 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 import '../constants/colors.dart';
 
 class StarryNightBackground extends StatefulWidget {
@@ -55,7 +53,8 @@ class _StarLayer {
 
     for (int i = 0; i < count; i++) {
       positions[i * 2] = random.nextDouble() * size.width * widthMultiplier;
-      positions[i * 2 + 1] = random.nextDouble() * size.height * heightMultiplier;
+      positions[i * 2 + 1] =
+          random.nextDouble() * size.height * heightMultiplier;
     }
     return positions;
   }
@@ -94,10 +93,7 @@ class _StarryNightBackgroundState extends State<StarryNightBackground>
         ? const Duration(minutes: 3)
         : const Duration(seconds: 60);
 
-    _animationController = AnimationController(
-      duration: duration,
-      vsync: this,
-    );
+    _animationController = AnimationController(duration: duration, vsync: this);
 
     if (!widget.subtle) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -139,8 +135,8 @@ class _StarryNightBackgroundState extends State<StarryNightBackground>
         starSize: widget.subtle ? 0.6 : 1.0,
         color: isDark
             ? (widget.subtle
-                ? Colors.white.withValues(alpha: 0.12)
-                : Colors.white)
+                  ? Colors.white.withValues(alpha: 0.12)
+                  : Colors.white)
             : AppColors.lightSecondary.withValues(alpha: 0.4),
         speedMultiplier: 1.0,
         phaseOffset: 0.0,
@@ -153,8 +149,8 @@ class _StarryNightBackgroundState extends State<StarryNightBackground>
         starSize: widget.subtle ? 1.0 : 1.5,
         color: isDark
             ? (widget.subtle
-                ? Colors.white.withValues(alpha: 0.18)
-                : Colors.white)
+                  ? Colors.white.withValues(alpha: 0.18)
+                  : Colors.white)
             : AppColors.lightSecondary.withValues(alpha: 0.5),
         speedMultiplier: 0.5,
         phaseOffset: 0.33,
@@ -167,8 +163,8 @@ class _StarryNightBackgroundState extends State<StarryNightBackground>
         starSize: widget.subtle ? 1.4 : 3.0,
         color: isDark
             ? (widget.subtle
-                ? Colors.white.withValues(alpha: 0.25)
-                : Colors.white)
+                  ? Colors.white.withValues(alpha: 0.25)
+                  : Colors.white)
             : AppColors.lightSecondary.withValues(alpha: 0.6),
         speedMultiplier: 0.33,
         phaseOffset: 0.66,
@@ -181,7 +177,9 @@ class _StarryNightBackgroundState extends State<StarryNightBackground>
 
   Future<void> _renderPlanetCache(Size size, bool isDark, double dpr) async {
     if (_isRenderingCache) return;
-    if (_cachedImageSize == size && _cachedImageIsDark == isDark && _cachedPlanetImage != null) {
+    if (_cachedImageSize == size &&
+        _cachedImageIsDark == isDark &&
+        _cachedPlanetImage != null) {
       return;
     }
 
@@ -231,7 +229,9 @@ class _StarryNightBackgroundState extends State<StarryNightBackground>
     );
 
     final paint = Paint()
-      ..shader = gradient.createShader(Rect.fromLTWH(0, 0, size.width, size.height));
+      ..shader = gradient.createShader(
+        Rect.fromLTWH(0, 0, size.width, size.height),
+      );
 
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
   }
@@ -246,12 +246,14 @@ class _StarryNightBackgroundState extends State<StarryNightBackground>
         final size = Size(constraints.maxWidth, constraints.maxHeight);
         _initializeStarLayers(size, isDark);
 
-        final hasValidConstraints = constraints.maxWidth.isFinite &&
+        final hasValidConstraints =
+            constraints.maxWidth.isFinite &&
             constraints.maxHeight.isFinite &&
             constraints.maxWidth > 0 &&
             constraints.maxHeight > 0;
 
-        final needsCacheUpdate = _cachedImageSize != size ||
+        final needsCacheUpdate =
+            _cachedImageSize != size ||
             _cachedImageIsDark != isDark ||
             _cachedPlanetImage == null;
 
@@ -322,8 +324,10 @@ class _PlanetExclusionClipper extends CustomClipper<Path> {
     final planetRadius = _PlanetGeometry.getPlanetRadius(size);
     final center = _PlanetGeometry.getCenter(size);
 
-    final screenPath = Path()..addRect(Rect.fromLTWH(0, 0, size.width, size.height));
-    final planetPath = Path()..addOval(Rect.fromCircle(center: center, radius: planetRadius));
+    final screenPath = Path()
+      ..addRect(Rect.fromLTWH(0, 0, size.width, size.height));
+    final planetPath = Path()
+      ..addOval(Rect.fromCircle(center: center, radius: planetRadius));
 
     return Path.combine(PathOperation.difference, screenPath, planetPath);
   }
@@ -371,7 +375,10 @@ class _OptimizedStarPainter extends CustomPainter {
     }
   }
 
-  Float32List _computeVisiblePositions(_StarLayer layer, double layerAnimValue) {
+  Float32List _computeVisiblePositions(
+    _StarLayer layer,
+    double layerAnimValue,
+  ) {
     final yOffset = layerAnimValue * canvasSize.height * 2;
     final visible = <double>[];
     final starSize = layer.starSize;

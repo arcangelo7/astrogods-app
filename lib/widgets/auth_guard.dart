@@ -1,10 +1,7 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
 import '../providers/auth_provider.dart';
 import '../utils/snackbar_utils.dart';
 
@@ -57,9 +54,7 @@ class _AuthGuardState extends State<AuthGuard> {
         }
 
         // Show loading while redirect is happening
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        );
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
       },
     );
   }

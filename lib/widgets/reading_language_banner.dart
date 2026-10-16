@@ -1,12 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 import '../config/router.dart' show AppRouter;
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class ReadingLanguageBanner extends StatelessWidget {
   final String readingLanguage;
@@ -36,12 +32,12 @@ class ReadingLanguageBanner extends StatelessWidget {
   }
 
   String _getLanguageName(BuildContext context, String code) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     switch (code.toLowerCase()) {
       case 'it':
-        return l10n.languageItalian;
+        return t.ui.languageItalian;
       case 'en':
-        return l10n.languageEnglish;
+        return t.ui.languageEnglish;
       default:
         return code.toUpperCase();
     }
@@ -51,10 +47,7 @@ class ReadingLanguageBanner extends StatelessWidget {
     return SizedBox(
       width: 16,
       height: 16,
-      child: CircularProgressIndicator(
-        strokeWidth: 2,
-        color: color,
-      ),
+      child: CircularProgressIndicator(strokeWidth: 2, color: color),
     );
   }
 
@@ -65,7 +58,7 @@ class ReadingLanguageBanner extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final readingLangName = _getLanguageName(context, readingLanguage);
     final currentLangName = _getLanguageName(context, currentLang);
 
@@ -79,7 +72,8 @@ class ReadingLanguageBanner extends StatelessWidget {
             color: Theme.of(context).colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+              color: Theme.of(context).colorScheme.outline
+                  .withValues(alpha: 0.3),
             ),
           ),
           child: Column(
@@ -95,7 +89,7 @@ class ReadingLanguageBanner extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      l10n.readingGeneratedIn(readingLangName),
+                      t.ui.readingGeneratedIn(language: readingLangName),
                       style: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -111,8 +105,14 @@ class ReadingLanguageBanner extends StatelessWidget {
                   child: TextButton(
                     onPressed: isRegenerating ? null : onRegenerate,
                     child: isRegenerating
-                        ? _buildSmallLoader(Theme.of(context).colorScheme.primary)
-                        : Text(l10n.regenerateInLanguage(currentLangName)),
+                        ? _buildSmallLoader(
+                            Theme.of(context).colorScheme.primary,
+                          )
+                        : Text(
+                            t.ui.regenerateInLanguage(
+                              language: currentLangName,
+                            ),
+                          ),
                   ),
                 ),
               ],
@@ -127,8 +127,8 @@ class ReadingLanguageBanner extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   requiresPremium
-                      ? l10n.premiumRequiredForRegeneration
-                      : l10n.subscriptionRequiredForRegeneration,
+                      ? t.ui.premiumRequiredForRegeneration
+                      : t.ui.subscriptionRequiredForRegeneration,
                   style: TextStyle(
                     fontSize: 14,
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -139,7 +139,7 @@ class ReadingLanguageBanner extends StatelessWidget {
                   width: double.infinity,
                   child: TextButton(
                     onPressed: () => context.push(AppRouter.subscriptionPlans),
-                    child: Text(l10n.viewPlans),
+                    child: Text(t.ui.viewPlans),
                   ),
                 ),
               ],

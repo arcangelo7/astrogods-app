@@ -1,15 +1,12 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
+
 import '../constants/text_styles.dart';
 import '../constants/colors.dart';
 
 class AppTheme {
   static const Color _seedColor = AppColors.seedColor;
-  
+
   static ThemeData buildDarkTheme(ColorScheme scheme) {
     return ThemeData(
       useMaterial3: true,
@@ -73,13 +70,17 @@ class AppTheme {
         iconTheme: WidgetStateProperty.resolveWith((states) {
           final bool selected = states.contains(WidgetState.selected);
           return IconThemeData(
-            color: selected ? scheme.onSecondary : scheme.onSurface.withValues(alpha: 0.7),
+            color: selected
+                ? scheme.onSecondary
+                : scheme.onSurface.withValues(alpha: 0.7),
           );
         }),
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           final bool selected = states.contains(WidgetState.selected);
           return TextStyle(
-            color: selected ? scheme.onSurface : scheme.onSurface.withValues(alpha: 0.7),
+            color: selected
+                ? scheme.onSurface
+                : scheme.onSurface.withValues(alpha: 0.7),
             fontWeight: selected ? AppTextStyles.bold : AppTextStyles.medium,
           );
         }),
@@ -156,13 +157,17 @@ class AppTheme {
         iconTheme: WidgetStateProperty.resolveWith((states) {
           final bool selected = states.contains(WidgetState.selected);
           return IconThemeData(
-            color: selected ? scheme.onPrimary : scheme.onSurface.withValues(alpha: 0.7),
+            color: selected
+                ? scheme.onPrimary
+                : scheme.onSurface.withValues(alpha: 0.7),
           );
         }),
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           final bool selected = states.contains(WidgetState.selected);
           return TextStyle(
-            color: selected ? scheme.primary : scheme.onSurface.withValues(alpha: 0.7),
+            color: selected
+                ? scheme.primary
+                : scheme.onSurface.withValues(alpha: 0.7),
             fontWeight: selected ? AppTextStyles.bold : AppTextStyles.medium,
           );
         }),
@@ -176,15 +181,11 @@ class AppTheme {
     );
   }
 
-  static ColorScheme get darkScheme => ColorScheme.fromSeed(
-    seedColor: _seedColor,
-    brightness: Brightness.dark,
-  );
+  static ColorScheme get darkScheme =>
+      ColorScheme.fromSeed(seedColor: _seedColor, brightness: Brightness.dark);
 
-  static ColorScheme get lightScheme => ColorScheme.fromSeed(
-    seedColor: _seedColor,
-    brightness: Brightness.light,
-  );
+  static ColorScheme get lightScheme =>
+      ColorScheme.fromSeed(seedColor: _seedColor, brightness: Brightness.light);
 
   static ThemeData get darkTheme => buildDarkTheme(darkScheme);
   static ThemeData get lightTheme => buildLightTheme(lightScheme);

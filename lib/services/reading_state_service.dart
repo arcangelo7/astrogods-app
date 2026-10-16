@@ -1,9 +1,7 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
+
 import '../models/reading.dart';
 import 'api_client.dart';
 
@@ -54,7 +52,12 @@ class ReadingStateService extends ChangeNotifier {
     return _svgCache[_svgKey(type, id)];
   }
 
-  void cacheDetailsSvg(String type, int id, String svg, {required bool darkMode}) {
+  void cacheDetailsSvg(
+    String type,
+    int id,
+    String svg, {
+    required bool darkMode,
+  }) {
     _detailsSvgCache[_svgKeyWithMode(type, id, darkMode)] = svg;
   }
 
@@ -62,11 +65,20 @@ class ReadingStateService extends ChangeNotifier {
     return _detailsSvgCache[_svgKeyWithMode(type, id, darkMode)];
   }
 
-  void cacheAspectGridSvg(String type, int id, String svg, {required bool darkMode}) {
+  void cacheAspectGridSvg(
+    String type,
+    int id,
+    String svg, {
+    required bool darkMode,
+  }) {
     _aspectGridSvgCache[_svgKeyWithMode(type, id, darkMode)] = svg;
   }
 
-  String? getCachedAspectGridSvg(String type, int id, {required bool darkMode}) {
+  String? getCachedAspectGridSvg(
+    String type,
+    int id, {
+    required bool darkMode,
+  }) {
     return _aspectGridSvgCache[_svgKeyWithMode(type, id, darkMode)];
   }
 
@@ -290,7 +302,8 @@ class _ReadingState {
       hasError: hasError ?? this.hasError,
       error: error ?? this.error,
       errorKey: errorKey ?? this.errorKey,
-      isSubscriptionRequired: isSubscriptionRequired ?? this.isSubscriptionRequired,
+      isSubscriptionRequired:
+          isSubscriptionRequired ?? this.isSubscriptionRequired,
     );
   }
 }

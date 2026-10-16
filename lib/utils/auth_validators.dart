@@ -1,26 +1,22 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class AuthValidators {
-  static String? validateEmail(String? value, AppLocalizations l10n) {
+  static String? validateEmail(String? value, Translations t) {
     if (value == null || value.isEmpty) {
-      return l10n.pleaseFillAllFields;
+      return t.ui.pleaseFillAllFields;
     }
     if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-      return l10n.invalidEmail;
+      return t.ui.invalidEmail;
     }
     return null;
   }
 
-  static String? validatePassword(String? value, AppLocalizations l10n) {
+  static String? validatePassword(String? value, Translations t) {
     if (value == null || value.isEmpty) {
-      return l10n.pleaseFillAllFields;
+      return t.ui.pleaseFillAllFields;
     }
     if (value.length < 8) {
-      return l10n.passwordTooShort;
+      return t.ui.passwordTooShort;
     }
     return null;
   }
@@ -28,20 +24,20 @@ class AuthValidators {
   static String? validateConfirmPassword(
     String? value,
     String originalPassword,
-    AppLocalizations l10n,
+    Translations t,
   ) {
     if (value == null || value.isEmpty) {
-      return l10n.pleaseFillAllFields;
+      return t.ui.pleaseFillAllFields;
     }
     if (value != originalPassword) {
-      return l10n.passwordsDoNotMatch;
+      return t.ui.passwordsDoNotMatch;
     }
     return null;
   }
 
-  static String? validateRequiredField(String? value, AppLocalizations l10n) {
+  static String? validateRequiredField(String? value, Translations t) {
     if (value == null || value.isEmpty) {
-      return l10n.pleaseFillAllFields;
+      return t.ui.pleaseFillAllFields;
     }
     return null;
   }

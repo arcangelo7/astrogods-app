@@ -1,14 +1,13 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../models/subscription.dart';
 import 'api_client.dart';
+
 import 'package:webview_flutter/webview_flutter.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import 'loopback_server.dart';
 
 class SubscriptionService {
@@ -16,8 +15,8 @@ class SubscriptionService {
   final BuildContext? _context;
 
   SubscriptionService({BuildContext? context})
-      : _apiClient = ApiClient(context: context),
-        _context = context;
+    : _apiClient = ApiClient(context: context),
+      _context = context;
 
   Future<SubscriptionStatusResponse> getSubscriptionStatus() async {
     try {
@@ -34,7 +33,8 @@ class SubscriptionService {
 
   Future<void> openCustomerPortal({String? priceId}) async {
     try {
-      final isDesktop = !kIsWeb &&
+      final isDesktop =
+          !kIsWeb &&
           (defaultTargetPlatform == TargetPlatform.linux ||
               defaultTargetPlatform == TargetPlatform.windows ||
               defaultTargetPlatform == TargetPlatform.macOS);
@@ -43,10 +43,10 @@ class SubscriptionService {
       LoopbackServer? server;
 
       if (isDesktop && _context != null) {
-        final l10n = AppLocalizations.of(_context)!;
+        final t = Translations.of(_context);
         server = LoopbackServer(
-          title: l10n.portalReturnTitle,
-          message: l10n.portalReturnMessage,
+          title: t.ui.portalReturnTitle,
+          message: t.ui.portalReturnMessage,
         );
         returnUrl = await server.start();
       }
@@ -64,8 +64,10 @@ class SubscriptionService {
 
       if (kIsWeb) {
         final uri = Uri.parse(url);
-        final launched =
-            await launchUrl(uri, mode: LaunchMode.externalApplication);
+        final launched = await launchUrl(
+          uri,
+          mode: LaunchMode.externalApplication,
+        );
         if (!launched) {
           throw Exception('Cannot open URL');
         }
@@ -147,20 +149,17 @@ class _CustomerPortalWebViewState extends State<_CustomerPortalWebView> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.manageSubscription),
+        title: Text(t.ui.manageSubscription),
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: Stack(
         children: [
           WebViewWidget(controller: _controller),
-          if (_isLoading)
-            const Center(
-              child: CircularProgressIndicator(),
-            ),
+          if (_isLoading) const Center(child: CircularProgressIndicator()),
         ],
       ),
     );

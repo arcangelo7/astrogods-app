@@ -1,9 +1,6 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
+
 import '../widgets/starry_night_background.dart';
 import '../widgets/gradient_button.dart';
 import '../widgets/birth_chart_selector.dart';
@@ -16,7 +13,7 @@ import '../services/birth_chart_service.dart';
 import '../services/api_client.dart';
 import '../utils/snackbar_utils.dart';
 import '../utils/session_utils.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../widgets/mystical_checkbox.dart';
 
 class RelationshipsScreen extends StatefulWidget {
@@ -103,7 +100,7 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
     if (_selectedChartA!.id == _selectedChartB!.id) {
       SnackbarUtils.showError(
         context,
-        AppLocalizations.of(context)!.birthChartsMustBeDifferent,
+        Translations.of(context).ui.birthChartsMustBeDifferent,
       );
       return;
     }
@@ -152,6 +149,7 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
       showPlanet: false,
       subtle: true,
       child: SafeArea(
+        bottom: false,
         child: LayoutBuilder(
           builder: (context, constraints) {
             // Sottrai l'altezza della bottom navigation (circa 80px) per centrare solo nella porzione visibile
@@ -162,34 +160,32 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
                 vertical: 8.0,
               ),
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: availableHeight - 16.0,
-                ),
+                constraints: BoxConstraints(minHeight: availableHeight - 16.0),
                 child: _isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : _error != null
-                      ? Center(child: _buildErrorState())
-                      : _savedCharts.length < 2
-                      ? Center(child: _buildEmptyState())
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 8),
+                    ? const Center(child: CircularProgressIndicator())
+                    : _error != null
+                    ? Center(child: _buildErrorState())
+                    : _savedCharts.length < 2
+                    ? Center(child: _buildEmptyState())
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 8),
 
-                            Text(
-                              AppLocalizations.of(
-                                context,
-                              )!.discoverHeartOfRelationship,
-                              style: AppTextStyles.getH4Style(context),
-                              textAlign: TextAlign.center,
-                            ),
+                          Text(
+                            Translations.of(context)
+                                .ui
+                                .discoverHeartOfRelationship,
+                            style: AppTextStyles.getH4Style(context),
+                            textAlign: TextAlign.center,
+                          ),
 
-                            const SizedBox(height: 40),
+                          const SizedBox(height: 40),
 
-                            _buildSynastryForm(),
+                          _buildSynastryForm(),
 
-                            const SizedBox(height: 24),
-                          ],
+                          const SizedBox(height: 24),
+                        ],
                       ),
               ),
             );
@@ -216,7 +212,7 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
         ),
         const SizedBox(height: 24),
         GradientButton(
-          text: AppLocalizations.of(context)!.tryAgain,
+          text: Translations.of(context).ui.tryAgain,
           onPressed: _loadSavedCharts,
         ),
       ],
@@ -224,17 +220,17 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
   }
 
   Widget _buildEmptyState() {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     // Check how many charts we have
     if (_savedCharts.length == 1) {
       // We have one chart, need one more
       return EmptyStateWidget(
         icon: Icons.person_add_outlined,
-        title: l10n.oneMoreChartNeeded,
-        description: l10n.needTwoBirthChartsForSynastry,
+        title: t.ui.oneMoreChartNeeded,
+        description: t.ui.needTwoBirthChartsForSynastry,
         primaryAction: GradientButton(
-          text: l10n.createSecondChart,
+          text: t.ui.createSecondChart,
           onPressed: _showCreateDialog,
         ),
       );
@@ -242,10 +238,10 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
       // We have no charts
       return EmptyStateWidget(
         icon: Icons.people_outline,
-        title: l10n.noSavedBirthCharts,
-        description: l10n.needTwoBirthChartsForSynastry,
+        title: t.ui.noSavedBirthCharts,
+        description: t.ui.needTwoBirthChartsForSynastry,
         primaryAction: GradientButton(
-          text: l10n.createFirstChart,
+          text: t.ui.createFirstChart,
           onPressed: _showCreateDialog,
         ),
       );
@@ -259,22 +255,21 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
         children: [
           // Persona A selector
           Text(
-            AppLocalizations.of(context)!.personA,
-            style: AppTextStyles.getBodyStyle(
-              context,
-            ).copyWith(fontWeight: FontWeight.w600),
+            Translations.of(context).ui.personA,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           BirthChartSelector(
-            labelText: AppLocalizations.of(context)!.selectFirstBirthChart,
+            labelText: Translations.of(context).ui.selectFirstBirthChart,
             selectedChart: _selectedChartA,
             excludeChartIds: _selectedChartB != null
                 ? [_selectedChartB!.id]
                 : [],
             validator: (chart) {
               if (chart == null) {
-                return AppLocalizations.of(context)!.pleaseSelectBirthChart;
+                return Translations.of(context).ui.pleaseSelectBirthChart;
               }
               return null;
             },
@@ -294,22 +289,21 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
 
           // Persona B selector
           Text(
-            AppLocalizations.of(context)!.personB,
-            style: AppTextStyles.getBodyStyle(
-              context,
-            ).copyWith(fontWeight: FontWeight.w600),
+            Translations.of(context).ui.personB,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           BirthChartSelector(
-            labelText: AppLocalizations.of(context)!.selectSecondBirthChart,
+            labelText: Translations.of(context).ui.selectSecondBirthChart,
             selectedChart: _selectedChartB,
             excludeChartIds: _selectedChartA != null
                 ? [_selectedChartA!.id]
                 : [],
             validator: (chart) {
               if (chart == null) {
-                return AppLocalizations.of(context)!.pleaseSelectBirthChart;
+                return Translations.of(context).ui.pleaseSelectBirthChart;
               }
               return null;
             },
@@ -323,7 +317,7 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
           const SizedBox(height: 16),
 
           MysticalCheckbox(
-            title: AppLocalizations.of(context)!.chartOnlyMode,
+            title: Translations.of(context).ui.chartOnlyMode,
             value: _chartOnly,
             onChanged: (value) {
               setState(() {
@@ -337,8 +331,8 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
           // Create button
           GradientButton(
             text: _isCreating
-                ? AppLocalizations.of(context)!.creating
-                : AppLocalizations.of(context)!.createSynastry,
+                ? Translations.of(context).ui.creating
+                : Translations.of(context).ui.createSynastry,
             onPressed: !_isCreating ? _createSynastry : () {},
           ),
 
@@ -346,11 +340,10 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
 
           // Info text
           Text(
-            AppLocalizations.of(context)!.synastryDescription,
+            Translations.of(context).ui.synastryDescription,
             style: AppTextStyles.getCaptionStyle(context).copyWith(
-              color: Theme.of(
-                context,
-              ).colorScheme.onSurface.withValues(alpha: 0.7),
+              color: Theme.of(context).colorScheme.onSurface
+                  .withValues(alpha: 0.7),
             ),
             textAlign: TextAlign.center,
           ),

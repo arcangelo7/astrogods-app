@@ -1,19 +1,17 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart'
     show SystemChrome, SystemUiMode, SystemUiOverlayStyle, Brightness;
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:provider/provider.dart';
+
 import 'web_url_strategy_stub.dart'
     if (dart.library.html) 'package:flutter_web_plugins/url_strategy.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'l10n/app_localizations.dart';
+
+import 'i18n/translations.g.dart';
 import 'providers/language_provider.dart';
 import 'providers/theme_provider.dart';
 import 'providers/auth_provider.dart';
@@ -33,13 +31,8 @@ void main() async {
 
   GoRouter.optionURLReflectsImperativeAPIs = true;
 
+  await LiquidGlassWidgets.initialize();
   await Environment.init();
-
-  if (!kIsWeb) {
-    // Stripe.publishableKey is set lazily in StripeService.getConfig()
-    // TODO: Register a Merchant ID in Apple Developer Console for Apple Pay on iOS
-    Stripe.merchantIdentifier = 'merchant.com.astrogods.app';
-  }
 
   if (!kIsWeb &&
       (defaultTargetPlatform == TargetPlatform.windows ||
@@ -72,13 +65,15 @@ void main() async {
 // coverage:ignore-end
 
 Widget createApp() {
-  return MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => LanguageProvider()),
-      ChangeNotifierProvider(create: (_) => ThemeProvider()),
-      ChangeNotifierProvider(create: (_) => AuthProvider()),
-    ],
-    child: const AstroGodsApp(),
+  return TranslationProvider(
+    child: MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ],
+      child: const AstroGodsApp(),
+    ),
   );
 }
 
@@ -159,31 +154,29 @@ class _AstroGodsAppState extends State<AstroGodsApp> {
 
         return MaterialApp.router(
           title: 'AstroGods',
+          debugShowCheckedModeBanner: false,
           locale: languageProvider.currentLocale,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: themeProvider.themeMode,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('it')],
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
+          supportedLocales: AppLocaleUtils.supportedLocales,
           routerConfig: _router,
           builder: (context, child) {
-            if (_isDesktop && child != null) {
+            // ignore: deprecated_member_use
+            final page = MaterialUiCompatibilityBridge(child: child!);
+            if (_isDesktop) {
               return Container(
                 color: Colors.transparent,
                 child: Column(
                   children: [
                     CustomTitleBar(title: 'AstroGods'),
-                    Expanded(child: child),
+                    Expanded(child: page),
                   ],
                 ),
               );
             }
-            return child ?? const SizedBox.shrink();
+            return page;
           },
         );
       },

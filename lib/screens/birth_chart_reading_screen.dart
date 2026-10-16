@@ -1,11 +1,9 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:async';
-import 'package:flutter/material.dart';
+
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
 import '../mixins/subscription_loader_mixin.dart';
 import '../models/birth_chart.dart';
 import '../providers/theme_provider.dart';
@@ -20,7 +18,7 @@ import '../widgets/reading_content.dart';
 import '../widgets/reading_language_banner.dart';
 import '../widgets/pdf_download_widget.dart';
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class BirthChartReadingScreen extends StatefulWidget {
   final BirthChart birthChart;
@@ -132,7 +130,7 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen>
           !_readingStateService.hasError(chartId)) {
         SnackbarUtils.showSuccess(
           context,
-          AppLocalizations.of(context)!.readingGeneratedSuccessfully,
+          Translations.of(context).ui.readingGeneratedSuccessfully,
         );
         onRegenerationComplete();
       }
@@ -190,9 +188,8 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen>
       personAName: widget.birthChart.fullName,
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(
-            context,
-          )!.birthChartOf(widget.birthChart.fullName),
+          Translations.of(context).ui
+              .birthChartOf(name: widget.birthChart.fullName),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -227,7 +224,8 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen>
     final currentTopic = _readingStateService.getCurrentTopic(chartId);
     final error = _readingStateService.getError(chartId);
 
-    final showBanner = reading != null &&
+    final showBanner =
+        reading != null &&
         reading.language != null &&
         !isGenerating &&
         !hasError;
@@ -239,7 +237,8 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen>
           ReadingLanguageBanner(
             readingLanguage: reading.language!,
             hasSubscription: subscriptionStatus?.hasActiveSubscription ?? false,
-            hasPremiumSubscription: subscriptionStatus?.hasPremiumSubscription ?? false,
+            hasPremiumSubscription:
+                subscriptionStatus?.hasPremiumSubscription ?? false,
             requiresPremium: false,
             isLoadingSubscription: subscriptionStatus == null,
             onRegenerate: _handleRegenerate,
@@ -256,7 +255,9 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen>
           errorStateBuilder: (error) => _buildErrorState(error),
           birthChart: widget.birthChart,
           readingModel: reading,
-          isSubscriptionRequired: _readingStateService.isSubscriptionRequired(chartId),
+          isSubscriptionRequired: _readingStateService.isSubscriptionRequired(
+            chartId,
+          ),
         ),
       ],
     );
@@ -283,7 +284,7 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen>
             child: CircularProgressIndicator(strokeWidth: 2),
           ),
           const SizedBox(width: 12),
-          Text(AppLocalizations.of(context)!.preparingReading),
+          Text(Translations.of(context).ui.preparingReading),
         ],
       ),
     );
@@ -303,7 +304,7 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen>
             ),
             const SizedBox(height: 24),
             Text(
-              AppLocalizations.of(context)!.errorTitle,
+              Translations.of(context).ui.errorTitle,
               style: AppTextStyles.getH5Style(context),
               textAlign: TextAlign.center,
             ),
@@ -320,7 +321,7 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen>
                 _generateReading();
               },
               icon: const Icon(Icons.refresh),
-              label: Text(AppLocalizations.of(context)!.retry),
+              label: Text(Translations.of(context).ui.retry),
             ),
           ],
         ),

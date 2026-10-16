@@ -1,13 +1,10 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
+
 import '../models/synastry.dart';
 import '../services/synastry_service.dart';
 import '../widgets/starry_night_background.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import 'synastry_reading_screen.dart';
 
 class SynastryReadingWrapper extends StatefulWidget {
@@ -64,15 +61,13 @@ class _SynastryReadingWrapperState extends State<SynastryReadingWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     if (_isLoading) {
       return Scaffold(
         body: StarryNightBackground(
           showPlanet: false,
           subtle: true,
-          child: const Center(
-            child: CircularProgressIndicator(),
-          ),
+          child: const Center(child: CircularProgressIndicator()),
         ),
       );
     }
@@ -86,20 +81,16 @@ class _SynastryReadingWrapperState extends State<SynastryReadingWrapper> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.error_outline,
-                  size: 64,
-                  color: Colors.red,
-                ),
+                const Icon(Icons.error_outline, size: 64, color: Colors.red),
                 const SizedBox(height: 16),
                 Text(
-                  _error ?? l10n.synastryNotFound,
+                  _error ?? t.ui.synastryNotFound,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () => context.go('/'),
-                  child: Text(l10n.goToHome),
+                  child: Text(t.ui.goToHome),
                 ),
               ],
             ),

@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
 
@@ -13,7 +10,8 @@ class TermsAndConditionsScreen extends StatefulWidget {
   const TermsAndConditionsScreen({super.key});
 
   @override
-  State<TermsAndConditionsScreen> createState() => _TermsAndConditionsScreenState();
+  State<TermsAndConditionsScreen> createState() =>
+      _TermsAndConditionsScreenState();
 }
 
 class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
@@ -22,23 +20,23 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   int _selectedIndex = 0;
   bool _isScrollingToSection = false;
 
-  List<String> _getSections(AppLocalizations l10n) {
+  List<String> _getSections(Translations t) {
     return [
-      l10n.termsIntroductionSection,
-      l10n.astrologicalServiceNatureSection,
-      l10n.termsOfUseSection,
-      l10n.differentiatedLicensingSection,
-      l10n.salesTermsSection,
-      l10n.deliverySection,
-      l10n.contractDurationSection,
-      l10n.userRightsSection,
-      l10n.liabilitySection,
-      l10n.commonProvisionsSection,
-      l10n.disputeResolutionSection,
-      l10n.privacyPolicySection,
-      l10n.cookiesAndTrackingSection,
-      l10n.definitionsSection,
-      l10n.contactUsSection,
+      t.legal.termsIntroductionSection,
+      t.legal.astrologicalServiceNatureSection,
+      t.legal.termsOfUseSection,
+      t.legal.differentiatedLicensingSection,
+      t.legal.salesTermsSection,
+      t.legal.deliverySection,
+      t.legal.contractDurationSection,
+      t.legal.userRightsSection,
+      t.legal.liabilitySection,
+      t.legal.commonProvisionsSection,
+      t.legal.disputeResolutionSection,
+      t.legal.privacyPolicySection,
+      t.legal.cookiesAndTrackingSection,
+      t.legal.definitionsSection,
+      t.legal.contactUsSection,
     ];
   }
 
@@ -79,20 +77,21 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   void _onScroll() {
     if (_isScrollingToSection) return;
 
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
-    
+    final t = Translations.of(context);
+    final sections = _getSections(t);
+
     int newIndex = 0;
     double minDistance = double.infinity;
-    
+
     for (int i = 0; i < sections.length; i++) {
       final key = _sectionKeys[sections[i]];
       if (key?.currentContext != null) {
-        final RenderBox? box = key!.currentContext!.findRenderObject() as RenderBox?;
+        final RenderBox? box =
+            key!.currentContext!.findRenderObject() as RenderBox?;
         if (box != null) {
           final position = box.localToGlobal(Offset.zero);
           final distance = (position.dy - 100).abs();
-          
+
           if (distance < minDistance) {
             minDistance = distance;
             newIndex = i;
@@ -100,7 +99,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
         }
       }
     }
-    
+
     if (newIndex != _selectedIndex) {
       setState(() {
         _selectedIndex = newIndex;
@@ -110,8 +109,8 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
+    final t = Translations.of(context);
+    final sections = _getSections(t);
     final isWideScreen = MediaQuery.of(context).size.width > 900;
 
     return Scaffold(
@@ -122,6 +121,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
         showPlanet: false,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -141,7 +141,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                   },
                 ),
                 title: Text(
-                  l10n.termsAndConditions,
+                  t.legal.termsAndConditions,
                   style: AppTextStyles.getH4Style(context),
                 ),
               ),
@@ -157,15 +157,15 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                           color: Theme.of(context).colorScheme.surface,
                           border: Border(
                             right: BorderSide(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.outline.withValues(alpha: 0.2),
+                              color: Theme.of(context).colorScheme.outline
+                                  .withValues(alpha: 0.2),
                               width: 1.5,
                             ),
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.05),
+                              color: Theme.of(context).colorScheme.shadow
+                                  .withValues(alpha: 0.05),
                               blurRadius: 8,
                               offset: const Offset(2, 0),
                             ),
@@ -177,10 +177,14 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                             Container(
                               padding: const EdgeInsets.all(20.0),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.2),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer
+                                    .withValues(alpha: 0.2),
                                 border: Border(
                                   bottom: BorderSide(
-                                    color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
+                                    color: Theme.of(context).colorScheme.outline
+                                        .withValues(alpha: 0.1),
                                   ),
                                 ),
                               ),
@@ -188,19 +192,22 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                 children: [
                                   Icon(
                                     Icons.format_list_bulleted,
-                                    color: Theme.of(context).colorScheme.primary,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary,
                                     size: 20,
                                   ),
                                   const SizedBox(width: 12),
                                   Expanded(
                                     child: Text(
-                                      l10n.termsTableOfContents,
-                                      style: AppTextStyles.getH5Style(
-                                        context,
-                                      ).copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).colorScheme.primary,
-                                      ),
+                                      t.legal.termsTableOfContents,
+                                      style: AppTextStyles.getH5Style(context)
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
                                     ),
                                   ),
                                 ],
@@ -212,31 +219,40 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                 itemBuilder: (context, index) {
                                   final isSelected = _selectedIndex == index;
                                   return InkWell(
-                                    onTap: () => _scrollToSection(index, sections),
+                                    onTap: () =>
+                                        _scrollToSection(index, sections),
                                     borderRadius: BorderRadius.circular(12),
                                     child: AnimatedContainer(
-                                      duration: const Duration(milliseconds: 200),
+                                      duration: const Duration(
+                                        milliseconds: 200,
+                                      ),
                                       margin: const EdgeInsets.symmetric(
                                         horizontal: 12.0,
                                         vertical: 4.0,
                                       ),
                                       decoration: BoxDecoration(
                                         color: isSelected
-                                            ? Theme.of(
-                                                context,
-                                              ).colorScheme.primaryContainer
+                                            ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primaryContainer
                                             : Colors.transparent,
                                         borderRadius: BorderRadius.circular(12),
                                         border: isSelected
                                             ? Border.all(
-                                                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary
+                                                    .withValues(alpha: 0.3),
                                                 width: 1.5,
                                               )
                                             : null,
                                         boxShadow: isSelected
                                             ? [
                                                 BoxShadow(
-                                                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary
+                                                      .withValues(alpha: 0.1),
                                                   blurRadius: 6,
                                                   offset: const Offset(0, 2),
                                                 ),
@@ -251,15 +267,17 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                         child: Row(
                                           children: [
                                             AnimatedContainer(
-                                              duration: const Duration(milliseconds: 200),
+                                              duration: const Duration(
+                                                milliseconds: 200,
+                                              ),
                                               width: isSelected ? 8 : 6,
                                               height: isSelected ? 8 : 6,
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.circle,
                                                 color: isSelected
-                                                    ? Theme.of(
-                                                        context,
-                                                      ).colorScheme.primary
+                                                    ? Theme.of(context)
+                                                          .colorScheme
+                                                          .primary
                                                     : Theme.of(context)
                                                           .colorScheme
                                                           .onSurface
@@ -271,26 +289,32 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                             const SizedBox(width: 16),
                                             Expanded(
                                               child: AnimatedDefaultTextStyle(
-                                                duration: const Duration(milliseconds: 200),
-                                                style: AppTextStyles.getCaptionStyle(
-                                                  context,
-                                                ).copyWith(
-                                                  color: isSelected
-                                                      ? Theme.of(context)
-                                                            .colorScheme
-                                                            .primary
-                                                      : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSurface,
-                                                  fontWeight: isSelected
-                                                      ? FontWeight.w600
-                                                      : FontWeight.normal,
-                                                  fontSize: isSelected ? 13 : 12,
+                                                duration: const Duration(
+                                                  milliseconds: 200,
                                                 ),
+                                                style:
+                                                    AppTextStyles.getCaptionStyle(
+                                                      context,
+                                                    ).copyWith(
+                                                      color: isSelected
+                                                          ? Theme.of(context)
+                                                                .colorScheme
+                                                                .primary
+                                                          : Theme.of(context)
+                                                                .colorScheme
+                                                                .onSurface,
+                                                      fontWeight: isSelected
+                                                          ? FontWeight.w600
+                                                          : FontWeight.normal,
+                                                      fontSize: isSelected
+                                                          ? 13
+                                                          : 12,
+                                                    ),
                                                 child: Text(
                                                   sections[index],
                                                   maxLines: 2,
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                               ),
                                             ),
@@ -330,7 +354,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          l10n.termsAndConditionsTitle,
+                                          t.legal.termsAndConditionsTitle,
                                           style: AppTextStyles.getH2Style(
                                             context,
                                           ),
@@ -338,7 +362,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                         ),
                                         const SizedBox(height: 16),
                                         Text(
-                                          l10n.termsAcceptanceRequired,
+                                          t.legal.termsAcceptanceRequired,
                                           style:
                                               AppTextStyles.getBodyStyle(
                                                 context,
@@ -352,7 +376,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                         ),
                                         const SizedBox(height: 12),
                                         Text(
-                                          l10n.lastModifiedTerms,
+                                          t.legal.lastModifiedTerms,
                                           style:
                                               AppTextStyles.getCaptionStyle(
                                                 context,
@@ -379,7 +403,9 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                 // Astrological Service Nature Section
                                 _buildSectionWithKey(
                                   sections[1],
-                                  _buildAstrologicalServiceNatureSection(context),
+                                  _buildAstrologicalServiceNatureSection(
+                                    context,
+                                  ),
                                 ),
 
                                 // Terms of Use Section
@@ -465,7 +491,11 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                 // Footer
                                 _buildFooterSection(context),
 
-                                const SizedBox(height: 48),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).padding.bottom +
+                                      24,
+                                ),
                               ],
                             ),
                           ),
@@ -501,11 +531,13 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
+              color: Theme.of(context).colorScheme.outline
+                  .withValues(alpha: 0.1),
             ),
             boxShadow: [
               BoxShadow(
-                color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.05),
+                color: Theme.of(context).colorScheme.shadow
+                    .withValues(alpha: 0.05),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -517,15 +549,19 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
               Container(
                 padding: const EdgeInsets.all(24.0),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.3),
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                  color: Theme.of(context).colorScheme.primaryContainer
+                      .withValues(alpha: 0.3),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(16),
+                  ),
                 ),
                 child: Row(
                   children: [
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                        color: Theme.of(context).colorScheme.primary
+                            .withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Icon(
@@ -547,10 +583,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: content,
-              ),
+              Padding(padding: const EdgeInsets.all(24.0), child: content),
             ],
           ),
         ),
@@ -559,58 +592,53 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildIntroductionSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.article_outlined,
-      l10n.termsIntroduction,
+      t.legal.termsIntroduction,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.termsGovernText,
+            t.legal.termsGovernText,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 8),
-          _buildBulletPoint(context, l10n.useOfService),
-          _buildBulletPoint(context, l10n.legalRelationship),
+          _buildBulletPoint(context, t.legal.useOfService),
+          _buildBulletPoint(context, t.legal.legalRelationship),
           const SizedBox(height: 16),
           Text(
-            l10n.bindingManner,
+            t.legal.bindingManner,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.termsAcceptanceRequired,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.termsAcceptanceRequired,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 16),
           const Divider(),
           const SizedBox(height: 16),
           Text(
-            l10n.appleThirdPartyBeneficiary,
+            t.legal.appleThirdPartyBeneficiary,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.astroGodsServiceOf,
+            t.legal.astroGodsServiceOf,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 8),
-          Text(
-            l10n.ownerName,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
+          Text(t.legal.ownerName, style: AppTextStyles.getBodyStyle(context)),
           const SizedBox(height: 8),
           Wrap(
             children: [
               Text(
-                "${l10n.ownerEmail} ",
-                style: AppTextStyles.getBodyStyle(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                "${t.legal.ownerEmail} ",
+                style: AppTextStyles.getBodyStyle(context)
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
               InkWell(
                 onTap: () => _launchExternalUrl('mailto:contact@astrogods.it'),
@@ -626,211 +654,208 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.astroGodsRefersTo,
+            t.legal.astroGodsRefersTo,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 8),
-          _buildBulletPoint(context, l10n.thisSiteDescription),
-          _buildBulletPoint(context, l10n.mobileApplicationsDescription),
+          _buildBulletPoint(context, t.legal.thisSiteDescription),
+          _buildBulletPoint(context, t.legal.mobileApplicationsDescription),
         ],
       ),
     );
   }
 
-
   Widget _buildAstrologicalServiceNatureSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.auto_awesome,
-      l10n.astrologicalServiceNature,
+      t.legal.astrologicalServiceNature,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.astrologicalServiceDescription,
+            t.legal.astrologicalServiceDescription,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
-          _buildBulletPoint(context, l10n.astrologicalServicePoint1),
-          _buildBulletPoint(context, l10n.astrologicalServicePoint2),
-          _buildBulletPoint(context, l10n.astrologicalServicePoint3),
-          _buildBulletPoint(context, l10n.astrologicalServicePoint4),
-          _buildBulletPoint(context, l10n.astrologicalServicePoint5),
-          _buildBulletPoint(context, l10n.astrologicalServicePoint6),
+          _buildBulletPoint(context, t.legal.astrologicalServicePoint1),
+          _buildBulletPoint(context, t.legal.astrologicalServicePoint2),
+          _buildBulletPoint(context, t.legal.astrologicalServicePoint3),
+          _buildBulletPoint(context, t.legal.astrologicalServicePoint4),
+          _buildBulletPoint(context, t.legal.astrologicalServicePoint5),
+          _buildBulletPoint(context, t.legal.astrologicalServicePoint6),
         ],
       ),
     );
   }
 
   Widget _buildTermsOfUseSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.verified_user_outlined,
-      l10n.termsOfUse,
+      t.legal.termsOfUse,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // General validity
           Text(
-            l10n.termsOfUseGeneralValidity,
+            t.legal.termsOfUseGeneralValidity,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.additionalConditions,
+            t.legal.additionalConditions,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.usingAstroGodsUserDeclares,
+            t.legal.usingAstroGodsUserDeclares,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 12),
-          _buildBulletPoint(context, l10n.consumerRequirement),
-          _buildBulletPoint(context, l10n.notUnderEmbargo),
-          _buildBulletPoint(context, l10n.notOnProhibitedList),
+          _buildBulletPoint(context, t.legal.consumerRequirement),
+          _buildBulletPoint(context, t.legal.notUnderEmbargo),
+          _buildBulletPoint(context, t.legal.notOnProhibitedList),
 
           const SizedBox(height: 24),
 
           // Registration Section
-          _buildSubSectionTitle(context, l10n.registration),
+          _buildSubSectionTitle(context, t.legal.registration),
           Text(
-            l10n.registrationRequired,
+            t.legal.registrationRequired,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.passwordSecurity,
+            t.legal.passwordSecurity,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.accountResponsibility,
+            t.legal.accountResponsibility,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Registration Requirements
-          _buildSubSectionTitle(context, l10n.accountRequirements),
+          _buildSubSectionTitle(context, t.legal.accountRequirements),
           Text(
-            l10n.registrationRequirementsText,
+            t.legal.registrationRequirementsText,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 12),
-          _buildBulletPoint(context, l10n.botRegistrationProhibited),
-          _buildBulletPoint(context, l10n.oneAccountPerUser),
-          _buildBulletPoint(context, l10n.accountSharingProhibited),
+          _buildBulletPoint(context, t.legal.botRegistrationProhibited),
+          _buildBulletPoint(context, t.legal.oneAccountPerUser),
+          _buildBulletPoint(context, t.legal.accountSharingProhibited),
 
           const SizedBox(height: 24),
 
           // Account Closure
-          _buildSubSectionTitle(context, l10n.accountClosureTitle),
+          _buildSubSectionTitle(context, t.legal.accountClosureTitle),
           Text(
-            l10n.accountClosureProcedure,
+            t.legal.accountClosureProcedure,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 12),
-          _buildBulletPoint(context, l10n.usingAccountClosureTools),
+          _buildBulletPoint(context, t.legal.usingAccountClosureTools),
           const SizedBox(height: 16),
           Text(
-            l10n.paidSubscriptionSuspension,
+            t.legal.paidSubscriptionSuspension,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Account Suspension and Cancellation
-          _buildSubSectionTitle(context, l10n.accountSuspension),
+          _buildSubSectionTitle(context, t.legal.accountSuspension),
           Text(
-            l10n.accountSuspensionText,
+            t.legal.accountSuspensionText,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.noCompensationForSuspension,
+            t.legal.noCompensationForSuspension,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.paymentObligationRemains,
+            t.legal.paymentObligationRemains,
             style: AppTextStyles.getBodyStyle(context),
           ),
-
 
           const SizedBox(height: 24),
 
           // External Resources
-          _buildSubSectionTitle(context, l10n.externalResources),
+          _buildSubSectionTitle(context, t.legal.externalResources),
           Text(
-            l10n.externalResourcesDisclaimer,
+            t.legal.externalResourcesDisclaimer,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.thirdPartyResourcesDisclaimer,
+            t.legal.thirdPartyResourcesDisclaimer,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Permitted Use
-          _buildSubSectionTitle(context, l10n.permittedUse),
+          _buildSubSectionTitle(context, t.legal.permittedUse),
           Text(
-            l10n.permittedUseText,
+            t.legal.permittedUseText,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.userExclusiveResponsibility,
+            t.legal.userExclusiveResponsibility,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.ownerProtectiveRights,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.ownerProtectiveRights,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
-          _buildBulletPoint(context, l10n.violationsOfLaw),
-          _buildBulletPoint(context, l10n.injuryToThirdPartyRights),
-          _buildBulletPoint(context, l10n.actsHarmingOwnerInterests),
-          _buildBulletPoint(context, l10n.offensesToOwnerOrThird),
+          _buildBulletPoint(context, t.legal.violationsOfLaw),
+          _buildBulletPoint(context, t.legal.injuryToThirdPartyRights),
+          _buildBulletPoint(context, t.legal.actsHarmingOwnerInterests),
+          _buildBulletPoint(context, t.legal.offensesToOwnerOrThird),
 
           const SizedBox(height: 24),
 
           // Referral Program
-          _buildSubSectionTitle(context, l10n.referralProgram),
+          _buildSubSectionTitle(context, t.legal.referralProgram),
           Text(
-            l10n.referralBenefits,
+            t.legal.referralBenefits,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.referralCodeUsage,
+            t.legal.referralCodeUsage,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.referralRewardSystem,
+            t.legal.referralRewardSystem,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.referralCodeLimitations,
+            t.legal.referralCodeLimitations,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.ownerDiscretionaryRight,
+            t.legal.ownerDiscretionaryRight,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.referralLimitations,
+            t.legal.referralLimitations,
             style: AppTextStyles.getBodyStyle(context),
           ),
         ],
@@ -839,178 +864,178 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildSalesTermsSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.storefront_outlined,
-      l10n.salesTerms,
+      t.legal.salesTerms,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Paid Products
-          _buildSubSectionTitle(context, l10n.paidProducts),
+          _buildSubSectionTitle(context, t.legal.paidProducts),
           Text(
-            l10n.salesTermsIntro,
+            t.legal.salesTermsIntro,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.salesTermsDetails,
+            t.legal.salesTermsDetails,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.purchaseRegistrationRequired,
+            t.legal.purchaseRegistrationRequired,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Product Description
-          _buildSubSectionTitle(context, l10n.productDescription),
+          _buildSubSectionTitle(context, t.legal.productDescription),
           Text(
-            l10n.productDescriptionInfo,
+            t.legal.productDescriptionInfo,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.productRepresentationDisclaimer,
+            t.legal.productRepresentationDisclaimer,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.productCharacteristicsSpecified,
+            t.legal.productCharacteristicsSpecified,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Purchase Procedure
-          _buildSubSectionTitle(context, l10n.purchaseProcedure),
+          _buildSubSectionTitle(context, t.legal.purchaseProcedure),
           Text(
-            l10n.purchaseProcedureSteps,
+            t.legal.purchaseProcedureSteps,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 12),
-          _buildBulletPoint(context, l10n.stripeCheckoutAccess),
-          _buildBulletPoint(context, l10n.stripePaymentStorage),
-          _buildBulletPoint(context, l10n.stripeBillingAddress),
-          _buildBulletPoint(context, l10n.stripeExpressCheckout),
+          _buildBulletPoint(context, t.legal.stripeCheckoutAccess),
+          _buildBulletPoint(context, t.legal.stripePaymentStorage),
+          _buildBulletPoint(context, t.legal.stripeBillingAddress),
+          _buildBulletPoint(context, t.legal.stripeExpressCheckout),
           const SizedBox(height: 16),
           Text(
-            l10n.orderSubmissionRequirement,
+            t.legal.orderSubmissionRequirement,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Order Submission
-          _buildSubSectionTitle(context, l10n.orderSubmission),
+          _buildSubSectionTitle(context, t.legal.orderSubmission),
           Text(
-            l10n.orderSubmissionConsequences,
+            t.legal.orderSubmissionConsequences,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 12),
-          _buildBulletPoint(context, l10n.contractConclusion),
-          _buildBulletPoint(context, l10n.userCollaborationObligation),
-          _buildBulletPoint(context, l10n.orderConfirmationEmail),
+          _buildBulletPoint(context, t.legal.contractConclusion),
+          _buildBulletPoint(context, t.legal.userCollaborationObligation),
+          _buildBulletPoint(context, t.legal.orderConfirmationEmail),
           const SizedBox(height: 16),
           Text(
-            l10n.purchaseNotifications,
+            t.legal.purchaseNotifications,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Pricing
-          _buildSubSectionTitle(context, l10n.pricing),
+          _buildSubSectionTitle(context, t.legal.pricing),
           Text(
-            l10n.pricingTransparency,
+            t.legal.pricingTransparency,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.pricingPolicy,
+            t.legal.pricingPolicy,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Promotions and Discounts
-          _buildSubSectionTitle(context, l10n.promotionsAndDiscounts),
+          _buildSubSectionTitle(context, t.legal.promotionsAndDiscounts),
           Text(
-            l10n.promotionsDisclaimer,
+            t.legal.promotionsDisclaimer,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.promotionsDiscretion,
+            t.legal.promotionsDiscretion,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.promotionsNoRights,
+            t.legal.promotionsNoRights,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.promotionsTimeLimit,
+            t.legal.promotionsTimeLimit,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Vouchers
-          _buildSubSectionTitle(context, l10n.vouchers),
+          _buildSubSectionTitle(context, t.legal.vouchers),
           Text(
-            l10n.vouchersPromoForm,
+            t.legal.vouchersPromoForm,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.vouchersViolationConsequences,
+            t.legal.vouchersViolationConsequences,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.vouchersAdditionalProvisions,
+            t.legal.vouchersAdditionalProvisions,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.vouchersRules,
+            t.legal.vouchersRules,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 12),
-          _buildBulletPoint(context, l10n.voucherValidityRule),
-          _buildBulletPoint(context, l10n.voucherFullRedemption),
-          _buildBulletPoint(context, l10n.voucherSingleUse),
-          _buildBulletPoint(context, l10n.vouchersNotCumulative),
-          _buildBulletPoint(context, l10n.voucherExpiration),
-          _buildBulletPoint(context, l10n.voucherNoCredit),
-          _buildBulletPoint(context, l10n.voucherNonCommercialUse),
+          _buildBulletPoint(context, t.legal.voucherValidityRule),
+          _buildBulletPoint(context, t.legal.voucherFullRedemption),
+          _buildBulletPoint(context, t.legal.voucherSingleUse),
+          _buildBulletPoint(context, t.legal.vouchersNotCumulative),
+          _buildBulletPoint(context, t.legal.voucherExpiration),
+          _buildBulletPoint(context, t.legal.voucherNoCredit),
+          _buildBulletPoint(context, t.legal.voucherNonCommercialUse),
 
           const SizedBox(height: 24),
 
           // Payment Methods
-          _buildSubSectionTitle(context, l10n.paymentMethods),
+          _buildSubSectionTitle(context, t.legal.paymentMethods),
           Text(
-            l10n.paymentMethodsInfo,
+            t.legal.paymentMethodsInfo,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.paymentMethodsConditions,
+            t.legal.paymentMethodsConditions,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.paymentThirdPartyHandling,
+            t.legal.paymentThirdPartyHandling,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.paymentFailureConsequences,
+            t.legal.paymentFailureConsequences,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1018,91 +1043,92 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Stripe Recurring Payments
           Text(
-            l10n.stripeRecurringPayments,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.stripeRecurringPayments,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.stripeCustomerPortal,
+            t.legal.stripeCustomerPortal,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // App Store Purchases
-          _buildSubSectionTitle(context, l10n.purchaseViaAppStore),
+          _buildSubSectionTitle(context, t.legal.purchaseViaAppStore),
           Text(
-            l10n.appStorePurchases,
+            t.legal.appStorePurchases,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.appStoreTermsPrecedence,
+            t.legal.appStoreTermsPrecedence,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.appStoreTermsAcceptance,
+            t.legal.appStoreTermsAcceptance,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Ownership Reservation
-          _buildSubSectionTitle(context, l10n.ownershipReservationTitle),
+          _buildSubSectionTitle(context, t.legal.ownershipReservationTitle),
           Text(
-            l10n.ownershipReservation,
+            t.legal.ownershipReservation,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Usage Rights Reservation
-          _buildSubSectionTitle(context, l10n.usageRightsReservationTitle),
+          _buildSubSectionTitle(context, t.legal.usageRightsReservationTitle),
           Text(
-            l10n.usageRightsReservation,
+            t.legal.usageRightsReservation,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Contractual Withdrawal Right
-          _buildSubSectionTitle(context, l10n.contractualWithdrawalRightTitle),
+          _buildSubSectionTitle(
+            context,
+            t.legal.contractualWithdrawalRightTitle,
+          ),
           Text(
-            l10n.contractualWithdrawalRight,
+            t.legal.contractualWithdrawalRight,
             style: AppTextStyles.getBodyStyle(context),
           ),
-
         ],
       ),
     );
   }
 
   Widget _buildDeliverySection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.cloud_download_outlined,
-      l10n.delivery,
+      t.legal.delivery,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Digital Content Delivery
-          _buildSubSectionTitle(context, l10n.deliveryOfDigitalContent),
+          _buildSubSectionTitle(context, t.legal.deliveryOfDigitalContent),
           Text(
-            l10n.digitalContentDeliveryDetails,
+            t.legal.digitalContentDeliveryDetails,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.deviceRequirements,
+            t.legal.deviceRequirements,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.downloadLimitations,
+            t.legal.downloadLimitations,
             style: AppTextStyles.getBodyStyle(context),
           ),
         ],
@@ -1111,30 +1137,28 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildContractDurationSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.access_time_outlined,
-      l10n.contractDuration,
+      t.legal.contractDuration,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          
           // Trial Period
           Text(
-            l10n.trialPeriod,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.trialPeriod,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
           Text(
-            l10n.trialPeriodAvailability,
+            t.legal.trialPeriodAvailability,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.trialAutoConversion,
+            t.legal.trialAutoConversion,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1142,14 +1166,13 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Subscriptions
           Text(
-            l10n.subscriptions,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.subscriptions,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
           Text(
-            l10n.subscriptionContinuousProduct,
+            t.legal.subscriptionContinuousProduct,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1157,19 +1180,18 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Lifetime Subscriptions
           Text(
-            l10n.lifetimeSubscriptions,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.lifetimeSubscriptions,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
           Text(
-            l10n.lifetimeSubscriptionDuration,
+            t.legal.lifetimeSubscriptionDuration,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.lifetimeRefundPolicy,
+            t.legal.lifetimeRefundPolicy,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1177,19 +1199,18 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Fixed-term Subscriptions
           Text(
-            l10n.fixedTermSubscriptions,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.fixedTermSubscriptions,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
           Text(
-            l10n.fixedTermSubscriptionText,
+            t.legal.fixedTermSubscriptionText,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.fixedTermSubscriptionEnd,
+            t.legal.fixedTermSubscriptionEnd,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1197,22 +1218,22 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Apple Account Subscriptions
           Text(
-            l10n.appleAccountSubscriptionsTitle,
+            t.legal.appleAccountSubscriptionsTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 12),
           Text(
-            l10n.appleAccountSubscriptions,
+            t.legal.appleAccountSubscriptions,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 12),
-          _buildBulletPoint(context, l10n.appleAccountPayment),
-          _buildBulletPoint(context, l10n.appleAccountAutoRenewal),
-          _buildBulletPoint(context, l10n.appleAccountRenewalCharges),
-          _buildBulletPoint(context, l10n.appleAccountManagement),
+          _buildBulletPoint(context, t.legal.appleAccountPayment),
+          _buildBulletPoint(context, t.legal.appleAccountAutoRenewal),
+          _buildBulletPoint(context, t.legal.appleAccountRenewalCharges),
+          _buildBulletPoint(context, t.legal.appleAccountManagement),
           const SizedBox(height: 16),
           Text(
-            l10n.appleTermsPrecedence,
+            t.legal.appleTermsPrecedence,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1220,96 +1241,85 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Automatic Renewal
           Text(
-            l10n.automaticRenewal,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.automaticRenewal,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
           Text(
-            l10n.automaticRenewalPolicy,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.automaticRenewalPolicy,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.renewalDurationMatch,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.renewalDurationMatch,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
 
           const SizedBox(height: 16),
 
           // Termination
           Text(
-            l10n.cancellation,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.cancellation,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
           Text(
-            l10n.subscriptionTermination,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.subscriptionTermination,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.cancellationEffectiveTiming,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            t.legal.cancellationEffectiveTiming,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
 
           const SizedBox(height: 20),
 
           // Consumer Exception
-          _buildSubSectionTitle(context, l10n.consumerExceptionTitle),
+          _buildSubSectionTitle(context, t.legal.consumerExceptionTitle),
           Text(
-            l10n.consumerExceptionText,
+            t.legal.consumerExceptionText,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.consumerIndefiniteExtension,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            t.legal.consumerIndefiniteExtension,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.consumerRenewalCharging,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            t.legal.consumerRenewalCharging,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.consumerMonthlyTermination,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            t.legal.consumerMonthlyTermination,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.bold),
           ),
 
           const SizedBox(height: 24),
 
           // Resolution (subsection within Consumer Exception)
-          _buildSubSectionTitle(context, l10n.resolution),
+          _buildSubSectionTitle(context, t.legal.resolution),
           Text(
-            l10n.subscriptionTermination,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            t.legal.subscriptionTermination,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.consumerCancellationTiming,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            t.legal.consumerCancellationTiming,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -1317,300 +1327,299 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildUserRightsSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.balance_outlined,
-      l10n.userRights,
+      t.legal.userRights,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Right of Withdrawal - Main section
-          _buildSubSectionTitle(context, l10n.rightOfWithdrawal),
+          _buildSubSectionTitle(context, t.legal.rightOfWithdrawal),
           Text(
-            l10n.withdrawalRightSummary,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            t.legal.withdrawalRightSummary,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.bold),
           ),
 
           const SizedBox(height: 24),
 
           // Who has withdrawal rights
-          _buildSubSectionTitle(context, l10n.whoHasWithdrawalRights),
+          _buildSubSectionTitle(context, t.legal.whoHasWithdrawalRights),
           Text(
-            l10n.europeanConsumersWithdrawal,
+            t.legal.europeanConsumersWithdrawal,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.nonEuropeanUsersNoRights,
+            t.legal.nonEuropeanUsersNoRights,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Exercise of withdrawal right
-          _buildSubSectionTitle(context, l10n.exerciseOfWithdrawalRight),
+          _buildSubSectionTitle(context, t.legal.exerciseOfWithdrawalRight),
           Text(
-            l10n.withdrawalExercise,
+            t.legal.withdrawalExercise,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.withdrawalFormInstructions,
+            t.legal.withdrawalFormInstructions,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.withdrawalDeadlineQuestion,
+            t.legal.withdrawalDeadlineQuestion,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 8),
-          _buildBulletPoint(context, l10n.digitalContentWithdrawalDeadline),
+          _buildBulletPoint(context, t.legal.digitalContentWithdrawalDeadline),
 
           const SizedBox(height: 24),
 
           // Effects of withdrawal
-          _buildSubSectionTitle(context, l10n.effectsOfWithdrawal),
+          _buildSubSectionTitle(context, t.legal.effectsOfWithdrawal),
           Text(
-            l10n.withdrawalEffects,
+            t.legal.withdrawalEffects,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.deliveryCostException,
+            t.legal.deliveryCostException,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.refundTimeline,
+            t.legal.refundTimeline,
             style: AppTextStyles.getBodyStyle(context),
           ),
-
         ],
       ),
     );
   }
 
   Widget _buildLiabilitySection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.security_outlined,
-      l10n.liabilityAndIndemnification,
+      t.legal.liabilityAndIndemnification,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Indemnification
-          _buildSubSectionTitle(context, l10n.indemnification),
+          _buildSubSectionTitle(context, t.legal.indemnification),
           Text(
-            l10n.indemnificationText,
+            t.legal.indemnificationText,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // User Activity Liability Limitation
-          _buildSubSectionTitle(context, l10n.userActivityLiabilityLimitation),
+          _buildSubSectionTitle(
+            context,
+            t.legal.userActivityLiabilityLimitation,
+          ),
           Text(
-            l10n.generalLiabilityExclusion,
+            t.legal.generalLiabilityExclusion,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.liabilityExceptions,
+            t.legal.liabilityExceptions,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.limitedLiabilityScope,
+            t.legal.limitedLiabilityScope,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.noResponsibilityIntro,
+            t.legal.noResponsibilityIntro,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 12),
-          _buildBulletPoint(context, l10n.forceMAjeureExclusion),
+          _buildBulletPoint(context, t.legal.forceMAjeureExclusion),
           const SizedBox(height: 8),
-          _buildBulletPoint(context, l10n.indirectLossExclusion),
+          _buildBulletPoint(context, t.legal.indirectLossExclusion),
           const SizedBox(height: 8),
-          _buildBulletPoint(context, l10n.nonDirectLossExclusion),
+          _buildBulletPoint(context, t.legal.nonDirectLossExclusion),
         ],
       ),
     );
   }
 
   Widget _buildCommonProvisionsSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.fact_check_outlined,
-      l10n.commonProvisions,
+      t.legal.commonProvisions,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // No Implicit Waiver
-          _buildSubSectionTitle(context, l10n.noWaiverImplied),
+          _buildSubSectionTitle(context, t.legal.noWaiverImplied),
           Text(
-            l10n.noImplicitWaiver,
+            t.legal.noImplicitWaiver,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Service Interruption
-          _buildSubSectionTitle(context, l10n.serviceInterruption),
+          _buildSubSectionTitle(context, t.legal.serviceInterruption),
           Text(
-            l10n.serviceMaintenanceRight,
+            t.legal.serviceMaintenanceRight,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.serviceTerminationRights,
+            t.legal.serviceTerminationRights,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.forceMAjeureUnavailability,
+            t.legal.forceMAjeureUnavailability,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.advanceNotice,
+            t.legal.advanceNotice,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Service Resale
-          _buildSubSectionTitle(context, l10n.serviceResale),
+          _buildSubSectionTitle(context, t.legal.serviceResale),
           Text(
-            l10n.unauthorizedResale,
+            t.legal.unauthorizedResale,
             style: AppTextStyles.getBodyStyle(context),
           ),
-
 
           const SizedBox(height: 24),
 
           // Terms Modification
-          _buildSubSectionTitle(context, l10n.termsModification),
+          _buildSubSectionTitle(context, t.legal.termsModification),
           Text(
-            l10n.termsModificationRight,
+            t.legal.termsModificationRight,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.modificationsEffectiveDate,
+            t.legal.modificationsEffectiveDate,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.termsModificationAcceptance,
-            style: AppTextStyles.getBodyStyle(context).copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            t.legal.termsModificationAcceptance,
+            style: AppTextStyles.getBodyStyle(context)
+                .copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.previousVersionValidity,
+            t.legal.previousVersionValidity,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.advanceNotificationRequirement,
+            t.legal.advanceNotificationRequirement,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Contract Assignment
-          _buildSubSectionTitle(context, l10n.contractAssignment),
+          _buildSubSectionTitle(context, t.legal.contractAssignment),
           Text(
-            l10n.contractTransferRight,
+            t.legal.contractTransferRight,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.assignmentTermsApplication,
+            t.legal.assignmentTermsApplication,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.userAssignmentRestriction,
+            t.legal.userAssignmentRestriction,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Contacts
-          _buildSubSectionTitle(context, l10n.contacts),
+          _buildSubSectionTitle(context, t.legal.contacts),
           Text(
-            l10n.communicationRequirement,
+            t.legal.communicationRequirement,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Severability Clause
-          _buildSubSectionTitle(context, l10n.severabilityClause),
+          _buildSubSectionTitle(context, t.legal.severabilityClause),
           Text(
-            l10n.generalSeverability,
+            t.legal.generalSeverability,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.europeanUsersTitle,
+            t.legal.europeanUsersTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.europeanSeverability,
+            t.legal.europeanSeverability,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.severabilityLimitations,
+            t.legal.severabilityLimitations,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Applicable Law
-          _buildSubSectionTitle(context, l10n.applicableLaw),
+          _buildSubSectionTitle(context, t.legal.applicableLaw),
           Text(
-            l10n.governingLaw,
+            t.legal.governingLaw,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.nationalLawPrevalence,
+            t.legal.nationalLawPrevalence,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.nationalLawPrevails,
+            t.legal.nationalLawPrevails,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
           const SizedBox(height: 24),
 
           // Competent Jurisdiction
-          _buildSubSectionTitle(context, l10n.competentJurisdiction),
+          _buildSubSectionTitle(context, t.legal.competentJurisdiction),
           Text(
-            l10n.exclusiveJurisdiction,
+            t.legal.exclusiveJurisdiction,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.europeanConsumerExceptionTitle,
+            t.legal.europeanConsumerExceptionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.europeanConsumerException,
+            t.legal.europeanConsumerException,
             style: AppTextStyles.getBodyStyle(context),
           ),
         ],
@@ -1619,33 +1628,33 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildDisputeResolutionSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.handshake_outlined,
-      l10n.disputeResolution,
+      t.legal.disputeResolution,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Amicable Dispute Composition
-          _buildSubSectionTitle(context, l10n.amicableDisputeComposition),
+          _buildSubSectionTitle(context, t.legal.amicableDisputeComposition),
           Text(
-            l10n.amicableDisputeResolution,
+            t.legal.amicableDisputeResolution,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.judicialRightsPreservation,
+            t.legal.judicialRightsPreservation,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.complaintProcedure,
+            t.legal.complaintProcedure,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.responseTimeline,
+            t.legal.responseTimeline,
             style: AppTextStyles.getBodyStyle(context),
           ),
         ],
@@ -1654,16 +1663,16 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildPrivacyPolicySection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.privacy_tip_outlined,
-      l10n.privacyPolicySection,
+      t.legal.privacyPolicySection,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.privacyPolicyReferenceContent,
+            t.legal.privacyPolicyReferenceContent,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 24),
@@ -1673,7 +1682,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                 context.push('/privacy-policy');
               },
               icon: const Icon(Icons.privacy_tip),
-              label: Text(l10n.viewPrivacyPolicy),
+              label: Text(t.legal.viewPrivacyPolicy),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -1690,16 +1699,16 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildCookiesAndTrackingSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.track_changes_outlined,
-      l10n.cookiesAndTrackingTitle,
+      t.legal.cookiesAndTrackingTitle,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.cookiesAndTrackingReferenceContent,
+            t.legal.cookiesAndTrackingReferenceContent,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 24),
@@ -1709,7 +1718,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                 context.push('/cookie-policy');
               },
               icon: const Icon(Icons.cookie),
-              label: Text(l10n.viewCookiePolicy),
+              label: Text(t.legal.viewCookiePolicy),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -1726,22 +1735,22 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildDefinitionsSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.menu_book_outlined,
-      l10n.definitions,
+      t.legal.definitions,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // AstroGods Definition
           Text(
-            l10n.astroGodsDefinitionTitle,
+            t.legal.astroGodsDefinitionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.astroGodsDefinition,
+            t.legal.astroGodsDefinition,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1749,12 +1758,12 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Agreement Definition
           Text(
-            l10n.agreementDefinitionTitle,
+            t.legal.agreementDefinitionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.agreementDefinition,
+            t.legal.agreementDefinition,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1762,12 +1771,12 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Voucher Definition
           Text(
-            l10n.voucherDefinitionTitle,
+            t.legal.voucherDefinitionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.voucherDefinition,
+            t.legal.voucherDefinition,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1775,12 +1784,12 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // European Definition
           Text(
-            l10n.europeanDefinitionTitle,
+            t.legal.europeanDefinitionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.europeanDefinition,
+            t.legal.europeanDefinition,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1788,22 +1797,25 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Withdrawal Form
           Text(
-            l10n.withdrawalFormTitle,
+            t.legal.withdrawalFormTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: Theme.of(context).colorScheme.surfaceContainerHighest
+                  .withValues(alpha: 0.5),
               border: Border.all(
-                color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+                color: Theme.of(context).colorScheme.outline
+                    .withValues(alpha: 0.3),
                 width: 1.5,
               ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.08),
+                  color: Theme.of(context).colorScheme.shadow
+                      .withValues(alpha: 0.08),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -1822,7 +1834,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        l10n.withdrawalFormHeader,
+                        t.legal.withdrawalFormHeader,
                         style: AppTextStyles.getBodyStyle(context).copyWith(
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w600,
@@ -1834,7 +1846,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  l10n.withdrawalFormAddress,
+                  t.legal.withdrawalFormAddress,
                   style: AppTextStyles.getBodyStyle(context).copyWith(
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w500,
@@ -1844,17 +1856,19 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.2),
+                    color: Theme.of(context).colorScheme.primaryContainer
+                        .withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+                      color: Theme.of(context).colorScheme.primary
+                          .withValues(alpha: 0.2),
                     ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        l10n.withdrawalFormNotification,
+                        t.legal.withdrawalFormNotification,
                         style: AppTextStyles.getBodyStyle(context).copyWith(
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w600,
@@ -1863,11 +1877,9 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        l10n.withdrawalFormDescription,
-                        style: AppTextStyles.getBodyStyle(context).copyWith(
-                          fontStyle: FontStyle.italic,
-                          height: 1.4,
-                        ),
+                        t.legal.withdrawalFormDescription,
+                        style: AppTextStyles.getBodyStyle(context)
+                            .copyWith(fontStyle: FontStyle.italic, height: 1.4),
                       ),
                     ],
                   ),
@@ -1876,17 +1888,30 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.2),
+                    color: Theme.of(context).colorScheme.secondaryContainer
+                        .withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildBulletPoint(context, l10n.withdrawalFormOrderDate),
-                      _buildBulletPoint(context, l10n.withdrawalFormReceiveDate),
-                      _buildBulletPoint(context, l10n.withdrawalFormConsumerName),
-                      _buildBulletPoint(context, l10n.withdrawalFormConsumerAddress),
-                      _buildBulletPoint(context, l10n.withdrawalFormDate),
+                      _buildBulletPoint(
+                        context,
+                        t.legal.withdrawalFormOrderDate,
+                      ),
+                      _buildBulletPoint(
+                        context,
+                        t.legal.withdrawalFormReceiveDate,
+                      ),
+                      _buildBulletPoint(
+                        context,
+                        t.legal.withdrawalFormConsumerName,
+                      ),
+                      _buildBulletPoint(
+                        context,
+                        t.legal.withdrawalFormConsumerAddress,
+                      ),
+                      _buildBulletPoint(context, t.legal.withdrawalFormDate),
                     ],
                   ),
                 ),
@@ -1895,7 +1920,8 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+                      color: Theme.of(context).colorScheme.outline
+                          .withValues(alpha: 0.3),
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -1909,10 +1935,12 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          l10n.withdrawalFormSignature,
+                          t.legal.withdrawalFormSignature,
                           style: AppTextStyles.getBodyStyle(context).copyWith(
                             fontStyle: FontStyle.italic,
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurfaceVariant,
                           ),
                         ),
                       ),
@@ -1927,12 +1955,12 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Owner Definition
           Text(
-            l10n.ownerDefinitionTitle,
+            t.legal.ownerDefinitionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.ownerDefinition,
+            t.legal.ownerDefinition,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1940,12 +1968,12 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Product Definition
           Text(
-            l10n.productDefinitionTitle,
+            t.legal.productDefinitionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.productDefinition,
+            t.legal.productDefinition,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1953,12 +1981,12 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Service Definition
           Text(
-            l10n.serviceDefinitionTitle,
+            t.legal.serviceDefinitionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.serviceDefinition,
+            t.legal.serviceDefinition,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1966,12 +1994,12 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Terms Definition
           Text(
-            l10n.termsDefinitionTitle,
+            t.legal.termsDefinitionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.termsDefinition,
+            t.legal.termsDefinition,
             style: AppTextStyles.getBodyStyle(context),
           ),
 
@@ -1979,25 +2007,22 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // User Definition
           Text(
-            l10n.userDefinitionTitle,
+            t.ui.userDefinitionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
-          Text(
-            l10n.userDefinition,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
+          Text(t.ui.userDefinition, style: AppTextStyles.getBodyStyle(context)),
 
           const SizedBox(height: 24),
 
           // Consumer Definition
           Text(
-            l10n.consumerDefinitionTitle,
+            t.legal.consumerDefinitionTitle,
             style: AppTextStyles.getH4Style(context),
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.consumerDefinition,
+            t.legal.consumerDefinition,
             style: AppTextStyles.getBodyStyle(context),
           ),
         ],
@@ -2006,36 +2031,27 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildContactUsSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.contact_support_outlined,
-      l10n.contactUsSection,
+      t.legal.contactUsSection,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.amicableDisputeResolution,
+            t.legal.amicableDisputeResolution,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 24),
           ElevatedButton.icon(
-            onPressed: () => _launchExternalUrl(
-              'mailto:contact@astrogods.it',
-            ),
+            onPressed: () => _launchExternalUrl('mailto:contact@astrogods.it'),
             icon: const Icon(Icons.email_outlined),
-            label: Text(l10n.contactUs),
+            label: Text(t.legal.contactUs),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(
-                context,
-              ).colorScheme.primary,
-              foregroundColor: Theme.of(
-                context,
-              ).colorScheme.onPrimary,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 12,
-              ),
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
           ),
         ],
@@ -2044,33 +2060,35 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildDifferentiatedLicensingSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.copyright_outlined,
-      l10n.differentiatedLicensing,
+      t.legal.differentiatedLicensing,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.differentiatedLicensingText,
+            t.legal.differentiatedLicensingText,
             style: AppTextStyles.getBodyStyle(context),
           ),
-          
+
           const SizedBox(height: 24),
 
           // Proprietary Standard Content
-          _buildSubSectionTitle(context, l10n.proprietaryContentStandard),
+          _buildSubSectionTitle(context, t.legal.proprietaryContentStandard),
           Text.rich(
             TextSpan(
               style: AppTextStyles.getBodyStyle(context),
               children: [
-                TextSpan(text: l10n.proprietaryContentStandardTextBefore),
+                TextSpan(text: t.legal.proprietaryContentStandardTextBefore),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.baseline,
                   baseline: TextBaseline.alphabetic,
                   child: InkWell(
-                    onTap: () => _launchExternalUrl('https://github.com/arcangelo7/astrogods-app'),
+                    onTap: () => _launchExternalUrl(
+                      'https://github.com/arcangelo7/astrogods-app',
+                    ),
                     mouseCursor: SystemMouseCursors.click,
                     child: Text(
                       'github.com/arcangelo7/astrogods-app',
@@ -2081,7 +2099,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                     ),
                   ),
                 ),
-                TextSpan(text: l10n.proprietaryContentStandardTextAfter),
+                TextSpan(text: t.legal.proprietaryContentStandardTextAfter),
               ],
             ),
           ),
@@ -2089,35 +2107,39 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           const SizedBox(height: 24),
 
           // Codex Creative Commons
-          _buildSubSectionTitle(context, l10n.codexCreativeCommons),
+          _buildSubSectionTitle(context, t.codex.codexCreativeCommons),
           Text(
-            l10n.codexCreativeCommonsText,
+            t.codex.codexCreativeCommonsText,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 12),
-          _buildBulletPoint(context, l10n.codexRights1),
-          _buildBulletPoint(context, l10n.codexRights2),
-          _buildBulletPoint(context, l10n.codexRights3),
+          _buildBulletPoint(context, t.codex.codexRights1),
+          _buildBulletPoint(context, t.codex.codexRights2),
+          _buildBulletPoint(context, t.codex.codexRights3),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.4),
-                  Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.2),
+                  Theme.of(context).colorScheme.primaryContainer
+                      .withValues(alpha: 0.4),
+                  Theme.of(context).colorScheme.primaryContainer
+                      .withValues(alpha: 0.2),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.4),
+                color: Theme.of(context).colorScheme.primary
+                    .withValues(alpha: 0.4),
                 width: 2,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                  color: Theme.of(context).colorScheme.primary
+                      .withValues(alpha: 0.1),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -2133,7 +2155,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    l10n.codexAttributionRequired,
+                    t.codex.codexAttributionRequired,
                     style: AppTextStyles.getBodyStyle(context).copyWith(
                       fontWeight: FontWeight.w600,
                       color: Theme.of(context).colorScheme.primary,
@@ -2153,15 +2175,18 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Theme.of(context).colorScheme.tertiaryContainer.withValues(alpha: 0.3),
-                  Theme.of(context).colorScheme.tertiaryContainer.withValues(alpha: 0.1),
+                  Theme.of(context).colorScheme.tertiaryContainer
+                      .withValues(alpha: 0.3),
+                  Theme.of(context).colorScheme.tertiaryContainer
+                      .withValues(alpha: 0.1),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.3),
+                color: Theme.of(context).colorScheme.tertiary
+                    .withValues(alpha: 0.3),
                 width: 1.5,
               ),
             ),
@@ -2171,7 +2196,8 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.1),
+                    color: Theme.of(context).colorScheme.tertiary
+                        .withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
@@ -2183,7 +2209,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: Text(
-                    l10n.codexThirdPartyLicenseHierarchy,
+                    t.codex.codexThirdPartyLicenseHierarchy,
                     style: AppTextStyles.getBodyStyle(context).copyWith(
                       color: Theme.of(context).colorScheme.onSurface,
                       fontWeight: FontWeight.w500,
@@ -2198,9 +2224,9 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           const SizedBox(height: 24),
 
           // AI Generated Interpretations
-          _buildSubSectionTitle(context, l10n.astrologicalInterpretations),
+          _buildSubSectionTitle(context, t.legal.astrologicalInterpretations),
           Text(
-            l10n.astrologicalInterpretationsText,
+            t.legal.astrologicalInterpretationsText,
             style: AppTextStyles.getBodyStyle(context),
           ),
         ],
@@ -2209,7 +2235,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   Widget _buildFooterSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 800),
@@ -2217,20 +2243,21 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+              color: Theme.of(context).colorScheme.outline
+                  .withValues(alpha: 0.2),
             ),
           ),
         ),
         child: Column(
           children: [
             Text(
-              l10n.appTitle,
+              t.ui.appTitle,
               style: AppTextStyles.getH4Style(context),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
-              l10n.ownerName,
+              t.legal.ownerName,
               style: AppTextStyles.getCaptionStyle(context),
               textAlign: TextAlign.center,
             ),
@@ -2239,24 +2266,19 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
               alignment: WrapAlignment.center,
               children: [
                 Text(
-                  "${l10n.ownerEmail} ",
-                  style: AppTextStyles.getCaptionStyle(
-                    context,
-                  ).copyWith(fontWeight: FontWeight.bold),
+                  "${t.legal.ownerEmail} ",
+                  style: AppTextStyles.getCaptionStyle(context)
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
                 InkWell(
-                  onTap: () => _launchExternalUrl(
-                    'mailto:contact@astrogods.it',
-                  ),
+                  onTap: () =>
+                      _launchExternalUrl('mailto:contact@astrogods.it'),
                   child: Text(
                     'contact@astrogods.it',
-                    style: AppTextStyles.getCaptionStyle(context)
-                        .copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.primary,
-                          decoration: TextDecoration.underline,
-                        ),
+                    style: AppTextStyles.getCaptionStyle(context).copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
               ],
@@ -2296,13 +2318,13 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
     );
   }
 
-
   Widget _buildSubSectionTitle(BuildContext context, String title) {
     return Container(
       margin: const EdgeInsets.only(top: 24, bottom: 16),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.3),
+        color: Theme.of(context).colorScheme.secondaryContainer
+            .withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
         border: Border(
           left: BorderSide(
@@ -2321,7 +2343,6 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
     );
   }
 
-
   Widget _buildTableOfContentsFAB(BuildContext context) {
     return FloatingActionButton(
       onPressed: () => _showTableOfContentsBottomSheet(context),
@@ -2332,9 +2353,9 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
   }
 
   void _showTableOfContentsBottomSheet(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
-    
+    final t = Translations.of(context);
+    final sections = _getSections(t);
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -2355,9 +2376,8 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.outline.withValues(alpha: 0.4),
+                  color: Theme.of(context).colorScheme.outline
+                      .withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -2371,10 +2391,9 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      l10n.termsTableOfContents,
-                      style: AppTextStyles.getH5Style(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.bold),
+                      t.legal.termsTableOfContents,
+                      style: AppTextStyles.getH5Style(context)
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     IconButton(
@@ -2431,12 +2450,12 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                   style: AppTextStyles.getBodyStyle(context)
                                       .copyWith(
                                         color: isSelected
-                                            ? Theme.of(
-                                                context,
-                                              ).colorScheme.primary
-                                            : Theme.of(
-                                                context,
-                                              ).colorScheme.onSurface,
+                                            ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface,
                                         fontWeight: isSelected
                                             ? FontWeight.w600
                                             : FontWeight.normal,
@@ -2460,7 +2479,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
   Future<void> _launchExternalUrl(String url) async {
     final Uri uri = Uri.parse(url);
-    final errorMessage = AppLocalizations.of(context)!.errorOpeningUrl;
+    final errorMessage = Translations.of(context).ui.errorOpeningUrl;
     try {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (e) {

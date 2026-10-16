@@ -1,16 +1,13 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../services/auth_service.dart';
 import '../models/user.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.dark;
   static const String _themeModeKey = 'theme_mode';
-  
+
   final AuthService _authService = AuthService();
   User? _currentUser;
 

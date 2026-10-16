@@ -1,19 +1,13 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../../constants/text_styles.dart';
 import '../../models/subscription_plan.dart';
-import '../../l10n/app_localizations.dart';
+import '../../i18n/translations.g.dart';
 
 class PlanBadgeWidget extends StatelessWidget {
   final PlanBadge badge;
 
-  const PlanBadgeWidget({
-    super.key,
-    required this.badge,
-  });
+  const PlanBadgeWidget({super.key, required this.badge});
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +15,10 @@ class PlanBadgeWidget extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
 
-    final BadgeData badgeData = _getBadgeData(badge, localizations, colorScheme);
+    final BadgeData badgeData = _getBadgeData(badge, t, colorScheme);
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -42,11 +36,7 @@ class PlanBadgeWidget extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            badgeData.icon,
-            color: badgeData.iconColor,
-            size: 16,
-          ),
+          Icon(badgeData.icon, color: badgeData.iconColor, size: 16),
           const SizedBox(width: 6),
           Text(
             badgeData.label,
@@ -64,13 +54,13 @@ class PlanBadgeWidget extends StatelessWidget {
 
   BadgeData _getBadgeData(
     PlanBadge badge,
-    AppLocalizations localizations,
+    Translations t,
     ColorScheme colorScheme,
   ) {
     switch (badge) {
       case PlanBadge.currentPlan:
         return BadgeData(
-          label: localizations.currentPlan,
+          label: t.ui.currentPlan,
           icon: Icons.check_circle,
           iconColor: colorScheme.onPrimary,
           textColor: colorScheme.onPrimary,
@@ -84,7 +74,7 @@ class PlanBadgeWidget extends StatelessWidget {
         );
       case PlanBadge.upgrade:
         return BadgeData(
-          label: localizations.upgrade,
+          label: t.ui.upgrade,
           icon: Icons.arrow_upward,
           iconColor: colorScheme.onSecondaryContainer,
           textColor: colorScheme.onSecondaryContainer,
@@ -98,7 +88,7 @@ class PlanBadgeWidget extends StatelessWidget {
         );
       case PlanBadge.downgrade:
         return BadgeData(
-          label: localizations.downgrade,
+          label: t.ui.downgrade,
           icon: Icons.arrow_downward,
           iconColor: colorScheme.onSurfaceVariant,
           textColor: colorScheme.onSurfaceVariant,
@@ -108,7 +98,9 @@ class PlanBadgeWidget extends StatelessWidget {
               colorScheme.surfaceContainerHighest.withValues(alpha: 0.8),
             ],
           ),
-          shadowColor: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+          shadowColor: colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.3,
+          ),
         );
       case PlanBadge.none:
         return BadgeData(
@@ -116,7 +108,9 @@ class PlanBadgeWidget extends StatelessWidget {
           icon: Icons.help,
           iconColor: colorScheme.onSurface,
           textColor: colorScheme.onSurface,
-          gradient: const LinearGradient(colors: [Colors.transparent, Colors.transparent]),
+          gradient: const LinearGradient(
+            colors: [Colors.transparent, Colors.transparent],
+          ),
           shadowColor: Colors.transparent,
         );
     }

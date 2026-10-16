@@ -1,13 +1,12 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../providers/theme_provider.dart';
+
 import 'dart:convert';
+
 import '../models/birth_chart.dart';
 import '../services/birth_chart_service.dart';
 import '../providers/auth_provider.dart';
@@ -16,7 +15,7 @@ import '../widgets/gradient_button.dart';
 import '../widgets/birth_chart_header.dart';
 import '../widgets/reading_screen_layout.dart';
 import '../constants/text_styles.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 
 class BirthChartPreviewScreen extends StatefulWidget {
   final BirthChart birthChart;
@@ -60,7 +59,7 @@ class _BirthChartPreviewScreenState extends State<BirthChartPreviewScreen> {
       if (mounted) {
         SnackbarUtils.showInfo(
           context,
-          AppLocalizations.of(context)!.loginRequiredForFullReading,
+          Translations.of(context).ui.loginRequiredForFullReading,
         );
         // Navigate to login
         context.go('/login');
@@ -93,7 +92,7 @@ class _BirthChartPreviewScreenState extends State<BirthChartPreviewScreen> {
       personAName:
           '${widget.birthChart.givenName} ${widget.birthChart.familyName}',
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.birthChartPreview),
+        title: Text(Translations.of(context).ui.birthChartPreview),
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(
@@ -127,10 +126,12 @@ class _BirthChartPreviewScreenState extends State<BirthChartPreviewScreen> {
             Container(
               padding: const EdgeInsets.all(24.0),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.85),
+                color: Theme.of(context).colorScheme.surface
+                    .withValues(alpha: 0.85),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.15),
+                  color: Theme.of(context).colorScheme.outline
+                      .withValues(alpha: 0.15),
                   width: 1,
                 ),
               ),
@@ -143,15 +144,16 @@ class _BirthChartPreviewScreenState extends State<BirthChartPreviewScreen> {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    AppLocalizations.of(context)!.previewTitle,
+                    Translations.of(context).ui.previewTitle,
                     style: AppTextStyles.getH4Style(context),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    AppLocalizations.of(context)!.previewDescription,
+                    Translations.of(context).ui.previewDescription,
                     style: AppTextStyles.getBodyLargeStyle(context).copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.75),
+                      color: Theme.of(context).colorScheme.onSurface
+                          .withValues(alpha: 0.75),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -162,7 +164,7 @@ class _BirthChartPreviewScreenState extends State<BirthChartPreviewScreen> {
             const SizedBox(height: 32),
 
             GradientButton(
-              text: AppLocalizations.of(context)!.getFullReading.toUpperCase(),
+              text: Translations.of(context).ui.getFullReading.toUpperCase(),
               onPressed: _onGetFullReading,
             ),
 
@@ -177,9 +179,10 @@ class _BirthChartPreviewScreenState extends State<BirthChartPreviewScreen> {
                 }
               },
               child: Text(
-                AppLocalizations.of(context)!.backToForm,
+                Translations.of(context).ui.backToForm,
                 style: AppTextStyles.getBodyLargeStyle(context).copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                  color: Theme.of(context).colorScheme.onSurface
+                      .withValues(alpha: 0.6),
                 ),
               ),
             ),
@@ -190,5 +193,4 @@ class _BirthChartPreviewScreenState extends State<BirthChartPreviewScreen> {
       ),
     );
   }
-
 }

@@ -1,8 +1,5 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import 'api_client.dart';
 
 class NewsletterSubscription {
@@ -81,11 +78,14 @@ class NewsletterService {
     required String place,
   }) async {
     try {
-      await _apiClient.post('/newsletter/daily-newsletter', body: {
-        'birth_chart_id': birthChartId,
-        'place_id': placeId,
-        'place': place,
-      });
+      await _apiClient.post(
+        '/newsletter/daily-newsletter',
+        body: {
+          'birth_chart_id': birthChartId,
+          'place_id': placeId,
+          'place': place,
+        },
+      );
     } catch (e) {
       rethrow;
     }
@@ -97,11 +97,14 @@ class NewsletterService {
     required String place,
   }) async {
     try {
-      await _apiClient.post('/newsletter/monthly-newsletter', body: {
-        'birth_chart_id': birthChartId,
-        'place_id': placeId,
-        'place': place,
-      });
+      await _apiClient.post(
+        '/newsletter/monthly-newsletter',
+        body: {
+          'birth_chart_id': birthChartId,
+          'place_id': placeId,
+          'place': place,
+        },
+      );
     } catch (e) {
       rethrow;
     }
@@ -130,11 +133,14 @@ class NewsletterService {
     required String place,
   }) async {
     try {
-      await _apiClient.put('/newsletter/daily-newsletter/$newsletterId', body: {
-        'birth_chart_id': birthChartId,
-        'place_id': placeId,
-        'place': place,
-      });
+      await _apiClient.put(
+        '/newsletter/daily-newsletter/$newsletterId',
+        body: {
+          'birth_chart_id': birthChartId,
+          'place_id': placeId,
+          'place': place,
+        },
+      );
     } catch (e) {
       rethrow;
     }
@@ -147,11 +153,14 @@ class NewsletterService {
     required String place,
   }) async {
     try {
-      await _apiClient.put('/newsletter/monthly-newsletter/$newsletterId', body: {
-        'birth_chart_id': birthChartId,
-        'place_id': placeId,
-        'place': place,
-      });
+      await _apiClient.put(
+        '/newsletter/monthly-newsletter/$newsletterId',
+        body: {
+          'birth_chart_id': birthChartId,
+          'place_id': placeId,
+          'place': place,
+        },
+      );
     } catch (e) {
       rethrow;
     }

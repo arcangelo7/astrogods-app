@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2014 The Flutter Authors
- *
- * SPDX-License-Identifier: BSD-3-Clause
- */
-
 #ifndef RUNNER_UTILS_H_
 #define RUNNER_UTILS_H_
 

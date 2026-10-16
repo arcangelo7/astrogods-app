@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
@@ -26,6 +22,8 @@ class User {
   final String? birthPlace;
   @JsonKey(name: 'unknown_time')
   final bool? unknownTime;
+  @JsonKey(name: 'birth_time_fold')
+  final int? birthTimeFold;
   @JsonKey(name: 'profile_picture')
   final String? profilePicture;
   @JsonKey(name: 'night_mode')
@@ -46,6 +44,7 @@ class User {
     this.birthLongitude,
     this.birthPlace,
     this.unknownTime,
+    this.birthTimeFold,
     this.profilePicture,
     this.nightMode = true,
     this.hasBirthData,
@@ -66,6 +65,7 @@ class User {
     double? birthLongitude,
     String? birthPlace,
     bool? unknownTime,
+    int? birthTimeFold,
     String? profilePicture,
     bool? nightMode,
     bool? hasBirthData,
@@ -82,6 +82,7 @@ class User {
       birthLongitude: birthLongitude ?? this.birthLongitude,
       birthPlace: birthPlace ?? this.birthPlace,
       unknownTime: unknownTime ?? this.unknownTime,
+      birthTimeFold: birthTimeFold ?? this.birthTimeFold,
       profilePicture: profilePicture ?? this.profilePicture,
       nightMode: nightMode ?? this.nightMode,
       hasBirthData: hasBirthData ?? this.hasBirthData,

@@ -1,8 +1,5 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../constants/text_styles.dart';
 
 class MysticalPasswordField extends StatefulWidget {
@@ -59,9 +56,7 @@ class _MysticalPasswordFieldState extends State<MysticalPasswordField> {
             });
           },
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
@@ -71,24 +66,20 @@ class _MysticalPasswordFieldState extends State<MysticalPasswordField> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.primary,
-            width: 2,
-          ),
+          borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.error,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: theme.colorScheme.error, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 16,
         ),
         filled: true,
-        fillColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+        fillColor: theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.3,
+        ),
       ),
       onFieldSubmitted: widget.onFieldSubmitted != null
           ? (_) => widget.onFieldSubmitted!()

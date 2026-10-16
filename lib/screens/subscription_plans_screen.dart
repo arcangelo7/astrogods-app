@@ -1,20 +1,19 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../constants/text_styles.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/starry_night_background.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../services/stripe_service.dart';
 import '../services/api_client.dart' show ApiException;
 import '../services/subscription_service.dart';
+import '../services/loopback_server.dart';
 import '../utils/snackbar_utils.dart';
 import '../utils/session_utils.dart';
 import '../utils/auth_navigation_utils.dart';
@@ -129,7 +128,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        AppLocalizations.of(context)!.confirmingSubscription,
+                        Translations.of(context).ui.confirmingSubscription,
                         style: AppTextStyles.getBodyStyle(context),
                       ),
                     ),
@@ -151,10 +150,10 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
             // Close loading dialog if still showing
             Navigator.of(context).pop();
 
-            final localizations = AppLocalizations.of(context)!;
+            final t = Translations.of(context);
             SnackbarUtils.showCopyableErrorSnackBar(
               context,
-              '${localizations.subscriptionConfirmationFailed}: ${e.toString()}',
+              '${t.ui.subscriptionConfirmationFailed}: ${e.toString()}',
             );
           }
         }
@@ -168,15 +167,18 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
     super.dispose();
   }
 
-  String? _getButtonLabel(SubscriptionPlan plan, AppLocalizations localizations) {
+  String? _getButtonLabel(SubscriptionPlan plan, Translations t) {
     if (_subscriptionStatus?.hasActiveSubscription ?? false) {
-      return localizations.changePlan;
+      return t.ui.changePlan;
     }
 
     return null;
   }
 
-  void _handleManageSubscription(BuildContext context, {String? priceId}) async {
+  void _handleManageSubscription(
+    BuildContext context, {
+    String? priceId,
+  }) async {
     try {
       final subscriptionService = SubscriptionService(context: context);
       await subscriptionService.openCustomerPortal(priceId: priceId);
@@ -199,15 +201,12 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
     BuildContext context,
     SubscriptionPlan plan,
   ) async {
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     if (!authProvider.isAuthenticated) {
       unawaited(saveReturnUrl('/subscription-plans'));
-      SnackbarUtils.showInfo(
-        context,
-        localizations.loginRequiredForSubscription,
-      );
+      SnackbarUtils.showInfo(context, t.ui.loginRequiredForSubscription);
       context.go('/login');
       return;
     }
@@ -223,21 +222,86 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
       // Get the correct price ID from plan
       final String priceId = plan.priceId;
 
-      if (kIsWeb) {
-        final checkoutUrl = await StripeService.createCheckoutSession(context, priceId);
+      final isDesktop =
+          !kIsWeb &&
+          (defaultTargetPlatform == TargetPlatform.macOS ||
+              defaultTargetPlatform == TargetPlatform.linux ||
+              defaultTargetPlatform == TargetPlatform.windows);
+
+      final useCheckoutSession = kIsWeb || isDesktop;
+
+      if (useCheckoutSession) {
+        LoopbackServer? server;
+        String? successUrl;
+        String? cancelUrl;
+
+        if (isDesktop) {
+          server = LoopbackServer(
+            title: t.ui.portalReturnTitle,
+            message: t.ui.portalReturnMessage,
+            cancelledTitle: t.ui.checkoutCancelledTitle,
+            cancelledMessage: t.ui.checkoutCancelledMessage,
+          );
+          final baseUrl = await server.start();
+          successUrl = baseUrl;
+          cancelUrl = '$baseUrl?cancelled=true';
+        }
+
+        if (!context.mounted) return;
+
+        final response = await StripeService.createCheckoutSession(
+          context,
+          priceId,
+          successUrl: successUrl,
+          cancelUrl: cancelUrl,
+        );
+
+        final checkoutUrl = response['checkout_url'] as String?;
 
         // Hide loading indicator
         if (context.mounted) {
           Navigator.of(context).pop();
         }
 
-        if (checkoutUrl != null) {
-          await StripeService.launchStripeCheckout(checkoutUrl);
-        } else {
+        if (checkoutUrl == null) {
+          await server?.close();
           throw Exception('No checkout URL received');
         }
+
+        if (isDesktop && server != null) {
+          final uri = Uri.parse(checkoutUrl);
+          final launched = await launchUrl(
+            uri,
+            mode: LaunchMode.externalApplication,
+          );
+          if (!launched) {
+            await server.close();
+            throw Exception('Cannot open URL');
+          }
+
+          final params = await server.waitForCallbackWithParams();
+          final sessionId = params['session_id'];
+          final cancelled = params['cancelled'] == 'true';
+          final timedOut = params['timeout'] == 'true';
+
+          if (cancelled || timedOut) {
+            return;
+          }
+
+          if (sessionId != null && context.mounted) {
+            final tier = await StripeService.confirmSession(context, sessionId);
+            if (context.mounted) {
+              context.go('/subscription-success?tier=$tier');
+            }
+          }
+        } else {
+          await StripeService.launchStripeCheckout(checkoutUrl);
+        }
       } else {
-        final setupData = await StripeService.createPaymentIntent(context, priceId);
+        final setupData = await StripeService.createPaymentIntent(
+          context,
+          priceId,
+        );
 
         await StripeService.initPaymentSheet(
           setupIntentClientSecret: setupData['setup_intent'],
@@ -278,7 +342,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
           SnackbarUtils.showErrorWithAction(
             context,
             e.message,
-            localizations.manageSubscription,
+            t.ui.manageSubscription,
             () => context.push('/settings'),
           );
         } else {
@@ -304,38 +368,38 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
         if (Navigator.of(context).canPop()) {
           Navigator.of(context).pop();
         }
-        SnackbarUtils.showError(context, localizations.paymentProcessingError);
+        SnackbarUtils.showError(context, t.legal.paymentProcessingError);
       }
     }
   }
 
   List<SubscriptionPlan> _getAllPlans() {
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final config = _stripeConfig!;
     return [
-      ...SubscriptionPlan.getMonthlyPlans(localizations, config),
-      ...SubscriptionPlan.getSemiannualPlans(localizations, config),
-      ...SubscriptionPlan.getAnnualPlans(localizations, config),
+      ...SubscriptionPlan.getMonthlyPlans(t, config),
+      ...SubscriptionPlan.getSemiannualPlans(t, config),
+      ...SubscriptionPlan.getAnnualPlans(t, config),
     ];
   }
 
   List<SubscriptionPlan> _getCurrentPlans() {
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final config = _stripeConfig!;
     List<SubscriptionPlan> plans;
 
     switch (_tabController.index) {
       case 0:
-        plans = SubscriptionPlan.getMonthlyPlans(localizations, config);
+        plans = SubscriptionPlan.getMonthlyPlans(t, config);
         break;
       case 1:
-        plans = SubscriptionPlan.getSemiannualPlans(localizations, config);
+        plans = SubscriptionPlan.getSemiannualPlans(t, config);
         break;
       case 2:
-        plans = SubscriptionPlan.getAnnualPlans(localizations, config);
+        plans = SubscriptionPlan.getAnnualPlans(t, config);
         break;
       default:
-        plans = SubscriptionPlan.getMonthlyPlans(localizations, config);
+        plans = SubscriptionPlan.getMonthlyPlans(t, config);
     }
 
     final allPlans = _getAllPlans();
@@ -362,9 +426,9 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
   }
 
   List<SubscriptionPlan> _getSimplifiedPlans() {
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final config = _stripeConfig!;
-    final plans = SubscriptionPlan.getSimplifiedPlans(localizations, config);
+    final plans = SubscriptionPlan.getSimplifiedPlans(t, config);
 
     final allPlans = _getAllPlans();
     final annotatedAllPlans = SubscriptionPlan.annotateWithCurrentPlan(
@@ -391,7 +455,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -399,6 +463,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
         showPlanet: true,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -407,7 +472,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                 iconTheme: IconThemeData(
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
-                title: Text(localizations.viewPlans),
+                title: Text(t.ui.viewPlans),
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {
@@ -423,17 +488,23 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                 child: _isLoadingTrialEligibility || _isLoadingStripeConfig
                     ? const Center(child: CircularProgressIndicator())
                     : _stripeConfig == null
-                        ? Center(
-                            child: Text(
-                              localizations.connectionError,
-                              style: AppTextStyles.getBodyStyle(context),
-                            ),
-                          )
-                        : SingleChildScrollView(
-                        padding: const EdgeInsets.all(16.0),
+                    ? Center(
+                        child: Text(
+                          t.ui.connectionError,
+                          style: AppTextStyles.getBodyStyle(context),
+                        ),
+                      )
+                    : SingleChildScrollView(
+                        padding: EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          top: 16,
+                          bottom: MediaQuery.of(context).padding.bottom + 16,
+                        ),
                         child: ConstrainedBox(
                           constraints: BoxConstraints(
-                            minHeight: MediaQuery.of(context).size.height -
+                            minHeight:
+                                MediaQuery.of(context).size.height -
                                 MediaQuery.of(context).padding.top -
                                 kToolbarHeight -
                                 32,
@@ -444,7 +515,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                             children: [
                               const SizedBox(height: 16),
                               Text(
-                                localizations.chooseAstrologicalPath,
+                                t.about.chooseAstrologicalPath,
                                 style: AppTextStyles.getH2Style(context),
                                 textAlign: TextAlign.center,
                               ),
@@ -452,7 +523,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                               if (_showAllPlans) ...[
                                 _buildTabSelector(),
                                 const SizedBox(height: 24),
-                                _buildTabContent(localizations),
+                                _buildTabContent(t),
                                 const SizedBox(height: 16),
                                 Center(
                                   child: FilledButton.tonal(
@@ -463,14 +534,18 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                                     },
                                     style: FilledButton.styleFrom(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 24, vertical: 12),
+                                        horizontal: 24,
+                                        vertical: 12,
+                                      ),
                                     ),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
-                                          localizations.hideOtherPlans,
-                                          style: AppTextStyles.getBodyStyle(context),
+                                          t.ui.hideOtherPlans,
+                                          style: AppTextStyles.getBodyStyle(
+                                            context,
+                                          ),
                                         ),
                                         const SizedBox(width: 8),
                                         const Icon(Icons.expand_less, size: 20),
@@ -494,7 +569,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
   }
 
   Widget _buildTabSelector() {
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmallScreen = screenWidth < 360;
 
@@ -528,7 +603,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                     vertical: 8,
                   ),
                   child: Text(
-                    isSmallScreen ? 'Mens.' : localizations.monthly,
+                    isSmallScreen ? 'Mens.' : t.ui.monthly,
                     style: AppTextStyles.getCaptionStyle(context).copyWith(
                       fontSize: isSmallScreen ? 12 : 14,
                       fontWeight: FontWeight.w600,
@@ -543,7 +618,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                     vertical: 8,
                   ),
                   child: Text(
-                    isSmallScreen ? '6 M.' : localizations.semiannual,
+                    isSmallScreen ? '6 M.' : t.ui.semiannual,
                     style: AppTextStyles.getCaptionStyle(context).copyWith(
                       fontSize: isSmallScreen ? 12 : 14,
                       fontWeight: FontWeight.w600,
@@ -558,7 +633,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                     vertical: 8,
                   ),
                   child: Text(
-                    isSmallScreen ? 'Ann.' : localizations.annual,
+                    isSmallScreen ? 'Ann.' : t.ui.annual,
                     style: AppTextStyles.getCaptionStyle(context).copyWith(
                       fontSize: isSmallScreen ? 12 : 14,
                       fontWeight: FontWeight.w600,
@@ -574,13 +649,13 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
   }
 
   Widget _buildSimplifiedLayout() {
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final plans = _getSimplifiedPlans();
 
     return Column(
       children: [
         for (int i = 0; i < plans.length; i++) ...[
-          _buildPlanCard(plans[i], localizations),
+          _buildPlanCard(plans[i], t),
           if (i < plans.length - 1) const SizedBox(height: 16),
         ],
         const SizedBox(height: 24),
@@ -598,7 +673,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                localizations.exploreOtherPlans,
+                t.ui.exploreOtherPlans,
                 style: AppTextStyles.getBodyStyle(context),
               ),
               const SizedBox(width: 8),
@@ -610,21 +685,22 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
     );
   }
 
-  Widget _buildTabContent(AppLocalizations localizations) {
+  Widget _buildTabContent(Translations t) {
     final plans = _getCurrentPlans();
     return Column(
       children: [
         for (int i = 0; i < plans.length; i++) ...[
-          _buildPlanCard(plans[i], localizations),
+          _buildPlanCard(plans[i], t),
           if (i < plans.length - 1) const SizedBox(height: 16),
         ],
       ],
     );
   }
 
-  Widget _buildPlanCard(SubscriptionPlan plan, AppLocalizations localizations) {
+  Widget _buildPlanCard(SubscriptionPlan plan, Translations t) {
     final isMainCard = plan.cardStyle == CardStyle.main && !plan.isCurrentPlan;
-    final isAlternativeCard = plan.cardStyle == CardStyle.alternative && !plan.isCurrentPlan;
+    final isAlternativeCard =
+        plan.cardStyle == CardStyle.alternative && !plan.isCurrentPlan;
     final isCurrentPlan = plan.isCurrentPlan;
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -656,32 +732,39 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
     }
 
     return Card(
-      elevation: isCurrentPlan ? 12 : (isMainCard ? 8 : (isAlternativeCard ? 2 : 4)),
+      elevation: isCurrentPlan
+          ? 12
+          : (isMainCard ? 8 : (isAlternativeCard ? 2 : 4)),
       color: colorScheme.surface,
       child: Container(
         decoration: (isCurrentPlan || isMainCard)
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: isCurrentPlan ? colorScheme.primary : colorScheme.primary,
+                  color: isCurrentPlan
+                      ? colorScheme.primary
+                      : colorScheme.primary,
                   width: isCurrentPlan ? 3 : 2,
                 ),
               )
             : null,
         child: Padding(
-          padding: EdgeInsets.all(isCurrentPlan || isMainCard ? 20 : (isAlternativeCard ? 16 : 20)),
+          padding: EdgeInsets.all(
+            isCurrentPlan || isMainCard ? 20 : (isAlternativeCard ? 16 : 20),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (plan.badge != PlanBadge.none) ...[
-                Center(
-                  child: PlanBadgeWidget(badge: plan.badge),
-                ),
+                Center(child: PlanBadgeWidget(badge: plan.badge)),
                 const SizedBox(height: 12),
               ] else if (isMainCard && !isCurrentPlan) ...[
                 Center(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 16,
+                    ),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
@@ -708,7 +791,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          localizations.recommendedPlan,
+                          t.ui.recommendedPlan,
                           style: AppTextStyles.getBodyStyle(context).copyWith(
                             color: colorScheme.onPrimary,
                             fontWeight: FontWeight.bold,
@@ -727,11 +810,11 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                 style: isMainCard
                     ? AppTextStyles.getH4Style(context)
                     : isAlternativeCard
-                        ? AppTextStyles.getH5Style(context)
-                        : AppTextStyles.getH4Style(context).copyWith(
-                            color: colorScheme.primary,
-                            fontWeight: FontWeight.w600,
-                          ),
+                    ? AppTextStyles.getH5Style(context)
+                    : AppTextStyles.getH4Style(context).copyWith(
+                        color: colorScheme.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
@@ -745,7 +828,8 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                 extraInfo: plan.extraInfo,
                 displayStyle: priceStyle,
               ),
-              if (plan.originalPrice != null && plan.discountedPrice != null) ...[
+              if (plan.originalPrice != null &&
+                  plan.discountedPrice != null) ...[
                 const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -760,9 +844,8 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                     const SizedBox(width: 8),
                     Text(
                       plan.discountedPrice!,
-                      style: AppTextStyles.getBodyStyle(context).copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppTextStyles.getBodyStyle(context)
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -799,7 +882,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                 FilledButton.icon(
                   onPressed: () => _handleManageSubscription(context),
                   icon: const Icon(Icons.settings),
-                  label: Text(localizations.manageSubscription),
+                  label: Text(t.ui.manageSubscription),
                   style: FilledButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
@@ -807,15 +890,17 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
               else
                 SubscriptionButton(
                   isLoading: _isLoadingTrialEligibility,
-                  hasTrialEligibility: _hasTrialEligibility && !(_subscriptionStatus?.hasActiveSubscription ?? false),
+                  hasTrialEligibility:
+                      _hasTrialEligibility &&
+                      !(_subscriptionStatus?.hasActiveSubscription ?? false),
                   onPressed: () => _handlePlanAction(context, plan),
                   buttonStyle: buttonStyle,
-                  customText: _getButtonLabel(plan, localizations),
+                  customText: _getButtonLabel(plan, t),
                 ),
               if (isMainCard || isAlternativeCard) ...[
                 const SizedBox(height: 6),
                 Text(
-                  localizations.thenPricePerMonth(plan.price),
+                  t.ui.thenPricePerMonth(price: plan.price),
                   style: AppTextStyles.getCaptionStyle(context),
                   textAlign: TextAlign.center,
                 ),
@@ -828,10 +913,9 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                     const Icon(Icons.security, color: Colors.green, size: 16),
                     const SizedBox(width: 4),
                     Text(
-                      localizations.moneyBackGuarantee,
-                      style: AppTextStyles.getCaptionStyle(context).copyWith(
-                        color: colorScheme.primary,
-                      ),
+                      t.ui.moneyBackGuarantee,
+                      style: AppTextStyles.getCaptionStyle(context)
+                          .copyWith(color: colorScheme.primary),
                     ),
                   ],
                 ),

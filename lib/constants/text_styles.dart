@@ -1,8 +1,4 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyles {
@@ -166,7 +162,10 @@ class AppTextStyles {
   );
 
   static TextStyle getLinkStyle(BuildContext context) {
-    return GoogleFonts.roboto(color: Theme.of(context).colorScheme.primary, fontWeight: semibold);
+    return GoogleFonts.roboto(
+      color: Theme.of(context).colorScheme.primary,
+      fontWeight: semibold,
+    );
   }
 
   static TextStyle getCaptionStyle(BuildContext context) {
@@ -200,9 +199,14 @@ class AppTextStyles {
     );
   }
 
-  static TextStyle getSnackbarTextStyle(BuildContext context, Color backgroundColor) {
+  static TextStyle getSnackbarTextStyle(
+    BuildContext context,
+    Color backgroundColor,
+  ) {
     return GoogleFonts.roboto(
-      color: ThemeData.estimateBrightnessForColor(backgroundColor) == Brightness.dark
+      color:
+          ThemeData.estimateBrightnessForColor(backgroundColor) ==
+              Brightness.dark
           ? Colors.white
           : Colors.black,
       fontWeight: medium,
@@ -212,8 +216,10 @@ class AppTextStyles {
 
   static TextStyle getMarkdownParagraphStyle(BuildContext context) =>
       getBodyLargeStyle(context);
-  static TextStyle getMarkdownH2Style(BuildContext context) => getH5Style(context);
-  static TextStyle getMarkdownH3Style(BuildContext context) => getH6Style(context);
+  static TextStyle getMarkdownH2Style(BuildContext context) =>
+      getH5Style(context);
+  static TextStyle getMarkdownH3Style(BuildContext context) =>
+      getH6Style(context);
 
   static TextStyle getMarkdownStrongStyle(BuildContext context) {
     return GoogleFonts.roboto(

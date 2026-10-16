@@ -1,13 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Environment {
-  static const String _debugMobileUrl = 'http://192.168.1.68:5005/api';
-  static const String _debugDesktopUrl = 'http://localhost:5005/api';
+  static const String _debugApiUrl = String.fromEnvironment('API_BASE_URL');
 
   static Future<void> init() async {
     await dotenv.load(fileName: '.env.flutter');
@@ -15,10 +10,12 @@ class Environment {
 
   static String get apiBaseUrl {
     if (kDebugMode) {
-      return switch (defaultTargetPlatform) {
-        TargetPlatform.android || TargetPlatform.iOS => _debugMobileUrl,
-        _ => _debugDesktopUrl,
-      };
+      if (_debugApiUrl.isEmpty) {
+        throw StateError(
+          'Debug builds need --dart-define=API_BASE_URL, see the Makefile',
+        );
+      }
+      return _debugApiUrl;
     }
     return 'https://astrogods.it/api';
   }

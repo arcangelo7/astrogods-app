@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../widgets/starry_night_background.dart';
 import '../widgets/formatted_markdown_content.dart';
 import '../constants/text_styles.dart';
@@ -23,19 +20,19 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   int _selectedIndex = 0;
   bool _isScrollingToSection = false;
 
-  List<String> _getSections(AppLocalizations l10n) {
+  List<String> _getSections(Translations t) {
     return [
-      l10n.summarySection,
-      l10n.dataControllerSection,
-      l10n.dataTypesSection,
-      l10n.processingMethodsSection,
-      l10n.purposesSection,
-      l10n.processingDetailsSection,
-      l10n.cookiePolicySection,
-      l10n.euInfoSection,
-      l10n.additionalInfoSection,
-      l10n.definitionsSection,
-      l10n.inCaseOfProblems,
+      t.legal.summarySection,
+      t.legal.dataControllerSection,
+      t.legal.dataTypesSection,
+      t.legal.processingMethodsSection,
+      t.legal.purposesSection,
+      t.legal.processingDetailsSection,
+      t.legal.cookiePolicySection,
+      t.legal.euInfoSection,
+      t.about.additionalInfoSection,
+      t.legal.definitionsSection,
+      t.legal.inCaseOfProblems,
     ];
   }
 
@@ -75,23 +72,26 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   }
 
   void _onScroll() {
-    if (_isScrollingToSection) return; // Don't update while programmatically scrolling
+    if (_isScrollingToSection) {
+      return;
+    }
 
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
-    
+    final t = Translations.of(context);
+    final sections = _getSections(t);
+
     // Find which section is currently visible
     int newIndex = 0;
     double minDistance = double.infinity;
-    
+
     for (int i = 0; i < sections.length; i++) {
       final key = _sectionKeys[sections[i]];
       if (key?.currentContext != null) {
-        final RenderBox? box = key!.currentContext!.findRenderObject() as RenderBox?;
+        final RenderBox? box =
+            key!.currentContext!.findRenderObject() as RenderBox?;
         if (box != null) {
           final position = box.localToGlobal(Offset.zero);
           final distance = (position.dy - 100).abs(); // 100px offset for header
-          
+
           if (distance < minDistance) {
             minDistance = distance;
             newIndex = i;
@@ -99,7 +99,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         }
       }
     }
-    
+
     if (newIndex != _selectedIndex) {
       setState(() {
         _selectedIndex = newIndex;
@@ -109,8 +109,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
+    final t = Translations.of(context);
+    final sections = _getSections(t);
     final isWideScreen = MediaQuery.of(context).size.width > 900;
 
     return Scaffold(
@@ -121,6 +121,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         showPlanet: false,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -140,7 +141,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                   },
                 ),
                 title: Text(
-                  l10n.privacyPolicy,
+                  t.legal.privacyPolicy,
                   style: AppTextStyles.getH4Style(context),
                 ),
               ),
@@ -155,9 +156,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                         decoration: BoxDecoration(
                           border: Border(
                             right: BorderSide(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.outline.withValues(alpha: 0.2),
+                              color: Theme.of(context).colorScheme.outline
+                                  .withValues(alpha: 0.2),
                             ),
                           ),
                         ),
@@ -167,10 +167,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                             Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Text(
-                                l10n.summary,
-                                style: AppTextStyles.getH5Style(
-                                  context,
-                                ).copyWith(fontWeight: FontWeight.bold),
+                                t.legal.summary,
+                                style: AppTextStyles.getH5Style(context)
+                                    .copyWith(fontWeight: FontWeight.bold),
                               ),
                             ),
                             Expanded(
@@ -179,7 +178,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                 itemBuilder: (context, index) {
                                   final isSelected = _selectedIndex == index;
                                   return InkWell(
-                                    onTap: () => _scrollToSection(index, sections),
+                                    onTap: () =>
+                                        _scrollToSection(index, sections),
                                     child: Container(
                                       margin: const EdgeInsets.symmetric(
                                         horizontal: 8.0,
@@ -187,9 +187,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                       ),
                                       decoration: BoxDecoration(
                                         color: isSelected
-                                            ? Theme.of(
-                                                context,
-                                              ).colorScheme.primaryContainer
+                                            ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primaryContainer
                                             : Colors.transparent,
                                         borderRadius: BorderRadius.circular(8),
                                       ),
@@ -206,9 +206,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.circle,
                                                 color: isSelected
-                                                    ? Theme.of(
-                                                        context,
-                                                      ).colorScheme.primary
+                                                    ? Theme.of(context)
+                                                          .colorScheme
+                                                          .primary
                                                     : Theme.of(context)
                                                           .colorScheme
                                                           .onSurface
@@ -276,7 +276,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          l10n.privacyPolicyTitle,
+                                          t.legal.privacyPolicyTitle,
                                           style: AppTextStyles.getH2Style(
                                             context,
                                           ),
@@ -284,7 +284,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                         ),
                                         const SizedBox(height: 16),
                                         Text(
-                                          l10n.privacyPolicyWelcomeText,
+                                          t.legal.privacyPolicyWelcomeText,
                                           style:
                                               AppTextStyles.getBodyStyle(
                                                 context,
@@ -298,7 +298,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                         ),
                                         const SizedBox(height: 12),
                                         Text(
-                                          l10n.lastModified,
+                                          t.legal.lastModified,
                                           style:
                                               AppTextStyles.getCaptionStyle(
                                                 context,
@@ -328,13 +328,13 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                   _buildSection(
                                     context,
                                     Icons.person,
-                                    l10n.dataControllerSection,
+                                    t.legal.dataControllerSection,
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          l10n.dataControllerName,
+                                          t.legal.dataControllerName,
                                           style: AppTextStyles.getBodyStyle(
                                             context,
                                           ),
@@ -343,7 +343,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                         Wrap(
                                           children: [
                                             Text(
-                                              l10n.dataControllerEmailLabel,
+                                              t.legal.dataControllerEmailLabel,
                                               style:
                                                   AppTextStyles.getBodyStyle(
                                                     context,
@@ -354,18 +354,18 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                             InkWell(
                                               onTap: () {
                                                 _launchExternalUrl(
-                                                  'mailto:${l10n.dataControllerEmail}',
+                                                  'mailto:${t.legal.dataControllerEmail}',
                                                 );
                                               },
                                               child: Text(
-                                                l10n.dataControllerEmail,
+                                                t.legal.dataControllerEmail,
                                                 style:
                                                     AppTextStyles.getBodyStyle(
                                                       context,
                                                     ).copyWith(
-                                                      color: Theme.of(
-                                                        context,
-                                                      ).colorScheme.primary,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
                                                       decoration: TextDecoration
                                                           .underline,
                                                     ),
@@ -437,7 +437,11 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                 // Footer
                                 _buildFooterSection(context),
 
-                                const SizedBox(height: 48),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).padding.bottom +
+                                      24,
+                                ),
                               ],
                             ),
                           ),
@@ -459,56 +463,56 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   }
 
   Widget _buildRiepilogoSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     final automaticDataCard = _buildSummaryCard(
       context,
       Icons.computer,
-      l10n.dataWeCollectAutomatically,
-      l10n.dataWeCollectAutomaticallyDesc,
+      t.legal.dataWeCollectAutomatically,
+      t.legal.dataWeCollectAutomaticallyDesc,
       [
-        l10n.usageData,
-        l10n.ipAddress,
-        l10n.deviceInformation,
-        l10n.deviceIdentifiers,
-        l10n.language,
-        l10n.trackingTools,
+        t.legal.usageData,
+        t.legal.ipAddress,
+        t.legal.deviceInformation,
+        t.legal.deviceIdentifiers,
+        t.ui.language,
+        t.legal.trackingTools,
       ],
       ['Hetzner', 'GoDaddy', 'Google Fonts', 'Stripe'],
-      l10n.howWeUseThem,
+      t.legal.howWeUseThem,
       [
-        l10n.registrationAndAuth,
-        l10n.hostingAndBackend,
-        l10n.trafficOptimization,
-        l10n.statistics,
+        t.legal.registrationAndAuth,
+        t.legal.hostingAndBackend,
+        t.legal.trafficOptimization,
+        t.legal.statistics,
       ],
     );
 
     final providedDataCard = _buildSummaryCard(
       context,
       Icons.person_outline,
-      l10n.dataYouProvide,
-      l10n.dataYouProvideDesc,
+      t.legal.dataYouProvide,
+      t.legal.dataYouProvideDesc,
       [
-        l10n.name,
-        l10n.surname,
-        l10n.email,
-        l10n.password,
-        l10n.birthDate,
-        l10n.birthTime,
-        l10n.gender,
-        l10n.phoneNumber,
-        l10n.billingAddress,
-        l10n.paymentInformation,
-        l10n.purchaseHistory,
-        l10n.profilePhoto,
+        t.ui.name,
+        t.ui.surname,
+        t.ui.email,
+        t.ui.password,
+        t.ui.birthDate,
+        t.ui.birthTime,
+        t.ui.gender,
+        t.legal.phoneNumber,
+        t.legal.billingAddress,
+        t.legal.paymentInformation,
+        t.legal.purchaseHistory,
+        t.ui.profilePhoto,
       ],
       ['Stripe', 'Anthropic', 'Google OAuth'],
-      l10n.howWeUseThem,
+      t.legal.howWeUseThem,
       [
-        l10n.registrationAndAuth,
-        l10n.backendApi,
-        l10n.paymentManagement,
+        t.legal.registrationAndAuth,
+        t.legal.backendApi,
+        t.legal.paymentManagement,
       ],
     );
 
@@ -528,7 +532,10 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     size: 28,
                   ),
                   const SizedBox(width: 12),
-                  Text(l10n.summarySection, style: AppTextStyles.getH3Style(context)),
+                  Text(
+                    t.legal.summarySection,
+                    style: AppTextStyles.getH3Style(context),
+                  ),
                 ],
               ),
               const SizedBox(height: 24),
@@ -591,9 +598,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                 Expanded(
                   child: Text(
                     title,
-                    style: AppTextStyles.getBodyStyle(
-                      context,
-                    ).copyWith(fontWeight: FontWeight.bold),
+                    style: AppTextStyles.getBodyStyle(context)
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -612,9 +618,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withValues(alpha: 0.05),
+                    color: Theme.of(context).colorScheme.onSurface
+                        .withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Text(
@@ -627,10 +632,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             if (thirdParties.isNotEmpty) ...[
               const SizedBox(height: 16),
               Text(
-                AppLocalizations.of(context)!.trustedThirdParties,
-                style: AppTextStyles.getCaptionStyle(
-                  context,
-                ).copyWith(fontWeight: FontWeight.bold),
+                Translations.of(context).legal.trustedThirdParties,
+                style: AppTextStyles.getCaptionStyle(context)
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Wrap(
@@ -643,9 +647,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.primaryContainer.withValues(alpha: 0.3),
+                      color: Theme.of(context).colorScheme.primaryContainer
+                          .withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -654,17 +657,15 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                         Icon(
                           Icons.business,
                           size: 14,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.6),
+                          color: Theme.of(context).colorScheme.onSurface
+                              .withValues(alpha: 0.6),
                         ),
                         const SizedBox(width: 4),
                         Flexible(
                           child: Text(
                             party,
-                            style: AppTextStyles.getCaptionStyle(
-                              context,
-                            ).copyWith(fontSize: 11),
+                            style: AppTextStyles.getCaptionStyle(context)
+                                .copyWith(fontSize: 11),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -677,9 +678,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             const SizedBox(height: 16),
             Text(
               usageTitle,
-              style: AppTextStyles.getCaptionStyle(
-                context,
-              ).copyWith(fontWeight: FontWeight.bold),
+              style: AppTextStyles.getCaptionStyle(context)
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             ...usageItems.map(
@@ -753,12 +753,12 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     return _buildSection(
       context,
       Icons.folder_open,
-      AppLocalizations.of(context)!.dataTypesSection,
+      Translations.of(context).legal.dataTypesSection,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context)!.dataTypesIntro,
+            Translations.of(context).legal.dataTypesIntro,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
@@ -766,30 +766,30 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             spacing: 8,
             runSpacing: 8,
             children: [
-              AppLocalizations.of(context)!.name,
-              AppLocalizations.of(context)!.surname,
-              AppLocalizations.of(context)!.email,
-              AppLocalizations.of(context)!.password,
-              AppLocalizations.of(context)!.birthDate,
-              AppLocalizations.of(context)!.birthTime,
-              AppLocalizations.of(context)!.gender,
-              AppLocalizations.of(context)!.phoneNumber,
-              AppLocalizations.of(context)!.language,
-              AppLocalizations.of(context)!.paymentInformation,
-              AppLocalizations.of(context)!.billingAddress,
-              AppLocalizations.of(context)!.purchaseHistory,
-              AppLocalizations.of(context)!.profilePhoto,
-              AppLocalizations.of(context)!.usageData,
-              AppLocalizations.of(context)!.communicatedDataDuringService,
-              AppLocalizations.of(context)!.ipAddress,
-              AppLocalizations.of(context)!.deviceInformation,
-              AppLocalizations.of(context)!.deviceIdentifiers,
-              AppLocalizations.of(context)!.trackingTools,
+              Translations.of(context).ui.name,
+              Translations.of(context).ui.surname,
+              Translations.of(context).ui.email,
+              Translations.of(context).ui.password,
+              Translations.of(context).ui.birthDate,
+              Translations.of(context).ui.birthTime,
+              Translations.of(context).ui.gender,
+              Translations.of(context).legal.phoneNumber,
+              Translations.of(context).ui.language,
+              Translations.of(context).legal.paymentInformation,
+              Translations.of(context).legal.billingAddress,
+              Translations.of(context).legal.purchaseHistory,
+              Translations.of(context).ui.profilePhoto,
+              Translations.of(context).legal.usageData,
+              Translations.of(context).legal.communicatedDataDuringService,
+              Translations.of(context).legal.ipAddress,
+              Translations.of(context).legal.deviceInformation,
+              Translations.of(context).legal.deviceIdentifiers,
+              Translations.of(context).legal.trackingTools,
             ].map((label) => _buildDataChip(context, label)).toList(),
           ),
           const SizedBox(height: 24),
           FormattedMarkdownContent(
-            content: AppLocalizations.of(context)!.dataTypesDetailedContent,
+            content: Translations.of(context).legal.dataTypesDetailedContent,
           ),
         ],
       ),
@@ -800,9 +800,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     return _buildSection(
       context,
       Icons.security,
-      AppLocalizations.of(context)!.processingMethodsTitle,
+      Translations.of(context).legal.processingMethodsTitle,
       FormattedMarkdownContent(
-        content: AppLocalizations.of(context)!.processingMethodsContent,
+        content: Translations.of(context).legal.processingMethodsContent,
       ),
     );
   }
@@ -811,27 +811,39 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     return _buildSection(
       context,
       Icons.check_circle,
-      AppLocalizations.of(context)!.purposesSection,
+      Translations.of(context).legal.purposesSection,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context)!.purposesIntroText,
+            Translations.of(context).legal.purposesIntroText,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
-          _buildCheckItem(context, AppLocalizations.of(context)!.paymentManagementTitle),
-          _buildCheckItem(context, AppLocalizations.of(context)!.hostingBackendTitle),
-          _buildCheckItem(context, AppLocalizations.of(context)!.backendApiTitle),
-          _buildCheckItem(context, AppLocalizations.of(context)!.authenticationTitle),
           _buildCheckItem(
             context,
-            AppLocalizations.of(context)!.trafficOptimizationTitle,
+            Translations.of(context).legal.paymentManagementTitle,
           ),
-          _buildCheckItem(context, AppLocalizations.of(context)!.statistics),
+          _buildCheckItem(
+            context,
+            Translations.of(context).legal.hostingBackendTitle,
+          ),
+          _buildCheckItem(
+            context,
+            Translations.of(context).legal.backendApiTitle,
+          ),
+          _buildCheckItem(
+            context,
+            Translations.of(context).legal.authenticationTitle,
+          ),
+          _buildCheckItem(
+            context,
+            Translations.of(context).legal.trafficOptimizationTitle,
+          ),
+          _buildCheckItem(context, Translations.of(context).legal.statistics),
           const SizedBox(height: 16),
           Text(
-            AppLocalizations.of(context)!.purposesDetailedInfoText,
+            Translations.of(context).legal.purposesDetailedInfoText,
             style: AppTextStyles.getBodyStyle(context),
           ),
         ],
@@ -851,24 +863,26 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             // Payment Management
             _buildServiceDetailCard(
               context,
-              AppLocalizations.of(context)!.paymentManagementTitle,
-              AppLocalizations.of(context)!.paymentManagementDescription,
+              Translations.of(context).legal.paymentManagementTitle,
+              Translations.of(context).legal.paymentManagementDescription,
               [
                 {
                   'name': 'Stripe',
                   'provider': 'Stripe Technology Europe Ltd',
-                  'location': AppLocalizations.of(context)!.europeanUnion,
+                  'location': Translations.of(context).legal.europeanUnion,
                   'tags': [
-                    AppLocalizations.of(context)!.name,
-                    AppLocalizations.of(context)!.surname,
-                    AppLocalizations.of(context)!.email,
-                    AppLocalizations.of(context)!.phoneNumber,
-                    AppLocalizations.of(context)!.billingAddress,
-                    AppLocalizations.of(context)!.paymentInformation,
-                    AppLocalizations.of(context)!.purchaseHistory,
-                    AppLocalizations.of(context)!.deviceIdentifiers,
+                    Translations.of(context).ui.name,
+                    Translations.of(context).ui.surname,
+                    Translations.of(context).ui.email,
+                    Translations.of(context).legal.phoneNumber,
+                    Translations.of(context).legal.billingAddress,
+                    Translations.of(context).legal.paymentInformation,
+                    Translations.of(context).legal.purchaseHistory,
+                    Translations.of(context).legal.deviceIdentifiers,
                   ],
-                  'description': AppLocalizations.of(context)!.stripeDescription,
+                  'description': Translations.of(context)
+                      .legal
+                      .stripeDescription,
                   'privacyUrl': 'https://stripe.com/privacy',
                 },
               ],
@@ -877,23 +891,34 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             // Backend Infrastructure
             _buildServiceDetailCard(
               context,
-              AppLocalizations.of(context)!.hostingBackendTitle,
-              AppLocalizations.of(context)!.hostingBackendDescription,
+              Translations.of(context).legal.hostingBackendTitle,
+              Translations.of(context).legal.hostingBackendDescription,
               [
                 {
                   'name': 'Hetzner',
                   'provider': 'Hetzner Online GmbH',
-                  'location': AppLocalizations.of(context)!.germany,
-                  'tags': [AppLocalizations.of(context)!.communicatedDataDuringService],
-                  'description': AppLocalizations.of(context)!.hetznerDescription,
+                  'location': Translations.of(context).legal.germany,
+                  'tags': [
+                    Translations.of(context)
+                        .legal
+                        .communicatedDataDuringService,
+                  ],
+                  'description': Translations.of(context)
+                      .legal
+                      .hetznerDescription,
                   'privacyUrl': 'https://www.hetzner.com/legal/privacy-policy',
                 },
                 {
                   'name': 'GoDaddy Web Hosting',
                   'provider': 'GoDaddy.com, LLC',
-                  'location': AppLocalizations.of(context)!.unitedStates,
-                  'tags': [AppLocalizations.of(context)!.usageData, AppLocalizations.of(context)!.deviceInformation],
-                  'description': AppLocalizations.of(context)!.godaddyDescription,
+                  'location': Translations.of(context).legal.unitedStates,
+                  'tags': [
+                    Translations.of(context).legal.usageData,
+                    Translations.of(context).legal.deviceInformation,
+                  ],
+                  'description': Translations.of(context)
+                      .legal
+                      .godaddyDescription,
                   'privacyUrl':
                       'https://www.godaddy.com/legal/agreements/privacy-policy',
                 },
@@ -903,15 +928,22 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             // Backend API
             _buildServiceDetailCard(
               context,
-              AppLocalizations.of(context)!.backendApiTitle,
-              AppLocalizations.of(context)!.backendApiDescription,
+              Translations.of(context).legal.backendApiTitle,
+              Translations.of(context).legal.backendApiDescription,
               [
                 {
                   'name': 'API di Anthropic',
                   'provider': 'Anthropic',
-                  'location': AppLocalizations.of(context)!.unitedStates,
-                  'tags': [AppLocalizations.of(context)!.name, AppLocalizations.of(context)!.surname, AppLocalizations.of(context)!.gender, AppLocalizations.of(context)!.language],
-                  'description': AppLocalizations.of(context)!.anthropicApiDescription,
+                  'location': Translations.of(context).legal.unitedStates,
+                  'tags': [
+                    Translations.of(context).ui.name,
+                    Translations.of(context).ui.surname,
+                    Translations.of(context).ui.gender,
+                    Translations.of(context).ui.language,
+                  ],
+                  'description': Translations.of(context)
+                      .legal
+                      .anthropicApiDescription,
                   'privacyUrl': 'https://www.anthropic.com/privacy',
                 },
               ],
@@ -920,15 +952,17 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             // Registration and Authentication
             _buildServiceDetailCard(
               context,
-              AppLocalizations.of(context)!.authenticationTitle,
-              AppLocalizations.of(context)!.authenticationDescription,
+              Translations.of(context).legal.authenticationTitle,
+              Translations.of(context).legal.authenticationDescription,
               [
                 {
                   'name': 'Google OAuth',
                   'provider': 'Google Ireland Limited',
-                  'location': AppLocalizations.of(context)!.ireland,
+                  'location': Translations.of(context).legal.ireland,
                   'tags': ['Google profile data'],
-                  'description': AppLocalizations.of(context)!.googleOAuthDescription,
+                  'description': Translations.of(context)
+                      .legal
+                      .googleOAuthDescription,
                   'privacyUrl': 'https://policies.google.com/privacy',
                 },
               ],
@@ -937,24 +971,26 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             // Direct Registration
             _buildServiceDetailCard(
               context,
-              AppLocalizations.of(context)!.authenticationTitle,
-              AppLocalizations.of(context)!.authenticationDescription,
+              Translations.of(context).legal.authenticationTitle,
+              Translations.of(context).legal.authenticationDescription,
               [
                 {
-                  'name': AppLocalizations.of(context)!.directRegistration,
+                  'name': Translations.of(context).legal.directRegistration,
                   'provider': 'AstroGods',
-                  'location': AppLocalizations.of(context)!.italy,
+                  'location': Translations.of(context).legal.italy,
                   'tags': [
-                    AppLocalizations.of(context)!.name,
-                    AppLocalizations.of(context)!.surname,
-                    AppLocalizations.of(context)!.email,
-                    AppLocalizations.of(context)!.password,
-                    AppLocalizations.of(context)!.birthDate,
-                    AppLocalizations.of(context)!.birthTime,
-                    AppLocalizations.of(context)!.gender,
-                    AppLocalizations.of(context)!.language,
+                    Translations.of(context).ui.name,
+                    Translations.of(context).ui.surname,
+                    Translations.of(context).ui.email,
+                    Translations.of(context).ui.password,
+                    Translations.of(context).ui.birthDate,
+                    Translations.of(context).ui.birthTime,
+                    Translations.of(context).ui.gender,
+                    Translations.of(context).ui.language,
                   ],
-                  'description': AppLocalizations.of(context)!.directRegistrationDescription,
+                  'description': Translations.of(context)
+                      .legal
+                      .directRegistrationDescription,
                   'privacyUrl': '',
                 },
               ],
@@ -963,15 +999,20 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             // Optimization and Traffic Distribution
             _buildServiceDetailCard(
               context,
-              AppLocalizations.of(context)!.trafficOptimizationTitle,
-              AppLocalizations.of(context)!.trafficOptimizationDescription,
+              Translations.of(context).legal.trafficOptimizationTitle,
+              Translations.of(context).legal.trafficOptimizationDescription,
               [
                 {
                   'name': 'Google Fonts',
                   'provider': 'Google Ireland Limited',
-                  'location': AppLocalizations.of(context)!.ireland,
-                  'tags': [AppLocalizations.of(context)!.usageData, AppLocalizations.of(context)!.ipAddress],
-                  'description': AppLocalizations.of(context)!.googleFontsDescription,
+                  'location': Translations.of(context).legal.ireland,
+                  'tags': [
+                    Translations.of(context).legal.usageData,
+                    Translations.of(context).legal.ipAddress,
+                  ],
+                  'description': Translations.of(context)
+                      .legal
+                      .googleFontsDescription,
                   'privacyUrl': 'https://policies.google.com/privacy',
                 },
               ],
@@ -980,19 +1021,21 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             // Statistics
             _buildServiceDetailCard(
               context,
-              AppLocalizations.of(context)!.statisticsTitle,
-              AppLocalizations.of(context)!.statisticsDescription,
+              Translations.of(context).legal.statisticsTitle,
+              Translations.of(context).legal.statisticsDescription,
               [
                 {
                   'name': 'Matomo (self-hosted)',
                   'provider': 'AstroGods',
-                  'location': AppLocalizations.of(context)!.italy,
+                  'location': Translations.of(context).legal.italy,
                   'tags': [
-                    AppLocalizations.of(context)!.usageData,
-                    AppLocalizations.of(context)!.ipAddress,
-                    AppLocalizations.of(context)!.trackingTools,
+                    Translations.of(context).legal.usageData,
+                    Translations.of(context).legal.ipAddress,
+                    Translations.of(context).legal.trackingTools,
                   ],
-                  'description': AppLocalizations.of(context)!.matomatoDescription,
+                  'description': Translations.of(context)
+                      .legal
+                      .matomatoDescription,
                   'privacyUrl': '',
                 },
               ],
@@ -1019,7 +1062,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  AppLocalizations.of(context)!.processingDetailsSection,
+                  Translations.of(context).legal.processingDetailsSection,
                   style: AppTextStyles.getH3Style(context),
                 ),
               ),
@@ -1075,9 +1118,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           expandedAlignment: Alignment.centerLeft,
           leading: Icon(
             Icons.business,
-            color: Theme.of(
-              context,
-            ).colorScheme.onSurface.withValues(alpha: 0.6),
+            color: Theme.of(context).colorScheme.onSurface
+                .withValues(alpha: 0.6),
           ),
           title: Row(
             children: [
@@ -1087,9 +1129,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                   children: [
                     Text(
                       service['name'],
-                      style: AppTextStyles.getBodyStyle(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.bold),
+                      style: AppTextStyles.getBodyStyle(context)
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 4),
                     Row(
@@ -1097,9 +1138,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                         Icon(
                           Icons.apartment,
                           size: 14,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.6),
+                          color: Theme.of(context).colorScheme.onSurface
+                              .withValues(alpha: 0.6),
                         ),
                         const SizedBox(width: 4),
                         Expanded(
@@ -1116,9 +1156,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                         Icon(
                           Icons.location_on,
                           size: 14,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.6),
+                          color: Theme.of(context).colorScheme.onSurface
+                              .withValues(alpha: 0.6),
                         ),
                         const SizedBox(width: 4),
                         Expanded(
@@ -1142,16 +1181,14 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                   vertical: 2,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.primary.withValues(alpha: 0.1),
+                                  color: Theme.of(context).colorScheme.primary
+                                      .withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Text(
                                   tag,
-                                  style: AppTextStyles.getCaptionStyle(
-                                    context,
-                                  ).copyWith(fontSize: 11),
+                                  style: AppTextStyles.getCaptionStyle(context)
+                                      .copyWith(fontSize: 11),
                                 ),
                               ),
                             )
@@ -1184,7 +1221,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     alignment: WrapAlignment.start,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.providedByLabel,
+                        Translations.of(context).legal.providedByLabel,
                         style: AppTextStyles.getCaptionStyle(context),
                       ),
                       Text(
@@ -1197,7 +1234,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                       InkWell(
                         onTap: () => _launchExternalUrl(service['privacyUrl']),
                         child: Text(
-                          AppLocalizations.of(context)!.privacyPolicy,
+                          Translations.of(context).legal.privacyPolicy,
                           style: AppTextStyles.getCaptionStyle(context)
                               .copyWith(
                                 color: Theme.of(context).colorScheme.primary,
@@ -1220,9 +1257,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     return _buildSection(
       context,
       Icons.cookie,
-      AppLocalizations.of(context)!.cookiePolicyTitle,
+      Translations.of(context).legal.cookiePolicyTitle,
       FormattedMarkdownContent(
-        content: AppLocalizations.of(context)!.cookiePolicyContent,
+        content: Translations.of(context).legal.cookiePolicyContent,
       ),
     );
   }
@@ -1231,12 +1268,13 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     return _buildSection(
       context,
       Icons.flag,
-      AppLocalizations.of(context)!.euInfoTitle,
+      Translations.of(context).legal.euInfoTitle,
       FormattedMarkdownContent(
-        content: '''
-${AppLocalizations.of(context)!.euInfoContent}
+        content:
+            '''
+${Translations.of(context).legal.euInfoContent}
 
-${AppLocalizations.of(context)!.euExtendedContent}
+${Translations.of(context).legal.euExtendedContent}
         ''',
       ),
     );
@@ -1246,9 +1284,9 @@ ${AppLocalizations.of(context)!.euExtendedContent}
     return _buildSection(
       context,
       Icons.info,
-      AppLocalizations.of(context)!.additionalInfoSection,
+      Translations.of(context).about.additionalInfoSection,
       FormattedMarkdownContent(
-        content: AppLocalizations.of(context)!.additionalInfoContent,
+        content: Translations.of(context).about.additionalInfoContent,
       ),
     );
   }
@@ -1257,9 +1295,9 @@ ${AppLocalizations.of(context)!.euExtendedContent}
     return _buildSection(
       context,
       Icons.menu_book,
-      AppLocalizations.of(context)!.definitionsSection,
+      Translations.of(context).legal.definitionsSection,
       FormattedMarkdownContent(
-        content: AppLocalizations.of(context)!.definitionsContent,
+        content: Translations.of(context).legal.definitionsContent,
       ),
     );
   }
@@ -1302,37 +1340,28 @@ ${AppLocalizations.of(context)!.euExtendedContent}
     return _buildSection(
       context,
       Icons.warning_amber_outlined,
-      AppLocalizations.of(context)!.inCaseOfProblems,
+      Translations.of(context).legal.inCaseOfProblems,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context)!.problemsDescription,
+            Translations.of(context).legal.problemsDescription,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 8),
           Text(
-            AppLocalizations.of(context)!.doNotHesitateContact,
+            Translations.of(context).legal.doNotHesitateContact,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 24),
           ElevatedButton.icon(
-            onPressed: () => _launchExternalUrl(
-              'mailto:contact@astrogods.it',
-            ),
+            onPressed: () => _launchExternalUrl('mailto:contact@astrogods.it'),
             icon: const Icon(Icons.email_outlined),
-            label: Text(AppLocalizations.of(context)!.contactUs),
+            label: Text(Translations.of(context).legal.contactUs),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(
-                context,
-              ).colorScheme.primary,
-              foregroundColor: Theme.of(
-                context,
-              ).colorScheme.onPrimary,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 12,
-              ),
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
           ),
         ],
@@ -1340,9 +1369,8 @@ ${AppLocalizations.of(context)!.euExtendedContent}
     );
   }
 
-
   Widget _buildFooterSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 800),
@@ -1350,20 +1378,21 @@ ${AppLocalizations.of(context)!.euExtendedContent}
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+              color: Theme.of(context).colorScheme.outline
+                  .withValues(alpha: 0.2),
             ),
           ),
         ),
         child: Column(
           children: [
             Text(
-              l10n.appTitle,
+              t.ui.appTitle,
               style: AppTextStyles.getH4Style(context),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
-              l10n.dataControllerName,
+              t.legal.dataControllerName,
               style: AppTextStyles.getCaptionStyle(context),
               textAlign: TextAlign.center,
             ),
@@ -1372,24 +1401,19 @@ ${AppLocalizations.of(context)!.euExtendedContent}
               alignment: WrapAlignment.center,
               children: [
                 Text(
-                  "${l10n.dataControllerEmailLabel} ",
-                  style: AppTextStyles.getCaptionStyle(
-                    context,
-                  ).copyWith(fontWeight: FontWeight.bold),
+                  "${t.legal.dataControllerEmailLabel} ",
+                  style: AppTextStyles.getCaptionStyle(context)
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
                 InkWell(
-                  onTap: () => _launchExternalUrl(
-                    'mailto:contact@astrogods.it',
-                  ),
+                  onTap: () =>
+                      _launchExternalUrl('mailto:contact@astrogods.it'),
                   child: Text(
                     'contact@astrogods.it',
-                    style: AppTextStyles.getCaptionStyle(context)
-                        .copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.primary,
-                          decoration: TextDecoration.underline,
-                        ),
+                    style: AppTextStyles.getCaptionStyle(context).copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
               ],
@@ -1399,7 +1423,6 @@ ${AppLocalizations.of(context)!.euExtendedContent}
       ),
     );
   }
-
 
   Widget _buildTableOfContentsFAB(BuildContext context) {
     return FloatingActionButton(
@@ -1411,9 +1434,9 @@ ${AppLocalizations.of(context)!.euExtendedContent}
   }
 
   void _showTableOfContentsBottomSheet(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
-    
+    final t = Translations.of(context);
+    final sections = _getSections(t);
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -1434,9 +1457,8 @@ ${AppLocalizations.of(context)!.euExtendedContent}
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.outline.withValues(alpha: 0.4),
+                  color: Theme.of(context).colorScheme.outline
+                      .withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -1450,10 +1472,9 @@ ${AppLocalizations.of(context)!.euExtendedContent}
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      l10n.summary,
-                      style: AppTextStyles.getH5Style(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.bold),
+                      t.legal.summary,
+                      style: AppTextStyles.getH5Style(context)
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     IconButton(
@@ -1510,12 +1531,12 @@ ${AppLocalizations.of(context)!.euExtendedContent}
                                   style: AppTextStyles.getBodyStyle(context)
                                       .copyWith(
                                         color: isSelected
-                                            ? Theme.of(
-                                                context,
-                                              ).colorScheme.primary
-                                            : Theme.of(
-                                                context,
-                                              ).colorScheme.onSurface,
+                                            ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface,
                                         fontWeight: isSelected
                                             ? FontWeight.w600
                                             : FontWeight.normal,
@@ -1539,7 +1560,7 @@ ${AppLocalizations.of(context)!.euExtendedContent}
 
   Future<void> _launchExternalUrl(String url) async {
     final Uri uri = Uri.parse(url);
-    final errorMessage = AppLocalizations.of(context)!.errorOpeningUrl;
+    final errorMessage = Translations.of(context).ui.errorOpeningUrl;
     try {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (e) {

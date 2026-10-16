@@ -1,15 +1,9 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import '../../constants/text_styles.dart';
-import '../../l10n/app_localizations.dart';
+import '../../i18n/translations.g.dart';
 
-enum TrialContainerStyle {
-  main,
-  normal,
-}
+enum TrialContainerStyle { main, normal }
 
 class TrialInfoContainer extends StatelessWidget {
   final TrialContainerStyle containerStyle;
@@ -21,7 +15,7 @@ class TrialInfoContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final isMain = containerStyle == TrialContainerStyle.main;
 
@@ -34,14 +28,10 @@ class TrialInfoContainer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.card_giftcard,
-            color: colorScheme.primary,
-            size: 20,
-          ),
+          Icon(Icons.card_giftcard, color: colorScheme.primary, size: 20),
           const SizedBox(width: 8),
           Text(
-            localizations.sevenDaysFreeTrial,
+            t.ui.sevenDaysFreeTrial,
             style: AppTextStyles.getBodyStyle(context).copyWith(
               color: colorScheme.primary,
               fontWeight: isMain ? FontWeight.bold : FontWeight.normal,

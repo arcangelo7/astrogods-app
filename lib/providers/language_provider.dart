@@ -1,9 +1,7 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../i18n/translations.g.dart';
 import '../services/auth_service.dart';
 import '../models/user.dart';
 
@@ -11,7 +9,7 @@ class LanguageProvider extends ChangeNotifier {
   Locale _currentLocale = const Locale('it');
   static const String _languageKey = 'selected_language';
   static const List<String> _supportedLanguages = ['en', 'it'];
-  
+
   final AuthService _authService = AuthService();
   User? _currentUser;
 
@@ -25,6 +23,7 @@ class LanguageProvider extends ChangeNotifier {
     _currentUser = user;
     if (user != null) {
       _currentLocale = Locale(user.preferredLanguage);
+      LocaleSettings.setLocaleRaw(user.preferredLanguage);
       notifyListeners();
     }
   }
@@ -38,6 +37,7 @@ class LanguageProvider extends ChangeNotifier {
     } else {
       _currentLocale = _getSystemLocale();
     }
+    LocaleSettings.setLocaleRaw(_currentLocale.languageCode);
     notifyListeners();
   }
 
@@ -56,6 +56,7 @@ class LanguageProvider extends ChangeNotifier {
     if (_currentLocale == locale) return;
 
     _currentLocale = locale;
+    LocaleSettings.setLocaleRaw(locale.languageCode);
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_languageKey, locale.languageCode);

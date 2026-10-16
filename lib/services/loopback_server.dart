@@ -1,18 +1,21 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 import 'dart:async';
 import 'dart:io';
+
+const _faviconBase64 =
+    'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAL9UExURQwuMQ4vNCJcTxhTQw0/OChhUA8pNQ88Og4pNhIuOx9MSRA9OgwxMg41NBA5OBI9OxNBPhVEQBVHQRZLQxVMQxZOQhdQQhlTRA0vMQ0yMxtVRhtVRgwwNA0xNBtXRxpXRg0xNR1ZSA4vNBxZSQwsNBtXRwkpMhpVRgkoMRpURwkqNBhSRQgnMxdORAklMRZLQwwnMxNIQA0mMxBCPQwlMg4pNRFAPQ9AOxArOA8rNxE9OxE+PA4qNhAtOA0uOAwuOAkrNgguNwgvOAkwOAwzOQ02Nw44Nw87OA41NRE6ORY8OR05MyI2LiM1LCE7MRxJPRtTRRpTRQ00NBg9Oi1CNiQsJB8gGxwaFxkWFRENDg4SFBoxKh5RQxtWRw41N1VeRzQxIxgZFxUbGiQvJic3LSEsJQkKECEZFyI6MRxXSB1YSQ4yNl5qU1JNOBkZFRksKRc/OxZHQRdMQhtOQRs3LxcYFx0kHx5TRBtZSSZAPZ6TayQjHRYoJxM9PBNBPxRGQRVKQhRNQhhQQx5GOigsJCQ/MxtXSFhjUq6fdRsfHBU3NxI9PBNBPhREQBVJQhZMQhVNQiRYSFRpTzA4LB5PQXt9ZcCvgyQrJxI3OhI7OxQ/PhRCQBVGQhZKQxVMQx1TRpikfVRcRiJGOHyAaePPnkJHOxAyNxA4OhI8PBJAPxNEQRRIQxVLQxpRRra5kI6TciJANF1mWffhrZWObxczNg81OxE6PBE+PhFBPxNGQRNIQixaTNXMnayshSRKPCo9P9C9jurXpmRvYA4yOQ41OxE7PRI+Pw9CPnGIb+jZqJqhfRdLQgwoNG9zX9fFl+DSpoiNdjFNShg+PxhBQCdMRGF2XdfPo9XKm2Z/ZxBFPwwnNBkyOouJbsy9ktXHm8O4jqCeepSUca6ofeTSntXHlpSZdiBNRQ9CPQ0qNhs1PHh9aMS4jNnImODRoufVouLOmrOnem55XSNMRBA/PQ4rNwwtOCxHRl5sXXeAamdzYDxSSiJBPhE5OQ86Of///x8GkC0AAABIdFJOUwAAAAAAAAAAAAAAADKOzOv5/v7568yOMlbf31Yy398yjo7MzOvr+fn+/v7++fnr68zMjo4y398yVt/fVjKOzOv5/v7568yOMpMJs+AAAAABYktHRP7SAMJTAAAAB3RJTUUH6gEJEBEqrye9yAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyNi0wMS0wOVQxNjoxNzowOCswMDowMFmjBoEAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjYtMDEtMDlUMTU6MTU6MTgrMDA6MDBdawJQAAAAKHRFWHRkYXRlOnRpbWVzdGFtcAAyMDI2LTAxLTA5VDE2OjE3OjQyKzAwOjAwX9HOVgAAARtJREFUGNMBEAHv/gAAAQwNDg8QERITFBUWFwIDAAQYGUhJSktMTU5PUFEaGwUAHB1SU1RVVldYWVpbXF0eHwAgXlNfYGFiY2RlZmdoaWohACJrbG1ub3BxcnN0dXZ3eCMAJHl6e3x9fn+AgYKDhIWGJQAmh4iJiouMjY6PkJGSk5QnACiVlpeYmZqbnJ2en6ChoikAKqOkpaanqKmqq6ytrq+wKwAssbKztLW2t7i5uru8vb4tAC6/wMHCw8TFxrjHyMnKyy8AMMzNzs/Q0dLT1NXW19jZMQAy2tvc3d7f4OHi4+Tl5uczADQ16Onq6+zt7u/w8fLzNjcABjg59PX29/j5+vv8/To7BwAICTw9Pj9AQUJDREVGRwoL8Et+j3V+iZAAAAAASUVORK5CYII=';
 
 class LoopbackServer {
   HttpServer? _server;
   final String title;
   final String message;
+  final String cancelledTitle;
+  final String cancelledMessage;
 
   LoopbackServer({
     required this.title,
     required this.message,
+    this.cancelledTitle = 'Cancelled',
+    this.cancelledMessage = 'You can close this window and return to the app.',
   });
 
   Future<String> start() async {
@@ -21,30 +24,48 @@ class LoopbackServer {
   }
 
   Future<void> waitForCallback() async {
+    await waitForCallbackWithParams();
+  }
+
+  Future<Map<String, String>> waitForCallbackWithParams({
+    Duration timeout = const Duration(minutes: 10),
+  }) async {
     if (_server == null) {
       throw StateError('Server not started. Call start() first.');
     }
 
-    final completer = Completer<void>();
+    final completer = Completer<Map<String, String>>();
 
     _server!.listen((request) async {
       if (request.uri.path == '/callback') {
+        final params = request.uri.queryParameters;
+        final isCancelled = params['cancelled'] == 'true';
+
+        final pageTitle = isCancelled ? cancelledTitle : title;
+        final pageMessage = isCancelled ? cancelledMessage : message;
+
         request.response
           ..statusCode = HttpStatus.ok
           ..headers.contentType = ContentType.html
-          ..write(_getSuccessPage());
+          ..write(_buildPage(pageTitle, pageMessage));
         await request.response.close();
 
         await _server?.close();
         _server = null;
 
         if (!completer.isCompleted) {
-          completer.complete();
+          completer.complete(params);
         }
       }
     });
 
-    await completer.future;
+    return completer.future.timeout(
+      timeout,
+      onTimeout: () async {
+        await close();
+        return {'timeout': 'true'};
+      },
+    );
   }
 
   Future<void> close() async {
@@ -52,15 +73,15 @@ class LoopbackServer {
     _server = null;
   }
 
-  String _getSuccessPage() {
+  String _buildPage(String pageTitle, String pageMessage) {
     return '''
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>AstroGods</title>
-  <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAL9UExURQwuMQ4vNCJcTxhTQw0/OChhUA8pNQ88Og4pNhIuOx9MSRA9OgwxMg41NBA5OBI9OxNBPhVEQBVHQRZLQxVMQxZOQhdQQhlTRA0vMQ0yMxtVRhtVRgwwNA0xNBtXRxpXRg0xNR1ZSA4vNBxZSQwsNBtXRwkpMhpVRgkoMRpURwkqNBhSRQgnMxdORAklMRZLQwwnMxNIQA0mMxBCPQwlMg4pNRFAPQ9AOxArOA8rNxE9OxE+PA4qNhAtOA0uOAwuOAkrNgguNwgvOAkwOAwzOQ02Nw44Nw87OA41NRE6ORY8OR05MyI2LiM1LCE7MRxJPRtTRRpTRQ00NBg9Oi1CNiQsJB8gGxwaFxkWFRENDg4SFBoxKh5RQxtWRw41N1VeRzQxIxgZFxUbGiQvJic3LSEsJQkKECEZFyI6MRxXSB1YSQ4yNl5qU1JNOBkZFRksKRc/OxZHQRdMQhtOQRs3LxcYFx0kHx5TRBtZSSZAPZ6TayQjHRYoJxM9PBNBPxRGQRVKQhRNQhhQQx5GOigsJCQ/MxtXSFhjUq6fdRsfHBU3NxI9PBNBPhREQBVJQhZMQhVNQiRYSFRpTzA4LB5PQXt9ZcCvgyQrJxI3OhI7OxQ/PhRCQBVGQhZKQxVMQx1TRpikfVRcRiJGOHyAaePPnkJHOxAyNxA4OhI8PBJAPxNEQRRIQxVLQxpRRra5kI6TciJANF1mWffhrZWObxczNg81OxE6PBE+PhFBPxNGQRNIQixaTNXMnayshSRKPCo9P9C9jurXpmRvYA4yOQ41OxE7PRI+Pw9CPnGIb+jZqJqhfRdLQgwoNG9zX9fFl+DSpoiNdjFNShg+PxhBQCdMRGF2XdfPo9XKm2Z/ZxBFPwwnNBkyOouJbsy9ktXHm8O4jqCeepSUca6ofeTSntXHlpSZdiBNRQ9CPQ0qNhs1PHh9aMS4jNnImODRoufVouLOmrOnem55XSNMRBA/PQ4rNwwtOCxHRl5sXXeAamdzYDxSSiJBPhE5OQ86Of///x8GkC0AAABIdFJOUwAAAAAAAAAAAAAAADKOzOv5/v7568yOMlbf31Yy398yjo7MzOvr+fn+/v7++fnr68zMjo4y398yVt/fVjKOzOv5/v7568yOMpMJs+AAAAABYktHRP7SAMJTAAAAB3RJTUUH6gEJEBEqrye9yAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyNi0wMS0wOVQxNjoxNzowOCswMDowMFmjBoEAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjYtMDEtMDlUMTU6MTU6MTgrMDA6MDBdawJQAAAAKHRFWHRkYXRlOnRpbWVzdGFtcAAyMDI2LTAxLTA5VDE2OjE3OjQyKzAwOjAwX9HOVgAAARtJREFUGNMBEAHv/gAAAQwNDg8QERITFBUWFwIDAAQYGUhJSktMTU5PUFEaGwUAHB1SU1RVVldYWVpbXF0eHwAgXlNfYGFiY2RlZmdoaWohACJrbG1ub3BxcnN0dXZ3eCMAJHl6e3x9fn+AgYKDhIWGJQAmh4iJiouMjY6PkJGSk5QnACiVlpeYmZqbnJ2en6ChoikAKqOkpaanqKmqq6ytrq+wKwAssbKztLW2t7i5uru8vb4tAC6/wMHCw8TFxrjHyMnKyy8AMMzNzs/Q0dLT1NXW19jZMQAy2tvc3d7f4OHi4+Tl5uczADQ16Onq6+zt7u/w8fLzNjcABjg59PX29/j5+vv8/To7BwAICTw9Pj9AQUJDREVGRwoL8Et+j3V+iZAAAAAASUVORK5CYII=">
-  <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAL9UExURQwuMQ4vNCJcTxhTQw0/OChhUA8pNQ88Og4pNhIuOx9MSRA9OgwxMg41NBA5OBI9OxNBPhVEQBVHQRZLQxVMQxZOQhdQQhlTRA0vMQ0yMxtVRhtVRgwwNA0xNBtXRxpXRg0xNR1ZSA4vNBxZSQwsNBtXRwkpMhpVRgkoMRpURwkqNBhSRQgnMxdORAklMRZLQwwnMxNIQA0mMxBCPQwlMg4pNRFAPQ9AOxArOA8rNxE9OxE+PA4qNhAtOA0uOAwuOAkrNgguNwgvOAkwOAwzOQ02Nw44Nw87OA41NRE6ORY8OR05MyI2LiM1LCE7MRxJPRtTRRpTRQ00NBg9Oi1CNiQsJB8gGxwaFxkWFRENDg4SFBoxKh5RQxtWRw41N1VeRzQxIxgZFxUbGiQvJic3LSEsJQkKECEZFyI6MRxXSB1YSQ4yNl5qU1JNOBkZFRksKRc/OxZHQRdMQhtOQRs3LxcYFx0kHx5TRBtZSSZAPZ6TayQjHRYoJxM9PBNBPxRGQRVKQhRNQhhQQx5GOigsJCQ/MxtXSFhjUq6fdRsfHBU3NxI9PBNBPhREQBVJQhZMQhVNQiRYSFRpTzA4LB5PQXt9ZcCvgyQrJxI3OhI7OxQ/PhRCQBVGQhZKQxVMQx1TRpikfVRcRiJGOHyAaePPnkJHOxAyNxA4OhI8PBJAPxNEQRRIQxVLQxpRRra5kI6TciJANF1mWffhrZWObxczNg81OxE6PBE+PhFBPxNGQRNIQixaTNXMnayshSRKPCo9P9C9jurXpmRvYA4yOQ41OxE7PRI+Pw9CPnGIb+jZqJqhfRdLQgwoNG9zX9fFl+DSpoiNdjFNShg+PxhBQCdMRGF2XdfPo9XKm2Z/ZxBFPwwnNBkyOouJbsy9ktXHm8O4jqCeepSUca6ofeTSntXHlpSZdiBNRQ9CPQ0qNhs1PHh9aMS4jNnImODRoufVouLOmrOnem55XSNMRBA/PQ4rNwwtOCxHRl5sXXeAamdzYDxSSiJBPhE5OQ86Of///x8GkC0AAABIdFJOUwAAAAAAAAAAAAAAADKOzOv5/v7568yOMlbf31Yy398yjo7MzOvr+fn+/v7++fnr68zMjo4y398yVt/fVjKOzOv5/v7568yOMpMJs+AAAAABYktHRP7SAMJTAAAAB3RJTUUH6gEJEBEqrye9yAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyNi0wMS0wOVQxNjoxNzowOCswMDowMFmjBoEAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjYtMDEtMDlUMTU6MTU6MTgrMDA6MDBdawJQAAAAKHRFWHRkYXRlOnRpbWVzdGFtcAAyMDI2LTAxLTA5VDE2OjE3OjQyKzAwOjAwX9HOVgAAARtJREFUGNMBEAHv/gAAAQwNDg8QERITFBUWFwIDAAQYGUhJSktMTU5PUFEaGwUAHB1SU1RVVldYWVpbXF0eHwAgXlNfYGFiY2RlZmdoaWohACJrbG1ub3BxcnN0dXZ3eCMAJHl6e3x9fn+AgYKDhIWGJQAmh4iJiouMjY6PkJGSk5QnACiVlpeYmZqbnJ2en6ChoikAKqOkpaanqKmqq6ytrq+wKwAssbKztLW2t7i5uru8vb4tAC6/wMHCw8TFxrjHyMnKyy8AMMzNzs/Q0dLT1NXW19jZMQAy2tvc3d7f4OHi4+Tl5uczADQ16Onq6+zt7u/w8fLzNjcABjg59PX29/j5+vv8/To7BwAICTw9Pj9AQUJDREVGRwoL8Et+j3V+iZAAAAAASUVORK5CYII=">
+  <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,$_faviconBase64">
+  <link rel="shortcut icon" type="image/png" href="data:image/png;base64,$_faviconBase64">
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -82,8 +103,8 @@ class LoopbackServer {
 </head>
 <body>
   <div class="container">
-    <h1>$title</h1>
-    <p>$message</p>
+    <h1>$pageTitle</h1>
+    <p>$pageMessage</p>
   </div>
 </body>
 </html>

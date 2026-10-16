@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/app_localizations.dart';
+
+import '../../i18n/translations.g.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/starry_night_background.dart';
 import '../../widgets/gradient_button.dart';
@@ -59,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) {
       SnackbarUtils.showError(
         context,
-        AppLocalizations.of(context)!.pleaseFillAllFields,
+        Translations.of(context).ui.pleaseFillAllFields,
       );
       return;
     }
@@ -76,9 +73,9 @@ class _LoginScreenState extends State<LoginScreen> {
       if (success) {
         SnackbarUtils.showSuccess(
           context,
-          AppLocalizations.of(context)!.loginSuccessful,
+          Translations.of(context).ui.loginSuccessful,
         );
-        
+
         // Check if we need to redirect to birth chart reading
         await _handlePostLoginRedirect();
       } else {
@@ -100,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -108,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
         showPlanet: true,
         subtle: false,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -126,141 +124,155 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                 ),
-                title: Text(l10n.signIn),
+                title: Text(t.ui.signIn),
               ),
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return SingleChildScrollView(
-                      padding: const EdgeInsets.all(24.0),
+                      padding: EdgeInsets.only(
+                        left: 24,
+                        right: 24,
+                        top: 24,
+                        bottom: MediaQuery.of(context).padding.bottom + 24,
+                      ),
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
                           minHeight: constraints.maxHeight - 48.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 60),
-
-                      // Title
-                      Text(
-                        l10n.welcomeBack,
-                        style: AppTextStyles.getH3Style(context),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        l10n.loginToAccount,
-                        style: AppTextStyles.getSubtitleLargeStyle(context),
-                        textAlign: TextAlign.center,
-                      ),
-
-                      const SizedBox(height: 60),
-
-                      // Login Form
-                      AuthContainer(
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              // Email Field
-                              MysticalTextField(
-                                controller: _emailController,
-                                labelText: l10n.email,
-                                prefixIcon: Icons.email_outlined,
-                                keyboardType: TextInputType.emailAddress,
-                                textInputAction: TextInputAction.next,
-                                validator: (value) =>
-                                    AuthValidators.validateEmail(value, l10n),
-                              ),
-
-                              const SizedBox(height: 20),
-
-                              // Password Field
-                              MysticalPasswordField(
-                                controller: _passwordController,
-                                labelText: l10n.password,
-                                textInputAction: TextInputAction.done,
-                                validator: (value) =>
-                                    AuthValidators.validatePassword(
-                                      value,
-                                      l10n,
-                                    ),
-                                onFieldSubmitted: _handleLogin,
-                              ),
-
-                              const SizedBox(height: 12),
-
-                              // Forgot Password
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: TextButton(
-                                  onPressed: () {
-                                    context.go('/forgot-password');
-                                  },
-                                  child: Text(
-                                    l10n.forgotPassword,
-                                    style: AppTextStyles.getLinkStyle(context),
-                                  ),
-                                ),
-                              ),
-
-                              const SizedBox(height: 24),
-
-                              // Login Button
-                              Consumer<AuthProvider>(
-                                builder: (context, authProvider, child) {
-                                  return GradientButton(
-                                    text: l10n.signIn,
-                                    onPressed: _handleLogin,
-                                    enabled: !authProvider.isLoading,
-                                    width: double.infinity,
-                                  );
-                                },
-                              ),
-
-                              GoogleSignInWidget(
-                                isRegisterMode: false,
-                              ),
-                            ],
-                          ),
                         ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      // Register Link
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .surface
-                              .withValues(alpha: 0.85),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            const SizedBox(height: 60),
+
+                            // Title
                             Text(
-                              l10n.dontHaveAccount,
-                              style: AppTextStyles.getCaptionStyle(context),
+                              t.ui.welcomeBack,
+                              style: AppTextStyles.getH3Style(context),
+                              textAlign: TextAlign.center,
                             ),
-                            TextButton(
-                              onPressed: _navigateToRegister,
-                              child: Text(
-                                l10n.signUp,
-                                style: AppTextStyles.getLinkStyle(context),
+                            const SizedBox(height: 8),
+                            Text(
+                              t.ui.loginToAccount,
+                              style: AppTextStyles.getSubtitleLargeStyle(
+                                context,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+
+                            const SizedBox(height: 60),
+
+                            // Login Form
+                            AuthContainer(
+                              child: Form(
+                                key: _formKey,
+                                child: Column(
+                                  children: [
+                                    // Email Field
+                                    MysticalTextField(
+                                      controller: _emailController,
+                                      labelText: t.ui.email,
+                                      prefixIcon: Icons.email_outlined,
+                                      keyboardType: TextInputType.emailAddress,
+                                      textInputAction: TextInputAction.next,
+                                      validator: (value) =>
+                                          AuthValidators.validateEmail(
+                                            value,
+                                            t,
+                                          ),
+                                    ),
+
+                                    const SizedBox(height: 20),
+
+                                    // Password Field
+                                    MysticalPasswordField(
+                                      controller: _passwordController,
+                                      labelText: t.ui.password,
+                                      textInputAction: TextInputAction.done,
+                                      validator: (value) =>
+                                          AuthValidators.validatePassword(
+                                            value,
+                                            t,
+                                          ),
+                                      onFieldSubmitted: _handleLogin,
+                                    ),
+
+                                    const SizedBox(height: 12),
+
+                                    // Forgot Password
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: TextButton(
+                                        onPressed: () {
+                                          context.go('/forgot-password');
+                                        },
+                                        child: Text(
+                                          t.ui.forgotPassword,
+                                          style: AppTextStyles.getLinkStyle(
+                                            context,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 24),
+
+                                    // Login Button
+                                    Consumer<AuthProvider>(
+                                      builder: (context, authProvider, child) {
+                                        return GradientButton(
+                                          text: t.ui.signIn,
+                                          onPressed: _handleLogin,
+                                          enabled: !authProvider.isLoading,
+                                          width: double.infinity,
+                                        );
+                                      },
+                                    ),
+
+                                    GoogleSignInWidget(isRegisterMode: false),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 24),
+
+                            // Register Link
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface
+                                    .withValues(alpha: 0.85),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    t.ui.dontHaveAccount,
+                                    style: AppTextStyles.getCaptionStyle(
+                                      context,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: _navigateToRegister,
+                                    child: Text(
+                                      t.ui.signUp,
+                                      style: AppTextStyles.getLinkStyle(
+                                        context,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
                     );
                   },
                 ),

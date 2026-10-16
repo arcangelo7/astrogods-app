@@ -1,11 +1,8 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../l10n/app_localizations.dart';
+
+import '../i18n/translations.g.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
 
@@ -22,12 +19,12 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
   int _selectedIndex = 0;
   bool _isScrollingToSection = false;
 
-  List<String> _getSections(AppLocalizations l10n) {
+  List<String> _getSections(Translations t) {
     return [
-      l10n.storySectionTitle,
-      l10n.missionSectionTitle,
-      l10n.teamSectionTitle,
-      l10n.faqSectionTitle,
+      t.about.storySectionTitle,
+      t.about.missionSectionTitle,
+      t.about.teamSectionTitle,
+      t.about.faqSectionTitle,
     ];
   }
 
@@ -68,8 +65,8 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
   void _onScroll() {
     if (_isScrollingToSection) return;
 
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
+    final t = Translations.of(context);
+    final sections = _getSections(t);
 
     int newIndex = 0;
     double minDistance = double.infinity;
@@ -100,17 +97,19 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
+    final t = Translations.of(context);
+    final sections = _getSections(t);
     final isWideScreen = MediaQuery.of(context).size.width > 900;
 
     return Scaffold(
-      floatingActionButton:
-          !isWideScreen ? _buildTableOfContentsFAB(context) : null,
+      floatingActionButton: !isWideScreen
+          ? _buildTableOfContentsFAB(context)
+          : null,
       body: StarryNightBackground(
         showPlanet: false,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -130,7 +129,7 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                   },
                 ),
                 title: Text(
-                  l10n.aboutAndFaq,
+                  t.about.aboutAndFaq,
                   style: AppTextStyles.getH4Style(context),
                 ),
               ),
@@ -144,9 +143,7 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                         decoration: BoxDecoration(
                           border: Border(
                             right: BorderSide(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .outline
+                              color: Theme.of(context).colorScheme.outline
                                   .withValues(alpha: 0.2),
                             ),
                           ),
@@ -157,7 +154,7 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                             Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Text(
-                                l10n.aboutFaqTableOfContents,
+                                t.about.aboutFaqTableOfContents,
                                 style: AppTextStyles.getH5Style(context)
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
@@ -178,8 +175,8 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                                       decoration: BoxDecoration(
                                         color: isSelected
                                             ? Theme.of(context)
-                                                .colorScheme
-                                                .primaryContainer
+                                                  .colorScheme
+                                                  .primaryContainer
                                             : Colors.transparent,
                                         borderRadius: BorderRadius.circular(8),
                                       ),
@@ -197,12 +194,14 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                                                 shape: BoxShape.circle,
                                                 color: isSelected
                                                     ? Theme.of(context)
-                                                        .colorScheme
-                                                        .primary
+                                                          .colorScheme
+                                                          .primary
                                                     : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSurface
-                                                        .withValues(alpha: 0.4),
+                                                          .colorScheme
+                                                          .onSurface
+                                                          .withValues(
+                                                            alpha: 0.4,
+                                                          ),
                                               ),
                                             ),
                                             const SizedBox(width: 12),
@@ -211,19 +210,19 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                                                 sections[index],
                                                 style:
                                                     AppTextStyles.getCaptionStyle(
-                                                  context,
-                                                ).copyWith(
-                                                  color: isSelected
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .onSurface,
-                                                  fontWeight: isSelected
-                                                      ? FontWeight.w600
-                                                      : FontWeight.normal,
-                                                ),
+                                                      context,
+                                                    ).copyWith(
+                                                      color: isSelected
+                                                          ? Theme.of(context)
+                                                                .colorScheme
+                                                                .primary
+                                                          : Theme.of(context)
+                                                                .colorScheme
+                                                                .onSurface,
+                                                      fontWeight: isSelected
+                                                          ? FontWeight.w600
+                                                          : FontWeight.normal,
+                                                    ),
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -256,14 +255,16 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                               children: [
                                 Center(
                                   child: Container(
-                                    constraints:
-                                        const BoxConstraints(maxWidth: 800),
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 800,
+                                    ),
                                     child: Column(
                                       children: [
                                         Text(
-                                          l10n.aboutFaqTitle,
-                                          style:
-                                              AppTextStyles.getH2Style(context),
+                                          t.about.aboutFaqTitle,
+                                          style: AppTextStyles.getH2Style(
+                                            context,
+                                          ),
                                           textAlign: TextAlign.center,
                                         ),
                                       ],
@@ -287,7 +288,11 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                                   sections[3],
                                   _buildFaqSection(context),
                                 ),
-                                const SizedBox(height: 48),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).padding.bottom +
+                                      24,
+                                ),
                               ],
                             ),
                           ),
@@ -348,58 +353,52 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
   }
 
   Widget _buildStorySection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.auto_stories,
-      l10n.storySectionTitle,
-      Text(
-        l10n.storyText,
-        style: AppTextStyles.getBodyStyle(context),
-      ),
+      t.about.storySectionTitle,
+      Text(t.about.storyText, style: AppTextStyles.getBodyStyle(context)),
     );
   }
 
   Widget _buildMissionSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.explore,
-      l10n.missionSectionTitle,
-      Text(
-        l10n.missionText,
-        style: AppTextStyles.getBodyStyle(context),
-      ),
+      t.about.missionSectionTitle,
+      Text(t.about.missionText, style: AppTextStyles.getBodyStyle(context)),
     );
   }
 
   Widget _buildTeamSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.people,
-      l10n.teamSectionTitle,
+      t.about.teamSectionTitle,
       Column(
         children: [
           _buildTeamMemberCard(
             context,
-            l10n.teamMemberJacopoTitle,
-            l10n.teamMemberJacopoRole,
-            l10n.teamMemberJacopoDescription,
+            t.about.teamMemberJacopoTitle,
+            t.about.teamMemberJacopoRole,
+            t.about.teamMemberJacopoDescription,
           ),
           const SizedBox(height: 16),
           _buildTeamMemberCard(
             context,
-            l10n.teamMemberArcangeloTitle,
-            l10n.teamMemberArcangeloRole,
-            l10n.teamMemberArcangeloDescription,
+            t.about.teamMemberArcangeloTitle,
+            t.about.teamMemberArcangeloRole,
+            t.about.teamMemberArcangeloDescription,
           ),
           const SizedBox(height: 16),
           _buildTeamMemberCard(
             context,
-            l10n.teamMemberCorradoTitle,
-            l10n.teamMemberCorradoRole,
-            l10n.teamMemberCorradoDescription,
+            t.about.teamMemberCorradoTitle,
+            t.about.teamMemberCorradoRole,
+            t.about.teamMemberCorradoDescription,
           ),
         ],
       ),
@@ -426,22 +425,15 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              name,
-              style: AppTextStyles.getH4Style(context),
-            ),
+            Text(name, style: AppTextStyles.getH4Style(context)),
             const SizedBox(height: 4),
             Text(
               role,
-              style: AppTextStyles.getCaptionStyle(context).copyWith(
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+              style: AppTextStyles.getCaptionStyle(context)
+                  .copyWith(color: Theme.of(context).colorScheme.secondary),
             ),
             const SizedBox(height: 12),
-            Text(
-              description,
-              style: AppTextStyles.getBodyStyle(context),
-            ),
+            Text(description, style: AppTextStyles.getBodyStyle(context)),
           ],
         ),
       ),
@@ -449,28 +441,28 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
   }
 
   Widget _buildFaqSection(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     return _buildSection(
       context,
       Icons.help_outline,
-      l10n.faqSectionTitle,
+      t.about.faqSectionTitle,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 8),
-          _buildFaqSubsectionHeader(context, l10n.faqSeriousSectionTitle),
+          _buildFaqSubsectionHeader(context, t.about.faqSeriousSectionTitle),
           const SizedBox(height: 24),
-          _buildFaqItem(context, l10n.faq1Question, l10n.faq1Answer),
-          _buildFaqItem(context, l10n.faq2Question, l10n.faq2Answer),
-          _buildFaqItem(context, l10n.faq3Question, l10n.faq3Answer),
-          _buildFaqItem(context, l10n.faq4Question, l10n.faq4Answer),
-          _buildFaqItem(context, l10n.faq5Question, l10n.faq5Answer),
-          _buildFaqItem(context, l10n.faq6Question, l10n.faq6Answer),
-          _buildFaqItem(context, l10n.faq7Question, l10n.faq7Answer),
+          _buildFaqItem(context, t.about.faq1Question, t.about.faq1Answer),
+          _buildFaqItem(context, t.about.faq2Question, t.about.faq2Answer),
+          _buildFaqItem(context, t.about.faq3Question, t.about.faq3Answer),
+          _buildFaqItem(context, t.about.faq4Question, t.about.faq4Answer),
+          _buildFaqItem(context, t.about.faq5Question, t.about.faq5Answer),
+          _buildFaqItem(context, t.about.faq6Question, t.about.faq6Answer),
+          _buildFaqItem(context, t.about.faq7Question, t.about.faq7Answer),
           const SizedBox(height: 32),
-          _buildFaqSubsectionHeader(context, l10n.faqNotSeriousSectionTitle),
+          _buildFaqSubsectionHeader(context, t.about.faqNotSeriousSectionTitle),
           const SizedBox(height: 24),
-          _buildRefundFaqItem(context, l10n),
+          _buildRefundFaqItem(context, t),
         ],
       ),
     );
@@ -488,21 +480,18 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
         ),
         color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
       ),
-      child: Text(
-        title,
-        style: AppTextStyles.getH4Style(context),
-      ),
+      child: Text(title, style: AppTextStyles.getH4Style(context)),
     );
   }
 
-  Widget _buildRefundFaqItem(BuildContext context, AppLocalizations l10n) {
+  Widget _buildRefundFaqItem(BuildContext context, Translations t) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            l10n.faqRefundQuestion,
+            t.about.faqRefundQuestion,
             style: AppTextStyles.getH5Style(context)
                 .copyWith(fontWeight: FontWeight.bold),
           ),
@@ -511,7 +500,7 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
             TextSpan(
               style: AppTextStyles.getBodyStyle(context),
               children: [
-                TextSpan(text: l10n.faqRefundAnswerBefore),
+                TextSpan(text: t.about.faqRefundAnswerBefore),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.baseline,
                   baseline: TextBaseline.alphabetic,
@@ -526,7 +515,7 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                     ),
                   ),
                 ),
-                TextSpan(text: l10n.faqRefundAnswerAfter),
+                TextSpan(text: t.about.faqRefundAnswerAfter),
               ],
             ),
           ),
@@ -558,10 +547,7 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                 .copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
-          Text(
-            answer,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
+          Text(answer, style: AppTextStyles.getBodyStyle(context)),
           const SizedBox(height: 16),
           Divider(
             color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
@@ -581,8 +567,8 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
   }
 
   void _showTableOfContentsBottomSheet(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final sections = _getSections(l10n);
+    final t = Translations.of(context);
+    final sections = _getSections(t);
 
     showModalBottomSheet(
       context: context,
@@ -595,8 +581,7 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
         builder: (context, scrollController) => Container(
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(20)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: Column(
             children: [
@@ -605,9 +590,7 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .outline
+                  color: Theme.of(context).colorScheme.outline
                       .withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(2),
                 ),
@@ -622,7 +605,7 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      l10n.aboutFaqTableOfContents,
+                      t.about.aboutFaqTableOfContents,
                       style: AppTextStyles.getH5Style(context)
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
@@ -670,27 +653,27 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                                   shape: BoxShape.circle,
                                   color: isSelected
                                       ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context)
-                                          .colorScheme
-                                          .onSurface
-                                          .withValues(alpha: 0.4),
+                                      : Theme.of(context).colorScheme.onSurface
+                                            .withValues(alpha: 0.4),
                                 ),
                               ),
                               const SizedBox(width: 12),
                               Expanded(
                                 child: Text(
                                   sections[index],
-                                  style:
-                                      AppTextStyles.getBodyStyle(context).copyWith(
-                                    color: isSelected
-                                        ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
-                                    fontWeight: isSelected
-                                        ? FontWeight.w600
-                                        : FontWeight.normal,
-                                  ),
+                                  style: AppTextStyles.getBodyStyle(context)
+                                      .copyWith(
+                                        color: isSelected
+                                            ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface,
+                                        fontWeight: isSelected
+                                            ? FontWeight.w600
+                                            : FontWeight.normal,
+                                      ),
                                 ),
                               ),
                             ],

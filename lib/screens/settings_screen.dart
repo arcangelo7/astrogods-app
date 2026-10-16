@@ -1,12 +1,9 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
 import '../widgets/local_flag.dart';
-import '../l10n/app_localizations.dart';
+import '../i18n/translations.g.dart';
 import '../providers/language_provider.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/starry_night_background.dart';
@@ -143,7 +140,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     required String confirmButtonText,
     String? additionalText,
   }) async {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final TextEditingController confirmController = TextEditingController();
 
     return showDialog<bool>(
@@ -163,20 +160,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Text(warning, style: AppTextStyles.getBodyStyle(context)),
                     const SizedBox(height: 16),
                     Text(
-                      additionalText ?? l10n.typeDeleteToConfirm,
-                      style: AppTextStyles.getBodyStyle(context).copyWith(fontWeight: FontWeight.bold),
+                      additionalText ?? t.ui.typeDeleteToConfirm,
+                      style: AppTextStyles.getBodyStyle(context)
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
                     TextField(
                       controller: confirmController,
                       decoration: InputDecoration(
-                        labelText: l10n.typeDeleteToConfirm,
+                        labelText: t.ui.typeDeleteToConfirm,
                         labelStyle: AppTextStyles.getCaptionStyle(context),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ),
                       style: AppTextStyles.getBodyStyle(context),
@@ -188,15 +190,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(dialogContext).pop(false),
-                  child: Text(l10n.cancel, style: AppTextStyles.getButtonStyle(context)),
+                  child: Text(
+                    t.ui.cancel,
+                    style: AppTextStyles.getButtonStyle(context),
+                  ),
                 ),
                 TextButton(
-                  onPressed: confirmController.text.trim().toUpperCase() != l10n.deleteConfirmationWord.toUpperCase()
+                  onPressed:
+                      confirmController.text.trim().toUpperCase() !=
+                          t.ui.deleteConfirmationWord.toUpperCase()
                       ? null
                       : () => Navigator.of(dialogContext).pop(true),
                   child: Text(
                     confirmButtonText,
-                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
                   ),
                 ),
               ],
@@ -208,12 +217,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _showActiveSubscriptionDeleteDialog(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final result = await _showDeleteConfirmationDialog(
       context: context,
-      title: l10n.deleteAccountTitle,
-      warning: l10n.activeSubscriptionDeleteWarning,
-      confirmButtonText: l10n.cancelSubscriptionAndDelete,
+      title: t.ui.deleteAccountTitle,
+      warning: t.ui.activeSubscriptionDeleteWarning,
+      confirmButtonText: t.ui.cancelSubscriptionAndDelete,
     );
     if (result == true && context.mounted) {
       await _cancelSubscriptionAndDeleteAccount(context);
@@ -221,7 +230,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _cancelSubscriptionAndDeleteAccount(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final subscriptionService = SubscriptionService(context: context);
 
     showDialog(
@@ -232,7 +241,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             const CircularProgressIndicator(),
             const SizedBox(width: 16),
-            Expanded(child: Text(l10n.cancellingSubscription)),
+            Expanded(child: Text(t.ui.cancellingSubscription)),
           ],
         ),
       ),
@@ -242,7 +251,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       await subscriptionService.cancelSubscription();
       if (!context.mounted) return;
       Navigator.of(context).pop();
-      SnackbarUtils.showSuccess(context, l10n.subscriptionCancelledSuccessfully);
+      SnackbarUtils.showSuccess(
+        context,
+        t.ui.subscriptionCancelledSuccessfully,
+      );
       await _deleteAccount(context);
     } catch (e) {
       if (!context.mounted) return;
@@ -250,19 +262,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
       if (e is ApiException && e.message.isNotEmpty) {
         SnackbarUtils.showError(context, e.message);
       } else {
-        SnackbarUtils.showError(context, l10n.unknownErrorOccurred);
+        SnackbarUtils.showError(context, t.ui.unknownErrorOccurred);
       }
     }
   }
 
   Future<void> _showStandardDeleteAccountDialog(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final result = await _showDeleteConfirmationDialog(
       context: context,
-      title: l10n.deleteAccountTitle,
-      warning: l10n.deleteAccountWarning,
-      confirmButtonText: l10n.delete,
-      additionalText: l10n.deleteAccountConfirmation,
+      title: t.ui.deleteAccountTitle,
+      warning: t.ui.deleteAccountWarning,
+      confirmButtonText: t.ui.delete,
+      additionalText: t.ui.deleteAccountConfirmation,
     );
     if (result == true && context.mounted) {
       await _deleteAccount(context);
@@ -270,7 +282,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _deleteAccount(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final authService = AuthService(context: context);
 
     final response = await authService.deleteAccount();
@@ -278,7 +290,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (!context.mounted) return;
 
     if (response.success) {
-      SnackbarUtils.showSuccess(context, l10n.accountDeleted);
+      SnackbarUtils.showSuccess(context, t.ui.accountDeleted);
 
       // Clear auth provider without calling logout API (already handled by deleteAccount)
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -288,16 +300,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         context.go('/');
       }
     } else {
-      SnackbarUtils.showError(
-        context,
-        response.message!,
-      );
+      SnackbarUtils.showError(context, response.message!);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     return Scaffold(
@@ -305,6 +314,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         showPlanet: false,
         subtle: true,
         child: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               AppBar(
@@ -318,19 +328,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     }
                   },
                 ),
-                title: Text(l10n.settingsTitle),
+                title: Text(t.ui.settingsTitle),
               ),
               Expanded(
                 child: ListView(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 16,
+                    bottom: MediaQuery.of(context).padding.bottom + 16,
+                  ),
                   children: [
                     // Preferences Section
                     Text(
-                      l10n.preferences,
+                      t.ui.preferences,
                       style: AppTextStyles.getCaptionStyle(context).copyWith(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withValues(alpha: 0.95),
+                        color: Theme.of(context).colorScheme.onSurface
+                            .withValues(alpha: 0.95),
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -344,7 +358,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             children: [
                               const Icon(Icons.language),
                               const SizedBox(width: 16),
-                              Text(l10n.language),
+                              Text(t.ui.language),
                               const Spacer(),
                               SegmentedButton<String>(
                                 segments: [
@@ -387,63 +401,65 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     : Icons.light_mode,
                               ),
                               const SizedBox(width: 16),
-                              Text(l10n.theme),
+                              Text(t.ui.theme),
                               const Spacer(),
                               SegmentedButton<String>(
-                              segments: [
-                                ButtonSegment<String>(
-                                  value: 'light',
-                                  icon: const Icon(Icons.light_mode, size: 18),
-                                ),
-                                ButtonSegment<String>(
-                                  value: 'dark', 
-                                  icon: const Icon(Icons.dark_mode, size: 18),
-                                ),
-                                ButtonSegment<String>(
-                                  value: 'system',
-                                  icon: const Icon(Icons.settings, size: 18),
-                                ),
-                              ],
-                              selected: {themeProvider.themeMode.name},
-                              onSelectionChanged: (Set<String> selection) {
-                                if (selection.isNotEmpty) {
-                                  ThemeMode mode = ThemeMode.values.firstWhere(
-                                    (e) => e.name == selection.first,
-                                  );
-                                  themeProvider.setThemeMode(mode);
-                                }
-                              },
-                            ),
-                          ],
+                                segments: [
+                                  ButtonSegment<String>(
+                                    value: 'light',
+                                    icon: const Icon(
+                                      Icons.light_mode,
+                                      size: 18,
+                                    ),
+                                  ),
+                                  ButtonSegment<String>(
+                                    value: 'dark',
+                                    icon: const Icon(Icons.dark_mode, size: 18),
+                                  ),
+                                  ButtonSegment<String>(
+                                    value: 'system',
+                                    icon: const Icon(Icons.settings, size: 18),
+                                  ),
+                                ],
+                                selected: {themeProvider.themeMode.name},
+                                onSelectionChanged: (Set<String> selection) {
+                                  if (selection.isNotEmpty) {
+                                    ThemeMode mode = ThemeMode.values
+                                        .firstWhere(
+                                          (e) => e.name == selection.first,
+                                        );
+                                    themeProvider.setThemeMode(mode);
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
                     const SizedBox(height: 24),
 
                     // Newsletter Section
                     if (authProvider.isAuthenticated) ...[
                       Text(
-                        l10n.emailNotifications,
+                        t.ui.emailNotifications,
                         style: AppTextStyles.getCaptionStyle(context).copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.95),
+                          color: Theme.of(context).colorScheme.onSurface
+                              .withValues(alpha: 0.95),
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _buildNewsletterSection(l10n),
+                      _buildNewsletterSection(t),
                       const SizedBox(height: 24),
                     ],
 
                     // About Section
                     Text(
-                      l10n.about,
+                      t.ui.about,
                       style: AppTextStyles.getCaptionStyle(context).copyWith(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withValues(alpha: 0.95),
+                        color: Theme.of(context).colorScheme.onSurface
+                            .withValues(alpha: 0.95),
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -452,7 +468,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: Theme.of(context).colorScheme.surface,
                       child: ListTile(
                         leading: const Icon(Icons.info_outline),
-                        title: Text(l10n.appVersion),
+                        title: Text(t.ui.appVersion),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -474,7 +490,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: Theme.of(context).colorScheme.surface,
                       child: ListTile(
                         leading: const Icon(Icons.description_outlined),
-                        title: Text(l10n.termsOfService),
+                        title: Text(t.ui.termsOfService),
                         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                         onTap: () {
                           context.push('/terms-and-conditions');
@@ -486,7 +502,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: Theme.of(context).colorScheme.surface,
                       child: ListTile(
                         leading: const Icon(Icons.privacy_tip_outlined),
-                        title: Text(l10n.privacyPolicy),
+                        title: Text(t.legal.privacyPolicy),
                         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                         onTap: () {
                           context.push('/privacy-policy');
@@ -498,7 +514,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: Theme.of(context).colorScheme.surface,
                       child: ListTile(
                         leading: const Icon(Icons.cookie_outlined),
-                        title: Text(l10n.cookiePolicy),
+                        title: Text(t.legal.cookiePolicy),
                         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                         onTap: () {
                           context.push('/cookie-policy');
@@ -510,16 +526,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     if (authProvider.isAuthenticated) ...[
                       const SizedBox(height: 24),
                       Text(
-                        l10n.subscriptionsTitle,
+                        t.legal.subscriptionsTitle,
                         style: AppTextStyles.getCaptionStyle(context).copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.95),
+                          color: Theme.of(context).colorScheme.onSurface
+                              .withValues(alpha: 0.95),
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      _buildSubscriptionsSection(l10n),
+                      _buildSubscriptionsSection(t),
                       const SizedBox(height: 8),
                     ],
 
@@ -527,11 +542,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     if (authProvider.isAuthenticated) ...[
                       const SizedBox(height: 24),
                       Text(
-                        l10n.account,
+                        t.ui.account,
                         style: AppTextStyles.getCaptionStyle(context).copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.95),
+                          color: Theme.of(context).colorScheme.onSurface
+                              .withValues(alpha: 0.95),
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -540,7 +554,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         color: Theme.of(context).colorScheme.surface,
                         child: ListTile(
                           leading: const Icon(Icons.logout),
-                          title: Text(l10n.logout),
+                          title: Text(t.ui.logout),
                           onTap: () async {
                             await authProvider.logout();
                             if (context.mounted) {
@@ -551,16 +565,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       const SizedBox(height: 8),
                       Card(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.error.withValues(alpha: 0.1),
+                        color: Theme.of(context).colorScheme.error
+                            .withValues(alpha: 0.1),
                         child: ListTile(
                           leading: Icon(
                             Icons.delete_forever,
                             color: Theme.of(context).colorScheme.error,
                           ),
                           title: Text(
-                            l10n.deleteAccount,
+                            t.ui.deleteAccount,
                             style: AppTextStyles.getBodyStyle(context).copyWith(
                               color: Theme.of(context).colorScheme.error,
                             ),
@@ -579,7 +592,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildSubscriptionsSection(AppLocalizations l10n) {
+  Widget _buildSubscriptionsSection(Translations t) {
     if (_isLoadingSubscriptions) {
       return Card(
         color: Theme.of(context).colorScheme.surface,
@@ -593,7 +606,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  l10n.loadingSubscriptions,
+                  t.ui.loadingSubscriptions,
                   style: AppTextStyles.getBodyStyle(context),
                 ),
               ],
@@ -614,15 +627,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  l10n.failedToLoadSubscriptions,
-                  style: AppTextStyles.getBodyStyle(
-                    context,
-                  ).copyWith(color: Theme.of(context).colorScheme.error),
+                  t.ui.failedToLoadSubscriptions,
+                  style: AppTextStyles.getBodyStyle(context)
+                      .copyWith(color: Theme.of(context).colorScheme.error),
                 ),
               ),
               TextButton(
                 onPressed: _loadSubscriptions,
-                child: Text(l10n.retry),
+                child: Text(t.ui.retry),
               ),
             ],
           ),
@@ -640,17 +652,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Icon(
                 Icons.subscriptions_outlined,
                 size: 48,
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                color: Theme.of(context).colorScheme.onSurface
+                    .withValues(alpha: 0.6),
               ),
               const SizedBox(height: 12),
               Text(
-                l10n.noActiveSubscription,
+                t.ui.noActiveSubscription,
                 style: AppTextStyles.getBodyStyle(context).copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.6),
+                  color: Theme.of(context).colorScheme.onSurface
+                      .withValues(alpha: 0.6),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -667,7 +677,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildNewsletterSection(AppLocalizations l10n) {
+  Widget _buildNewsletterSection(Translations t) {
     if (_isLoadingNewsletters) {
       return Card(
         color: Theme.of(context).colorScheme.surface,
@@ -681,7 +691,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  l10n.generating,
+                  t.ui.generating,
                   style: AppTextStyles.getBodyStyle(context),
                 ),
               ],
@@ -702,23 +712,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  l10n.errorTitle,
-                  style: AppTextStyles.getBodyStyle(
-                    context,
-                  ).copyWith(color: Theme.of(context).colorScheme.error),
+                  t.ui.errorTitle,
+                  style: AppTextStyles.getBodyStyle(context)
+                      .copyWith(color: Theme.of(context).colorScheme.error),
                 ),
               ),
-              TextButton(
-                onPressed: _loadNewsletters,
-                child: Text(l10n.retry),
-              ),
+              TextButton(onPressed: _loadNewsletters, child: Text(t.ui.retry)),
             ],
           ),
         ),
       );
     }
 
-    final hasAnySubscriptions = _newsletterSubscriptions != null &&
+    final hasAnySubscriptions =
+        _newsletterSubscriptions != null &&
         (_newsletterSubscriptions!.dailySubscriptions.isNotEmpty ||
             _newsletterSubscriptions!.monthlySubscriptions.isNotEmpty);
 
@@ -732,17 +739,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Icon(
                 Icons.email_outlined,
                 size: 48,
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                color: Theme.of(context).colorScheme.onSurface
+                    .withValues(alpha: 0.6),
               ),
               const SizedBox(height: 12),
               Text(
-                l10n.noNewsletterSubscriptions,
+                t.ui.noNewsletterSubscriptions,
                 style: AppTextStyles.getBodyStyle(context).copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.6),
+                  color: Theme.of(context).colorScheme.onSurface
+                      .withValues(alpha: 0.6),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -750,7 +755,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ElevatedButton.icon(
                 onPressed: () => _showNewsletterSubscriptionDialog(context),
                 icon: const Icon(Icons.add),
-                label: Text(l10n.addNewsletter),
+                label: Text(t.ui.addNewsletter),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -758,10 +763,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 12),
               Text(
-                l10n.checkSpamFolder,
-                style: AppTextStyles.getCaptionStyle(context).copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
+                t.ui.checkSpamFolder,
+                style: AppTextStyles.getCaptionStyle(context)
+                    .copyWith(color: Theme.of(context).colorScheme.secondary),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -783,11 +787,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.today, color: Theme.of(context).colorScheme.primary),
+                      Icon(
+                        Icons.today,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                       const SizedBox(width: 12),
                       Text(
-                        l10n.dailySkyOf,
-                        style: AppTextStyles.getBodyStyle(context).copyWith(fontWeight: FontWeight.bold),
+                        t.ui.dailySkyOf,
+                        style: AppTextStyles.getBodyStyle(context)
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -816,13 +824,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TextButton(
-                                onPressed: () => _editSubscription(subscription, 'daily'),
-                                child: Text(l10n.edit),
+                                onPressed: () =>
+                                    _editSubscription(subscription, 'daily'),
+                                child: Text(t.ui.edit),
                               ),
                               TextButton(
-                                onPressed: () => _unsubscribeDaily(subscription.id),
+                                onPressed: () =>
+                                    _unsubscribeDaily(subscription.id),
                                 child: Text(
-                                  l10n.delete,
+                                  t.ui.delete,
                                   style: TextStyle(
                                     color: Theme.of(context).colorScheme.error,
                                   ),
@@ -852,11 +862,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.calendar_month, color: Theme.of(context).colorScheme.primary),
+                      Icon(
+                        Icons.calendar_month,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                       const SizedBox(width: 12),
                       Text(
-                        l10n.monthlySkyOf,
-                        style: AppTextStyles.getBodyStyle(context).copyWith(fontWeight: FontWeight.bold),
+                        t.ui.monthlySkyOf,
+                        style: AppTextStyles.getBodyStyle(context)
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -885,13 +899,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TextButton(
-                                onPressed: () => _editSubscription(subscription, 'monthly'),
-                                child: Text(l10n.edit),
+                                onPressed: () =>
+                                    _editSubscription(subscription, 'monthly'),
+                                child: Text(t.ui.edit),
                               ),
                               TextButton(
-                                onPressed: () => _unsubscribeMonthly(subscription.id),
+                                onPressed: () =>
+                                    _unsubscribeMonthly(subscription.id),
                                 child: Text(
-                                  l10n.delete,
+                                  t.ui.delete,
                                   style: TextStyle(
                                     color: Theme.of(context).colorScheme.error,
                                   ),
@@ -915,7 +931,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: ElevatedButton.icon(
             onPressed: () => _showNewsletterSubscriptionDialog(context),
             icon: const Icon(Icons.add),
-            label: Text(l10n.addNewsletter),
+            label: Text(t.ui.addNewsletter),
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.primary,
               foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -928,10 +944,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Container(
           padding: const EdgeInsets.all(12.0),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.5),
+            color: Theme.of(context).colorScheme.secondaryContainer
+                .withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.3),
+              color: Theme.of(context).colorScheme.secondary
+                  .withValues(alpha: 0.3),
               width: 1,
             ),
           ),
@@ -945,9 +963,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  l10n.checkSpamFolder,
+                  t.ui.checkSpamFolder,
                   style: AppTextStyles.getCaptionStyle(context).copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.9),
+                    color: Theme.of(context).colorScheme.onSurface
+                        .withValues(alpha: 0.9),
                   ),
                 ),
               ),
@@ -959,13 +978,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _unsubscribeDaily(int newsletterId) async {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     try {
       final newsletterService = NewsletterService(context: context);
       await newsletterService.unsubscribeDailyNewsletter(newsletterId);
 
       if (mounted) {
-        SnackbarUtils.showSuccess(context, l10n.unsubscribeSuccess);
+        SnackbarUtils.showSuccess(context, t.ui.unsubscribeSuccess);
         _loadNewsletters();
       }
     } catch (e) {
@@ -973,20 +992,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
         if (e is ApiException && e.message.isNotEmpty) {
           SnackbarUtils.showError(context, e.message);
         } else {
-          SnackbarUtils.showError(context, l10n.unknownErrorOccurred);
+          SnackbarUtils.showError(context, t.ui.unknownErrorOccurred);
         }
       }
     }
   }
 
   Future<void> _unsubscribeMonthly(int newsletterId) async {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     try {
       final newsletterService = NewsletterService(context: context);
       await newsletterService.unsubscribeMonthlyNewsletter(newsletterId);
 
       if (mounted) {
-        SnackbarUtils.showSuccess(context, l10n.unsubscribeSuccess);
+        SnackbarUtils.showSuccess(context, t.ui.unsubscribeSuccess);
         _loadNewsletters();
       }
     } catch (e) {
@@ -994,7 +1013,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         if (e is ApiException && e.message.isNotEmpty) {
           SnackbarUtils.showError(context, e.message);
         } else {
-          SnackbarUtils.showError(context, l10n.unknownErrorOccurred);
+          SnackbarUtils.showError(context, t.ui.unknownErrorOccurred);
         }
       }
     }
@@ -1013,10 +1032,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _editSubscription(NewsletterSubscription subscription, String type) {
     showDialog(
       context: context,
-      builder: (context) => NewsletterEditDialog(
-        subscription: subscription,
-        type: type,
-      ),
+      builder: (context) =>
+          NewsletterEditDialog(subscription: subscription, type: type),
     ).then((_) {
       // Reload newsletters after dialog closes
       _loadNewsletters();

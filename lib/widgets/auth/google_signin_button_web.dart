@@ -1,8 +1,4 @@
-// SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:google_sign_in_web/web_only.dart' as web;
 
 class GoogleSignInButtonWeb extends StatelessWidget {
