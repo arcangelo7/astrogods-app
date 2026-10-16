@@ -1,0 +1,1 @@
+- Piccole correzioni per rendere l'app più stabile.

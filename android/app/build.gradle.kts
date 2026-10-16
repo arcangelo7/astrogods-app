@@ -63,6 +63,11 @@ android {
             )
         }
     }
+
+    // The Stripe module's release lint pulls play-services-tapandpay, which is not on public Maven.
+    lint {
+        checkReleaseBuilds = false
+    }
 }
 
 tasks.withType<JavaCompile> {

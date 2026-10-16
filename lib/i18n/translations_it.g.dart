@@ -766,6 +766,7 @@ class _Translations$releaseNotes$it implements Translations$releaseNotes$en {
 	@override String get releaseNotes_4_10_0 => 'Puoi rigenerare le letture nella tua lingua preferita. I transiti salvati ora appaiono tra le analisi salvate. Risolti bug nel flusso di autenticazione.';
 	@override String get releaseNotes_4_10_1 => 'Schermata di successo dopo la sottoscrizione. Navigazione riorganizzata nel menu laterale. Link cliccabili nel Codex. Miglioramenti alla gestione degli abbonamenti.';
 	@override String get releaseNotes_4_11_0 => 'Per le nascite durante il cambio dell\'ora puoi indicare quale delle due ore intendi. I temi natali di chi è nato prima dei fusi orari moderni sono più precisi. Il Codex si arricchisce di articoli sulla precessione e sui sistemi di case, con diagrammi interattivi. Tocca una citazione nel Codex per leggere il passo originale. Nuova barra di navigazione fluttuante e accesso con Google su iPhone.';
+	@override String get releaseNotes_4_11_1 => 'Piccole correzioni per rendere l\'app più stabile.';
 	@override String get releaseNotes_4_5_1 => 'Nuove icone dell\'app. Migliorata la qualità del logo nel menu. Risolto un problema di validazione nella modifica del tema natale.';
 	@override String get releaseNotes_4_7_1 => 'Messaggi di errore di connessione ora tradotti in italiano.';
 	@override String get releaseNotes_4_7_6 => 'Migliorato il rendering dei font.';
@@ -1863,6 +1864,7 @@ extension on TranslationsIt {
 			'releaseNotes.releaseNotes_4_10_0' => 'Puoi rigenerare le letture nella tua lingua preferita. I transiti salvati ora appaiono tra le analisi salvate. Risolti bug nel flusso di autenticazione.',
 			'releaseNotes.releaseNotes_4_10_1' => 'Schermata di successo dopo la sottoscrizione. Navigazione riorganizzata nel menu laterale. Link cliccabili nel Codex. Miglioramenti alla gestione degli abbonamenti.',
 			'releaseNotes.releaseNotes_4_11_0' => 'Per le nascite durante il cambio dell\'ora puoi indicare quale delle due ore intendi. I temi natali di chi è nato prima dei fusi orari moderni sono più precisi. Il Codex si arricchisce di articoli sulla precessione e sui sistemi di case, con diagrammi interattivi. Tocca una citazione nel Codex per leggere il passo originale. Nuova barra di navigazione fluttuante e accesso con Google su iPhone.',
+			'releaseNotes.releaseNotes_4_11_1' => 'Piccole correzioni per rendere l\'app più stabile.',
 			'releaseNotes.releaseNotes_4_5_1' => 'Nuove icone dell\'app. Migliorata la qualità del logo nel menu. Risolto un problema di validazione nella modifica del tema natale.',
 			'releaseNotes.releaseNotes_4_7_1' => 'Messaggi di errore di connessione ora tradotti in italiano.',
 			'releaseNotes.releaseNotes_4_7_6' => 'Migliorato il rendering dei font.',
@@ -2209,9 +2211,9 @@ extension on TranslationsIt {
 			'ui.subscriptionTrialing' => 'Prova',
 			'ui.subscriptionUnpaid' => 'Pagamento Fallito',
 			'ui.subtitlePart1' => 'Allineati',
-			'ui.subtitlePart2' => 'al tuo',
 			_ => null,
 		} ?? switch (path) {
+			'ui.subtitlePart2' => 'al tuo',
 			'ui.subtitlePart3' => 'cielo',
 			'ui.surname' => 'cognome',
 			'ui.swipeToView' => 'Scorri per visualizzare',

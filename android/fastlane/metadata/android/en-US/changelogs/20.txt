@@ -1,0 +1,1 @@
+- Small fixes to keep the app running smoothly.

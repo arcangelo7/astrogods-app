@@ -2124,6 +2124,9 @@ class Translations$releaseNotes$en {
 	/// en: 'If you were born during a clock change, you can now pick which hour you mean. Charts for births before modern time zones are now more accurate. The Codex adds articles on precession and house systems, with interactive diagrams. Tap a citation in the Codex to read the original passage. New floating navigation bar and Google sign in on iPhone.'
 	String get releaseNotes_4_11_0 => 'If you were born during a clock change, you can now pick which hour you mean. Charts for births before modern time zones are now more accurate. The Codex adds articles on precession and house systems, with interactive diagrams. Tap a citation in the Codex to read the original passage. New floating navigation bar and Google sign in on iPhone.';
 
+	/// en: 'Small fixes to keep the app running smoothly.'
+	String get releaseNotes_4_11_1 => 'Small fixes to keep the app running smoothly.';
+
 	/// en: 'New app icons. Improved logo quality in the menu. Fixed a validation issue when editing birth charts.'
 	String get releaseNotes_4_5_1 => 'New app icons. Improved logo quality in the menu. Fixed a validation issue when editing birth charts.';
 
@@ -4018,6 +4021,7 @@ extension on Translations {
 			'releaseNotes.releaseNotes_4_10_0' => 'You can now regenerate readings in your preferred language. Saved transits now appear in saved analyses. Fixed authentication workflow bugs.',
 			'releaseNotes.releaseNotes_4_10_1' => 'Success screen after subscription. Reorganized navigation in side menu. Clickable links in Codex. Subscription management improvements.',
 			'releaseNotes.releaseNotes_4_11_0' => 'If you were born during a clock change, you can now pick which hour you mean. Charts for births before modern time zones are now more accurate. The Codex adds articles on precession and house systems, with interactive diagrams. Tap a citation in the Codex to read the original passage. New floating navigation bar and Google sign in on iPhone.',
+			'releaseNotes.releaseNotes_4_11_1' => 'Small fixes to keep the app running smoothly.',
 			'releaseNotes.releaseNotes_4_5_1' => 'New app icons. Improved logo quality in the menu. Fixed a validation issue when editing birth charts.',
 			'releaseNotes.releaseNotes_4_7_1' => 'Connection error messages now translated.',
 			'releaseNotes.releaseNotes_4_7_6' => 'Improved font rendering.',
@@ -4364,9 +4368,9 @@ extension on Translations {
 			'ui.subscriptionTrialing' => 'Trial',
 			'ui.subscriptionUnpaid' => 'Payment Failed',
 			'ui.subtitlePart1' => 'Align',
-			'ui.subtitlePart2' => 'with your',
 			_ => null,
 		} ?? switch (path) {
+			'ui.subtitlePart2' => 'with your',
 			'ui.subtitlePart3' => 'sky',
 			'ui.surname' => 'surname',
 			'ui.swipeToView' => 'Swipe to view',
