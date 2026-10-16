@@ -66,8 +66,13 @@ jobs:
         run: |
           $submission = msstore submission get $env:APP_ID | ConvertFrom-Json -AsHashtable
           $metadata = Get-Content -Raw "metadata/metadata.json" | ConvertFrom-Json -AsHashtable
-          foreach ($key in $metadata.Keys) {
+          foreach ($key in $metadata.Keys | Where-Object { $_ -ne 'Listings' }) {
             $submission[$key] = $metadata[$key]
+          }
+          foreach ($language in $metadata.Listings.Keys) {
+            foreach ($field in $metadata.Listings[$language].BaseListing.Keys) {
+              $submission.Listings[$language].BaseListing[$field] = $metadata.Listings[$language].BaseListing[$field]
+            }
           }
           $submission | ConvertTo-Json -Depth 32 | msstore submission updateMetadata $env:APP_ID --verbose
 
