@@ -1,0 +1,67 @@
+# SPDX-FileCopyrightText: 2026 Arcangelo Massari <info@arcangelomassari.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: Publish Apple
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: macos-26
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ios, macos]
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          cache: true
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
+        with:
+          ruby-version: '3.3'
+
+      - name: Install fastlane
+        run: gem install fastlane --no-document
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Import signing certificates
+        env:
+          CERTIFICATES_P12: ${{ secrets.APPLE_CERTIFICATES_P12_BASE64 }}
+          CERTIFICATES_PASSWORD: ${{ secrets.APPLE_CERTIFICATES_PASSWORD }}
+        run: |
+          keychain="$RUNNER_TEMP/signing.keychain-db"
+          echo "$CERTIFICATES_P12" | base64 --decode > "$RUNNER_TEMP/certificates.p12"
+          security create-keychain -p "" "$keychain"
+          security set-keychain-settings "$keychain"
+          security unlock-keychain -p "" "$keychain"
+          security import "$RUNNER_TEMP/certificates.p12" -k "$keychain" -P "$CERTIFICATES_PASSWORD" -T /usr/bin/codesign -T /usr/bin/productbuild
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" "$keychain"
+          security list-keychains -d user -s "$keychain" login.keychain-db
+
+      - name: Write App Store Connect API key
+        env:
+          API_KEY_JSON: ${{ secrets.APP_STORE_CONNECT_API_KEY_JSON }}
+        run: echo "$API_KEY_JSON" > "$RUNNER_TEMP/app-store-connect.json"
+
+      - name: Build, upload and submit for review
+        working-directory: ${{ matrix.platform }}
+        env:
+          APP_STORE_CONNECT_API_KEY_PATH: ${{ runner.temp }}/app-store-connect.json
+          LC_ALL: en_US.UTF-8
+        run: |
+          fastlane build
+          fastlane release

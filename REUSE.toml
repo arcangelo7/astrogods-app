@@ -3,7 +3,9 @@ version = 1
 [[annotations]]
 path = [
     "android/**",
+    "ios/**",
     "linux/**",
+    "macos/**",
     "windows/**",
 ]
 SPDX-FileCopyrightText = "2014 The Flutter Authors"
@@ -13,6 +15,10 @@ SPDX-License-Identifier = "BSD-3-Clause"
 path = [
     "lib/**",
     "android/fastlane/**",
+    "ios/fastlane/**",
+    "macos/fastlane/**",
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/**",
+    "macos/Runner/AppIcon.icns",
     "linux/it.astrogods.AstroGods.desktop",
     "linux/it.astrogods.AstroGods.metainfo.xml",
     "pubspec.yaml",
