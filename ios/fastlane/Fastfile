@@ -1,0 +1,74 @@
+require_relative "app_store"
+
+IPA_DIR = File.join(REPO_ROOT, "build/ios/ipa")
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Upload the iPhone and iPad screenshots in fastlane/screenshots, replacing the ones on App Store Connect"
+  lane :upload_screenshots do
+    deliver(
+      api_key_path: ENV.fetch("APP_STORE_CONNECT_API_KEY_PATH"),
+      skip_binary_upload: true,
+      skip_metadata: true,
+      skip_app_version_update: true,
+      overwrite_screenshots: true,
+      run_precheck_before_submit: false,
+      force: true
+    )
+  end
+
+  desc "Upload the store listing texts, taken from the Android and Windows listings and fastlane/metadata"
+  lane :upload_metadata do
+    deliver(
+      api_key_path: ENV.fetch("APP_STORE_CONNECT_API_KEY_PATH"),
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      skip_app_version_update: true,
+      run_precheck_before_submit: false,
+      force: true,
+      **app_store_listing
+    )
+  end
+
+  desc "Build the App Store ipa, signed with the Apple Distribution certificate in the keychain"
+  lane :build do
+    Dir.chdir(REPO_ROOT) { sh("flutter", "build", "ios", "--release", "--config-only") }
+    get_provisioning_profile(
+      api_key_path: ENV.fetch("APP_STORE_CONNECT_API_KEY_PATH"),
+      app_identifier: APP_IDENTIFIER,
+      team_id: TEAM_ID,
+      output_path: IPA_DIR
+    )
+    profile = lane_context[SharedValues::SIGH_NAME]
+    update_code_signing_settings(
+      path: "Runner.xcodeproj",
+      use_automatic_signing: false,
+      targets: ["Runner"],
+      build_configurations: ["Release"],
+      team_id: TEAM_ID,
+      code_sign_identity: "Apple Distribution",
+      profile_name: profile
+    )
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      configuration: "Release",
+      export_method: "app-store",
+      export_options: { provisioningProfiles: { APP_IDENTIFIER => profile } },
+      output_directory: IPA_DIR,
+      output_name: "AstroGods.ipa"
+    )
+  end
+
+  desc "Upload the built ipa with its listing and screenshots, then submit the version for review"
+  lane :release do
+    deliver(
+      api_key_path: ENV.fetch("APP_STORE_CONNECT_API_KEY_PATH"),
+      ipa: File.join(IPA_DIR, "AstroGods.ipa"),
+      run_precheck_before_submit: false,
+      force: true,
+      **app_store_release(Spaceship::ConnectAPI::Platform::IOS)
+    )
+  end
+end

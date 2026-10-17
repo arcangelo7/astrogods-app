@@ -89,30 +89,31 @@ class MainNavigationWrapper extends StatelessWidget {
 
   Widget _buildLiquidGlassLayout(BuildContext context) {
     return LiquidGlassScope(
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: GlassBackgroundSource(
-              child: Material(type: MaterialType.transparency, child: child),
-            ),
-          ),
-          Positioned.fill(
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              extendBody: true,
-              extendBodyBehindAppBar: true,
-              appBar: _buildAppBar(context),
-              drawer: _buildDrawer(context),
-              body: const SizedBox.shrink(),
-              bottomNavigationBar: GlassNavigationDock(
-                selectedIndex: selectedIndex,
-                items: _getGlassNavigationItems(context),
-                onItemSelected: (index) =>
-                    _onDestinationSelected(context, index),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        appBar: _buildAppBar(context),
+        drawer: _buildDrawer(context),
+        body: Builder(
+          builder: (bodyContext) {
+            final outer = MediaQuery.of(context);
+            final topPadding = selectedIndex == 0
+                ? outer.padding.top
+                : MediaQuery.paddingOf(bodyContext).top;
+            return MediaQuery(
+              data: outer.copyWith(
+                padding: outer.padding.copyWith(top: topPadding),
               ),
-            ),
-          ),
-        ],
+              child: GlassBackgroundSource(child: child),
+            );
+          },
+        ),
+        bottomNavigationBar: GlassNavigationDock(
+          selectedIndex: selectedIndex,
+          items: _getGlassNavigationItems(context),
+          onItemSelected: (index) => _onDestinationSelected(context, index),
+        ),
       ),
     );
   }

@@ -404,6 +404,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               Text(t.ui.theme),
                               const Spacer(),
                               SegmentedButton<String>(
+                                showSelectedIcon: false,
                                 segments: [
                                   ButtonSegment<String>(
                                     value: 'light',
@@ -776,154 +777,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Column(
       children: [
-        // Daily subscriptions
         if (_newsletterSubscriptions!.dailySubscriptions.isNotEmpty) ...[
-          Card(
-            color: Theme.of(context).colorScheme.surface,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.today,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        t.ui.dailySkyOf,
-                        style: AppTextStyles.getBodyStyle(context)
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  ..._newsletterSubscriptions!.dailySubscriptions.map(
-                    (subscription) => Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  subscription.birthChartName,
-                                  style: AppTextStyles.getBodyStyle(context),
-                                ),
-                                Text(
-                                  subscription.place,
-                                  style: AppTextStyles.getCaptionStyle(context),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              TextButton(
-                                onPressed: () =>
-                                    _editSubscription(subscription, 'daily'),
-                                child: Text(t.ui.edit),
-                              ),
-                              TextButton(
-                                onPressed: () =>
-                                    _unsubscribeDaily(subscription.id),
-                                child: Text(
-                                  t.ui.delete,
-                                  style: TextStyle(
-                                    color: Theme.of(context).colorScheme.error,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          _buildSubscriptionCard(
+            icon: Icons.today,
+            title: t.ui.dailySkyOf,
+            subscriptions: _newsletterSubscriptions!.dailySubscriptions,
+            type: 'daily',
+            onDelete: _unsubscribeDaily,
+            t: t,
           ),
           const SizedBox(height: 8),
         ],
-
-        // Monthly subscriptions
-        if (_newsletterSubscriptions!.monthlySubscriptions.isNotEmpty) ...[
-          Card(
-            color: Theme.of(context).colorScheme.surface,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.calendar_month,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        t.ui.monthlySkyOf,
-                        style: AppTextStyles.getBodyStyle(context)
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  ..._newsletterSubscriptions!.monthlySubscriptions.map(
-                    (subscription) => Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  subscription.birthChartName,
-                                  style: AppTextStyles.getBodyStyle(context),
-                                ),
-                                Text(
-                                  subscription.place,
-                                  style: AppTextStyles.getCaptionStyle(context),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              TextButton(
-                                onPressed: () =>
-                                    _editSubscription(subscription, 'monthly'),
-                                child: Text(t.ui.edit),
-                              ),
-                              TextButton(
-                                onPressed: () =>
-                                    _unsubscribeMonthly(subscription.id),
-                                child: Text(
-                                  t.ui.delete,
-                                  style: TextStyle(
-                                    color: Theme.of(context).colorScheme.error,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+        if (_newsletterSubscriptions!.monthlySubscriptions.isNotEmpty)
+          _buildSubscriptionCard(
+            icon: Icons.calendar_month,
+            title: t.ui.monthlySkyOf,
+            subscriptions: _newsletterSubscriptions!.monthlySubscriptions,
+            type: 'monthly',
+            onDelete: _unsubscribeMonthly,
+            t: t,
           ),
-        ],
 
         // Add newsletter button
         const SizedBox(height: 16),
@@ -974,6 +847,74 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildSubscriptionCard({
+    required IconData icon,
+    required String title,
+    required List<NewsletterSubscription> subscriptions,
+    required String type,
+    required Future<void> Function(int) onDelete,
+    required Translations t,
+  }) {
+    return Card(
+      color: Theme.of(context).colorScheme.surface,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, color: Theme.of(context).colorScheme.primary),
+                const SizedBox(width: 12),
+                Text(
+                  title,
+                  style: AppTextStyles.getBodyStyle(context)
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            ...subscriptions.map(
+              (subscription) => Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            subscription.birthChartName,
+                            style: AppTextStyles.getBodyStyle(context),
+                          ),
+                          Text(
+                            subscription.place,
+                            style: AppTextStyles.getCaptionStyle(context),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => _editSubscription(subscription, type),
+                      icon: const Icon(Icons.edit_outlined),
+                      tooltip: t.ui.edit,
+                    ),
+                    IconButton(
+                      onPressed: () => onDelete(subscription.id),
+                      icon: const Icon(Icons.delete_outline),
+                      color: Theme.of(context).colorScheme.error,
+                      tooltip: t.ui.delete,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

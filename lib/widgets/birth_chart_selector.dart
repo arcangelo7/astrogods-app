@@ -305,12 +305,13 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
         children: [
           Expanded(child: dropdown),
           const SizedBox(width: 8),
-          SizedBox(
-            height: 48, // Match actual dropdown height
+          SizedBox.square(
+            dimension: 48,
             child: ElevatedButton(
               onPressed: _showCreateDialog,
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                minimumSize: Size.zero,
+                padding: EdgeInsets.zero,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

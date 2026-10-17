@@ -17,8 +17,6 @@ Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
   amount: (json['amount'] as num).toInt(),
   currency: json['currency'] as String,
   interval: json['interval'] as String,
-  latestInvoiceStatus: json['latest_invoice_status'] as String?,
-  latestInvoicePaymentIntent: json['latest_invoice_payment_intent'] as String?,
 );
 
 Map<String, dynamic> _$SubscriptionToJson(Subscription instance) =>
@@ -33,8 +31,6 @@ Map<String, dynamic> _$SubscriptionToJson(Subscription instance) =>
       'amount': instance.amount,
       'currency': instance.currency,
       'interval': instance.interval,
-      'latest_invoice_status': instance.latestInvoiceStatus,
-      'latest_invoice_payment_intent': instance.latestInvoicePaymentIntent,
     };
 
 SubscriptionStatusResponse _$SubscriptionStatusResponseFromJson(

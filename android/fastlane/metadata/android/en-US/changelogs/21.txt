@@ -1,0 +1,3 @@
+- Subscription checks and payments work properly again.
+- Email horoscope settings and dialogs now fit better on narrow phones.
+- On iOS, pages now start below the top bar, and titles are centered on every device.

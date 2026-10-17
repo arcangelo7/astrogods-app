@@ -1,0 +1,79 @@
+require_relative "../../ios/fastlane/app_store"
+
+PKG_DIR = File.join(REPO_ROOT, "build/macos/pkg")
+
+default_platform(:mac)
+
+platform :mac do
+  desc "Upload the Mac screenshots in fastlane/screenshots, replacing the ones on App Store Connect"
+  lane :upload_screenshots do
+    deliver(
+      platform: "osx",
+      api_key_path: ENV.fetch("APP_STORE_CONNECT_API_KEY_PATH"),
+      skip_binary_upload: true,
+      skip_metadata: true,
+      skip_app_version_update: true,
+      overwrite_screenshots: true,
+      run_precheck_before_submit: false,
+      force: true
+    )
+  end
+
+  desc "Upload the store listing texts, the same as the iOS ones"
+  lane :upload_metadata do
+    deliver(
+      platform: "osx",
+      api_key_path: ENV.fetch("APP_STORE_CONNECT_API_KEY_PATH"),
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      skip_app_version_update: true,
+      run_precheck_before_submit: false,
+      force: true,
+      **app_store_listing
+    )
+  end
+
+  desc "Build the Mac App Store pkg, signed with the distribution and installer certificates in the keychain"
+  lane :build do
+    Dir.chdir(REPO_ROOT) { sh("flutter", "build", "macos", "--release", "--config-only") }
+    get_provisioning_profile(
+      api_key_path: ENV.fetch("APP_STORE_CONNECT_API_KEY_PATH"),
+      app_identifier: APP_IDENTIFIER,
+      team_id: TEAM_ID,
+      platform: "macos",
+      output_path: PKG_DIR
+    )
+    profile = lane_context[SharedValues::SIGH_NAME]
+    update_code_signing_settings(
+      path: "Runner.xcodeproj",
+      use_automatic_signing: false,
+      targets: ["Runner"],
+      build_configurations: ["Release"],
+      team_id: TEAM_ID,
+      code_sign_identity: "Apple Distribution",
+      profile_name: profile
+    )
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      configuration: "Release",
+      export_method: "app-store",
+      installer_cert_name: "3rd Party Mac Developer Installer: Arcangelo Massari (#{TEAM_ID})",
+      export_options: { provisioningProfiles: { APP_IDENTIFIER => profile } },
+      output_directory: PKG_DIR,
+      output_name: "AstroGods"
+    )
+  end
+
+  desc "Upload the built pkg with its listing and screenshots, then submit the version for review"
+  lane :release do
+    deliver(
+      platform: "osx",
+      api_key_path: ENV.fetch("APP_STORE_CONNECT_API_KEY_PATH"),
+      pkg: File.join(PKG_DIR, "AstroGods.pkg"),
+      run_precheck_before_submit: false,
+      force: true,
+      **app_store_release(Spaceship::ConnectAPI::Platform::MAC_OS)
+    )
+  end
+end

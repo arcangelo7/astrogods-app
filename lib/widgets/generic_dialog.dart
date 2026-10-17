@@ -17,9 +17,10 @@ class GenericDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
+        width: double.infinity,
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.8,
         ),
@@ -28,7 +29,7 @@ class GenericDialog extends StatelessWidget {
           children: [
             // Header
             Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: Text(
                 title,
                 style: AppTextStyles.getH3Style(context),
@@ -39,14 +40,14 @@ class GenericDialog extends StatelessWidget {
             // Content
             Flexible(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: child,
               ),
             ),
 
             // Actions
             Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: OverflowBar(
                 alignment: MainAxisAlignment.end,
                 children: actions,

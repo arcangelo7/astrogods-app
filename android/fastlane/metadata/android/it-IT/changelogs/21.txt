@@ -1,0 +1,3 @@
+- Il controllo degli abbonamenti e i pagamenti funzionano di nuovo correttamente.
+- Le impostazioni dell'oroscopo via email e i dialoghi si adattano meglio agli schermi stretti.
+- Su iOS le pagine iniziano sotto la barra superiore e i titoli sono centrati su ogni dispositivo.

@@ -8,19 +8,23 @@ plugins {
 import java.util.Properties
 import java.io.FileInputStream
 
+val isReleaseBuild = gradle.startParameter.taskNames.any { it.contains("Release") }
+
 val keystoreProperties = Properties()
-val keystorePropertiesFile = rootProject.file("key.properties")
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
-} else {
-    keystoreProperties["storeFile"] = System.getenv("KEYSTORE_FILE")
-        ?: throw GradleException("KEYSTORE_FILE environment variable not set")
-    keystoreProperties["storePassword"] = System.getenv("KEYSTORE_PASSWORD")
-        ?: throw GradleException("KEYSTORE_PASSWORD environment variable not set")
-    keystoreProperties["keyAlias"] = System.getenv("KEY_ALIAS")
-        ?: throw GradleException("KEY_ALIAS environment variable not set")
-    keystoreProperties["keyPassword"] = System.getenv("KEY_PASSWORD")
-        ?: throw GradleException("KEY_PASSWORD environment variable not set")
+if (isReleaseBuild) {
+    val keystorePropertiesFile = rootProject.file("key.properties")
+    if (keystorePropertiesFile.exists()) {
+        keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+    } else {
+        keystoreProperties["storeFile"] = System.getenv("KEYSTORE_FILE")
+            ?: throw GradleException("KEYSTORE_FILE environment variable not set")
+        keystoreProperties["storePassword"] = System.getenv("KEYSTORE_PASSWORD")
+            ?: throw GradleException("KEYSTORE_PASSWORD environment variable not set")
+        keystoreProperties["keyAlias"] = System.getenv("KEY_ALIAS")
+            ?: throw GradleException("KEY_ALIAS environment variable not set")
+        keystoreProperties["keyPassword"] = System.getenv("KEY_PASSWORD")
+            ?: throw GradleException("KEY_PASSWORD environment variable not set")
+    }
 }
 
 android {
@@ -44,17 +48,25 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
+        // Shared across machines so a single debug SHA-1 is registered for Google Sign-In
+        getByName("debug") {
+            storeFile = file("debug.keystore")
+        }
+        if (isReleaseBuild) {
+            create("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
         }
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            if (isReleaseBuild) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(

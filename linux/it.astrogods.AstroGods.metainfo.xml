@@ -99,6 +99,11 @@
   </screenshots>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="4.11.2" date="2026-10-17">
+      <description>
+        <p>Subscription checks and payments work properly again. Email horoscope settings and dialogs now fit better on narrow phones. On iOS, pages now start below the top bar, and titles are centered on every device.</p>
+      </description>
+    </release>
     <release version="4.11.1" date="2026-10-16">
       <description>
         <p>Small fixes to keep the app running smoothly.</p>

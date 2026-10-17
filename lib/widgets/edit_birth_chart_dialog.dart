@@ -4,6 +4,7 @@ import '../i18n/translations.g.dart';
 import '../models/birth_chart.dart';
 import '../services/api_client.dart';
 import '../services/birth_chart_service.dart';
+import '../services/reading_state_service.dart';
 import '../utils/snackbar_utils.dart';
 import '../widgets/birth_chart_form_widget.dart';
 import '../widgets/generic_dialog.dart';
@@ -123,6 +124,7 @@ class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
         widget.birthChart.id,
         updateData,
       );
+      ReadingStateService().clearReadingState(widget.birthChart.id);
 
       if (mounted) {
         Navigator.of(context).pop();

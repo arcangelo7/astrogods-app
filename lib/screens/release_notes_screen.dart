@@ -13,6 +13,7 @@ class ReleaseNotesScreen extends StatelessWidget {
     final t = Translations.of(context);
 
     final releases = [
+      _ReleaseInfo('4.11.2', t.releaseNotes.releaseNotes_4_11_2),
       _ReleaseInfo('4.11.1', t.releaseNotes.releaseNotes_4_11_1),
       _ReleaseInfo('4.11.0', t.releaseNotes.releaseNotes_4_11_0),
       _ReleaseInfo('4.10.1', t.releaseNotes.releaseNotes_4_10_1),

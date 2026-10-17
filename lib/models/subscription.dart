@@ -19,10 +19,6 @@ class Subscription {
   final int amount;
   final String currency;
   final String interval;
-  @JsonKey(name: 'latest_invoice_status')
-  final String? latestInvoiceStatus;
-  @JsonKey(name: 'latest_invoice_payment_intent')
-  final String? latestInvoicePaymentIntent;
 
   Subscription({
     required this.id,
@@ -35,8 +31,6 @@ class Subscription {
     required this.amount,
     required this.currency,
     required this.interval,
-    this.latestInvoiceStatus,
-    this.latestInvoicePaymentIntent,
   });
 
   factory Subscription.fromJson(Map<String, dynamic> json) =>

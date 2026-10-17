@@ -152,16 +152,15 @@ class _LocationSearchFieldState extends State<LocationSearchField> {
   }
 
   OverlayEntry _createOverlayEntry() {
-    final RenderBox renderBox = context.findRenderObject() as RenderBox;
-    final size = renderBox.size;
+    final renderBox = context.findRenderObject() as RenderBox;
 
     return OverlayEntry(
       builder: (context) => Positioned(
-        width: size.width,
+        width: renderBox.size.width,
         child: CompositedTransformFollower(
           link: _layerLink,
           showWhenUnlinked: false,
-          offset: Offset(0.0, size.height + 4.0),
+          offset: Offset(0.0, renderBox.size.height + 4.0),
           child: Material(
             elevation: 8.0,
             borderRadius: BorderRadius.circular(12),
@@ -248,6 +247,9 @@ class _LocationSearchFieldState extends State<LocationSearchField> {
         controller: widget.controller,
         focusNode: _focusNode,
         validator: widget.validator,
+        maxLines: null,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
         style: AppTextStyles.getBodyStyle(context),
         decoration: InputDecoration(
           labelText: widget.labelText,

@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - google_sign_in_all_platforms_mobile (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - google_sign_in_all_platforms_mobile (from `.symlinks/plugins/google_sign_in_all_platforms_mobile/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  google_sign_in_all_platforms_mobile:
+    :path: ".symlinks/plugins/google_sign_in_all_platforms_mobile/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
+  google_sign_in_all_platforms_mobile: e0378d33ac45af48bea7420dfb886832a5cf0731
+
+PODFILE CHECKSUM: 3ba3a73b1b12adcf321a227a745625fe0888cc82
+
+COCOAPODS: 1.17.0
