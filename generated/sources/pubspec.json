@@ -1794,6 +1794,20 @@
     {
         "type": "archive",
         "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/process-5.0.6.tar.gz",
+        "sha256": "4242ba3508d37e01808bdf71ad1d5bb93a8d671bf2e7450e6b1b353fb0808891",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/process-5.0.6"
+    },
+    {
+        "type": "inline",
+        "contents": "4242ba3508d37e01808bdf71ad1d5bb93a8d671bf2e7450e6b1b353fb0808891",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "process-5.0.6.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
         "url": "https://pub.dev/api/archives/provider-6.1.5+1.tar.gz",
         "sha256": "4e82183fa20e5ca25703ead7e05de9e4cceed1fbd1eadc1ac3cb6f565a09f272",
         "strip-components": 0,
@@ -2354,6 +2368,20 @@
     {
         "type": "archive",
         "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/sync_http-0.3.1.tar.gz",
+        "sha256": "7f0cd72eca000d2e026bcd6f990b81d0ca06022ef4e32fb257b30d3d1014a961",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/sync_http-0.3.1"
+    },
+    {
+        "type": "inline",
+        "contents": "7f0cd72eca000d2e026bcd6f990b81d0ca06022ef4e32fb257b30d3d1014a961",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "sync_http-0.3.1.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
         "url": "https://pub.dev/api/archives/synchronized-3.5.0.tar.gz",
         "sha256": "b3d516dbd3757ff2a458735e4f6cbac9ff261f576f6e87bcb17feabb39e657c5",
         "strip-components": 0,
@@ -2714,6 +2742,20 @@
         "contents": "d645757fb0f4773d602444000a8131ff5d48c9e47adfe9772652dd1a4f2d45c8",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
         "dest-filename": "web_socket_channel-3.0.3.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/webdriver-3.2.0.tar.gz",
+        "sha256": "28b82ec894fed45dd71c23ba62d1af973ed97dd59a4f5790a4d38b0b13e5657e",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/webdriver-3.2.0"
+    },
+    {
+        "type": "inline",
+        "contents": "28b82ec894fed45dd71c23ba62d1af973ed97dd59a4f5790a4d38b0b13e5657e",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "webdriver-3.2.0.sha256"
     },
     {
         "type": "archive",
@@ -3638,20 +3680,6 @@
         "contents": "f10b3fbdb4d56c6bc4d160ef5b3d6346df7a998a84876d05886a75d17eb290e6",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
         "dest-filename": "standard_message_codec-0.0.1+5.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/sync_http-0.3.1.tar.gz",
-        "sha256": "7f0cd72eca000d2e026bcd6f990b81d0ca06022ef4e32fb257b30d3d1014a961",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/sync_http-0.3.1"
-    },
-    {
-        "type": "inline",
-        "contents": "7f0cd72eca000d2e026bcd6f990b81d0ca06022ef4e32fb257b30d3d1014a961",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "sync_http-0.3.1.sha256"
     },
     {
         "type": "archive",
