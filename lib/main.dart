@@ -19,6 +19,7 @@ import 'themes/app_theme.dart';
 import 'constants/colors.dart';
 import 'config/environment.dart';
 import 'config/router.dart';
+import 'services/apple_store_service.dart';
 import 'widgets/custom_title_bar.dart';
 
 // coverage:ignore-start
@@ -33,6 +34,10 @@ void main() async {
 
   await LiquidGlassWidgets.initialize();
   await Environment.init();
+
+  if (AppleStoreService.isAvailable) {
+    AppleStoreService.instance.start();
+  }
 
   if (!kIsWeb &&
       (defaultTargetPlatform == TargetPlatform.windows ||

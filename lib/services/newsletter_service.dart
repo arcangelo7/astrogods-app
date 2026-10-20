@@ -1,5 +1,3 @@
-import 'package:material_ui/material_ui.dart';
-
 import 'api_client.dart';
 
 class NewsletterSubscription {
@@ -56,12 +54,7 @@ class NewsletterSubscriptions {
 }
 
 class NewsletterService {
-  final BuildContext? context;
-  late final ApiClient _apiClient;
-
-  NewsletterService({this.context}) {
-    _apiClient = ApiClient(context: context);
-  }
+  final ApiClient _apiClient = ApiClient();
 
   Future<NewsletterSubscriptions> getSubscriptions() async {
     try {

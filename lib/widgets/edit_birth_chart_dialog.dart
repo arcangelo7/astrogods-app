@@ -36,7 +36,7 @@ class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
   @override
   void initState() {
     super.initState();
-    _birthChartService = BirthChartService(context: context);
+    _birthChartService = BirthChartService();
     _formWidget = BirthChartFormWidget(
       key: _formStateKey,
       initialBirthChart: widget.birthChart,
@@ -63,6 +63,7 @@ class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
 
     return formState.givenName != widget.birthChart.givenName ||
         formState.familyName != widget.birthChart.familyName ||
+        formState.gender != widget.birthChart.gender ||
         formState.place != widget.birthChart.place ||
         _birthTimeChanged(formState);
   }
@@ -105,6 +106,7 @@ class _EditBirthChartDialogState extends State<EditBirthChartDialog> {
       final updateData = <String, dynamic>{
         'given_name': formState.givenName,
         'family_name': formState.familyName,
+        'gender': formState.gender,
         'time_fold': formState.birthTime.fold,
       };
 

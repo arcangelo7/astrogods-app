@@ -4,14 +4,21 @@ accountDeleted: Account deleted successfully
 activeSubscriptionDeleteWarning: |-
   You have an active subscription. To delete your account, your subscription will be cancelled first.
 
-  This action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.
+  This action cannot be undone. All your data and saved charts will be permanently deleted.
+addEmail: Add email
 addNewsletter: Add horoscope by email
 allNewsletters: All newsletters
+allPremiumFeatures: All Premium features
 alreadyHaveAccount: Already have an account?
 analyzing: ANALYZING...
 annual: Annual
 anticipateYourDayWithTransits: Anticipate your day with transit analysis
 anticipateYourMonthWithTransits: Anticipate your month with transit analysis
+appleAutoRenewNotice: "The subscription renews automatically at the price shown unless you cancel it at least 24 hours before the current period ends. Payment is charged to your Apple account. You can manage or cancel it in your App Store account settings."
+appleSubscriptionDeleteWarning: |-
+  Deleting your account does not cancel your App Store subscription. To stop the renewals, cancel it in your App Store account settings.
+
+  This action cannot be undone. All your data and saved charts will be permanently deleted.
 appTitle: AstroGods
 appVersion: App Version
 at: at
@@ -37,15 +44,16 @@ birthChartsCountPlural: ${count} saved birth charts
 birthChartsCountSingular: 1 saved birth chart
 birthChartsFilter: Birth charts
 birthChartsMustBeDifferent: The two birth charts must be different
-birthDate: birth date
+birthDate: Birth date
 birthInfo: Birth Information
 birthInformation: Birth Information
-birthPlace: Birth Place
-birthTime: birth time
+birthPlace: Birth place
+birthTime: Birth time
 birthTimeRequired: Enter time or check unknown time
 cancel: Cancel
 cancelSubscriptionAndDelete: Cancel subscription and delete account
 cancellingSubscription: Cancelling subscription...
+changePassword: Change password
 changePlan: Change plan
 chartNotAvailable: Chart not available.
 chartOnlyMode: Chart only, without reading
@@ -64,6 +72,7 @@ confirmPassword: Confirm Password
 confirmingSubscription: Confirming your subscription...
 connectionError: Connection failed. Check your network and try again.
 connectionTimeout: The request took too long. Please try again.
+continueWithApple: Continue with Apple
 continueWithGoogle: Continue with Google
 couplesChartReadings: Couple's chart readings
 create: Create
@@ -74,6 +83,7 @@ createSecondChart: Create second chart
 createSynastry: Create synastry
 creating: Creating...
 currentLocation: Current location
+currentPassword: Current password
 currentPlan: Current plan
 daily: Daily
 dailyMonthlyTransits: Daily and monthly transits
@@ -87,7 +97,6 @@ dailyTransitsCountPlural: ${count} saved daily transits
 dailyTransitsCountSingular: 1 saved daily transit
 dailyTransitsFilter: Daily transits
 darkMode: Dark
-dataCollectedByMatomo: 'Data collected by Matomo:'
 dateOfBirth: Date of Birth
 dayCount: Day ${day}
 dayNumber: day ${number}
@@ -95,7 +104,7 @@ delete: Delete
 deleteAccount: Delete Account
 deleteAccountConfirmation: Are you absolutely sure you want to delete your account?
 deleteAccountTitle: Delete Account
-deleteAccountWarning: This action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.
+deleteAccountWarning: This action cannot be undone. All your data and saved charts will be permanently deleted.
 deleteConfirmationWord: DELETE
 deleteFreeReadingTitle: Delete your only reading?
 deleteFreeReadingWarning: This is your only saved reading. An active subscription is required to generate new readings.
@@ -103,6 +112,10 @@ didntReceiveEmail: Didn't receive the email?
 discoverHeartOfRelationship: Discover the heart of a relationship through its synastry
 dontHaveAccount: Don't have an account?
 dontKnowBirthTime: I don't know the birth time
+emailAddressCopied: 'No email app available. Address copied to the clipboard: ${email}'
+noPurchasesToRestore: No App Store subscription to restore
+passwordChanged: Password changed
+passwordSetupLinkSent: Link sent to ${email}
 repeatedTimeFirst: The first time, during daylight saving time
 repeatedTimeSecond: The second time, during standard time
 downgrade: Downgrade to Standard
@@ -111,7 +124,7 @@ edit: Edit
 editBirthChart: Edit Birth Chart
 editDaily: Edit daily newsletter
 editMonthly: Edit monthly newsletter
-email: email
+email: Email
 emailAlreadyExists: This email address is already registered
 emailNotifications: Horoscope by email
 emailSentSuccessfully: Email sent successfully
@@ -127,13 +140,17 @@ exploreOtherPlans: Explore other plans
 failedToLoadSubscriptions: Failed to load subscriptions
 familyNameRequired: Last name is required
 finish: Finish
-firstName: First Name
+firstName: First name
 firstQuarter: First quarter
 forSearchTerm: for "${term}"
 forgotPassword: Forgot Password?
 fourMonthsFree: 4 months FREE
 fullMoon: Full moon
-gender: gender
+gender: Gender
+genderMan: Man
+genderNonBinary: Non-binary
+genderPreferNotToSay: Prefer not to say
+genderWoman: Woman
 generateAnalysis: Generate Analysis
 generateDailyTransit: Generate Daily Transit
 generateDetailedCompatibilityAnalysis: Generate a detailed compatibility analysis between ${relationshipTitle}
@@ -150,6 +167,12 @@ givenNameRequired: First name is required
 goHome: Go to Home
 goToHome: Go to Home
 goToLogin: Login
+appleSignInError: 'Apple Sign-In error: ${error}'
+appleSignUpError: 'Apple Sign-Up error: ${error}'
+changeEmail: Change email
+confirmingEmail: Confirming your email
+emailChangeConfirmed: Email updated
+emailChangeLinkSent: "We've sent a confirmation link to ${email}. Open it to finish the change"
 googleSignInError: 'Google Sign-In error: ${error}'
 googleSignInSuccessful: Successfully signed in with Google
 googleSignUpError: 'Google Sign-Up error: ${error}'
@@ -163,7 +186,7 @@ italian: Italian
 language: Language
 languageEnglish: English
 languageItalian: Italian
-lastName: Last Name
+lastName: Last name
 lastQuarter: Last quarter
 lightMode: Light
 loadingImage: Loading image...
@@ -189,10 +212,12 @@ monthlyTransitOf: Monthly transit of ${name}
 monthlyTransitsCountPlural: ${count} saved monthly transits
 monthlyTransitsCountSingular: 1 saved monthly transit
 monthlyTransitsFilter: Monthly transits
-name: name
+name: Name
 needBirthChartForPredictions: You need a birth chart first for predictions
 needTwoBirthChartsForSynastry: To create a synastry you need at least two saved birth charts.
 networkErrorOccurred: Network error occurred
+newEmail: New email
+newsletterNeedsEmail: Add an email to your profile to receive the horoscope by email.
 newImprovedVersion: New improved version
 newMoon: New moon
 newPassword: New password
@@ -218,7 +243,7 @@ notProvided: Not provided
 oneMonthFree: 1 month FREE
 oneMoreChartNeeded: You have one chart. Create a second for synastry
 or: OR
-password: password
+password: Password
 passwordResetSuccessful: Password reset successful
 passwordTooShort: Password must be at least 8 characters long
 passwordsDoNotMatch: Passwords do not match
@@ -259,7 +284,6 @@ previewTitle: Your birth chart awaits
 previous: Previous
 processingUnsubscribeRequest: Processing unsubscribe request...
 profile: Profile
-profilePhoto: profile photo
 profileTitle: Profile
 profileUpdatedSuccessfully: Profile updated successfully
 reactivateSubscription: Reactivate
@@ -281,6 +305,7 @@ resendEmail: Resend email
 resetLinkSent: We've sent a password reset link to ${email}
 resetPassword: Reset password
 resetPasswordTitle: Reset your password
+restorePurchases: Restore purchases
 retry: Retry
 save: Save
 save20Percent: Save 20%
@@ -288,6 +313,7 @@ save33Percent: Save 33%
 save40Percent: Save 40%
 saveAmount: SAVE ${amount}/YEAR
 saveChanges: Save changes
+savePassword: Save password
 savePdfDialogTitle: Save PDF
 savedChartsTitle: Saved analyses
 searchBirthCharts: Search birth charts...
@@ -297,22 +323,25 @@ searchDailyTransits: Search daily transits...
 searchInProgress: Search in progress...
 searchMonthlyTransits: Search monthly transits...
 searchSynastries: Search synastries...
-searching: Searching...
 selectChart: Select chart
 selectDate: Select Date
-selectFirstBirthChart: Select the first birth chart
 selectLocation: Select location
 selectMonth: Select Month
-selectSecondBirthChart: Select the second birth chart
 semiannual: Semiannual
+sendConfirmationLink: Send confirmation link
+sendLink: Send link
 sendResetLink: Send reset link
 serverUnavailable: We're making some improvements. Back in a moment!
 setAsPersonal: This is my theme
+setPassword: Set password
+setPasswordDescription: We will send a link to ${email} to choose a password. Then you can also sign in with your email.
+setPasswordNeedsEmail: Add an email to your account first, so we can send you the link to choose a password.
 settingsTitle: Settings
 sevenDaysFreeTrial: 7 days of free trial
 sharePdf: Share PDF
 signIn: Sign in
 signUp: Sign up
+sixMonthsPeriod: 6 months
 standardAnnual: Standard - annual
 standardMonthly: Standard - monthly
 standardSemiannual: Standard - semiannual
@@ -326,10 +355,15 @@ subscriptionActive: Active
 subscriptionAmount: Amount
 subscriptionCancelledSuccessfully: Subscription cancelled successfully
 subscriptionCancelsOn: Ends on
-subscriptionConfirmationFailed: Failed to confirm subscription. Please contact support.
+subscriptionConfirmationFailed: Failed to confirm subscription. Please contact support
 subscriptionEndDate: Renews on
 subscriptionIncomplete: Payment Incomplete
+subscriptionManagedElsewhere: 'This subscription was purchased outside the App Store: you can manage it on the website'
 subscriptionPastDue: Payment Overdue
+subscriptionPurchasedOnAndroid: 'This subscription was purchased in the Android app: you can manage it there or on the website'
+subscriptionPurchasedOnLinux: 'This subscription was purchased in the Linux app: you can manage it there or on the website'
+subscriptionPurchasedOnWeb: 'This subscription was purchased on the website: you can manage it there'
+subscriptionPurchasedOnWindows: 'This subscription was purchased in the Windows app: you can manage it there or on the website'
 subscriptionRequiredForRegeneration: To regenerate this reading in another language you need a subscription (standard is enough)
 subscriptionStartDate: Started on
 subscriptionSuccessGoHome: Go to home
@@ -342,7 +376,7 @@ subscriptionUnpaid: Payment Failed
 subtitlePart1: Align
 subtitlePart2: with your
 subtitlePart3: sky
-surname: surname
+surname: Surname
 swipeToView: Swipe to view
 synastriesCountPlural: ${count} saved synastries
 synastriesCountSingular: 1 saved synastry
@@ -356,7 +390,7 @@ synastryRemovedFromSaved: Synastry removed from saved
 systemMode: System
 termsOfService: Terms of Service
 theme: Theme
-thenPricePerMonth: Then ${price}/month
+thenPrice: Then ${price}/${period}
 timeOfBirth: Time of Birth
 transitDate: Transit date
 transitDescription: Transits are the movements of planets that, passing over natal sky positions, activate temporary astrological influences.
@@ -393,3 +427,4 @@ waxingCrescent: Waxing crescent
 waxingGibbous: Waxing gibbous
 welcomeBack: Welcome back!
 withoutBirthTimeWarning: Without the time of birth the reading will not take the Ascendant into account
+yearPeriod: year

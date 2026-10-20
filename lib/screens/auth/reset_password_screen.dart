@@ -46,14 +46,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       _passwordController.text,
     );
 
+    if (success) {
+      await authProvider.refreshUserData();
+    }
+
     if (mounted) {
       if (success) {
         SnackbarUtils.showSuccess(
           context,
           Translations.of(context).ui.passwordResetSuccessful,
         );
-        // Navigate to login screen
-        context.go('/login');
+        context.go(authProvider.isAuthenticated ? '/settings' : '/login');
       } else {
         SnackbarUtils.showError(
           context,

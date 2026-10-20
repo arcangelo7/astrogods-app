@@ -7,6 +7,7 @@ import '../services/api_client.dart';
 import '../utils/session_utils.dart';
 import '../i18n/translations.g.dart';
 import '../constants/text_styles.dart';
+import '../utils/date_utils.dart' as app_date_utils;
 import 'gradient_button.dart';
 import 'create_birth_chart_dialog.dart';
 import 'empty_state_widget.dart';
@@ -46,7 +47,7 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
   @override
   void initState() {
     super.initState();
-    _birthChartService = BirthChartService(context: context);
+    _birthChartService = BirthChartService();
     _loadSavedCharts();
   }
 
@@ -54,8 +55,16 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
   void didUpdateWidget(BirthChartSelector oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    // If excludeChartIds changed, re-filter the saved charts
-    if (oldWidget.excludeChartIds != widget.excludeChartIds) {
+    // A chart created by another selector on the same screen is not in this
+    // selector's list yet.
+    final knownIds = _allCharts.map((chart) => chart.id).toSet();
+    final referencedIds = [
+      ...widget.excludeChartIds,
+      if (widget.selectedChart != null) widget.selectedChart!.id,
+    ];
+    if (!_isLoading && referencedIds.any((id) => !knownIds.contains(id))) {
+      _loadSavedCharts();
+    } else if (oldWidget.excludeChartIds != widget.excludeChartIds) {
       setState(() {
         _filterSavedCharts();
       });
@@ -224,14 +233,17 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
     }
 
     final entries = sortedCharts.map((chart) {
-      return DropdownMenuEntry<BirthChart>(
+      return DropdownMenuEntry<BirthChart?>(
         value: chart,
         label: chart.fullName,
         labelWidget: _buildDropdownItem(context, chart),
       );
     }).toList();
 
-    final dropdown = DropdownMenuFormField<BirthChart>(
+    final dropdown = DropdownMenuFormField<BirthChart?>(
+      // Recreated when the selection changes, so a chart picked outside the
+      // menu (for example one just created) replaces the label shown.
+      key: ValueKey(widget.selectedChart?.id),
       expandedInsets: EdgeInsets.zero,
       initialSelection: widget.selectedChart,
       enableFilter: true,
@@ -245,13 +257,21 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
       filterCallback: (entries, filter) {
         final query = filter.toLowerCase();
         if (query.isEmpty) return entries;
-        return entries.where((entry) {
-          final chart = entry.value;
+        final matches = entries.where((entry) {
+          final chart = entry.value!;
           return chart.fullName.toLowerCase().contains(query) ||
               chart.givenName.toLowerCase().contains(query) ||
               chart.familyName.toLowerCase().contains(query) ||
               (chart.place ?? '').toLowerCase().contains(query);
         }).toList();
+        if (matches.isNotEmpty) return matches;
+        return [
+          DropdownMenuEntry<BirthChart?>(
+            value: null,
+            label: t.ui.noResultsFound,
+            enabled: false,
+          ),
+        ];
       },
       menuHeight: 300,
       menuStyle: MenuStyle(
@@ -365,7 +385,7 @@ class _BirthChartSelectorState extends State<BirthChartSelector> {
               ),
               const SizedBox(width: 8),
               Text(
-                '${chart.date.day}/${chart.date.month}/${chart.date.year}',
+                app_date_utils.DateUtils.formatDate(context, chart.date),
                 style: AppTextStyles.getCaptionStyle(context).copyWith(
                   color: Theme.of(context).colorScheme.onSurface
                       .withValues(alpha: 0.7),

@@ -5,6 +5,7 @@ import '../models/birth_chart.dart';
 import '../services/transit_service.dart' as transit;
 import '../widgets/starry_night_background.dart';
 import 'transit_reading_screen.dart';
+import '../utils/error_utils.dart';
 
 class TransitReadingWrapper extends StatefulWidget {
   final int readingId;
@@ -31,7 +32,7 @@ class _TransitReadingWrapperState extends State<TransitReadingWrapper> {
   @override
   void initState() {
     super.initState();
-    _service = transit.TransitService(context: context);
+    _service = transit.TransitService();
     _loadTransitReading();
   }
 
@@ -60,7 +61,7 @@ class _TransitReadingWrapperState extends State<TransitReadingWrapper> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = e.toString();
+          _error = userErrorMessage(context, e);
           _isLoading = false;
         });
       }

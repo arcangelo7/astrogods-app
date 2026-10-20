@@ -47,17 +47,16 @@ class _ChartSvgConfig {
   Future<String> getMainSvg(BuildContext context, {required double zoom}) {
     switch (type) {
       case _ChartType.birthChart:
-        return BirthChartService(context: context)
-            .getBirthChartSvg(chartId, zoom: zoom);
+        return BirthChartService().getBirthChartSvg(chartId, zoom: zoom);
       case _ChartType.synastry:
-        return SynastryService(context: context)
-            .getSynastrySvg(chartId, zoom: zoom);
+        return SynastryService().getSynastrySvg(chartId, zoom: zoom);
       case _ChartType.dailyTransit:
-        return transit.TransitService(context: context)
-            .getDailyTransitSvg(chartId, zoom: zoom);
+        return transit.TransitService().getDailyTransitSvg(chartId, zoom: zoom);
       case _ChartType.monthlyTransit:
-        return transit.TransitService(context: context)
-            .getMonthlyTransitSvg(chartId, zoom: zoom);
+        return transit.TransitService().getMonthlyTransitSvg(
+          chartId,
+          zoom: zoom,
+        );
     }
   }
 
@@ -68,18 +67,29 @@ class _ChartSvgConfig {
   }) {
     switch (type) {
       case _ChartType.birthChart:
-        return BirthChartService(context: context)
-            .getBirthChartDetailsSvg(chartId, zoom: zoom, darkMode: darkMode);
+        return BirthChartService().getBirthChartDetailsSvg(
+          chartId,
+          zoom: zoom,
+          darkMode: darkMode,
+        );
       case _ChartType.synastry:
-        return SynastryService(context: context)
-            .getSynastryDetailsSvg(chartId, zoom: zoom, darkMode: darkMode);
+        return SynastryService().getSynastryDetailsSvg(
+          chartId,
+          zoom: zoom,
+          darkMode: darkMode,
+        );
       case _ChartType.dailyTransit:
-        return transit.TransitService(context: context)
-            .getDailyTransitDetailsSvg(chartId, zoom: zoom, darkMode: darkMode);
+        return transit.TransitService().getDailyTransitDetailsSvg(
+          chartId,
+          zoom: zoom,
+          darkMode: darkMode,
+        );
       case _ChartType.monthlyTransit:
-        return transit.TransitService(
-          context: context,
-        ).getMonthlyTransitDetailsSvg(chartId, zoom: zoom, darkMode: darkMode);
+        return transit.TransitService().getMonthlyTransitDetailsSvg(
+          chartId,
+          zoom: zoom,
+          darkMode: darkMode,
+        );
     }
   }
 
@@ -92,19 +102,23 @@ class _ChartSvgConfig {
       case _ChartType.birthChart:
         return null;
       case _ChartType.synastry:
-        return SynastryService(context: context)
-            .getSynastryAspectGridSvg(chartId, zoom: zoom, darkMode: darkMode);
+        return SynastryService().getSynastryAspectGridSvg(
+          chartId,
+          zoom: zoom,
+          darkMode: darkMode,
+        );
       case _ChartType.dailyTransit:
-        return transit.TransitService(
-          context: context,
-        ).getDailyTransitAspectGridSvg(chartId, zoom: zoom, darkMode: darkMode);
+        return transit.TransitService().getDailyTransitAspectGridSvg(
+          chartId,
+          zoom: zoom,
+          darkMode: darkMode,
+        );
       case _ChartType.monthlyTransit:
-        return transit.TransitService(context: context)
-            .getMonthlyTransitAspectGridSvg(
-              chartId,
-              zoom: zoom,
-              darkMode: darkMode,
-            );
+        return transit.TransitService().getMonthlyTransitAspectGridSvg(
+          chartId,
+          zoom: zoom,
+          darkMode: darkMode,
+        );
     }
   }
 

@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart' show PlatformException;
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,6 +12,7 @@ import '../constants/text_styles.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/starry_night_background.dart';
 import '../i18n/translations.g.dart';
+import '../services/apple_store_service.dart';
 import '../services/stripe_service.dart';
 import '../services/api_client.dart' show ApiException;
 import '../services/subscription_service.dart';
@@ -19,6 +22,7 @@ import '../utils/session_utils.dart';
 import '../utils/auth_navigation_utils.dart';
 import '../models/subscription_plan.dart';
 import '../models/subscription.dart';
+import '../widgets/subscription_card.dart' show managedElsewhereMessage;
 import '../widgets/subscription/subscription_button.dart';
 import '../widgets/subscription/trial_info_container.dart';
 import '../widgets/subscription/price_display.dart';
@@ -42,7 +46,9 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
   bool _isLoadingTrialEligibility = true;
   SubscriptionStatusResponse? _subscriptionStatus;
   StripeConfig? _stripeConfig;
-  bool _isLoadingStripeConfig = true;
+  List<ProductDetails>? _appleProducts;
+  bool _isLoadingStoreData = true;
+  final bool _usesAppleStore = AppleStoreService.isAvailable;
 
   @override
   void initState() {
@@ -60,29 +66,40 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
       }
     });
 
-    _loadStripeConfig();
+    _loadStoreData();
     _loadSubscriptionStatus();
     _checkForSessionId();
   }
 
-  Future<void> _loadStripeConfig() async {
+  Future<void> _loadStoreData() async {
     try {
-      final config = await StripeService.getConfig();
-      if (mounted) {
-        setState(() {
-          _stripeConfig = config;
-          _isLoadingStripeConfig = false;
-        });
+      if (_usesAppleStore) {
+        final products = await AppleStoreService.instance.loadProducts();
+        final trialEligible = await AppleStoreService.instance
+            .isTrialEligible();
+        if (mounted) {
+          setState(() {
+            _appleProducts = products;
+            _hasTrialEligibility = trialEligible;
+          });
+        }
+      } else {
+        final config = await StripeService.getConfig();
+        if (mounted) {
+          setState(() => _stripeConfig = config);
+        }
       }
     } catch (e) {
-      debugPrint('Failed to load Stripe config: $e');
+      debugPrint('Failed to load store data: $e');
+    } finally {
       if (mounted) {
-        setState(() {
-          _isLoadingStripeConfig = false;
-        });
+        setState(() => _isLoadingStoreData = false);
       }
     }
   }
+
+  bool get _storeDataLoaded =>
+      _usesAppleStore ? _appleProducts != null : _stripeConfig != null;
 
   Future<void> _loadSubscriptionStatus() async {
     try {
@@ -92,7 +109,9 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
       if (mounted) {
         setState(() {
           _subscriptionStatus = status;
-          _hasTrialEligibility = status.hasTrialEligibility;
+          if (!_usesAppleStore) {
+            _hasTrialEligibility = status.hasTrialEligibility;
+          }
           _isLoadingTrialEligibility = false;
         });
       }
@@ -100,7 +119,9 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
       // On error, default to showing trial (better UX)
       if (mounted) {
         setState(() {
-          _hasTrialEligibility = true;
+          if (!_usesAppleStore) {
+            _hasTrialEligibility = true;
+          }
           _isLoadingTrialEligibility = false;
         });
       }
@@ -150,10 +171,11 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
             // Close loading dialog if still showing
             Navigator.of(context).pop();
 
-            final t = Translations.of(context);
             SnackbarUtils.showCopyableErrorSnackBar(
               context,
-              '${t.ui.subscriptionConfirmationFailed}: ${e.toString()}',
+              e is ApiException && e.message.isNotEmpty
+                  ? e.message
+                  : Translations.of(context).ui.subscriptionConfirmationFailed,
             );
           }
         }
@@ -179,21 +201,114 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
     BuildContext context, {
     String? priceId,
   }) async {
+    if (_subscriptionStatus!.subscription!.isApple) {
+      await AppleStoreService.instance.openManageSubscriptions();
+      return;
+    }
     try {
       final subscriptionService = SubscriptionService(context: context);
       await subscriptionService.openCustomerPortal(priceId: priceId);
+    } on ApiException catch (e) {
+      if (context.mounted) {
+        SessionUtils.handleApiException(
+          context,
+          e,
+          (message) => SnackbarUtils.showError(context, message),
+        );
+      }
     } catch (e) {
       if (context.mounted) {
-        SnackbarUtils.showError(context, e.toString());
+        SnackbarUtils.showError(
+          context,
+          Translations.of(context).ui.errorOpeningUrl,
+        );
       }
     }
   }
 
   void _handlePlanAction(BuildContext context, SubscriptionPlan plan) async {
-    if (_subscriptionStatus?.hasActiveSubscription ?? false) {
+    final hasActiveSubscription =
+        _subscriptionStatus?.hasActiveSubscription ?? false;
+    if (_usesAppleStore &&
+        (!hasActiveSubscription ||
+            _subscriptionStatus!.subscription!.isApple)) {
+      _handleApplePurchase(context, plan);
+    } else if (hasActiveSubscription) {
       _handleManageSubscription(context, priceId: plan.priceId);
     } else {
       _handleStripeCheckout(context, plan);
+    }
+  }
+
+  bool _requireLogin(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    if (authProvider.isAuthenticated) {
+      return false;
+    }
+    unawaited(saveReturnUrl('/subscription-plans'));
+    SnackbarUtils.showInfo(
+      context,
+      Translations.of(context).ui.loginRequiredForSubscription,
+    );
+    context.go('/login');
+    return true;
+  }
+
+  Future<void> _handleApplePurchase(
+    BuildContext context,
+    SubscriptionPlan plan,
+  ) async {
+    if (_requireLogin(context)) return;
+    final product = _appleProducts!.firstWhere((p) => p.id == plan.priceId);
+    final result = AppleStoreService.instance.results.first;
+    try {
+      await AppleStoreService.instance.buy(product);
+    } on PlatformException catch (e) {
+      if (context.mounted) {
+        SnackbarUtils.showError(context, e.message!);
+      }
+      return;
+    }
+    final outcome = await result;
+    if (context.mounted) {
+      _showApplePurchaseResult(context, outcome);
+    }
+  }
+
+  Future<void> _handleRestorePurchases(BuildContext context) async {
+    if (_requireLogin(context)) return;
+    final t = Translations.of(context);
+    final result = AppleStoreService.instance.results.first.timeout(
+      const Duration(seconds: 15),
+    );
+    await AppleStoreService.instance.restore();
+    try {
+      final restored = await result;
+      if (context.mounted) {
+        _showApplePurchaseResult(context, restored);
+      }
+    } on TimeoutException {
+      if (context.mounted) {
+        SnackbarUtils.showInfo(context, t.ui.noPurchasesToRestore);
+      }
+    }
+  }
+
+  void _showApplePurchaseResult(
+    BuildContext context,
+    ApplePurchaseResult result,
+  ) {
+    switch (result) {
+      case ApplePurchaseCompleted(:final tier):
+        context.go('/subscription-success?tier=$tier');
+      case ApplePurchaseFailed(:final serverMessage):
+        SnackbarUtils.showError(
+          context,
+          serverMessage ??
+              Translations.of(context).legal.paymentProcessingError,
+        );
+      case ApplePurchaseCancelled():
+        return;
     }
   }
 
@@ -203,16 +318,18 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
   ) async {
     final t = Translations.of(context);
 
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    if (!authProvider.isAuthenticated) {
-      unawaited(saveReturnUrl('/subscription-plans'));
-      SnackbarUtils.showInfo(context, t.ui.loginRequiredForSubscription);
-      context.go('/login');
-      return;
+    if (_requireLogin(context)) return;
+
+    var loadingShown = false;
+    void hideLoading() {
+      if (loadingShown && context.mounted) {
+        Navigator.of(context).pop();
+        loadingShown = false;
+      }
     }
 
     try {
-      // Show loading indicator
+      loadingShown = true;
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -258,10 +375,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
 
         final checkoutUrl = response['checkout_url'] as String?;
 
-        // Hide loading indicator
-        if (context.mounted) {
-          Navigator.of(context).pop();
-        }
+        hideLoading();
 
         if (checkoutUrl == null) {
           await server?.close();
@@ -309,10 +423,7 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
           customerEphemeralKeySecret: setupData['ephemeral_key'],
         );
 
-        // Hide loading indicator before presenting sheet
-        if (context.mounted) {
-          Navigator.of(context).pop();
-        }
+        hideLoading();
 
         await StripeService.presentPaymentSheet();
 
@@ -332,11 +443,8 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
         }
       }
     } on ApiException catch (e) {
+      hideLoading();
       if (context.mounted) {
-        if (Navigator.of(context).canPop()) {
-          Navigator.of(context).pop();
-        }
-
         // Check if this is the "already subscribed" error using errorKey
         if (e.errorKey == 'subscription.already_exists') {
           SnackbarUtils.showErrorWithAction(
@@ -354,20 +462,16 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
         }
       }
     } on CheckoutException catch (e) {
+      hideLoading();
       if (context.mounted) {
-        if (Navigator.of(context).canPop()) {
-          Navigator.of(context).pop();
-        }
         if (e.message.contains('cancelled')) {
           return;
         }
         SnackbarUtils.showError(context, e.message);
       }
     } catch (e) {
+      hideLoading();
       if (context.mounted) {
-        if (Navigator.of(context).canPop()) {
-          Navigator.of(context).pop();
-        }
         SnackbarUtils.showError(context, t.legal.paymentProcessingError);
       }
     }
@@ -375,6 +479,9 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
 
   List<SubscriptionPlan> _getAllPlans() {
     final t = Translations.of(context);
+    if (_usesAppleStore) {
+      return SubscriptionPlan.getApplePlans(t, _appleProducts!);
+    }
     final config = _stripeConfig!;
     return [
       ...SubscriptionPlan.getMonthlyPlans(t, config),
@@ -384,29 +491,13 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
   }
 
   List<SubscriptionPlan> _getCurrentPlans() {
-    final t = Translations.of(context);
-    final config = _stripeConfig!;
-    List<SubscriptionPlan> plans;
-
-    switch (_tabController.index) {
-      case 0:
-        plans = SubscriptionPlan.getMonthlyPlans(t, config);
-        break;
-      case 1:
-        plans = SubscriptionPlan.getSemiannualPlans(t, config);
-        break;
-      case 2:
-        plans = SubscriptionPlan.getAnnualPlans(t, config);
-        break;
-      default:
-        plans = SubscriptionPlan.getMonthlyPlans(t, config);
-    }
-
+    final selectedType = PlanType.values[_tabController.index];
     final allPlans = _getAllPlans();
+    final plans = allPlans.where((plan) => plan.type == selectedType).toList();
+
     final annotatedAllPlans = SubscriptionPlan.annotateWithCurrentPlan(
       allPlans,
       _subscriptionStatus?.subscription,
-      config,
     );
 
     final annotatedPlans = plans.map((plan) {
@@ -427,14 +518,23 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
 
   List<SubscriptionPlan> _getSimplifiedPlans() {
     final t = Translations.of(context);
-    final config = _stripeConfig!;
-    final plans = SubscriptionPlan.getSimplifiedPlans(t, config);
-
     final allPlans = _getAllPlans();
+    final plans = _usesAppleStore
+        ? [
+            _premiumPlan(
+              allPlans,
+              PlanType.annual,
+            ).copyWith(cardStyle: CardStyle.main),
+            _premiumPlan(
+              allPlans,
+              PlanType.monthly,
+            ).copyWith(cardStyle: CardStyle.alternative),
+          ]
+        : SubscriptionPlan.getSimplifiedPlans(t, _stripeConfig!);
+
     final annotatedAllPlans = SubscriptionPlan.annotateWithCurrentPlan(
       allPlans,
       _subscriptionStatus?.subscription,
-      config,
     );
 
     final annotatedPlans = plans.map((plan) {
@@ -452,6 +552,16 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
 
     return SubscriptionPlan.sortByPriority(annotatedPlans);
   }
+
+  bool get _subscriptionManagedElsewhere =>
+      _usesAppleStore &&
+      (_subscriptionStatus?.hasActiveSubscription ?? false) &&
+      !_subscriptionStatus!.subscription!.isApple;
+
+  SubscriptionPlan _premiumPlan(List<SubscriptionPlan> plans, PlanType type) =>
+      plans.firstWhere(
+        (plan) => plan.tier == PlanTier.premium && plan.type == type,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -485,9 +595,9 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                 ),
               ),
               Expanded(
-                child: _isLoadingTrialEligibility || _isLoadingStripeConfig
+                child: _isLoadingTrialEligibility || _isLoadingStoreData
                     ? const Center(child: CircularProgressIndicator())
-                    : _stripeConfig == null
+                    : !_storeDataLoaded
                     ? Center(
                         child: Text(
                           t.ui.connectionError,
@@ -556,6 +666,8 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                               ] else ...[
                                 _buildSimplifiedLayout(),
                               ],
+                              const SizedBox(height: 24),
+                              _buildPurchaseFooter(t),
                             ],
                           ),
                         ),
@@ -563,6 +675,46 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPurchaseFooter(Translations t) {
+    return Card(
+      elevation: 2,
+      color: Theme.of(context).colorScheme.surface,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            if (_usesAppleStore) ...[
+              TextButton(
+                onPressed: () => _handleRestorePurchases(context),
+                child: Text(t.ui.restorePurchases),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                t.ui.appleAutoRenewNotice,
+                style: AppTextStyles.getCaptionStyle(context),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+            ],
+            Wrap(
+              alignment: WrapAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () => context.push('/terms-and-conditions'),
+                  child: Text(t.ui.termsOfService),
+                ),
+                TextButton(
+                  onPressed: () => context.push('/privacy-policy'),
+                  child: Text(t.legal.privacyPolicy),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -878,7 +1030,16 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
                 TrialInfoContainer(containerStyle: trialStyle),
                 SizedBox(height: isMainCard ? 12 : 16),
               ],
-              if (isCurrentPlan)
+              if (_subscriptionManagedElsewhere)
+                Text(
+                  managedElsewhereMessage(
+                    t,
+                    _subscriptionStatus!.subscription!,
+                  ),
+                  style: AppTextStyles.getCaptionStyle(context),
+                  textAlign: TextAlign.center,
+                )
+              else if (isCurrentPlan)
                 FilledButton.icon(
                   onPressed: () => _handleManageSubscription(context),
                   icon: const Icon(Icons.settings),
@@ -900,13 +1061,13 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen>
               if (isMainCard || isAlternativeCard) ...[
                 const SizedBox(height: 6),
                 Text(
-                  t.ui.thenPricePerMonth(price: plan.price),
+                  t.ui.thenPrice(price: plan.price, period: plan.period),
                   style: AppTextStyles.getCaptionStyle(context),
                   textAlign: TextAlign.center,
                 ),
               ],
               SizedBox(height: isMainCard ? 12 : 16),
-              if (isMainCard || isAlternativeCard)
+              if ((isMainCard || isAlternativeCard) && !_usesAppleStore)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

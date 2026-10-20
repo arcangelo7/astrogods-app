@@ -52,10 +52,7 @@ class MysticalCheckbox extends StatelessWidget {
         color: Theme.of(context).colorScheme.surfaceContainerHighest
             .withValues(alpha: 0.3),
       ),
-      child: Material(
-        type: MaterialType.transparency,
-        child: checkboxTile,
-      ),
+      child: Material(type: MaterialType.transparency, child: checkboxTile),
     );
   }
 }

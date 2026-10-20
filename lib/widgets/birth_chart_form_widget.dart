@@ -1,11 +1,11 @@
 import 'package:material_ui/material_ui.dart';
-import 'package:intl/intl.dart';
 
 import '../i18n/translations.g.dart';
 import '../models/birth_chart.dart';
 import '../models/location.dart';
 import '../widgets/mystical_text_field.dart';
 import '../widgets/date_picker_field.dart';
+import '../widgets/gender_selector.dart';
 import '../widgets/time_picker_field.dart';
 import '../widgets/location_search_field.dart';
 import '../widgets/unknown_time_checkbox.dart';
@@ -39,6 +39,7 @@ class BirthChartFormWidgetState extends State<BirthChartFormWidget> {
   late DateTime _selectedDate;
   late TimeOfDay? _selectedTime;
   late bool _unknownTime;
+  String? _gender;
   PlaceDetails? _selectedLocation;
   late final BirthTimeController _birthTime;
 
@@ -60,6 +61,7 @@ class BirthChartFormWidgetState extends State<BirthChartFormWidget> {
       text: birthChart?.familyName ?? '',
     );
     _placeController = TextEditingController(text: birthChart?.place ?? '');
+    _gender = birthChart?.gender;
 
     _selectedDate = birthChart?.date ?? DateTime.now();
     _unknownTime = birthChart?.unknownTime ?? false;
@@ -90,9 +92,10 @@ class BirthChartFormWidgetState extends State<BirthChartFormWidget> {
   }
 
   void _updateControllersWithContext() {
-    _dateController.text = DateFormat.yMMMd(
-      Localizations.localeOf(context).toString(),
-    ).format(_selectedDate);
+    _dateController.text = app_date_utils.DateUtils.formatDate(
+      context,
+      _selectedDate,
+    );
 
     if (_selectedTime != null) {
       _timeController.text = _selectedTime!.format(context);
@@ -123,9 +126,6 @@ class BirthChartFormWidgetState extends State<BirthChartFormWidget> {
         _selectedTime?.hour ?? 12,
         _selectedTime?.minute ?? 0,
       );
-      _dateController.text = DateFormat.yMMMd(
-        Localizations.localeOf(context).toString(),
-      ).format(_selectedDate);
     });
     _birthTime.reset();
     _onFieldChanged();
@@ -230,6 +230,7 @@ class BirthChartFormWidgetState extends State<BirthChartFormWidget> {
 
   String get givenName => _givenNameController.text.trim();
   String get familyName => _familyNameController.text.trim();
+  String? get gender => _gender;
   String get place => _placeController.text.trim();
   DateTime get selectedDate => _selectedDate;
   TimeOfDay? get selectedTime => _selectedTime;
@@ -268,6 +269,14 @@ class BirthChartFormWidgetState extends State<BirthChartFormWidget> {
           labelText: t.ui.lastName,
           validator: _validateFamilyName,
           keyboardType: TextInputType.name,
+        ),
+        const SizedBox(height: 16),
+        GenderSelector(
+          value: _gender,
+          onChanged: (gender) {
+            setState(() => _gender = gender);
+            _onFieldChanged();
+          },
         ),
         const SizedBox(height: 16),
         MysticalDatePickerField(

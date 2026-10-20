@@ -18,6 +18,7 @@ import '../services/birth_chart_service.dart';
 import '../services/transit_service.dart' as transit;
 import '../services/newsletter_service.dart';
 import '../utils/session_utils.dart';
+import '../utils/date_utils.dart' as app_date_utils;
 import '../widgets/mystical_checkbox.dart';
 
 class PredictionsScreen extends StatefulWidget {
@@ -106,12 +107,18 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
   @override
   void initState() {
     super.initState();
-    _birthChartService = BirthChartService(context: context);
-    // Set default date to today
+    _birthChartService = BirthChartService();
     _selectedDate = DateTime.now();
-    _dateController.text =
-        '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
     _loadSavedCharts();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _dateController.text = app_date_utils.DateUtils.formatDate(
+      context,
+      _selectedDate!,
+    );
   }
 
   Future<void> _loadSavedCharts() async {
@@ -160,7 +167,7 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
     if (_hasAutoPopulated) return; // Avoid multiple auto-population
 
     try {
-      final newsletterService = NewsletterService(context: context);
+      final newsletterService = NewsletterService();
       final newsletters = await newsletterService.getSubscriptions();
 
       // Look for a daily newsletter for this birth chart
@@ -183,14 +190,14 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
           _hasAutoPopulated = true;
           _autoPopulatedNewsletter = dailyNewsletter;
         });
-      } else {
-        // Clear the location field if no newsletter is found
-        if (mounted) {
-          setState(() {
-            _selectedLocation = null;
-            _locationController.clear();
-          });
-        }
+      } else if (_autoPopulatedNewsletter != null && mounted) {
+        // The location shown came from the previous chart's newsletter, so it
+        // does not belong to this chart. A location the user picked stays.
+        setState(() {
+          _selectedLocation = null;
+          _locationController.clear();
+          _autoPopulatedNewsletter = null;
+        });
       }
     } catch (e) {
       // Silently fail - newsletter loading is optional
@@ -214,7 +221,7 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
 
     try {
       // Create transit first, then navigate with ID
-      final transitService = transit.TransitService(context: context);
+      final transitService = transit.TransitService();
       final transitData = await transitService.createDailyTransit(
         birthChartId: _selectedChart!.id,
         date: _selectedDate!,
@@ -308,10 +315,7 @@ class _DailyTransitTabState extends State<_DailyTransitTab> {
                           onChanged: (chart) {
                             setState(() {
                               _selectedChart = chart;
-                              _hasAutoPopulated =
-                                  false; // Reset auto-population flag
-                              _autoPopulatedNewsletter =
-                                  null; // Reset newsletter reference
+                              _hasAutoPopulated = false;
                             });
                             // Auto-populate location from newsletter if available
                             if (chart != null) {
@@ -473,9 +477,14 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
   @override
   void initState() {
     super.initState();
-    _birthChartService = BirthChartService(context: context);
-    _updateMonthController();
+    _birthChartService = BirthChartService();
     _loadSavedCharts();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _updateMonthController();
   }
 
   Future<void> _loadSavedCharts() async {
@@ -524,7 +533,7 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
     if (_hasAutoPopulated) return; // Avoid multiple auto-population
 
     try {
-      final newsletterService = NewsletterService(context: context);
+      final newsletterService = NewsletterService();
       final newsletters = await newsletterService.getSubscriptions();
 
       // Look for a monthly newsletter for this birth chart
@@ -548,14 +557,14 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
           _hasAutoPopulated = true;
           _autoPopulatedNewsletter = monthlyNewsletter;
         });
-      } else {
-        // Clear the location field if no newsletter is found
-        if (mounted) {
-          setState(() {
-            _selectedLocation = null;
-            _locationController.clear();
-          });
-        }
+      } else if (_autoPopulatedNewsletter != null && mounted) {
+        // The location shown came from the previous chart's newsletter, so it
+        // does not belong to this chart. A location the user picked stays.
+        setState(() {
+          _selectedLocation = null;
+          _locationController.clear();
+          _autoPopulatedNewsletter = null;
+        });
       }
     } catch (e) {
       // Silently fail - newsletter loading is optional
@@ -571,8 +580,11 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
   }
 
   void _updateMonthController() {
-    _monthController.text =
-        '${_selectedMonth.toString().padLeft(2, '0')}/$_selectedYear';
+    _monthController.text = app_date_utils.DateUtils.formatMonthYear(
+      context,
+      _selectedMonth,
+      _selectedYear,
+    );
   }
 
   Future<void> _selectMonth(BuildContext context) async {
@@ -612,7 +624,7 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
 
     try {
       // Create transit first, then navigate with ID
-      final transitService = transit.TransitService(context: context);
+      final transitService = transit.TransitService();
       final transitData = await transitService.createMonthlyTransit(
         birthChartId: _selectedChart!.id,
         year: _selectedYear,
@@ -708,10 +720,7 @@ class _MonthlyTransitTabState extends State<_MonthlyTransitTab> {
                           onChanged: (chart) {
                             setState(() {
                               _selectedChart = chart;
-                              _hasAutoPopulated =
-                                  false; // Reset auto-population flag
-                              _autoPopulatedNewsletter =
-                                  null; // Reset newsletter reference
+                              _hasAutoPopulated = false;
                             });
                             // Auto-populate location from newsletter if available
                             if (chart != null) {

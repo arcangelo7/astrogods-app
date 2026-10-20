@@ -873,8 +873,8 @@ class Translations$legal$en {
 	/// en: 'Account Requirements'
 	String get accountRequirements => 'Account Requirements';
 
-	/// en: 'By creating an account, the User accepts to be fully responsible for all activities carried out with their access credentials. Users are required to inform the Owner immediately and unambiguously through the contact details indicated in this document if they believe that their personal information, such as the User account, access credentials or personal data, have been violated, unlawfully disclosed or stolen.'
-	String get accountResponsibility => 'By creating an account, the User accepts to be fully responsible for all activities carried out with their access credentials. Users are required to inform the Owner immediately and unambiguously through the contact details indicated in this document if they believe that their personal information, such as the User account, access credentials or personal data, have been violated, unlawfully disclosed or stolen.';
+	/// en: 'By creating an account, the User accepts to be fully responsible for all activities carried out with their access credentials. Users are required to inform the Owner immediately and unambiguously through the [contact details indicated in this document](mailto:contact@astrogods.it) if they believe that their personal information, such as the User account, access credentials or personal data, have been violated, unlawfully disclosed or stolen.'
+	String get accountResponsibility => 'By creating an account, the User accepts to be fully responsible for all activities carried out with their access credentials. Users are required to inform the Owner immediately and unambiguously through the [contact details indicated in this document](mailto:contact@astrogods.it) if they believe that their personal information, such as the User account, access credentials or personal data, have been violated, unlawfully disclosed or stolen.';
 
 	/// en: 'Unless expressly permitted, a User's account may not be shared with other people.'
 	String get accountSharingProhibited => 'Unless expressly permitted, a User\'s account may not be shared with other people.';
@@ -909,8 +909,14 @@ class Translations$legal$en {
 	/// en: 'Users may report any disputes to the Owner, who will seek to resolve them amicably.'
 	String get amicableDisputeResolution => 'Users may report any disputes to the Owner, who will seek to resolve them amicably.';
 
-	/// en: 'Anthropic API is an artificial intelligence service provided by Anthropic PBC.'
-	String get anthropicApiDescription => 'Anthropic API is an artificial intelligence service provided by Anthropic PBC.';
+	/// en: 'The Anthropic API gives access to Claude, the language model by Anthropic PBC that AstroGods uses to write the text of the readings.'
+	String get anthropicApiDescription => 'The Anthropic API gives access to Claude, the language model by Anthropic PBC that AstroGods uses to write the text of the readings.';
+
+	/// en: 'Anthropic API'
+	String get anthropicApiName => 'Anthropic API';
+
+	/// en: 'The App Store is Apple's service for buying apps and subscriptions. For subscriptions bought on iPhone, iPad and Mac, Apple handles the payment and shares with AstroGods only the details of the purchased subscription, such as the product, the dates and the transaction identifier.'
+	String get appStoreDescription => 'The App Store is Apple\'s service for buying apps and subscriptions. For subscriptions bought on iPhone, iPad and Mac, Apple handles the payment and shares with AstroGods only the details of the purchased subscription, such as the product, the dates and the transaction identifier.';
 
 	/// en: 'AstroGods or certain Products sold on AstroGods must be purchased through a third-party app store. To make such purchases, Users are asked to follow the instructions in the relevant app store (for example "Apple App Store" or "Google Play"). This information may vary depending on the specific device used.'
 	String get appStorePurchases => 'AstroGods or certain Products sold on AstroGods must be purchased through a third-party app store. To make such purchases, Users are asked to follow the instructions in the relevant app store (for example "Apple App Store" or "Google Play"). This information may vary depending on the specific device used.';
@@ -918,17 +924,20 @@ class Translations$legal$en {
 	/// en: 'Therefore, Users who make purchases through such third-party online stores are asked to carefully read and accept the related terms and conditions of sale.'
 	String get appStoreTermsAcceptance => 'Therefore, Users who make purchases through such third-party online stores are asked to carefully read and accept the related terms and conditions of sale.';
 
-	/// en: 'Unless otherwise specified, purchases made through third-party online stores are also subject to the terms and conditions of such third parties. Such terms and conditions prevail in any case of inconsistency or conflict with respect to these Terms.'
-	String get appStoreTermsPrecedence => 'Unless otherwise specified, purchases made through third-party online stores are also subject to the terms and conditions of such third parties. Such terms and conditions prevail in any case of inconsistency or conflict with respect to these Terms.';
+	/// en: 'Unless otherwise specified, purchases made through third-party online stores are also subject to the terms and conditions of such third parties, such as the [App Store terms](https://www.apple.com/legal/internet-services/itunes/) and the [Google Play terms](https://play.google.com/about/play-terms/). Such terms and conditions prevail in any case of inconsistency or conflict with respect to these Terms.'
+	String get appStoreTermsPrecedence => 'Unless otherwise specified, purchases made through third-party online stores are also subject to the terms and conditions of such third parties, such as the [App Store terms](https://www.apple.com/legal/internet-services/itunes/) and the [Google Play terms](https://play.google.com/about/play-terms/). Such terms and conditions prevail in any case of inconsistency or conflict with respect to these Terms.';
 
 	/// en: 'subscriptions automatically renew for the same duration unless the User communicates cancellation at least 24 hours before the expiration of the current subscription period;'
 	String get appleAccountAutoRenewal => 'subscriptions automatically renew for the same duration unless the User communicates cancellation at least 24 hours before the expiration of the current subscription period;';
 
-	/// en: 'subscriptions can be managed or canceled directly through the User's Apple App Store account settings.'
-	String get appleAccountManagement => 'subscriptions can be managed or canceled directly through the User\'s Apple App Store account settings.';
+	/// en: 'subscriptions can be managed or canceled directly through the User's [Apple App Store account settings](https://apps.apple.com/account/subscriptions).'
+	String get appleAccountManagement => 'subscriptions can be managed or canceled directly through the User\'s [Apple App Store account settings](https://apps.apple.com/account/subscriptions).';
 
 	/// en: 'any payment due will be charged to the Apple account;'
 	String get appleAccountPayment => 'any payment due will be charged to the Apple account;';
+
+	/// en: 'refunds for purchases made through the App Store are handled by Apple and must be requested from Apple through [its procedure](https://reportaproblem.apple.com).'
+	String get appleAccountRefunds => 'refunds for purchases made through the App Store are handled by Apple and must be requested from Apple through [its procedure](https://reportaproblem.apple.com).';
 
 	/// en: 'all fees or payments due for renewal will be charged within 24 hours before the expiration of the current period;'
 	String get appleAccountRenewalCharges => 'all fees or payments due for renewal will be charged within 24 hours before the expiration of the current period;';
@@ -1005,20 +1014,20 @@ class Translations$legal$en {
 	/// en: 'Automatic Renewal'
 	String get automaticRenewal => 'Automatic Renewal';
 
-	/// en: 'Subscriptions automatically renew through Stripe's secure billing system with a charge to the User's chosen payment method. Users receive email notifications before each renewal and can cancel or modify their subscription anytime through the Stripe Customer Portal.'
-	String get automaticRenewalPolicy => 'Subscriptions automatically renew through Stripe\'s secure billing system with a charge to the User\'s chosen payment method. Users receive email notifications before each renewal and can cancel or modify their subscription anytime through the Stripe Customer Portal.';
+	/// en: 'Subscriptions renew automatically when they expire and are charged to the payment method used for the purchase: the method chosen at checkout for purchases through Stripe, or the Apple Account for purchases through the App Store.'
+	String get automaticRenewalPolicy => 'Subscriptions renew automatically when they expire and are charged to the payment method used for the purchase: the method chosen at checkout for purchases through Stripe, or the Apple Account for purchases through the App Store.';
 
 	/// en: 'Backend API'
 	String get backendApi => 'Backend API';
 
-	/// en: 'AstroGods uses third-party APIs to process user requests and provide content.'
-	String get backendApiDescription => 'AstroGods uses third-party APIs to process user requests and provide content.';
+	/// en: 'To write readings, AstroGods replaces the names of the people in the charts with a placeholder. The services below receive only the planetary positions calculated from the birth data, the language of the reading and the grammatical gender to use in the text, if the User gave one. Giving a gender is optional; without it, the reading uses neutral wording, with no gendered agreement. They receive no names, birth dates or birth places, and no data that identifies the User or the people in the charts. AstroGods puts the real names back into the text on its own servers.'
+	String get backendApiDescription => 'To write readings, AstroGods replaces the names of the people in the charts with a placeholder. The services below receive only the planetary positions calculated from the birth data, the language of the reading and the grammatical gender to use in the text, if the User gave one. Giving a gender is optional; without it, the reading uses neutral wording, with no gendered agreement. They receive no names, birth dates or birth places, and no data that identifies the User or the people in the charts. AstroGods puts the real names back into the text on its own servers.';
 
 	/// en: 'Backend API'
 	String get backendApiTitle => 'Backend API';
 
-	/// en: 'billing address'
-	String get billingAddress => 'billing address';
+	/// en: 'Billing address'
+	String get billingAddress => 'Billing address';
 
 	/// en: 'in a binding manner. Capitalized terms are defined in the relevant section of this document.'
 	String get bindingManner => 'in a binding manner. Capitalized terms are defined in the relevant section of this document.';
@@ -1044,20 +1053,20 @@ class Translations$legal$en {
 	/// en: 'Common Provisions'
 	String get commonProvisionsSection => 'Common Provisions';
 
-	/// en: 'data communicated during service use'
-	String get communicatedDataDuringService => 'data communicated during service use';
+	/// en: 'Data communicated during service use'
+	String get communicatedDataDuringService => 'Data communicated during service use';
 
-	/// en: 'All communications relating to the use of AstroGods must be sent to the contact details indicated in this document.'
-	String get communicationRequirement => 'All communications relating to the use of AstroGods must be sent to the contact details indicated in this document.';
+	/// en: 'All communications relating to the use of AstroGods must be sent to the [contact details indicated in this document](mailto:contact@astrogods.it).'
+	String get communicationRequirement => 'All communications relating to the use of AstroGods must be sent to the [contact details indicated in this document](mailto:contact@astrogods.it).';
 
 	/// en: 'Competent Jurisdiction'
 	String get competentJurisdiction => 'Competent Jurisdiction';
 
-	/// en: 'Users may address a complaint to the Owner's email address indicated in this document, including a brief description and, if applicable, details of the affected order, purchase, or account.'
-	String get complaintProcedure => 'Users may address a complaint to the Owner\'s email address indicated in this document, including a brief description and, if applicable, details of the affected order, purchase, or account.';
+	/// en: 'Users may address a complaint to the [Owner's email address](mailto:contact@astrogods.it) indicated in this document, including a brief description and, if applicable, details of the affected order, purchase, or account.'
+	String get complaintProcedure => 'Users may address a complaint to the [Owner\'s email address](mailto:contact@astrogods.it) indicated in this document, including a brief description and, if applicable, details of the affected order, purchase, or account.';
 
-	/// en: 'Our cookie policy complies with EU data protection standards. We only use first-party tracking tools and do not share your data with third-party advertisers.'
-	String get complianceContent => 'Our cookie policy complies with EU data protection standards. We only use first-party tracking tools and do not share your data with third-party advertisers.';
+	/// en: 'Our cookie policy complies with EU data protection standards. We do not use tracking tools for statistics or advertising and do not share your data with advertisers. To learn how we process your personal data, consult the [Privacy Policy](/privacy-policy).'
+	String get complianceContent => 'Our cookie policy complies with EU data protection standards. We do not use tracking tools for statistics or advertising and do not share your data with advertisers. To learn how we process your personal data, consult the [Privacy Policy](/privacy-policy).';
 
 	/// en: 'Compliance'
 	String get complianceSection => 'Compliance';
@@ -1068,35 +1077,17 @@ class Translations$legal$en {
 	/// en: 'Consequences of blocking cookies'
 	String get consequencesOfBlockingTitle => 'Consequences of blocking cookies';
 
-	/// en: 'If the cancellation reaches the Owner within the end of the current month, the subscription expires at the end of that month.'
-	String get consumerCancellationTiming => 'If the cancellation reaches the Owner within the end of the current month, the subscription expires at the end of that month.';
-
 	/// en: 'Any User considered as such under applicable law.'
 	String get consumerDefinition => 'Any User considered as such under applicable law.';
 
 	/// en: 'Consumer'
 	String get consumerDefinitionTitle => 'Consumer';
 
-	/// en: 'However, regardless of the foregoing, if the User acts as a Consumer, the following applies:'
-	String get consumerExceptionText => 'However, regardless of the foregoing, if the User acts as a Consumer, the following applies:';
-
-	/// en: 'Exception for Consumers'
-	String get consumerExceptionTitle => 'Exception for Consumers';
-
-	/// en: 'At the end of the initial term, subscriptions are automatically extended indefinitely, unless the User cancels before the end of such term.'
-	String get consumerIndefiniteExtension => 'At the end of the initial term, subscriptions are automatically extended indefinitely, unless the User cancels before the end of such term.';
-
-	/// en: 'After the extension, the subscription will have an indefinite duration and may be terminated monthly.'
-	String get consumerMonthlyTermination => 'After the extension, the subscription will have an indefinite duration and may be terminated monthly.';
-
-	/// en: 'The fee due at the time of extension will be charged to the payment method that the User chose when purchasing.'
-	String get consumerRenewalCharging => 'The fee due at the time of extension will be charged to the payment method that the User chose when purchasing.';
-
 	/// en: 'User acts as a Consumer'
 	String get consumerRequirement => 'User acts as a Consumer';
 
-	/// en: 'If you have any questions about our use of cookies or tracking technologies, please contact us:'
-	String get contactForCookiesContent => 'If you have any questions about our use of cookies or tracking technologies, please contact us:';
+	/// en: 'If you have any questions about our use of cookies, please contact us:'
+	String get contactForCookiesContent => 'If you have any questions about our use of cookies, please contact us:';
 
 	/// en: 'Contact us about cookies'
 	String get contactForCookiesTitle => 'Contact us about cookies';
@@ -1125,8 +1116,8 @@ class Translations$legal$en {
 	/// en: 'The Owner reserves the right to transfer, assign, dispose of, novate, or subcontract any or all rights and obligations under these Terms, having regard for the legitimate interests of Users.'
 	String get contractTransferRight => 'The Owner reserves the right to transfer, assign, dispose of, novate, or subcontract any or all rights and obligations under these Terms, having regard for the legitimate interests of Users.';
 
-	/// en: 'The Owner grants Users the contractual right to withdraw from the purchase contract according to the terms and conditions set out in the relevant section of AstroGods within 30 days of the conclusion of the contract.'
-	String get contractualWithdrawalRight => 'The Owner grants Users the contractual right to withdraw from the purchase contract according to the terms and conditions set out in the relevant section of AstroGods within 30 days of the conclusion of the contract.';
+	/// en: 'The Owner grants Users the contractual right to withdraw from the purchase contract according to the terms and conditions set out in the [relevant section of AstroGods](/subscription-plans) within 30 days of the conclusion of the contract. For purchases made through the App Store, [Apple's refund procedure](https://reportaproblem.apple.com) applies.'
+	String get contractualWithdrawalRight => 'The Owner grants Users the contractual right to withdraw from the purchase contract according to the terms and conditions set out in the [relevant section of AstroGods](/subscription-plans) within 30 days of the conclusion of the contract. For purchases made through the App Store, [Apple\'s refund procedure](https://reportaproblem.apple.com) applies.';
 
 	/// en: 'Contractual withdrawal right'
 	String get contractualWithdrawalRightTitle => 'Contractual withdrawal right';
@@ -1134,11 +1125,11 @@ class Translations$legal$en {
 	/// en: 'Cookie Policy'
 	String get cookiePolicy => 'Cookie Policy';
 
-	/// en: 'AstroGods uses Tracking Tools. To learn more, consult the Cookie Policy.'
-	String get cookiePolicyContent => 'AstroGods uses Tracking Tools. To learn more, consult the Cookie Policy.';
+	/// en: 'AstroGods only uses the cookies and browser storage needed for it to work and no tracking tools for statistics or advertising. To learn more, consult the [Cookie Policy](/cookie-policy).'
+	String get cookiePolicyContent => 'AstroGods only uses the cookies and browser storage needed for it to work and no tracking tools for statistics or advertising. To learn more, consult the [Cookie Policy](/cookie-policy).';
 
-	/// en: 'Last modified: September 7, 2025'
-	String get cookiePolicyLastModified => 'Last modified: September 7, 2025';
+	/// en: 'Last modified: October 19, 2026'
+	String get cookiePolicyLastModified => 'Last modified: October 19, 2026';
 
 	/// en: 'Cookie Policy'
 	String get cookiePolicyPageTitle => 'Cookie Policy';
@@ -1149,17 +1140,17 @@ class Translations$legal$en {
 	/// en: 'Cookie Policy'
 	String get cookiePolicyTitle => 'Cookie Policy';
 
-	/// en: 'This page explains how we use cookies and tracking technologies to improve your experience.'
-	String get cookiePolicyWelcomeText => 'This page explains how we use cookies and tracking technologies to improve your experience.';
+	/// en: 'This page explains which cookies and browser data AstroGods uses and why.'
+	String get cookiePolicyWelcomeText => 'This page explains which cookies and browser data AstroGods uses and why.';
 
-	/// en: 'For detailed information about cookies and tracking technologies we use, please refer to our complete Cookie Policy.'
-	String get cookiesAndTrackingReferenceContent => 'For detailed information about cookies and tracking technologies we use, please refer to our complete Cookie Policy.';
+	/// en: 'To find out which cookies and browser data AstroGods needs to work, please refer to our complete Cookie Policy.'
+	String get cookiesAndTrackingReferenceContent => 'To find out which cookies and browser data AstroGods needs to work, please refer to our complete Cookie Policy.';
 
-	/// en: 'Cookies and tracking'
-	String get cookiesAndTrackingSection => 'Cookies and tracking';
+	/// en: 'Cookies'
+	String get cookiesAndTrackingSection => 'Cookies';
 
-	/// en: 'Cookies and tracking'
-	String get cookiesAndTrackingTitle => 'Cookies and tracking';
+	/// en: 'Cookies'
+	String get cookiesAndTrackingTitle => 'Cookies';
 
 	/// en: 'contact@astrogods.it'
 	String get dataControllerEmail => 'contact@astrogods.it';
@@ -1173,8 +1164,8 @@ class Translations$legal$en {
 	/// en: 'Data Controller'
 	String get dataControllerSection => 'Data Controller';
 
-	/// en: 'Complete details on each type of Personal Data collected are provided in the dedicated sections of this privacy policy or through specific information texts displayed before the collection of the Data. Personal Data may be freely provided by the User or, in the case of Usage Data, collected automatically during the use of AstroGods. Unless otherwise specified, all Data requested by AstroGods is mandatory. If the User refuses to provide it, it might be impossible for AstroGods to provide the Service. In cases where AstroGods indicates some Data as optional, Users are free to refrain from providing such Data without any consequence on the availability or operation of the Service. Users who have doubts about which Data is mandatory are encouraged to contact the Owner. Any use of Cookies - or other tracking tools - by AstroGods or the owners of third-party services used by AstroGods serves the purpose of providing the Service requested by the User, in addition to the other purposes described in this document and in the Cookie Policy. The User takes responsibility for the Personal Data of third parties obtained, published or shared through AstroGods.'
-	String get dataTypesDetailedContent => 'Complete details on each type of Personal Data collected are provided in the dedicated sections of this privacy policy or through specific information texts displayed before the collection of the Data.\n\nPersonal Data may be freely provided by the User or, in the case of Usage Data, collected automatically during the use of AstroGods.\n\nUnless otherwise specified, all Data requested by AstroGods is mandatory. If the User refuses to provide it, it might be impossible for AstroGods to provide the Service. In cases where AstroGods indicates some Data as optional, Users are free to refrain from providing such Data without any consequence on the availability or operation of the Service.\n\nUsers who have doubts about which Data is mandatory are encouraged to contact the Owner.\n\nAny use of Cookies - or other tracking tools - by AstroGods or the owners of third-party services used by AstroGods serves the purpose of providing the Service requested by the User, in addition to the other purposes described in this document and in the Cookie Policy.\n\nThe User takes responsibility for the Personal Data of third parties obtained, published or shared through AstroGods.';
+	/// en: 'Complete details on each type of Personal Data collected are provided in the dedicated sections of this privacy policy or through specific information texts displayed before the collection of the Data. Personal Data may be freely provided by the User or, in the case of Usage Data, collected automatically during the use of AstroGods. Unless otherwise specified, all Data requested by AstroGods is mandatory. If the User refuses to provide it, it might be impossible for AstroGods to provide the Service. In cases where AstroGods indicates some Data as optional, Users are free to refrain from providing such Data without any consequence on the availability or operation of the Service. Users who have doubts about which Data is mandatory are encouraged to contact the Owner. AstroGods uses Cookies only to provide the Service requested by the User, as described in the [Cookie Policy](/cookie-policy). The User takes responsibility for the Personal Data of third parties obtained, published or shared through AstroGods.'
+	String get dataTypesDetailedContent => 'Complete details on each type of Personal Data collected are provided in the dedicated sections of this privacy policy or through specific information texts displayed before the collection of the Data.\n\nPersonal Data may be freely provided by the User or, in the case of Usage Data, collected automatically during the use of AstroGods.\n\nUnless otherwise specified, all Data requested by AstroGods is mandatory. If the User refuses to provide it, it might be impossible for AstroGods to provide the Service. In cases where AstroGods indicates some Data as optional, Users are free to refrain from providing such Data without any consequence on the availability or operation of the Service.\n\nUsers who have doubts about which Data is mandatory are encouraged to contact the Owner.\n\nAstroGods uses Cookies only to provide the Service requested by the User, as described in the [Cookie Policy](/cookie-policy).\n\nThe User takes responsibility for the Personal Data of third parties obtained, published or shared through AstroGods.';
 
 	/// en: 'Among the Personal Data collected by AstroGods, independently or through third parties, there are:'
 	String get dataTypesIntro => 'Among the Personal Data collected by AstroGods, independently or through third parties, there are:';
@@ -1197,8 +1188,8 @@ class Translations$legal$en {
 	/// en: 'Definitions and Legal References'
 	String get definitions => 'Definitions and Legal References';
 
-	/// en: '### Personal Data (or Data) Any information that directly, indirectly, or in connection with other information allows for the identification or identifiability of a natural person. ### Usage Data Information collected automatically through AstroGods (or third-party services employed in AstroGods), which can include: the IP addresses or domain names of the computers utilized by the Users who use AstroGods, the URI addresses (Uniform Resource Identifier), the time of the request, the method utilized to submit the request to the server, the size of the file received in response, the numerical code indicating the status of the server's answer (successful outcome, error, etc.), the country of origin, the features of the browser and the operating system utilized by the User, the various time details per visit (e.g., the time spent on each page within the Application) and the details about the path followed within the Application with special reference to the sequence of pages visited, and other parameters about the device operating system and/or the User's IT environment. ### User The individual using AstroGods who, unless otherwise specified, coincides with the Data Subject. ### Data Subject The natural person to whom the Personal Data refers. ### Data Processor (or Processor) The natural or legal person, public authority, agency or other body which processes Personal Data on behalf of the Controller, as described in this privacy policy. ### Data Controller (or Owner) The natural or legal person, public authority, agency or other body which, alone or jointly with others, determines the purposes and means of the processing of Personal Data, including the security measures concerning the operation and use of AstroGods. The Data Controller, unless otherwise specified, is the Owner of AstroGods. ### AstroGods (or this Application) The means by which the Personal Data of the User is collected and processed. ### Service The service provided by AstroGods as described in the relative terms (if available) and on this site/application. ### European Union (or EU) Unless otherwise specified, all references made within this document to the European Union include all current member states to the European Union and the European Economic Area. ### Cookie Cookies are Trackers consisting of small sets of data stored in the User's browser. ### Tracker Tracker indicates any technology (e.g., Cookies, unique identifiers, web beacons, embedded scripts, e-tags and fingerprinting) that enables the tracking of Users, for example by accessing or storing information on the User's device. ### Legal information This privacy policy relates solely to AstroGods, if not stated otherwise within this document.'
-	String get definitionsContent => '### Personal Data (or Data)\n\nAny information that directly, indirectly, or in connection with other information allows for the identification or identifiability of a natural person.\n\n### Usage Data\n\nInformation collected automatically through AstroGods (or third-party services employed in AstroGods), which can include: the IP addresses or domain names of the computers utilized by the Users who use AstroGods, the URI addresses (Uniform Resource Identifier), the time of the request, the method utilized to submit the request to the server, the size of the file received in response, the numerical code indicating the status of the server\'s answer (successful outcome, error, etc.), the country of origin, the features of the browser and the operating system utilized by the User, the various time details per visit (e.g., the time spent on each page within the Application) and the details about the path followed within the Application with special reference to the sequence of pages visited, and other parameters about the device operating system and/or the User\'s IT environment.\n\n### User\n\nThe individual using AstroGods who, unless otherwise specified, coincides with the Data Subject.\n\n### Data Subject\n\nThe natural person to whom the Personal Data refers.\n\n### Data Processor (or Processor)\n\nThe natural or legal person, public authority, agency or other body which processes Personal Data on behalf of the Controller, as described in this privacy policy.\n\n### Data Controller (or Owner)\n\nThe natural or legal person, public authority, agency or other body which, alone or jointly with others, determines the purposes and means of the processing of Personal Data, including the security measures concerning the operation and use of AstroGods. The Data Controller, unless otherwise specified, is the Owner of AstroGods.\n\n### AstroGods (or this Application)\n\nThe means by which the Personal Data of the User is collected and processed.\n\n### Service\n\nThe service provided by AstroGods as described in the relative terms (if available) and on this site/application.\n\n### European Union (or EU)\n\nUnless otherwise specified, all references made within this document to the European Union include all current member states to the European Union and the European Economic Area.\n\n### Cookie\n\nCookies are Trackers consisting of small sets of data stored in the User\'s browser.\n\n### Tracker\n\nTracker indicates any technology (e.g., Cookies, unique identifiers, web beacons, embedded scripts, e-tags and fingerprinting) that enables the tracking of Users, for example by accessing or storing information on the User\'s device.\n\n### Legal information\n\nThis privacy policy relates solely to AstroGods, if not stated otherwise within this document.';
+	/// en: '### Personal Data (or Data) Any information that directly, indirectly, or in connection with other information allows for the identification or identifiability of a natural person. ### Usage Data Information collected automatically through AstroGods (or third-party services employed in AstroGods), which can include: the IP addresses or domain names of the computers utilized by the Users who use AstroGods, the URI addresses (Uniform Resource Identifier), the time of the request, the method utilized to submit the request to the server, the size of the file received in response, the numerical code indicating the status of the server's answer (successful outcome, error, etc.), the country of origin, the features of the browser and the operating system utilized by the User, the various time details per visit (e.g., the time spent on each page within the Application) and the details about the path followed within the Application with special reference to the sequence of pages visited, and other parameters about the device operating system and/or the User's IT environment. ### User The individual using AstroGods who, unless otherwise specified, coincides with the Data Subject. ### Data Subject The natural person to whom the Personal Data refers. ### Data Processor (or Processor) The natural or legal person, public authority, agency or other body which processes Personal Data on behalf of the Controller, as described in this privacy policy. ### Data Controller (or Owner) The natural or legal person, public authority, agency or other body which, alone or jointly with others, determines the purposes and means of the processing of Personal Data, including the security measures concerning the operation and use of AstroGods. The Data Controller, unless otherwise specified, is the Owner of AstroGods. ### AstroGods (or this Application) The means by which the Personal Data of the User is collected and processed. ### Service The service provided by AstroGods as described in the relative [terms](/terms-and-conditions) and on this site/application. ### European Union (or EU) Unless otherwise specified, all references made within this document to the European Union include all current member states to the European Union and the European Economic Area. ### Cookie Cookies are small sets of data stored in the User's browser. ### Legal information This privacy policy relates solely to AstroGods, if not stated otherwise within this document.'
+	String get definitionsContent => '### Personal Data (or Data)\n\nAny information that directly, indirectly, or in connection with other information allows for the identification or identifiability of a natural person.\n\n### Usage Data\n\nInformation collected automatically through AstroGods (or third-party services employed in AstroGods), which can include: the IP addresses or domain names of the computers utilized by the Users who use AstroGods, the URI addresses (Uniform Resource Identifier), the time of the request, the method utilized to submit the request to the server, the size of the file received in response, the numerical code indicating the status of the server\'s answer (successful outcome, error, etc.), the country of origin, the features of the browser and the operating system utilized by the User, the various time details per visit (e.g., the time spent on each page within the Application) and the details about the path followed within the Application with special reference to the sequence of pages visited, and other parameters about the device operating system and/or the User\'s IT environment.\n\n### User\n\nThe individual using AstroGods who, unless otherwise specified, coincides with the Data Subject.\n\n### Data Subject\n\nThe natural person to whom the Personal Data refers.\n\n### Data Processor (or Processor)\n\nThe natural or legal person, public authority, agency or other body which processes Personal Data on behalf of the Controller, as described in this privacy policy.\n\n### Data Controller (or Owner)\n\nThe natural or legal person, public authority, agency or other body which, alone or jointly with others, determines the purposes and means of the processing of Personal Data, including the security measures concerning the operation and use of AstroGods. The Data Controller, unless otherwise specified, is the Owner of AstroGods.\n\n### AstroGods (or this Application)\n\nThe means by which the Personal Data of the User is collected and processed.\n\n### Service\n\nThe service provided by AstroGods as described in the relative [terms](/terms-and-conditions) and on this site/application.\n\n### European Union (or EU)\n\nUnless otherwise specified, all references made within this document to the European Union include all current member states to the European Union and the European Economic Area.\n\n### Cookie\n\nCookies are small sets of data stored in the User\'s browser.\n\n### Legal information\n\nThis privacy policy relates solely to AstroGods, if not stated otherwise within this document.';
 
 	/// en: 'Definitions and Legal References'
 	String get definitionsSection => 'Definitions and Legal References';
@@ -1215,11 +1206,11 @@ class Translations$legal$en {
 	/// en: 'Delivery'
 	String get deliverySection => 'Delivery';
 
-	/// en: 'device identifiers'
-	String get deviceIdentifiers => 'device identifiers';
+	/// en: 'Device identifiers'
+	String get deviceIdentifiers => 'Device identifiers';
 
-	/// en: 'device information'
-	String get deviceInformation => 'device information';
+	/// en: 'Device information'
+	String get deviceInformation => 'Device information';
 
 	/// en: 'Users acknowledge and accept that, to download and/or use the Product, the chosen device(s) and their respective software (including operating systems) must be legal, commonly used, updated and in line with current market standards.'
 	String get deviceRequirements => 'Users acknowledge and accept that, to download and/or use the Product, the chosen device(s) and their respective software (including operating systems) must be legal, commonly used, updated and in line with current market standards.';
@@ -1260,8 +1251,14 @@ class Translations$legal$en {
 	/// en: 'Effects of withdrawal'
 	String get effectsOfWithdrawal => 'Effects of withdrawal';
 
-	/// en: '### Legal basis for processing The Owner may process User Personal Data if one of the following conditions exists: - Users have given their consent for one or more specific purposes; - processing is necessary for the performance of an agreement with the User and/or for any pre-contractual obligations thereof; - processing is necessary for compliance with a legal obligation to which the Owner is subject; - processing is necessary for the performance of a task carried out in the public interest or in the exercise of official authority vested in the Owner; - processing is necessary for the legitimate interests pursued by the Owner or by a third party. In any case, the Owner will gladly help to clarify the specific legal basis that applies to the processing, and in particular whether the provision of Personal Data is a statutory or contractual requirement, or a requirement necessary to enter into a contract. ### Further information about retention time Unless specified otherwise in this document, Personal Data shall be processed and stored for as long as required by the purpose they have been collected for and may be stored for longer due to applicable legal obligation or based on the Users' consent. Therefore: - Personal Data collected for purposes related to the performance of a contract between the Owner and the User shall be retained until such contract has been fully performed. - Personal Data collected for the purposes of the Owner's legitimate interests shall be retained as long as needed to fulfill such purposes. Users may find specific information regarding the legitimate interests pursued by the Owner within the relevant sections of this document or by contacting the Owner. The Owner may be allowed to retain Personal Data for a longer period whenever the User has given consent to such processing, as long as such consent is not withdrawn. Furthermore, the Owner may be obliged to retain Personal Data for a longer period whenever required to do so for the performance of a legal obligation or upon order of an authority. Once the retention period expires, Personal Data shall be deleted. Therefore, the right to access, the right to erasure, the right to rectification and the right to data portability cannot be enforced after expiration of the retention period. ### The rights of Users based on the General Data Protection Regulation (GDPR) Users may exercise certain rights regarding their Data processed by the Owner. In particular, Users have the right to do the following, to the extent permitted by law: - **Withdraw their consent at any time.** Users have the right to withdraw consent where they have previously given their consent to the processing of their Personal Data. - **Object to processing of their Data.** Users have the right to object to the processing of their Data if the processing is carried out on a legal basis other than consent. - **Access their Data.** Users have the right to learn if Data is being processed by the Owner, obtain disclosure regarding certain aspects of the processing and obtain a copy of the Data undergoing processing. - **Verify and seek rectification.** Users have the right to verify the accuracy of their Data and ask for it to be updated or corrected. - **Restrict the processing of their Data.** Users have the right to restrict the processing of their Data. In this case, the Owner will not process their Data for any purpose other than storing it. - **Have their Personal Data deleted or otherwise removed.** Users have the right to obtain the erasure of their Data from the Owner. - **Receive their Data and have it transferred to another controller.** Users have the right to receive their Data in a structured, commonly used and machine readable format and, if technically feasible, to have it transmitted to another controller without any hindrance. - **Lodge a complaint.** Users have the right to bring a claim before their competent data protection authority. Users are also entitled to learn about the legal basis for Data transfers abroad including to any international organization governed by public international law or set up by two or more countries, such as the UN, and about the security measures taken by the Owner to safeguard their Data. ### Details about the right to object to processing Where Personal Data is processed for a public interest, in the exercise of an official authority vested in the Owner or for the purposes of the legitimate interests pursued by the Owner, Users may object to such processing by providing a ground related to their particular situation to justify the objection. Users must know that, however, should their Personal Data be processed for direct marketing purposes, they can object to that processing at any time, free of charge and without providing any justification. Where the User objects to processing for direct marketing purposes, the Personal Data will no longer be processed for such purposes. To learn whether the Owner is processing Personal Data for direct marketing purposes, Users may refer to the relevant sections of this document. ### How to exercise these rights Any requests to exercise User rights can be directed to the Owner through the contact details provided in this document. Such requests are free of charge and will be answered by the Owner as early as possible and always within one month, providing Users with the information required by law. Any rectification or erasure of Personal Data or restriction of processing will be communicated by the Owner to each recipient, if any, to whom the Personal Data has been disclosed unless this proves impossible or involves disproportionate effort. At the Users' request, the Owner will inform Users about those recipients.'
-	String get euExtendedContent => '### Legal basis for processing\n\nThe Owner may process User Personal Data if one of the following conditions exists:\n\n- Users have given their consent for one or more specific purposes;\n- processing is necessary for the performance of an agreement with the User and/or for any pre-contractual obligations thereof;\n- processing is necessary for compliance with a legal obligation to which the Owner is subject;\n- processing is necessary for the performance of a task carried out in the public interest or in the exercise of official authority vested in the Owner;\n- processing is necessary for the legitimate interests pursued by the Owner or by a third party.\n\nIn any case, the Owner will gladly help to clarify the specific legal basis that applies to the processing, and in particular whether the provision of Personal Data is a statutory or contractual requirement, or a requirement necessary to enter into a contract.\n\n### Further information about retention time\n\nUnless specified otherwise in this document, Personal Data shall be processed and stored for as long as required by the purpose they have been collected for and may be stored for longer due to applicable legal obligation or based on the Users\' consent.\n\nTherefore:\n\n- Personal Data collected for purposes related to the performance of a contract between the Owner and the User shall be retained until such contract has been fully performed.\n- Personal Data collected for the purposes of the Owner\'s legitimate interests shall be retained as long as needed to fulfill such purposes. Users may find specific information regarding the legitimate interests pursued by the Owner within the relevant sections of this document or by contacting the Owner.\n\nThe Owner may be allowed to retain Personal Data for a longer period whenever the User has given consent to such processing, as long as such consent is not withdrawn. Furthermore, the Owner may be obliged to retain Personal Data for a longer period whenever required to do so for the performance of a legal obligation or upon order of an authority.\n\nOnce the retention period expires, Personal Data shall be deleted. Therefore, the right to access, the right to erasure, the right to rectification and the right to data portability cannot be enforced after expiration of the retention period.\n\n### The rights of Users based on the General Data Protection Regulation (GDPR)\n\nUsers may exercise certain rights regarding their Data processed by the Owner.\n\nIn particular, Users have the right to do the following, to the extent permitted by law:\n\n- **Withdraw their consent at any time.** Users have the right to withdraw consent where they have previously given their consent to the processing of their Personal Data.\n- **Object to processing of their Data.** Users have the right to object to the processing of their Data if the processing is carried out on a legal basis other than consent.\n- **Access their Data.** Users have the right to learn if Data is being processed by the Owner, obtain disclosure regarding certain aspects of the processing and obtain a copy of the Data undergoing processing.\n- **Verify and seek rectification.** Users have the right to verify the accuracy of their Data and ask for it to be updated or corrected.\n- **Restrict the processing of their Data.** Users have the right to restrict the processing of their Data. In this case, the Owner will not process their Data for any purpose other than storing it.\n- **Have their Personal Data deleted or otherwise removed.** Users have the right to obtain the erasure of their Data from the Owner.\n- **Receive their Data and have it transferred to another controller.** Users have the right to receive their Data in a structured, commonly used and machine readable format and, if technically feasible, to have it transmitted to another controller without any hindrance.\n- **Lodge a complaint.** Users have the right to bring a claim before their competent data protection authority.\n\nUsers are also entitled to learn about the legal basis for Data transfers abroad including to any international organization governed by public international law or set up by two or more countries, such as the UN, and about the security measures taken by the Owner to safeguard their Data.\n\n### Details about the right to object to processing\n\nWhere Personal Data is processed for a public interest, in the exercise of an official authority vested in the Owner or for the purposes of the legitimate interests pursued by the Owner, Users may object to such processing by providing a ground related to their particular situation to justify the objection.\n\nUsers must know that, however, should their Personal Data be processed for direct marketing purposes, they can object to that processing at any time, free of charge and without providing any justification. Where the User objects to processing for direct marketing purposes, the Personal Data will no longer be processed for such purposes. To learn whether the Owner is processing Personal Data for direct marketing purposes, Users may refer to the relevant sections of this document.\n\n### How to exercise these rights\n\nAny requests to exercise User rights can be directed to the Owner through the contact details provided in this document. Such requests are free of charge and will be answered by the Owner as early as possible and always within one month, providing Users with the information required by law. Any rectification or erasure of Personal Data or restriction of processing will be communicated by the Owner to each recipient, if any, to whom the Personal Data has been disclosed unless this proves impossible or involves disproportionate effort. At the Users\' request, the Owner will inform Users about those recipients.';
+	/// en: 'AstroGods sends service emails, such as password recovery and email change confirmation, and, if the User subscribes, newsletters with the daily and monthly horoscope. The emails are sent from an AstroGods mail server hosted by IONOS SE.'
+	String get emailSendingDescription => 'AstroGods sends service emails, such as password recovery and email change confirmation, and, if the User subscribes, newsletters with the daily and monthly horoscope. The emails are sent from an AstroGods mail server hosted by IONOS SE.';
+
+	/// en: 'Email delivery'
+	String get emailSendingTitle => 'Email delivery';
+
+	/// en: '### Legal basis for processing The Owner may process User Personal Data if one of the following conditions exists: - Users have given their consent for one or more specific purposes; - processing is necessary for the performance of an agreement with the User and/or for any pre-contractual obligations thereof; - processing is necessary for compliance with a legal obligation to which the Owner is subject; - processing is necessary for the performance of a task carried out in the public interest or in the exercise of official authority vested in the Owner; - processing is necessary for the legitimate interests pursued by the Owner or by a third party. In any case, the Owner will gladly help to clarify the specific legal basis that applies to the processing, and in particular whether the provision of Personal Data is a statutory or contractual requirement, or a requirement necessary to enter into a contract. ### Further information about retention time Unless specified otherwise in this document, Personal Data shall be processed and stored for as long as required by the purpose they have been collected for and may be stored for longer due to applicable legal obligation or based on the Users' consent. Therefore: - Personal Data collected for purposes related to the performance of a contract between the Owner and the User shall be retained until such contract has been fully performed. - Personal Data collected for the purposes of the Owner's legitimate interests shall be retained as long as needed to fulfill such purposes. Users may find specific information regarding the legitimate interests pursued by the Owner within the relevant sections of this document or by contacting the Owner. The Owner may be allowed to retain Personal Data for a longer period whenever the User has given consent to such processing, as long as such consent is not withdrawn. Furthermore, the Owner may be obliged to retain Personal Data for a longer period whenever required to do so for the performance of a legal obligation or upon order of an authority. Once the retention period expires, Personal Data shall be deleted. Therefore, the right to access, the right to erasure, the right to rectification and the right to data portability cannot be enforced after expiration of the retention period. ### The rights of Users based on the General Data Protection Regulation (GDPR) Users may exercise certain rights regarding their Data processed by the Owner. In particular, Users have the right to do the following, to the extent permitted by law: - **Withdraw their consent at any time.** Users have the right to withdraw consent where they have previously given their consent to the processing of their Personal Data. - **Object to processing of their Data.** Users have the right to object to the processing of their Data if the processing is carried out on a legal basis other than consent. - **Access their Data.** Users have the right to learn if Data is being processed by the Owner, obtain disclosure regarding certain aspects of the processing and obtain a copy of the Data undergoing processing. - **Verify and seek rectification.** Users have the right to verify the accuracy of their Data and ask for it to be updated or corrected. - **Restrict the processing of their Data.** Users have the right to restrict the processing of their Data. In this case, the Owner will not process their Data for any purpose other than storing it. - **Have their Personal Data deleted or otherwise removed.** Users have the right to obtain the erasure of their Data from the Owner or to delete their account from the [Settings](/settings?section=deleteAccount). - **Receive their Data and have it transferred to another controller.** Users have the right to receive their Data in a structured, commonly used and machine readable format and, if technically feasible, to have it transmitted to another controller without any hindrance. - **Lodge a complaint.** Users have the right to bring a claim before their competent data protection authority. Users are also entitled to learn about the legal basis for Data transfers abroad including to any international organization governed by public international law or set up by two or more countries, such as the UN, and about the security measures taken by the Owner to safeguard their Data. ### Details about the right to object to processing Where Personal Data is processed for a public interest, in the exercise of an official authority vested in the Owner or for the purposes of the legitimate interests pursued by the Owner, Users may object to such processing by providing a ground related to their particular situation to justify the objection. Users must know that, however, should their Personal Data be processed for direct marketing purposes, they can object to that processing at any time, free of charge and without providing any justification. Where the User objects to processing for direct marketing purposes, the Personal Data will no longer be processed for such purposes. To learn whether the Owner is processing Personal Data for direct marketing purposes, Users may refer to the relevant sections of this document. ### How to exercise these rights Any requests to exercise User rights can be directed to the Owner through the [contact details provided in this document](mailto:contact@astrogods.it). Such requests are free of charge and will be answered by the Owner as early as possible and always within one month, providing Users with the information required by law. Any rectification or erasure of Personal Data or restriction of processing will be communicated by the Owner to each recipient, if any, to whom the Personal Data has been disclosed unless this proves impossible or involves disproportionate effort. At the Users' request, the Owner will inform Users about those recipients.'
+	String get euExtendedContent => '### Legal basis for processing\n\nThe Owner may process User Personal Data if one of the following conditions exists:\n\n- Users have given their consent for one or more specific purposes;\n- processing is necessary for the performance of an agreement with the User and/or for any pre-contractual obligations thereof;\n- processing is necessary for compliance with a legal obligation to which the Owner is subject;\n- processing is necessary for the performance of a task carried out in the public interest or in the exercise of official authority vested in the Owner;\n- processing is necessary for the legitimate interests pursued by the Owner or by a third party.\n\nIn any case, the Owner will gladly help to clarify the specific legal basis that applies to the processing, and in particular whether the provision of Personal Data is a statutory or contractual requirement, or a requirement necessary to enter into a contract.\n\n### Further information about retention time\n\nUnless specified otherwise in this document, Personal Data shall be processed and stored for as long as required by the purpose they have been collected for and may be stored for longer due to applicable legal obligation or based on the Users\' consent.\n\nTherefore:\n\n- Personal Data collected for purposes related to the performance of a contract between the Owner and the User shall be retained until such contract has been fully performed.\n- Personal Data collected for the purposes of the Owner\'s legitimate interests shall be retained as long as needed to fulfill such purposes. Users may find specific information regarding the legitimate interests pursued by the Owner within the relevant sections of this document or by contacting the Owner.\n\nThe Owner may be allowed to retain Personal Data for a longer period whenever the User has given consent to such processing, as long as such consent is not withdrawn. Furthermore, the Owner may be obliged to retain Personal Data for a longer period whenever required to do so for the performance of a legal obligation or upon order of an authority.\n\nOnce the retention period expires, Personal Data shall be deleted. Therefore, the right to access, the right to erasure, the right to rectification and the right to data portability cannot be enforced after expiration of the retention period.\n\n### The rights of Users based on the General Data Protection Regulation (GDPR)\n\nUsers may exercise certain rights regarding their Data processed by the Owner.\n\nIn particular, Users have the right to do the following, to the extent permitted by law:\n\n- **Withdraw their consent at any time.** Users have the right to withdraw consent where they have previously given their consent to the processing of their Personal Data.\n- **Object to processing of their Data.** Users have the right to object to the processing of their Data if the processing is carried out on a legal basis other than consent.\n- **Access their Data.** Users have the right to learn if Data is being processed by the Owner, obtain disclosure regarding certain aspects of the processing and obtain a copy of the Data undergoing processing.\n- **Verify and seek rectification.** Users have the right to verify the accuracy of their Data and ask for it to be updated or corrected.\n- **Restrict the processing of their Data.** Users have the right to restrict the processing of their Data. In this case, the Owner will not process their Data for any purpose other than storing it.\n- **Have their Personal Data deleted or otherwise removed.** Users have the right to obtain the erasure of their Data from the Owner or to delete their account from the [Settings](/settings?section=deleteAccount).\n- **Receive their Data and have it transferred to another controller.** Users have the right to receive their Data in a structured, commonly used and machine readable format and, if technically feasible, to have it transmitted to another controller without any hindrance.\n- **Lodge a complaint.** Users have the right to bring a claim before their competent data protection authority.\n\nUsers are also entitled to learn about the legal basis for Data transfers abroad including to any international organization governed by public international law or set up by two or more countries, such as the UN, and about the security measures taken by the Owner to safeguard their Data.\n\n### Details about the right to object to processing\n\nWhere Personal Data is processed for a public interest, in the exercise of an official authority vested in the Owner or for the purposes of the legitimate interests pursued by the Owner, Users may object to such processing by providing a ground related to their particular situation to justify the objection.\n\nUsers must know that, however, should their Personal Data be processed for direct marketing purposes, they can object to that processing at any time, free of charge and without providing any justification. Where the User objects to processing for direct marketing purposes, the Personal Data will no longer be processed for such purposes. To learn whether the Owner is processing Personal Data for direct marketing purposes, Users may refer to the relevant sections of this document.\n\n### How to exercise these rights\n\nAny requests to exercise User rights can be directed to the Owner through the [contact details provided in this document](mailto:contact@astrogods.it). Such requests are free of charge and will be answered by the Owner as early as possible and always within one month, providing Users with the information required by law. Any rectification or erasure of Personal Data or restriction of processing will be communicated by the Owner to each recipient, if any, to whom the Personal Data has been disclosed unless this proves impossible or involves disproportionate effort. At the Users\' request, the Owner will inform Users about those recipients.';
 
 	/// en: 'This section applies to all users of the European Union, in accordance with the General Data Protection Regulation (the "GDPR") and, for such Users, supersedes any other information that may be divergent or conflicting contained in the privacy policy. Additional details relating to the categories of Data processed, the purposes of processing, the categories of recipients of personal data, if any, and additional information on personal data are available in the section "Details on Personal Data processing" within this document.'
 	String get euInfoContent => 'This section applies to all users of the European Union, in accordance with the General Data Protection Regulation (the "GDPR") and, for such Users, supersedes any other information that may be divergent or conflicting contained in the privacy policy.\n\nAdditional details relating to the categories of Data processed, the purposes of processing, the categories of recipients of personal data, if any, and additional information on personal data are available in the section "Details on Personal Data processing" within this document.';
@@ -1323,6 +1320,9 @@ class Translations$legal$en {
 	/// en: 'Additionally, the Service may not be available for reasons beyond the reasonable control of the Owner, such as force majeure (e.g., infrastructure malfunctions, blackouts, etc.).'
 	String get forceMAjeureUnavailability => 'Additionally, the Service may not be available for reasons beyond the reasonable control of the Owner, such as force majeure (e.g., infrastructure malfunctions, blackouts, etc.).';
 
+	/// en: 'Gender (optional)'
+	String get genderOptional => 'Gender (optional)';
+
 	/// en: 'Unless otherwise specified and subject to applicable legal provisions, any claim for damages against the Owner (or any natural or legal person acting on its behalf) is excluded.'
 	String get generalLiabilityExclusion => 'Unless otherwise specified and subject to applicable legal provisions, any claim for damages against the Owner (or any natural or legal person acting on its behalf) is excluded.';
 
@@ -1332,11 +1332,8 @@ class Translations$legal$en {
 	/// en: 'Germany'
 	String get germany => 'Germany';
 
-	/// en: 'GoDaddy Web Hosting is a hosting service provided by GoDaddy.com, LLC.'
-	String get godaddyDescription => 'GoDaddy Web Hosting is a hosting service provided by GoDaddy.com, LLC.';
-
-	/// en: 'Google Fonts is a web font service provided by Google Inc.'
-	String get googleFontsDescription => 'Google Fonts is a web font service provided by Google Inc.';
+	/// en: 'Google Maps Platform is a maps and place search service provided by Google Ireland Limited.'
+	String get googleMapsDescription => 'Google Maps Platform is a maps and place search service provided by Google Ireland Limited.';
 
 	/// en: 'Google OAuth is an authentication service provided by Google Inc.'
 	String get googleOAuthDescription => 'Google OAuth is an authentication service provided by Google Inc.';
@@ -1374,8 +1371,11 @@ class Translations$legal$en {
 	/// en: 'injury to third party rights;'
 	String get injuryToThirdPartyRights => 'injury to third party rights;';
 
-	/// en: 'ip address'
-	String get ipAddress => 'ip address';
+	/// en: 'IONOS is a hosting service provided by IONOS SE.'
+	String get ionosDescription => 'IONOS is a hosting service provided by IONOS SE.';
+
+	/// en: 'IP address'
+	String get ipAddress => 'IP address';
 
 	/// en: 'Ireland'
 	String get ireland => 'Ireland';
@@ -1383,14 +1383,14 @@ class Translations$legal$en {
 	/// en: 'Italy'
 	String get italy => 'Italy';
 
-	/// en: 'Without prejudice to the Users' right to bring legal action, in case of disputes concerning the use of AstroGods or the Service, Users are requested to contact the Owner at the contact details indicated in this document.'
-	String get judicialRightsPreservation => 'Without prejudice to the Users\' right to bring legal action, in case of disputes concerning the use of AstroGods or the Service, Users are requested to contact the Owner at the contact details indicated in this document.';
+	/// en: 'Without prejudice to the Users' right to bring legal action, in case of disputes concerning the use of AstroGods or the Service, Users are requested to contact the Owner at the [contact details indicated in this document](mailto:contact@astrogods.it).'
+	String get judicialRightsPreservation => 'Without prejudice to the Users\' right to bring legal action, in case of disputes concerning the use of AstroGods or the Service, Users are requested to contact the Owner at the [contact details indicated in this document](mailto:contact@astrogods.it).';
 
-	/// en: 'Last modified: January 10, 2026'
-	String get lastModified => 'Last modified: January 10, 2026';
+	/// en: 'Last modified: October 20, 2026'
+	String get lastModified => 'Last modified: October 20, 2026';
 
-	/// en: 'Last modified: January 10, 2026'
-	String get lastModifiedTerms => 'Last modified: January 10, 2026';
+	/// en: 'Last modified: October 19, 2026'
+	String get lastModifiedTerms => 'Last modified: October 19, 2026';
 
 	/// en: 'any other Agreement or legal relationship with the Owner'
 	String get legalRelationship => 'any other Agreement or legal relationship with the Owner';
@@ -1404,15 +1404,6 @@ class Translations$legal$en {
 	/// en: 'Liability and Indemnification'
 	String get liabilitySection => 'Liability and Indemnification';
 
-	/// en: 'If the Product ceases its activity within a period of less than 24 months, Users will receive a refund.'
-	String get lifetimeRefundPolicy => 'If the Product ceases its activity within a period of less than 24 months, Users will receive a refund.';
-
-	/// en: 'Lifetime subscriptions are subscriptions that remain active for the entire duration of activity of the subscribed Product. Lifetime subscriptions start from the day the Owner receives payment. They terminate only if and when the related Product ceases its activity.'
-	String get lifetimeSubscriptionDuration => 'Lifetime subscriptions are subscriptions that remain active for the entire duration of activity of the subscribed Product. Lifetime subscriptions start from the day the Owner receives payment. They terminate only if and when the related Product ceases its activity.';
-
-	/// en: 'Lifetime Subscriptions'
-	String get lifetimeSubscriptions => 'Lifetime Subscriptions';
-
 	/// en: 'Unless the damages were caused intentionally or through gross negligence or affect life and/or personal, physical or mental integrity, the Owner is only liable to the extent of damage typical for the type of contract and foreseeable at the time of conclusion.'
 	String get limitedLiabilityScope => 'Unless the damages were caused intentionally or through gross negligence or affect life and/or personal, physical or mental integrity, the Owner is only liable to the extent of damage typical for the type of contract and foreseeable at the time of conclusion.';
 
@@ -1421,21 +1412,6 @@ class Translations$legal$en {
 
 	/// en: 'Managing cookies'
 	String get managingCookiesSection => 'Managing cookies';
-
-	/// en: 'Matomo is a statistics software used by AstroGods to analyze data directly and without the aid of third parties.'
-	String get matomatoDescription => 'Matomo is a statistics software used by AstroGods to analyze data directly and without the aid of third parties.';
-
-	/// en: 'We use Matomo, a privacy-focused analytics platform hosted on our own servers. This means your data never leaves our infrastructure and is not shared with third parties. Matomo helps us understand how users interact with our service while respecting your privacy.'
-	String get matomoSelfHostedDescription => 'We use Matomo, a privacy-focused analytics platform hosted on our own servers. This means your data never leaves our infrastructure and is not shared with third parties. Matomo helps us understand how users interact with our service while respecting your privacy.';
-
-	/// en: 'Matomo (self-hosted)'
-	String get matomoSelfHostedTitle => 'Matomo (self-hosted)';
-
-	/// en: 'These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.'
-	String get measurementCookiesDescription => 'These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.';
-
-	/// en: 'Measurement cookies'
-	String get measurementCookiesTitle => 'Measurement cookies';
 
 	/// en: 'applications for mobile devices (iOS and Android), tablets, desktop (Linux, Windows, macOS) or similar platforms;'
 	String get mobileApplicationsDescription => 'applications for mobile devices (iOS and Android), tablets, desktop (Linux, Windows, macOS) or similar platforms;';
@@ -1485,6 +1461,9 @@ class Translations$legal$en {
 	/// en: 'Unless otherwise specified, each User may create only one account.'
 	String get oneAccountPerUser => 'Unless otherwise specified, each User may create only one account.';
 
+	/// en: 'OpenRouter is a service by OpenRouter, Inc. that forwards the requests of AstroGods to the Anthropic API.'
+	String get openRouterDescription => 'OpenRouter is a service by OpenRouter, Inc. that forwards the requests of AstroGods to the Anthropic API.';
+
 	/// en: 'Once the order is submitted, Users will receive an order receipt confirmation.'
 	String get orderConfirmation => 'Once the order is submitted, Users will receive an order receipt confirmation.';
 
@@ -1505,9 +1484,6 @@ class Translations$legal$en {
 
 	/// en: 'Owner (or We)'
 	String get ownerDefinitionTitle => 'Owner (or We)';
-
-	/// en: 'The Owner reserves the right to cease the offer at any time at their sole discretion.'
-	String get ownerDiscretionaryRight => 'The Owner reserves the right to cease the offer at any time at their sole discretion.';
 
 	/// en: 'Owner's email address:'
 	String get ownerEmail => 'Owner\'s email address:';
@@ -1542,8 +1518,8 @@ class Translations$legal$en {
 	/// en: 'In the event that payment made with one of the available methods fails or is rejected by the payment service provider, the Owner is not obligated to execute the order. In the event that payment is not successful, the Owner reserves the right to request the User to reimburse any related expenses or damages.'
 	String get paymentFailureConsequences => 'In the event that payment made with one of the available methods fails or is rejected by the payment service provider, the Owner is not obligated to execute the order. In the event that payment is not successful, the Owner reserves the right to request the User to reimburse any related expenses or damages.';
 
-	/// en: 'payment information'
-	String get paymentInformation => 'payment information';
+	/// en: 'Payment information'
+	String get paymentInformation => 'Payment information';
 
 	/// en: 'Payment management'
 	String get paymentManagement => 'Payment management';
@@ -1557,11 +1533,11 @@ class Translations$legal$en {
 	/// en: 'Payment Methods'
 	String get paymentMethods => 'Payment Methods';
 
-	/// en: 'Payment processing is handled entirely by Stripe Technology Europe Ltd. AstroGods does not store or have access to your payment card details, which are processed and stored securely by Stripe according to the highest industry security standards.'
-	String get paymentMethodsConditions => 'Payment processing is handled entirely by Stripe Technology Europe Ltd. AstroGods does not store or have access to your payment card details, which are processed and stored securely by Stripe according to the highest industry security standards.';
+	/// en: 'Stripe Technology Europe Ltd handles payments made through Stripe, while Apple handles those made through the App Store. AstroGods does not store or have access to your payment card details.'
+	String get paymentMethodsConditions => 'Stripe Technology Europe Ltd handles payments made through Stripe, while Apple handles those made through the App Store. AstroGods does not store or have access to your payment card details.';
 
-	/// en: 'AstroGods processes all payments securely through Stripe, a certified PCI DSS compliant payment processor. Accepted payment methods include major credit and debit cards (Visa, Mastercard, American Express), digital wallets (Apple Pay, Google Pay), and other methods available through Stripe in your region.'
-	String get paymentMethodsInfo => 'AstroGods processes all payments securely through Stripe, a certified PCI DSS compliant payment processor. Accepted payment methods include major credit and debit cards (Visa, Mastercard, American Express), digital wallets (Apple Pay, Google Pay), and other methods available through Stripe in your region.';
+	/// en: 'On the website and in the Android, Windows and Linux apps, AstroGods processes payments through Stripe, a PCI DSS certified payment processor. Accepted payment methods include major credit and debit cards (Visa, Mastercard, American Express), digital wallets (Apple Pay, Google Pay), and other methods available through Stripe in your region. In the iPhone, iPad and Mac apps, subscriptions are purchased through Apple's App Store, as described in the section on subscriptions managed through Apple Account.'
+	String get paymentMethodsInfo => 'On the website and in the Android, Windows and Linux apps, AstroGods processes payments through Stripe, a PCI DSS certified payment processor. Accepted payment methods include major credit and debit cards (Visa, Mastercard, American Express), digital wallets (Apple Pay, Google Pay), and other methods available through Stripe in your region. In the iPhone, iPad and Mac apps, subscriptions are purchased through Apple\'s App Store, as described in the section on subscriptions managed through Apple Account.';
 
 	/// en: 'The suspension or cancellation of an account for causes attributable to the User does not exempt the User from payment of fees or prices that may be applicable.'
 	String get paymentObligationRemains => 'The suspension or cancellation of an account for causes attributable to the User does not exempt the User from payment of fees or prices that may be applicable.';
@@ -1569,8 +1545,8 @@ class Translations$legal$en {
 	/// en: 'Payment processing error occurred'
 	String get paymentProcessingError => 'Payment processing error occurred';
 
-	/// en: 'All payments are handled independently by third-party services. Therefore, AstroGods does not collect payment-related data – such as credit card numbers – but receives a notification once the payment has been successful. For further information on the processing of personal data and related rights, the User can refer to the AstroGods privacy policy.'
-	String get paymentThirdPartyHandling => 'All payments are handled independently by third-party services. Therefore, AstroGods does not collect payment-related data – such as credit card numbers – but receives a notification once the payment has been successful. For further information on the processing of personal data and related rights, the User can refer to the AstroGods privacy policy.';
+	/// en: 'All payments are handled independently by third-party services. Therefore, AstroGods does not collect payment-related data – such as credit card numbers – but receives a notification once the payment has been successful. For further information on the processing of personal data and related rights, the User can refer to the [AstroGods privacy policy](/privacy-policy).'
+	String get paymentThirdPartyHandling => 'All payments are handled independently by third-party services. Therefore, AstroGods does not collect payment-related data – such as credit card numbers – but receives a notification once the payment has been successful. For further information on the processing of personal data and related rights, the User can refer to the [AstroGods privacy policy](/privacy-policy).';
 
 	/// en: 'Permitted Use'
 	String get permittedUse => 'Permitted Use';
@@ -1578,8 +1554,17 @@ class Translations$legal$en {
 	/// en: 'AstroGods and the Service may only be used for the purposes for which they are offered, according to these Terms and applicable law.'
 	String get permittedUseText => 'AstroGods and the Service may only be used for the purposes for which they are offered, according to these Terms and applicable law.';
 
-	/// en: 'phone number'
-	String get phoneNumber => 'phone number';
+	/// en: 'Phone number'
+	String get phoneNumber => 'Phone number';
+
+	/// en: 'When the User searches for a birthplace, the AstroGods servers send the typed text to Google Maps Platform to suggest places and find their coordinates. Google receives the request from the AstroGods servers, so it does not receive the User's IP address or account data.'
+	String get placeSearchDescription => 'When the User searches for a birthplace, the AstroGods servers send the typed text to Google Maps Platform to suggest places and find their coordinates. Google receives the request from the AstroGods servers, so it does not receive the User\'s IP address or account data.';
+
+	/// en: 'Place search'
+	String get placeSearchTitle => 'Place search';
+
+	/// en: 'Planetary positions'
+	String get planetaryPositions => 'Planetary positions';
 
 	/// en: 'The previous version continues to govern the relationship until acceptance of the changes by the User. This version may be requested from the Owner.'
 	String get previousVersionValidity => 'The previous version continues to govern the relationship until acceptance of the changes by the User. This version may be requested from the Owner.';
@@ -1638,8 +1623,8 @@ class Translations$legal$en {
 	/// en: 'Product Description'
 	String get productDescription => 'Product Description';
 
-	/// en: 'Prices, descriptions and availability of astrological Products (including birth chart readings, compatibility analyses, daily and monthly predictions, relationship insights, and travel astrology recommendations) are specified in the respective sections of AstroGods and are subject to change without notice.'
-	String get productDescriptionInfo => 'Prices, descriptions and availability of astrological Products (including birth chart readings, compatibility analyses, daily and monthly predictions, relationship insights, and travel astrology recommendations) are specified in the respective sections of AstroGods and are subject to change without notice.';
+	/// en: 'Prices, descriptions and availability of astrological Products (including birth chart readings, compatibility analyses, daily and monthly predictions, and relationship insights) are specified in the respective sections of AstroGods and are subject to change without notice.'
+	String get productDescriptionInfo => 'Prices, descriptions and availability of astrological Products (including birth chart readings, compatibility analyses, daily and monthly predictions, and relationship insights) are specified in the respective sections of AstroGods and are subject to change without notice.';
 
 	/// en: 'Although Products on AstroGods are presented with the maximum technically possible accuracy, the representation on AstroGods through any means (including, as the case may be, graphic materials, images, colors, sounds) is to be understood as a mere reference and does not imply any guarantee regarding the characteristics of the Product purchased.'
 	String get productRepresentationDisclaimer => 'Although Products on AstroGods are presented with the maximum technically possible accuracy, the representation on AstroGods through any means (including, as the case may be, graphic materials, images, colors, sounds) is to be understood as a mere reference and does not imply any guarantee regarding the characteristics of the Product purchased.';
@@ -1671,8 +1656,8 @@ class Translations$legal$en {
 	/// en: 'Provided by: '
 	String get providedByLabel => 'Provided by: ';
 
-	/// en: 'purchase history'
-	String get purchaseHistory => 'purchase history';
+	/// en: 'Purchase history'
+	String get purchaseHistory => 'Purchase history';
 
 	/// en: 'All notifications related to the purchase procedure described above will be sent to the email address provided by the User for this purpose.'
 	String get purchaseNotifications => 'All notifications related to the purchase procedure described above will be sent to the email address provided by the User for this purpose.';
@@ -1698,24 +1683,6 @@ class Translations$legal$en {
 	/// en: 'Purposes of Processing'
 	String get purposesSection => 'Purposes of Processing';
 
-	/// en: 'AstroGods allows Users to receive benefits if, thanks to their recommendation, a new User purchases a Product offered on AstroGods.'
-	String get referralBenefits => 'AstroGods allows Users to receive benefits if, thanks to their recommendation, a new User purchases a Product offered on AstroGods.';
-
-	/// en: 'Invitation codes may only be redeemable for some Products among those offered on AstroGods.'
-	String get referralCodeLimitations => 'Invitation codes may only be redeemable for some Products among those offered on AstroGods.';
-
-	/// en: 'To take advantage of this opportunity, the User can invite friends to purchase Products on AstroGods by sending them a special code provided by the Owner. Each code can be redeemed only once.'
-	String get referralCodeUsage => 'To take advantage of this opportunity, the User can invite friends to purchase Products on AstroGods by sending them a special code provided by the Owner. Each code can be redeemed only once.';
-
-	/// en: 'Although there is no limit to the number of people who can be invited, the number of benefits or advantages that each User can receive for an equal number of redeemed invitation codes may be subject to a maximum limit.'
-	String get referralLimitations => 'Although there is no limit to the number of people who can be invited, the number of benefits or advantages that each User can receive for an equal number of redeemed invitation codes may be subject to a maximum limit.';
-
-	/// en: 'Referral Program'
-	String get referralProgram => 'Referral Program';
-
-	/// en: 'If one of the invited people purchasing a Product on AstroGods decides to redeem an invitation code, the User who invited them will receive the benefit or advantage (such as: a discount, an additional service, an upgrade etc.) indicated on AstroGods.'
-	String get referralRewardSystem => 'If one of the invited people purchasing a Product on AstroGods decides to redeem an invitation code, the User who invited them will receive the benefit or advantage (such as: a discount, an additional service, an upgrade etc.) indicated on AstroGods.';
-
 	/// en: 'The refund will be made without undue delay and in any case within 14 days from the day on which the Owner was informed of the User's decision to withdraw from the contract. Unless otherwise agreed with the User, the refund will be made using the same means of payment used for the initial transaction. The User will not incur any cost as a result of the withdrawal.'
 	String get refundTimeline => 'The refund will be made without undue delay and in any case within 14 days from the day on which the Owner was informed of the User\'s decision to withdraw from the contract. Unless otherwise agreed with the User, the refund will be made using the same means of payment used for the initial transaction. The User will not incur any cost as a result of the withdrawal.';
 
@@ -1736,9 +1703,6 @@ class Translations$legal$en {
 
 	/// en: 'The renewal has the same duration as the original subscription period.'
 	String get renewalDurationMatch => 'The renewal has the same duration as the original subscription period.';
-
-	/// en: 'Resolution'
-	String get resolution => 'Resolution';
 
 	/// en: 'The Owner will process the request without undue delay and within 14 days of its receipt.'
 	String get responseTimeline => 'The Owner will process the request without undue delay and within 14 days of its receipt.';
@@ -1782,14 +1746,8 @@ class Translations$legal$en {
 	/// en: 'Notwithstanding the above, the nullity, invalidity, or ineffectiveness of a specific provision of these Terms does not result in nullity of the entire Agreement, unless the null, invalid, or ineffective provisions within the Agreement are essential or of such importance that the parties would not have concluded the contract if they had known the provision would be invalid, or in cases where the remaining provisions would impose an excessive and unacceptable burden on one of the parties.'
 	String get severabilityLimitations => 'Notwithstanding the above, the nullity, invalidity, or ineffectiveness of a specific provision of these Terms does not result in nullity of the entire Agreement, unless the null, invalid, or ineffective provisions within the Agreement are essential or of such importance that the parties would not have concluded the contract if they had known the provision would be invalid, or in cases where the remaining provisions would impose an excessive and unacceptable burden on one of the parties.';
 
-	/// en: 'Statistics'
-	String get statistics => 'Statistics';
-
-	/// en: 'The services contained in this section allow the Data Controller to monitor and analyze traffic data and serve to track User behavior.'
-	String get statisticsDescription => 'The services contained in this section allow the Data Controller to monitor and analyze traffic data and serve to track User behavior.';
-
-	/// en: 'Statistics'
-	String get statisticsTitle => 'Statistics';
+	/// en: 'Sign in with Apple is an authentication service provided by Apple. If the User chooses to hide their email, AstroGods receives a forwarding address created by Apple.'
+	String get signInWithAppleDescription => 'Sign in with Apple is an authentication service provided by Apple. If the User chooses to hide their email, AstroGods receives a forwarding address created by Apple.';
 
 	/// en: 'Within the Stripe checkout area, Users may also be asked to specify their billing and shipping address.'
 	String get stripeBillingAddress => 'Within the Stripe checkout area, Users may also be asked to specify their billing and shipping address.';
@@ -1806,17 +1764,17 @@ class Translations$legal$en {
 	/// en: 'Within the Stripe checkout area, Users will have the possibility to choose express checkout. Express checkout allows Users to complete the purchase directly, using payment information and contact details stored by the most common online payment management services (such as "ApplePay", "Google Pay", "Microsoft Pay").'
 	String get stripeExpressCheckout => 'Within the Stripe checkout area, Users will have the possibility to choose express checkout. Express checkout allows Users to complete the purchase directly, using payment information and contact details stored by the most common online payment management services (such as "ApplePay", "Google Pay", "Microsoft Pay").';
 
-	/// en: 'Users who have not yet done so, can request Stripe to store their payment information for future purchases on AstroGods or on other sites that use Stripe as a payment gateway. For information on the processing of personal data and related rights, the User can consult the privacy policy of Stripe and AstroGods.'
-	String get stripePaymentStorage => 'Users who have not yet done so, can request Stripe to store their payment information for future purchases on AstroGods or on other sites that use Stripe as a payment gateway. For information on the processing of personal data and related rights, the User can consult the privacy policy of Stripe and AstroGods.';
+	/// en: 'Users who have not yet done so, can request Stripe to store their payment information for future purchases on AstroGods or on other sites that use Stripe as a payment gateway. For information on the processing of personal data and related rights, the User can consult the [privacy policy of Stripe](https://stripe.com/privacy) and that of [AstroGods](/privacy-policy).'
+	String get stripePaymentStorage => 'Users who have not yet done so, can request Stripe to store their payment information for future purchases on AstroGods or on other sites that use Stripe as a payment gateway. For information on the processing of personal data and related rights, the User can consult the [privacy policy of Stripe](https://stripe.com/privacy) and that of [AstroGods](/privacy-policy).';
 
-	/// en: 'For subscription services, Stripe securely stores payment method information to process recurring payments automatically. Users can manage, update, or cancel their payment methods and subscriptions through the customer portal accessible from their account settings.'
-	String get stripeRecurringPayments => 'For subscription services, Stripe securely stores payment method information to process recurring payments automatically. Users can manage, update, or cancel their payment methods and subscriptions through the customer portal accessible from their account settings.';
+	/// en: 'For subscriptions purchased through Stripe, Stripe securely stores payment method information to process recurring payments automatically. Users can manage, update, or cancel their payment methods and subscriptions through the customer portal accessible from their account settings.'
+	String get stripeRecurringPayments => 'For subscriptions purchased through Stripe, Stripe securely stores payment method information to process recurring payments automatically. Users can manage, update, or cancel their payment methods and subscriptions through the customer portal accessible from their account settings.';
 
 	/// en: 'Through subscription, the User receives a Product continuously or periodically. Details regarding the type of subscription and termination are described below.'
 	String get subscriptionContinuousProduct => 'Through subscription, the User receives a Product continuously or periodically. Details regarding the type of subscription and termination are described below.';
 
-	/// en: 'Subscriptions can be terminated by: (1) accessing the Stripe Customer Portal through your account settings to cancel immediately, (2) sending a clear cancellation notice to the Owner using the contact details provided in this document, or (3) following the cancellation instructions on AstroGods.'
-	String get subscriptionTermination => 'Subscriptions can be terminated by: (1) accessing the Stripe Customer Portal through your account settings to cancel immediately, (2) sending a clear cancellation notice to the Owner using the contact details provided in this document, or (3) following the cancellation instructions on AstroGods.';
+	/// en: 'Subscriptions can be canceled: (1) for purchases through Stripe, from the Stripe Customer Portal accessible from the [account settings](/settings?section=subscriptions); (2) for purchases through the App Store, from the [Apple Account settings](https://apps.apple.com/account/subscriptions); (3) by sending a clear cancellation notice to the Owner using the [contact details provided in this document](mailto:contact@astrogods.it).'
+	String get subscriptionTermination => 'Subscriptions can be canceled: (1) for purchases through Stripe, from the Stripe Customer Portal accessible from the [account settings](/settings?section=subscriptions); (2) for purchases through the App Store, from the [Apple Account settings](https://apps.apple.com/account/subscriptions); (3) by sending a clear cancellation notice to the Owner using the [contact details provided in this document](mailto:contact@astrogods.it).';
 
 	/// en: 'Subscriptions'
 	String get subscriptions => 'Subscriptions';
@@ -1881,23 +1839,11 @@ class Translations$legal$en {
 	/// en: 'this website, accessible via browser, including related subdomains and any other site through which the Owner offers the Service;'
 	String get thisSiteDescription => 'this website, accessible via browser, including related subdomains and any other site through which the Owner offers the Service;';
 
-	/// en: 'tracking tools'
-	String get trackingTools => 'tracking tools';
+	/// en: 'AstroGods does not use tracking tools for statistics or advertising. It only uses the cookies and browser storage needed for it to work, for example to keep you signed in.'
+	String get trackingToolsIntro => 'AstroGods does not use tracking tools for statistics or advertising. It only uses the cookies and browser storage needed for it to work, for example to keep you signed in.';
 
-	/// en: 'AstroGods uses the following tracking tools:'
-	String get trackingToolsIntro => 'AstroGods uses the following tracking tools:';
-
-	/// en: 'Tracking tools'
-	String get trackingToolsSection => 'Tracking tools';
-
-	/// en: 'Traffic optimization and distribution'
-	String get trafficOptimization => 'Traffic optimization and distribution';
-
-	/// en: 'This type of service allows AstroGods to distribute its content through a network of geographically distributed servers and optimize its performance. The Personal Data processed depends on the characteristics and mode of use of these services, whose function is to filter communications between AstroGods and the User's browser. Given the distributed nature of this system, it is difficult to determine the places where content that may contain the User's Personal Data is transferred.'
-	String get trafficOptimizationDescription => 'This type of service allows AstroGods to distribute its content through a network of geographically distributed servers and optimize its performance.\nThe Personal Data processed depends on the characteristics and mode of use of these services, whose function is to filter communications between AstroGods and the User\'s browser.\nGiven the distributed nature of this system, it is difficult to determine the places where content that may contain the User\'s Personal Data is transferred.';
-
-	/// en: 'Traffic optimization and distribution'
-	String get trafficOptimizationTitle => 'Traffic optimization and distribution';
+	/// en: 'No tracking'
+	String get trackingToolsSection => 'No tracking';
 
 	/// en: 'Upon expiration, the trial period will automatically convert to the equivalent paid Product unless the User cancels the purchase before the trial period expires.'
 	String get trialAutoConversion => 'Upon expiration, the trial period will automatically convert to the equivalent paid Product unless the User cancels the purchase before the trial period expires.';
@@ -1920,8 +1866,8 @@ class Translations$legal$en {
 	/// en: 'United States'
 	String get unitedStates => 'United States';
 
-	/// en: 'usage data'
-	String get usageData => 'usage data';
+	/// en: 'Usage data'
+	String get usageData => 'Usage data';
 
 	/// en: 'Until receipt of payment of the full purchase price by the Owner, the User does not acquire the usage rights of the ordered Products.'
 	String get usageRightsReservation => 'Until receipt of payment of the full purchase price by the Owner, the User does not acquire the usage rights of the ordered Products.';
@@ -1950,8 +1896,8 @@ class Translations$legal$en {
 	/// en: 'User Rights'
 	String get userRightsSection => 'User Rights';
 
-	/// en: 'Using the account closure tools available on AstroGods.'
-	String get usingAccountClosureTools => 'Using the account closure tools available on AstroGods.';
+	/// en: 'Using the [account closure tools](/settings?section=deleteAccount) available on AstroGods.'
+	String get usingAccountClosureTools => 'Using the [account closure tools](/settings?section=deleteAccount) available on AstroGods.';
 
 	/// en: 'By using AstroGods the User declares to meet the following requirements:'
 	String get usingAstroGodsUserDeclares => 'By using AstroGods the User declares to meet the following requirements:';
@@ -2148,6 +2094,9 @@ class Translations$releaseNotes$en {
 	/// en: 'Updated terms and conditions and privacy policy. Fixed a registration issue with email and password. Birth chart is now automatically generated after registration.'
 	String get releaseNotes_4_9_0 => 'Updated terms and conditions and privacy policy. Fixed a registration issue with email and password. Birth chart is now automatically generated after registration.';
 
+	/// en: 'On iPhone and Mac you can sign in with Apple and subscribe through the App Store. Change your email or password from settings, or add a password to a Google or Apple account. Readings follow the gender you choose, or stay neutral if you prefer not to say. Your birth charts are visible only to you, and readings no longer send your names to the AI. Please log in again after updating. Profile pictures and charts created without an account are gone.'
+	String get releaseNotes_5_0_0 => 'On iPhone and Mac you can sign in with Apple and subscribe through the App Store. Change your email or password from settings, or add a password to a Google or Apple account. Readings follow the gender you choose, or stay neutral if you prefer not to say. Your birth charts are visible only to you, and readings no longer send your names to the AI. Please log in again after updating. Profile pictures and charts created without an account are gone.';
+
 	/// en: 'Version ${version}'
 	String version({required Object version}) => 'Version ${version}';
 }
@@ -2169,14 +2118,20 @@ class Translations$ui$en {
 	/// en: 'Account deleted successfully'
 	String get accountDeleted => 'Account deleted successfully';
 
-	/// en: 'You have an active subscription. To delete your account, your subscription will be cancelled first. This action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.'
-	String get activeSubscriptionDeleteWarning => 'You have an active subscription. To delete your account, your subscription will be cancelled first.\n\nThis action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.';
+	/// en: 'You have an active subscription. To delete your account, your subscription will be cancelled first. This action cannot be undone. All your data and saved charts will be permanently deleted.'
+	String get activeSubscriptionDeleteWarning => 'You have an active subscription. To delete your account, your subscription will be cancelled first.\n\nThis action cannot be undone. All your data and saved charts will be permanently deleted.';
+
+	/// en: 'Add email'
+	String get addEmail => 'Add email';
 
 	/// en: 'Add horoscope by email'
 	String get addNewsletter => 'Add horoscope by email';
 
 	/// en: 'All newsletters'
 	String get allNewsletters => 'All newsletters';
+
+	/// en: 'All Premium features'
+	String get allPremiumFeatures => 'All Premium features';
 
 	/// en: 'Already have an account?'
 	String get alreadyHaveAccount => 'Already have an account?';
@@ -2192,6 +2147,12 @@ class Translations$ui$en {
 
 	/// en: 'Anticipate your month with transit analysis'
 	String get anticipateYourMonthWithTransits => 'Anticipate your month with transit analysis';
+
+	/// en: 'The subscription renews automatically at the price shown unless you cancel it at least 24 hours before the current period ends. Payment is charged to your Apple account. You can manage or cancel it in your App Store account settings.'
+	String get appleAutoRenewNotice => 'The subscription renews automatically at the price shown unless you cancel it at least 24 hours before the current period ends. Payment is charged to your Apple account. You can manage or cancel it in your App Store account settings.';
+
+	/// en: 'Deleting your account does not cancel your App Store subscription. To stop the renewals, cancel it in your App Store account settings. This action cannot be undone. All your data and saved charts will be permanently deleted.'
+	String get appleSubscriptionDeleteWarning => 'Deleting your account does not cancel your App Store subscription. To stop the renewals, cancel it in your App Store account settings.\n\nThis action cannot be undone. All your data and saved charts will be permanently deleted.';
 
 	/// en: 'AstroGods'
 	String get appTitle => 'AstroGods';
@@ -2268,8 +2229,8 @@ class Translations$ui$en {
 	/// en: 'The two birth charts must be different'
 	String get birthChartsMustBeDifferent => 'The two birth charts must be different';
 
-	/// en: 'birth date'
-	String get birthDate => 'birth date';
+	/// en: 'Birth date'
+	String get birthDate => 'Birth date';
 
 	/// en: 'Birth Information'
 	String get birthInfo => 'Birth Information';
@@ -2277,11 +2238,11 @@ class Translations$ui$en {
 	/// en: 'Birth Information'
 	String get birthInformation => 'Birth Information';
 
-	/// en: 'Birth Place'
-	String get birthPlace => 'Birth Place';
+	/// en: 'Birth place'
+	String get birthPlace => 'Birth place';
 
-	/// en: 'birth time'
-	String get birthTime => 'birth time';
+	/// en: 'Birth time'
+	String get birthTime => 'Birth time';
 
 	/// en: 'Enter time or check unknown time'
 	String get birthTimeRequired => 'Enter time or check unknown time';
@@ -2294,6 +2255,9 @@ class Translations$ui$en {
 
 	/// en: 'Cancelling subscription...'
 	String get cancellingSubscription => 'Cancelling subscription...';
+
+	/// en: 'Change password'
+	String get changePassword => 'Change password';
 
 	/// en: 'Change plan'
 	String get changePlan => 'Change plan';
@@ -2349,6 +2313,9 @@ class Translations$ui$en {
 	/// en: 'The request took too long. Please try again.'
 	String get connectionTimeout => 'The request took too long. Please try again.';
 
+	/// en: 'Continue with Apple'
+	String get continueWithApple => 'Continue with Apple';
+
 	/// en: 'Continue with Google'
 	String get continueWithGoogle => 'Continue with Google';
 
@@ -2378,6 +2345,9 @@ class Translations$ui$en {
 
 	/// en: 'Current location'
 	String get currentLocation => 'Current location';
+
+	/// en: 'Current password'
+	String get currentPassword => 'Current password';
 
 	/// en: 'Current plan'
 	String get currentPlan => 'Current plan';
@@ -2418,9 +2388,6 @@ class Translations$ui$en {
 	/// en: 'Dark'
 	String get darkMode => 'Dark';
 
-	/// en: 'Data collected by Matomo:'
-	String get dataCollectedByMatomo => 'Data collected by Matomo:';
-
 	/// en: 'Date of Birth'
 	String get dateOfBirth => 'Date of Birth';
 
@@ -2442,8 +2409,8 @@ class Translations$ui$en {
 	/// en: 'Delete Account'
 	String get deleteAccountTitle => 'Delete Account';
 
-	/// en: 'This action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.'
-	String get deleteAccountWarning => 'This action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.';
+	/// en: 'This action cannot be undone. All your data and saved charts will be permanently deleted.'
+	String get deleteAccountWarning => 'This action cannot be undone. All your data and saved charts will be permanently deleted.';
 
 	/// en: 'DELETE'
 	String get deleteConfirmationWord => 'DELETE';
@@ -2465,6 +2432,18 @@ class Translations$ui$en {
 
 	/// en: 'I don't know the birth time'
 	String get dontKnowBirthTime => 'I don\'t know the birth time';
+
+	/// en: 'No email app available. Address copied to the clipboard: ${email}'
+	String emailAddressCopied({required Object email}) => 'No email app available. Address copied to the clipboard: ${email}';
+
+	/// en: 'No App Store subscription to restore'
+	String get noPurchasesToRestore => 'No App Store subscription to restore';
+
+	/// en: 'Password changed'
+	String get passwordChanged => 'Password changed';
+
+	/// en: 'Link sent to ${email}'
+	String passwordSetupLinkSent({required Object email}) => 'Link sent to ${email}';
 
 	/// en: 'The first time, during daylight saving time'
 	String get repeatedTimeFirst => 'The first time, during daylight saving time';
@@ -2490,8 +2469,8 @@ class Translations$ui$en {
 	/// en: 'Edit monthly newsletter'
 	String get editMonthly => 'Edit monthly newsletter';
 
-	/// en: 'email'
-	String get email => 'email';
+	/// en: 'Email'
+	String get email => 'Email';
 
 	/// en: 'This email address is already registered'
 	String get emailAlreadyExists => 'This email address is already registered';
@@ -2538,8 +2517,8 @@ class Translations$ui$en {
 	/// en: 'Finish'
 	String get finish => 'Finish';
 
-	/// en: 'First Name'
-	String get firstName => 'First Name';
+	/// en: 'First name'
+	String get firstName => 'First name';
 
 	/// en: 'First quarter'
 	String get firstQuarter => 'First quarter';
@@ -2556,8 +2535,20 @@ class Translations$ui$en {
 	/// en: 'Full moon'
 	String get fullMoon => 'Full moon';
 
-	/// en: 'gender'
-	String get gender => 'gender';
+	/// en: 'Gender'
+	String get gender => 'Gender';
+
+	/// en: 'Man'
+	String get genderMan => 'Man';
+
+	/// en: 'Non-binary'
+	String get genderNonBinary => 'Non-binary';
+
+	/// en: 'Prefer not to say'
+	String get genderPreferNotToSay => 'Prefer not to say';
+
+	/// en: 'Woman'
+	String get genderWoman => 'Woman';
 
 	/// en: 'Generate Analysis'
 	String get generateAnalysis => 'Generate Analysis';
@@ -2607,6 +2598,24 @@ class Translations$ui$en {
 	/// en: 'Login'
 	String get goToLogin => 'Login';
 
+	/// en: 'Apple Sign-In error: ${error}'
+	String appleSignInError({required Object error}) => 'Apple Sign-In error: ${error}';
+
+	/// en: 'Apple Sign-Up error: ${error}'
+	String appleSignUpError({required Object error}) => 'Apple Sign-Up error: ${error}';
+
+	/// en: 'Change email'
+	String get changeEmail => 'Change email';
+
+	/// en: 'Confirming your email'
+	String get confirmingEmail => 'Confirming your email';
+
+	/// en: 'Email updated'
+	String get emailChangeConfirmed => 'Email updated';
+
+	/// en: 'We've sent a confirmation link to ${email}. Open it to finish the change'
+	String emailChangeLinkSent({required Object email}) => 'We\'ve sent a confirmation link to ${email}. Open it to finish the change';
+
 	/// en: 'Google Sign-In error: ${error}'
 	String googleSignInError({required Object error}) => 'Google Sign-In error: ${error}';
 
@@ -2646,8 +2655,8 @@ class Translations$ui$en {
 	/// en: 'Italian'
 	String get languageItalian => 'Italian';
 
-	/// en: 'Last Name'
-	String get lastName => 'Last Name';
+	/// en: 'Last name'
+	String get lastName => 'Last name';
 
 	/// en: 'Last quarter'
 	String get lastQuarter => 'Last quarter';
@@ -2724,8 +2733,8 @@ class Translations$ui$en {
 	/// en: 'Monthly transits'
 	String get monthlyTransitsFilter => 'Monthly transits';
 
-	/// en: 'name'
-	String get name => 'name';
+	/// en: 'Name'
+	String get name => 'Name';
 
 	/// en: 'You need a birth chart first for predictions'
 	String get needBirthChartForPredictions => 'You need a birth chart first for predictions';
@@ -2735,6 +2744,12 @@ class Translations$ui$en {
 
 	/// en: 'Network error occurred'
 	String get networkErrorOccurred => 'Network error occurred';
+
+	/// en: 'New email'
+	String get newEmail => 'New email';
+
+	/// en: 'Add an email to your profile to receive the horoscope by email.'
+	String get newsletterNeedsEmail => 'Add an email to your profile to receive the horoscope by email.';
 
 	/// en: 'New improved version'
 	String get newImprovedVersion => 'New improved version';
@@ -2811,8 +2826,8 @@ class Translations$ui$en {
 	/// en: 'OR'
 	String get or => 'OR';
 
-	/// en: 'password'
-	String get password => 'password';
+	/// en: 'Password'
+	String get password => 'Password';
 
 	/// en: 'Password reset successful'
 	String get passwordResetSuccessful => 'Password reset successful';
@@ -2934,9 +2949,6 @@ class Translations$ui$en {
 	/// en: 'Profile'
 	String get profile => 'Profile';
 
-	/// en: 'profile photo'
-	String get profilePhoto => 'profile photo';
-
 	/// en: 'Profile'
 	String get profileTitle => 'Profile';
 
@@ -3000,6 +3012,9 @@ class Translations$ui$en {
 	/// en: 'Reset your password'
 	String get resetPasswordTitle => 'Reset your password';
 
+	/// en: 'Restore purchases'
+	String get restorePurchases => 'Restore purchases';
+
 	/// en: 'Retry'
 	String get retry => 'Retry';
 
@@ -3020,6 +3035,9 @@ class Translations$ui$en {
 
 	/// en: 'Save changes'
 	String get saveChanges => 'Save changes';
+
+	/// en: 'Save password'
+	String get savePassword => 'Save password';
 
 	/// en: 'Save PDF'
 	String get savePdfDialogTitle => 'Save PDF';
@@ -3048,17 +3066,11 @@ class Translations$ui$en {
 	/// en: 'Search synastries...'
 	String get searchSynastries => 'Search synastries...';
 
-	/// en: 'Searching...'
-	String get searching => 'Searching...';
-
 	/// en: 'Select chart'
 	String get selectChart => 'Select chart';
 
 	/// en: 'Select Date'
 	String get selectDate => 'Select Date';
-
-	/// en: 'Select the first birth chart'
-	String get selectFirstBirthChart => 'Select the first birth chart';
 
 	/// en: 'Select location'
 	String get selectLocation => 'Select location';
@@ -3066,11 +3078,14 @@ class Translations$ui$en {
 	/// en: 'Select Month'
 	String get selectMonth => 'Select Month';
 
-	/// en: 'Select the second birth chart'
-	String get selectSecondBirthChart => 'Select the second birth chart';
-
 	/// en: 'Semiannual'
 	String get semiannual => 'Semiannual';
+
+	/// en: 'Send confirmation link'
+	String get sendConfirmationLink => 'Send confirmation link';
+
+	/// en: 'Send link'
+	String get sendLink => 'Send link';
 
 	/// en: 'Send reset link'
 	String get sendResetLink => 'Send reset link';
@@ -3080,6 +3095,15 @@ class Translations$ui$en {
 
 	/// en: 'This is my theme'
 	String get setAsPersonal => 'This is my theme';
+
+	/// en: 'Set password'
+	String get setPassword => 'Set password';
+
+	/// en: 'We will send a link to ${email} to choose a password. Then you can also sign in with your email.'
+	String setPasswordDescription({required Object email}) => 'We will send a link to ${email} to choose a password. Then you can also sign in with your email.';
+
+	/// en: 'Add an email to your account first, so we can send you the link to choose a password.'
+	String get setPasswordNeedsEmail => 'Add an email to your account first, so we can send you the link to choose a password.';
 
 	/// en: 'Settings'
 	String get settingsTitle => 'Settings';
@@ -3095,6 +3119,9 @@ class Translations$ui$en {
 
 	/// en: 'Sign up'
 	String get signUp => 'Sign up';
+
+	/// en: '6 months'
+	String get sixMonthsPeriod => '6 months';
 
 	/// en: 'Standard - annual'
 	String get standardAnnual => 'Standard - annual';
@@ -3135,8 +3162,8 @@ class Translations$ui$en {
 	/// en: 'Ends on'
 	String get subscriptionCancelsOn => 'Ends on';
 
-	/// en: 'Failed to confirm subscription. Please contact support.'
-	String get subscriptionConfirmationFailed => 'Failed to confirm subscription. Please contact support.';
+	/// en: 'Failed to confirm subscription. Please contact support'
+	String get subscriptionConfirmationFailed => 'Failed to confirm subscription. Please contact support';
 
 	/// en: 'Renews on'
 	String get subscriptionEndDate => 'Renews on';
@@ -3144,8 +3171,23 @@ class Translations$ui$en {
 	/// en: 'Payment Incomplete'
 	String get subscriptionIncomplete => 'Payment Incomplete';
 
+	/// en: 'This subscription was purchased outside the App Store: you can manage it on the website'
+	String get subscriptionManagedElsewhere => 'This subscription was purchased outside the App Store: you can manage it on the website';
+
 	/// en: 'Payment Overdue'
 	String get subscriptionPastDue => 'Payment Overdue';
+
+	/// en: 'This subscription was purchased in the Android app: you can manage it there or on the website'
+	String get subscriptionPurchasedOnAndroid => 'This subscription was purchased in the Android app: you can manage it there or on the website';
+
+	/// en: 'This subscription was purchased in the Linux app: you can manage it there or on the website'
+	String get subscriptionPurchasedOnLinux => 'This subscription was purchased in the Linux app: you can manage it there or on the website';
+
+	/// en: 'This subscription was purchased on the website: you can manage it there'
+	String get subscriptionPurchasedOnWeb => 'This subscription was purchased on the website: you can manage it there';
+
+	/// en: 'This subscription was purchased in the Windows app: you can manage it there or on the website'
+	String get subscriptionPurchasedOnWindows => 'This subscription was purchased in the Windows app: you can manage it there or on the website';
 
 	/// en: 'To regenerate this reading in another language you need a subscription (standard is enough)'
 	String get subscriptionRequiredForRegeneration => 'To regenerate this reading in another language you need a subscription (standard is enough)';
@@ -3183,8 +3225,8 @@ class Translations$ui$en {
 	/// en: 'sky'
 	String get subtitlePart3 => 'sky';
 
-	/// en: 'surname'
-	String get surname => 'surname';
+	/// en: 'Surname'
+	String get surname => 'Surname';
 
 	/// en: 'Swipe to view'
 	String get swipeToView => 'Swipe to view';
@@ -3225,8 +3267,8 @@ class Translations$ui$en {
 	/// en: 'Theme'
 	String get theme => 'Theme';
 
-	/// en: 'Then ${price}/month'
-	String thenPricePerMonth({required Object price}) => 'Then ${price}/month';
+	/// en: 'Then ${price}/${period}'
+	String thenPrice({required Object price, required Object period}) => 'Then ${price}/${period}';
 
 	/// en: 'Time of Birth'
 	String get timeOfBirth => 'Time of Birth';
@@ -3335,6 +3377,9 @@ class Translations$ui$en {
 
 	/// en: 'Without the time of birth the reading will not take the Ascendant into account'
 	String get withoutBirthTimeWarning => 'Without the time of birth the reading will not take the Ascendant into account';
+
+	/// en: 'year'
+	String get yearPeriod => 'year';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -3608,7 +3653,7 @@ extension on Translations {
 			'legal.accountClosureProcedure' => 'Users are free to close their account and cease using the Service at any time by following this procedure:',
 			'legal.accountClosureTitle' => 'Account Closure',
 			'legal.accountRequirements' => 'Account Requirements',
-			'legal.accountResponsibility' => 'By creating an account, the User accepts to be fully responsible for all activities carried out with their access credentials. Users are required to inform the Owner immediately and unambiguously through the contact details indicated in this document if they believe that their personal information, such as the User account, access credentials or personal data, have been violated, unlawfully disclosed or stolen.',
+			'legal.accountResponsibility' => 'By creating an account, the User accepts to be fully responsible for all activities carried out with their access credentials. Users are required to inform the Owner immediately and unambiguously through the [contact details indicated in this document](mailto:contact@astrogods.it) if they believe that their personal information, such as the User account, access credentials or personal data, have been violated, unlawfully disclosed or stolen.',
 			'legal.accountSharingProhibited' => 'Unless expressly permitted, a User\'s account may not be shared with other people.',
 			'legal.accountSuspension' => 'Account Suspension and Cancellation',
 			'legal.accountSuspensionText' => 'The Owner reserves the right to suspend or cancel a User\'s account at any time at its sole discretion and without notice if deemed inappropriate, offensive, or contrary to these Terms.',
@@ -3620,13 +3665,16 @@ extension on Translations {
 			'legal.agreementDefinitionTitle' => 'Agreement',
 			'legal.amicableDisputeComposition' => 'Amicable dispute composition',
 			'legal.amicableDisputeResolution' => 'Users may report any disputes to the Owner, who will seek to resolve them amicably.',
-			'legal.anthropicApiDescription' => 'Anthropic API is an artificial intelligence service provided by Anthropic PBC.',
+			'legal.anthropicApiDescription' => 'The Anthropic API gives access to Claude, the language model by Anthropic PBC that AstroGods uses to write the text of the readings.',
+			'legal.anthropicApiName' => 'Anthropic API',
+			'legal.appStoreDescription' => 'The App Store is Apple\'s service for buying apps and subscriptions. For subscriptions bought on iPhone, iPad and Mac, Apple handles the payment and shares with AstroGods only the details of the purchased subscription, such as the product, the dates and the transaction identifier.',
 			'legal.appStorePurchases' => 'AstroGods or certain Products sold on AstroGods must be purchased through a third-party app store. To make such purchases, Users are asked to follow the instructions in the relevant app store (for example "Apple App Store" or "Google Play"). This information may vary depending on the specific device used.',
 			'legal.appStoreTermsAcceptance' => 'Therefore, Users who make purchases through such third-party online stores are asked to carefully read and accept the related terms and conditions of sale.',
-			'legal.appStoreTermsPrecedence' => 'Unless otherwise specified, purchases made through third-party online stores are also subject to the terms and conditions of such third parties. Such terms and conditions prevail in any case of inconsistency or conflict with respect to these Terms.',
+			'legal.appStoreTermsPrecedence' => 'Unless otherwise specified, purchases made through third-party online stores are also subject to the terms and conditions of such third parties, such as the [App Store terms](https://www.apple.com/legal/internet-services/itunes/) and the [Google Play terms](https://play.google.com/about/play-terms/). Such terms and conditions prevail in any case of inconsistency or conflict with respect to these Terms.',
 			'legal.appleAccountAutoRenewal' => 'subscriptions automatically renew for the same duration unless the User communicates cancellation at least 24 hours before the expiration of the current subscription period;',
-			'legal.appleAccountManagement' => 'subscriptions can be managed or canceled directly through the User\'s Apple App Store account settings.',
+			'legal.appleAccountManagement' => 'subscriptions can be managed or canceled directly through the User\'s [Apple App Store account settings](https://apps.apple.com/account/subscriptions).',
 			'legal.appleAccountPayment' => 'any payment due will be charged to the Apple account;',
+			'legal.appleAccountRefunds' => 'refunds for purchases made through the App Store are handled by Apple and must be requested from Apple through [its procedure](https://reportaproblem.apple.com).',
 			'legal.appleAccountRenewalCharges' => 'all fees or payments due for renewal will be charged within 24 hours before the expiration of the current period;',
 			'legal.appleAccountSubscriptions' => 'Users can subscribe to a Product using the Apple Account associated with their Apple App Store account through the related procedure on AstroGods. In doing so, Users acknowledge and accept that:',
 			'legal.appleAccountSubscriptionsTitle' => 'Subscriptions managed through Apple Account',
@@ -3652,11 +3700,11 @@ extension on Translations {
 			'legal.authenticationDescription' => 'By registering or authenticating, Users allow AstroGods to identify them and give them access to dedicated services.\nDepending on what is indicated below, third-party services could provide simplified registration and authentication.',
 			'legal.authenticationTitle' => 'Registration and authentication',
 			'legal.automaticRenewal' => 'Automatic Renewal',
-			'legal.automaticRenewalPolicy' => 'Subscriptions automatically renew through Stripe\'s secure billing system with a charge to the User\'s chosen payment method. Users receive email notifications before each renewal and can cancel or modify their subscription anytime through the Stripe Customer Portal.',
+			'legal.automaticRenewalPolicy' => 'Subscriptions renew automatically when they expire and are charged to the payment method used for the purchase: the method chosen at checkout for purchases through Stripe, or the Apple Account for purchases through the App Store.',
 			'legal.backendApi' => 'Backend API',
-			'legal.backendApiDescription' => 'AstroGods uses third-party APIs to process user requests and provide content.',
+			'legal.backendApiDescription' => 'To write readings, AstroGods replaces the names of the people in the charts with a placeholder. The services below receive only the planetary positions calculated from the birth data, the language of the reading and the grammatical gender to use in the text, if the User gave one. Giving a gender is optional; without it, the reading uses neutral wording, with no gendered agreement. They receive no names, birth dates or birth places, and no data that identifies the User or the people in the charts. AstroGods puts the real names back into the text on its own servers.',
 			'legal.backendApiTitle' => 'Backend API',
-			'legal.billingAddress' => 'billing address',
+			'legal.billingAddress' => 'Billing address',
 			'legal.bindingManner' => 'in a binding manner. Capitalized terms are defined in the relevant section of this document.',
 			'legal.botRegistrationProhibited' => 'Account opening via bots or other automated means is not permitted.',
 			'legal.browserSettingsContent' => 'Most web browsers allow you to control cookies through their settings preferences. You can set your browser to refuse cookies or delete certain cookies. Generally, you can also manage similar technologies in the same way.',
@@ -3665,24 +3713,18 @@ extension on Translations {
 			'legal.cancellationEffectiveTiming' => 'If the cancellation notice reaches the Owner before the subscription renewal date, the termination will take effect at the end of the current period.',
 			'legal.commonProvisions' => 'Common Provisions',
 			'legal.commonProvisionsSection' => 'Common Provisions',
-			'legal.communicatedDataDuringService' => 'data communicated during service use',
-			'legal.communicationRequirement' => 'All communications relating to the use of AstroGods must be sent to the contact details indicated in this document.',
+			'legal.communicatedDataDuringService' => 'Data communicated during service use',
+			'legal.communicationRequirement' => 'All communications relating to the use of AstroGods must be sent to the [contact details indicated in this document](mailto:contact@astrogods.it).',
 			'legal.competentJurisdiction' => 'Competent Jurisdiction',
-			'legal.complaintProcedure' => 'Users may address a complaint to the Owner\'s email address indicated in this document, including a brief description and, if applicable, details of the affected order, purchase, or account.',
-			'legal.complianceContent' => 'Our cookie policy complies with EU data protection standards. We only use first-party tracking tools and do not share your data with third-party advertisers.',
+			'legal.complaintProcedure' => 'Users may address a complaint to the [Owner\'s email address](mailto:contact@astrogods.it) indicated in this document, including a brief description and, if applicable, details of the affected order, purchase, or account.',
+			'legal.complianceContent' => 'Our cookie policy complies with EU data protection standards. We do not use tracking tools for statistics or advertising and do not share your data with advertisers. To learn how we process your personal data, consult the [Privacy Policy](/privacy-policy).',
 			'legal.complianceSection' => 'Compliance',
 			'legal.consequencesOfBlockingContent' => 'If you choose to block or delete cookies, some features of our website may not work properly.',
 			'legal.consequencesOfBlockingTitle' => 'Consequences of blocking cookies',
-			'legal.consumerCancellationTiming' => 'If the cancellation reaches the Owner within the end of the current month, the subscription expires at the end of that month.',
 			'legal.consumerDefinition' => 'Any User considered as such under applicable law.',
 			'legal.consumerDefinitionTitle' => 'Consumer',
-			'legal.consumerExceptionText' => 'However, regardless of the foregoing, if the User acts as a Consumer, the following applies:',
-			'legal.consumerExceptionTitle' => 'Exception for Consumers',
-			'legal.consumerIndefiniteExtension' => 'At the end of the initial term, subscriptions are automatically extended indefinitely, unless the User cancels before the end of such term.',
-			'legal.consumerMonthlyTermination' => 'After the extension, the subscription will have an indefinite duration and may be terminated monthly.',
-			'legal.consumerRenewalCharging' => 'The fee due at the time of extension will be charged to the payment method that the User chose when purchasing.',
 			'legal.consumerRequirement' => 'User acts as a Consumer',
-			'legal.contactForCookiesContent' => 'If you have any questions about our use of cookies or tracking technologies, please contact us:',
+			'legal.contactForCookiesContent' => 'If you have any questions about our use of cookies, please contact us:',
 			'legal.contactForCookiesTitle' => 'Contact us about cookies',
 			'legal.contactUs' => 'Contact us',
 			'legal.contactUsSection' => 'Contact Us',
@@ -3692,23 +3734,23 @@ extension on Translations {
 			'legal.contractDuration' => 'Contract Duration',
 			'legal.contractDurationSection' => 'Contract Duration',
 			'legal.contractTransferRight' => 'The Owner reserves the right to transfer, assign, dispose of, novate, or subcontract any or all rights and obligations under these Terms, having regard for the legitimate interests of Users.',
-			'legal.contractualWithdrawalRight' => 'The Owner grants Users the contractual right to withdraw from the purchase contract according to the terms and conditions set out in the relevant section of AstroGods within 30 days of the conclusion of the contract.',
+			'legal.contractualWithdrawalRight' => 'The Owner grants Users the contractual right to withdraw from the purchase contract according to the terms and conditions set out in the [relevant section of AstroGods](/subscription-plans) within 30 days of the conclusion of the contract. For purchases made through the App Store, [Apple\'s refund procedure](https://reportaproblem.apple.com) applies.',
 			'legal.contractualWithdrawalRightTitle' => 'Contractual withdrawal right',
 			'legal.cookiePolicy' => 'Cookie Policy',
-			'legal.cookiePolicyContent' => 'AstroGods uses Tracking Tools. To learn more, consult the Cookie Policy.',
-			'legal.cookiePolicyLastModified' => 'Last modified: September 7, 2025',
+			'legal.cookiePolicyContent' => 'AstroGods only uses the cookies and browser storage needed for it to work and no tracking tools for statistics or advertising. To learn more, consult the [Cookie Policy](/cookie-policy).',
+			'legal.cookiePolicyLastModified' => 'Last modified: October 19, 2026',
 			'legal.cookiePolicyPageTitle' => 'Cookie Policy',
 			'legal.cookiePolicySection' => 'Cookie Policy',
 			'legal.cookiePolicyTitle' => 'Cookie Policy',
-			'legal.cookiePolicyWelcomeText' => 'This page explains how we use cookies and tracking technologies to improve your experience.',
-			'legal.cookiesAndTrackingReferenceContent' => 'For detailed information about cookies and tracking technologies we use, please refer to our complete Cookie Policy.',
-			'legal.cookiesAndTrackingSection' => 'Cookies and tracking',
-			'legal.cookiesAndTrackingTitle' => 'Cookies and tracking',
+			'legal.cookiePolicyWelcomeText' => 'This page explains which cookies and browser data AstroGods uses and why.',
+			'legal.cookiesAndTrackingReferenceContent' => 'To find out which cookies and browser data AstroGods needs to work, please refer to our complete Cookie Policy.',
+			'legal.cookiesAndTrackingSection' => 'Cookies',
+			'legal.cookiesAndTrackingTitle' => 'Cookies',
 			'legal.dataControllerEmail' => 'contact@astrogods.it',
 			'legal.dataControllerEmailLabel' => 'Data Controller email address: ',
 			'legal.dataControllerName' => 'Arcangelo Massari - Bologna (Italy)',
 			'legal.dataControllerSection' => 'Data Controller',
-			'legal.dataTypesDetailedContent' => 'Complete details on each type of Personal Data collected are provided in the dedicated sections of this privacy policy or through specific information texts displayed before the collection of the Data.\n\nPersonal Data may be freely provided by the User or, in the case of Usage Data, collected automatically during the use of AstroGods.\n\nUnless otherwise specified, all Data requested by AstroGods is mandatory. If the User refuses to provide it, it might be impossible for AstroGods to provide the Service. In cases where AstroGods indicates some Data as optional, Users are free to refrain from providing such Data without any consequence on the availability or operation of the Service.\n\nUsers who have doubts about which Data is mandatory are encouraged to contact the Owner.\n\nAny use of Cookies - or other tracking tools - by AstroGods or the owners of third-party services used by AstroGods serves the purpose of providing the Service requested by the User, in addition to the other purposes described in this document and in the Cookie Policy.\n\nThe User takes responsibility for the Personal Data of third parties obtained, published or shared through AstroGods.',
+			'legal.dataTypesDetailedContent' => 'Complete details on each type of Personal Data collected are provided in the dedicated sections of this privacy policy or through specific information texts displayed before the collection of the Data.\n\nPersonal Data may be freely provided by the User or, in the case of Usage Data, collected automatically during the use of AstroGods.\n\nUnless otherwise specified, all Data requested by AstroGods is mandatory. If the User refuses to provide it, it might be impossible for AstroGods to provide the Service. In cases where AstroGods indicates some Data as optional, Users are free to refrain from providing such Data without any consequence on the availability or operation of the Service.\n\nUsers who have doubts about which Data is mandatory are encouraged to contact the Owner.\n\nAstroGods uses Cookies only to provide the Service requested by the User, as described in the [Cookie Policy](/cookie-policy).\n\nThe User takes responsibility for the Personal Data of third parties obtained, published or shared through AstroGods.',
 			'legal.dataTypesIntro' => 'Among the Personal Data collected by AstroGods, independently or through third parties, there are:',
 			'legal.dataTypesSection' => 'Types of Data collected',
 			'legal.dataWeCollectAutomatically' => 'Data we collect automatically',
@@ -3716,14 +3758,14 @@ extension on Translations {
 			'legal.dataYouProvide' => 'Data you provide us',
 			'legal.dataYouProvideDesc' => 'We collect data you provide us, for example when you create an account on AstroGods.',
 			'legal.definitions' => 'Definitions and Legal References',
-			'legal.definitionsContent' => '### Personal Data (or Data)\n\nAny information that directly, indirectly, or in connection with other information allows for the identification or identifiability of a natural person.\n\n### Usage Data\n\nInformation collected automatically through AstroGods (or third-party services employed in AstroGods), which can include: the IP addresses or domain names of the computers utilized by the Users who use AstroGods, the URI addresses (Uniform Resource Identifier), the time of the request, the method utilized to submit the request to the server, the size of the file received in response, the numerical code indicating the status of the server\'s answer (successful outcome, error, etc.), the country of origin, the features of the browser and the operating system utilized by the User, the various time details per visit (e.g., the time spent on each page within the Application) and the details about the path followed within the Application with special reference to the sequence of pages visited, and other parameters about the device operating system and/or the User\'s IT environment.\n\n### User\n\nThe individual using AstroGods who, unless otherwise specified, coincides with the Data Subject.\n\n### Data Subject\n\nThe natural person to whom the Personal Data refers.\n\n### Data Processor (or Processor)\n\nThe natural or legal person, public authority, agency or other body which processes Personal Data on behalf of the Controller, as described in this privacy policy.\n\n### Data Controller (or Owner)\n\nThe natural or legal person, public authority, agency or other body which, alone or jointly with others, determines the purposes and means of the processing of Personal Data, including the security measures concerning the operation and use of AstroGods. The Data Controller, unless otherwise specified, is the Owner of AstroGods.\n\n### AstroGods (or this Application)\n\nThe means by which the Personal Data of the User is collected and processed.\n\n### Service\n\nThe service provided by AstroGods as described in the relative terms (if available) and on this site/application.\n\n### European Union (or EU)\n\nUnless otherwise specified, all references made within this document to the European Union include all current member states to the European Union and the European Economic Area.\n\n### Cookie\n\nCookies are Trackers consisting of small sets of data stored in the User\'s browser.\n\n### Tracker\n\nTracker indicates any technology (e.g., Cookies, unique identifiers, web beacons, embedded scripts, e-tags and fingerprinting) that enables the tracking of Users, for example by accessing or storing information on the User\'s device.\n\n### Legal information\n\nThis privacy policy relates solely to AstroGods, if not stated otherwise within this document.',
+			'legal.definitionsContent' => '### Personal Data (or Data)\n\nAny information that directly, indirectly, or in connection with other information allows for the identification or identifiability of a natural person.\n\n### Usage Data\n\nInformation collected automatically through AstroGods (or third-party services employed in AstroGods), which can include: the IP addresses or domain names of the computers utilized by the Users who use AstroGods, the URI addresses (Uniform Resource Identifier), the time of the request, the method utilized to submit the request to the server, the size of the file received in response, the numerical code indicating the status of the server\'s answer (successful outcome, error, etc.), the country of origin, the features of the browser and the operating system utilized by the User, the various time details per visit (e.g., the time spent on each page within the Application) and the details about the path followed within the Application with special reference to the sequence of pages visited, and other parameters about the device operating system and/or the User\'s IT environment.\n\n### User\n\nThe individual using AstroGods who, unless otherwise specified, coincides with the Data Subject.\n\n### Data Subject\n\nThe natural person to whom the Personal Data refers.\n\n### Data Processor (or Processor)\n\nThe natural or legal person, public authority, agency or other body which processes Personal Data on behalf of the Controller, as described in this privacy policy.\n\n### Data Controller (or Owner)\n\nThe natural or legal person, public authority, agency or other body which, alone or jointly with others, determines the purposes and means of the processing of Personal Data, including the security measures concerning the operation and use of AstroGods. The Data Controller, unless otherwise specified, is the Owner of AstroGods.\n\n### AstroGods (or this Application)\n\nThe means by which the Personal Data of the User is collected and processed.\n\n### Service\n\nThe service provided by AstroGods as described in the relative [terms](/terms-and-conditions) and on this site/application.\n\n### European Union (or EU)\n\nUnless otherwise specified, all references made within this document to the European Union include all current member states to the European Union and the European Economic Area.\n\n### Cookie\n\nCookies are small sets of data stored in the User\'s browser.\n\n### Legal information\n\nThis privacy policy relates solely to AstroGods, if not stated otherwise within this document.',
 			'legal.definitionsSection' => 'Definitions and Legal References',
 			'legal.delivery' => 'Delivery',
 			'legal.deliveryCostException' => 'However, the additional cost arising from the choice of a particular delivery method other than the cheapest standard delivery offered by the Owner will remain the User\'s responsibility.',
 			'legal.deliveryOfDigitalContent' => 'Delivery of Digital Content',
 			'legal.deliverySection' => 'Delivery',
-			'legal.deviceIdentifiers' => 'device identifiers',
-			'legal.deviceInformation' => 'device information',
+			'legal.deviceIdentifiers' => 'Device identifiers',
+			'legal.deviceInformation' => 'Device information',
 			'legal.deviceRequirements' => 'Users acknowledge and accept that, to download and/or use the Product, the chosen device(s) and their respective software (including operating systems) must be legal, commonly used, updated and in line with current market standards.',
 			'legal.differentiatedLicensing' => 'Differentiated licensing for content',
 			'legal.differentiatedLicensingSection' => 'Differentiated licensing',
@@ -3737,7 +3779,9 @@ extension on Translations {
 			'legal.doNotHesitateContact' => 'In such cases, do not hesitate to contact us.',
 			'legal.downloadLimitations' => 'Users acknowledge and accept that the possibility of downloading the purchased Product may be limited in time and space.',
 			'legal.effectsOfWithdrawal' => 'Effects of withdrawal',
-			'legal.euExtendedContent' => '### Legal basis for processing\n\nThe Owner may process User Personal Data if one of the following conditions exists:\n\n- Users have given their consent for one or more specific purposes;\n- processing is necessary for the performance of an agreement with the User and/or for any pre-contractual obligations thereof;\n- processing is necessary for compliance with a legal obligation to which the Owner is subject;\n- processing is necessary for the performance of a task carried out in the public interest or in the exercise of official authority vested in the Owner;\n- processing is necessary for the legitimate interests pursued by the Owner or by a third party.\n\nIn any case, the Owner will gladly help to clarify the specific legal basis that applies to the processing, and in particular whether the provision of Personal Data is a statutory or contractual requirement, or a requirement necessary to enter into a contract.\n\n### Further information about retention time\n\nUnless specified otherwise in this document, Personal Data shall be processed and stored for as long as required by the purpose they have been collected for and may be stored for longer due to applicable legal obligation or based on the Users\' consent.\n\nTherefore:\n\n- Personal Data collected for purposes related to the performance of a contract between the Owner and the User shall be retained until such contract has been fully performed.\n- Personal Data collected for the purposes of the Owner\'s legitimate interests shall be retained as long as needed to fulfill such purposes. Users may find specific information regarding the legitimate interests pursued by the Owner within the relevant sections of this document or by contacting the Owner.\n\nThe Owner may be allowed to retain Personal Data for a longer period whenever the User has given consent to such processing, as long as such consent is not withdrawn. Furthermore, the Owner may be obliged to retain Personal Data for a longer period whenever required to do so for the performance of a legal obligation or upon order of an authority.\n\nOnce the retention period expires, Personal Data shall be deleted. Therefore, the right to access, the right to erasure, the right to rectification and the right to data portability cannot be enforced after expiration of the retention period.\n\n### The rights of Users based on the General Data Protection Regulation (GDPR)\n\nUsers may exercise certain rights regarding their Data processed by the Owner.\n\nIn particular, Users have the right to do the following, to the extent permitted by law:\n\n- **Withdraw their consent at any time.** Users have the right to withdraw consent where they have previously given their consent to the processing of their Personal Data.\n- **Object to processing of their Data.** Users have the right to object to the processing of their Data if the processing is carried out on a legal basis other than consent.\n- **Access their Data.** Users have the right to learn if Data is being processed by the Owner, obtain disclosure regarding certain aspects of the processing and obtain a copy of the Data undergoing processing.\n- **Verify and seek rectification.** Users have the right to verify the accuracy of their Data and ask for it to be updated or corrected.\n- **Restrict the processing of their Data.** Users have the right to restrict the processing of their Data. In this case, the Owner will not process their Data for any purpose other than storing it.\n- **Have their Personal Data deleted or otherwise removed.** Users have the right to obtain the erasure of their Data from the Owner.\n- **Receive their Data and have it transferred to another controller.** Users have the right to receive their Data in a structured, commonly used and machine readable format and, if technically feasible, to have it transmitted to another controller without any hindrance.\n- **Lodge a complaint.** Users have the right to bring a claim before their competent data protection authority.\n\nUsers are also entitled to learn about the legal basis for Data transfers abroad including to any international organization governed by public international law or set up by two or more countries, such as the UN, and about the security measures taken by the Owner to safeguard their Data.\n\n### Details about the right to object to processing\n\nWhere Personal Data is processed for a public interest, in the exercise of an official authority vested in the Owner or for the purposes of the legitimate interests pursued by the Owner, Users may object to such processing by providing a ground related to their particular situation to justify the objection.\n\nUsers must know that, however, should their Personal Data be processed for direct marketing purposes, they can object to that processing at any time, free of charge and without providing any justification. Where the User objects to processing for direct marketing purposes, the Personal Data will no longer be processed for such purposes. To learn whether the Owner is processing Personal Data for direct marketing purposes, Users may refer to the relevant sections of this document.\n\n### How to exercise these rights\n\nAny requests to exercise User rights can be directed to the Owner through the contact details provided in this document. Such requests are free of charge and will be answered by the Owner as early as possible and always within one month, providing Users with the information required by law. Any rectification or erasure of Personal Data or restriction of processing will be communicated by the Owner to each recipient, if any, to whom the Personal Data has been disclosed unless this proves impossible or involves disproportionate effort. At the Users\' request, the Owner will inform Users about those recipients.',
+			'legal.emailSendingDescription' => 'AstroGods sends service emails, such as password recovery and email change confirmation, and, if the User subscribes, newsletters with the daily and monthly horoscope. The emails are sent from an AstroGods mail server hosted by IONOS SE.',
+			'legal.emailSendingTitle' => 'Email delivery',
+			'legal.euExtendedContent' => '### Legal basis for processing\n\nThe Owner may process User Personal Data if one of the following conditions exists:\n\n- Users have given their consent for one or more specific purposes;\n- processing is necessary for the performance of an agreement with the User and/or for any pre-contractual obligations thereof;\n- processing is necessary for compliance with a legal obligation to which the Owner is subject;\n- processing is necessary for the performance of a task carried out in the public interest or in the exercise of official authority vested in the Owner;\n- processing is necessary for the legitimate interests pursued by the Owner or by a third party.\n\nIn any case, the Owner will gladly help to clarify the specific legal basis that applies to the processing, and in particular whether the provision of Personal Data is a statutory or contractual requirement, or a requirement necessary to enter into a contract.\n\n### Further information about retention time\n\nUnless specified otherwise in this document, Personal Data shall be processed and stored for as long as required by the purpose they have been collected for and may be stored for longer due to applicable legal obligation or based on the Users\' consent.\n\nTherefore:\n\n- Personal Data collected for purposes related to the performance of a contract between the Owner and the User shall be retained until such contract has been fully performed.\n- Personal Data collected for the purposes of the Owner\'s legitimate interests shall be retained as long as needed to fulfill such purposes. Users may find specific information regarding the legitimate interests pursued by the Owner within the relevant sections of this document or by contacting the Owner.\n\nThe Owner may be allowed to retain Personal Data for a longer period whenever the User has given consent to such processing, as long as such consent is not withdrawn. Furthermore, the Owner may be obliged to retain Personal Data for a longer period whenever required to do so for the performance of a legal obligation or upon order of an authority.\n\nOnce the retention period expires, Personal Data shall be deleted. Therefore, the right to access, the right to erasure, the right to rectification and the right to data portability cannot be enforced after expiration of the retention period.\n\n### The rights of Users based on the General Data Protection Regulation (GDPR)\n\nUsers may exercise certain rights regarding their Data processed by the Owner.\n\nIn particular, Users have the right to do the following, to the extent permitted by law:\n\n- **Withdraw their consent at any time.** Users have the right to withdraw consent where they have previously given their consent to the processing of their Personal Data.\n- **Object to processing of their Data.** Users have the right to object to the processing of their Data if the processing is carried out on a legal basis other than consent.\n- **Access their Data.** Users have the right to learn if Data is being processed by the Owner, obtain disclosure regarding certain aspects of the processing and obtain a copy of the Data undergoing processing.\n- **Verify and seek rectification.** Users have the right to verify the accuracy of their Data and ask for it to be updated or corrected.\n- **Restrict the processing of their Data.** Users have the right to restrict the processing of their Data. In this case, the Owner will not process their Data for any purpose other than storing it.\n- **Have their Personal Data deleted or otherwise removed.** Users have the right to obtain the erasure of their Data from the Owner or to delete their account from the [Settings](/settings?section=deleteAccount).\n- **Receive their Data and have it transferred to another controller.** Users have the right to receive their Data in a structured, commonly used and machine readable format and, if technically feasible, to have it transmitted to another controller without any hindrance.\n- **Lodge a complaint.** Users have the right to bring a claim before their competent data protection authority.\n\nUsers are also entitled to learn about the legal basis for Data transfers abroad including to any international organization governed by public international law or set up by two or more countries, such as the UN, and about the security measures taken by the Owner to safeguard their Data.\n\n### Details about the right to object to processing\n\nWhere Personal Data is processed for a public interest, in the exercise of an official authority vested in the Owner or for the purposes of the legitimate interests pursued by the Owner, Users may object to such processing by providing a ground related to their particular situation to justify the objection.\n\nUsers must know that, however, should their Personal Data be processed for direct marketing purposes, they can object to that processing at any time, free of charge and without providing any justification. Where the User objects to processing for direct marketing purposes, the Personal Data will no longer be processed for such purposes. To learn whether the Owner is processing Personal Data for direct marketing purposes, Users may refer to the relevant sections of this document.\n\n### How to exercise these rights\n\nAny requests to exercise User rights can be directed to the Owner through the [contact details provided in this document](mailto:contact@astrogods.it). Such requests are free of charge and will be answered by the Owner as early as possible and always within one month, providing Users with the information required by law. Any rectification or erasure of Personal Data or restriction of processing will be communicated by the Owner to each recipient, if any, to whom the Personal Data has been disclosed unless this proves impossible or involves disproportionate effort. At the Users\' request, the Owner will inform Users about those recipients.',
 			'legal.euInfoContent' => 'This section applies to all users of the European Union, in accordance with the General Data Protection Regulation (the "GDPR") and, for such Users, supersedes any other information that may be divergent or conflicting contained in the privacy policy.\n\nAdditional details relating to the categories of Data processed, the purposes of processing, the categories of recipients of personal data, if any, and additional information on personal data are available in the section "Details on Personal Data processing" within this document.',
 			'legal.euInfoSection' => 'Additional information for EU Users',
 			'legal.euInfoTitle' => 'Additional information for European Union users',
@@ -3758,11 +3802,11 @@ extension on Translations {
 			'legal.fixedTermSubscriptions' => 'Fixed-term Subscriptions',
 			'legal.forceMAjeureExclusion' => 'damages or losses arising from interruptions or malfunctions of AstroGods due to force majeure or unforeseen and unforeseeable events and, in any case, independent of the will and beyond the control of the Owner, such as, by way of example only, failures or interruptions of telephone or electrical lines, Internet connection and/or other means of transmission, inaccessibility of websites, strikes, natural disasters, viruses and computer attacks, interruptions in the supply of third-party products, services or applications;',
 			'legal.forceMAjeureUnavailability' => 'Additionally, the Service may not be available for reasons beyond the reasonable control of the Owner, such as force majeure (e.g., infrastructure malfunctions, blackouts, etc.).',
+			'legal.genderOptional' => 'Gender (optional)',
 			'legal.generalLiabilityExclusion' => 'Unless otherwise specified and subject to applicable legal provisions, any claim for damages against the Owner (or any natural or legal person acting on its behalf) is excluded.',
 			'legal.generalSeverability' => 'Should any provision of these Terms be or become null or ineffective under applicable law, the nullity or ineffectiveness of such provision does not cause the ineffectiveness of the remaining provisions, which therefore remain valid and effective.',
 			'legal.germany' => 'Germany',
-			'legal.godaddyDescription' => 'GoDaddy Web Hosting is a hosting service provided by GoDaddy.com, LLC.',
-			'legal.googleFontsDescription' => 'Google Fonts is a web font service provided by Google Inc.',
+			'legal.googleMapsDescription' => 'Google Maps Platform is a maps and place search service provided by Google Ireland Limited.',
 			'legal.googleOAuthDescription' => 'Google OAuth is an authentication service provided by Google Inc.',
 			'legal.governingLaw' => 'The Terms are governed by the law of the place where the Owner is established, as indicated in the relevant section of this document, regardless of conflict of law rules.',
 			'legal.hetznerDescription' => 'Hetzner is a hosting service provided by Hetzner Online GmbH.',
@@ -3775,27 +3819,20 @@ extension on Translations {
 			'legal.indemnificationText' => 'The User agrees to indemnify and hold harmless the Owner and its subordinates, affiliates, officers, agents, co-trademark holders, partners and employees to the extent permitted by law from any claim or demand - including, without limitation, legal fees and costs - advanced by third parties due to or in connection with behaviors in violation of these Terms, third party rights or law, implemented in connection with the use of the Service and attributable to the User, its affiliates, officers, agents, co-trademark holders, partners and employees, on the basis of fault.',
 			'legal.indirectLossExclusion' => 'any lost profits or other losses, including indirect ones, that the User may have suffered (such as, by way of example only, commercial losses, loss of revenue, profits or anticipated savings, loss of contractual or commercial relationships, loss of goodwill or damage to reputation, etc.);',
 			'legal.injuryToThirdPartyRights' => 'injury to third party rights;',
-			'legal.ipAddress' => 'ip address',
+			'legal.ionosDescription' => 'IONOS is a hosting service provided by IONOS SE.',
+			'legal.ipAddress' => 'IP address',
 			'legal.ireland' => 'Ireland',
 			'legal.italy' => 'Italy',
-			'legal.judicialRightsPreservation' => 'Without prejudice to the Users\' right to bring legal action, in case of disputes concerning the use of AstroGods or the Service, Users are requested to contact the Owner at the contact details indicated in this document.',
-			'legal.lastModified' => 'Last modified: January 10, 2026',
-			'legal.lastModifiedTerms' => 'Last modified: January 10, 2026',
+			'legal.judicialRightsPreservation' => 'Without prejudice to the Users\' right to bring legal action, in case of disputes concerning the use of AstroGods or the Service, Users are requested to contact the Owner at the [contact details indicated in this document](mailto:contact@astrogods.it).',
+			'legal.lastModified' => 'Last modified: October 20, 2026',
+			'legal.lastModifiedTerms' => 'Last modified: October 19, 2026',
 			'legal.legalRelationship' => 'any other Agreement or legal relationship with the Owner',
 			'legal.liabilityAndIndemnification' => 'Liability and Indemnification',
 			'legal.liabilityExceptions' => 'The foregoing does not limit the Owner\'s liability for death, personal injury or damage to physical or mental integrity, damages arising from breach of essential contractual obligations, such as obligations strictly necessary to achieve the purpose of the contract, and/or damages caused intentionally or through gross negligence, provided that the User\'s use of AstroGods has been appropriate and correct.',
 			'legal.liabilitySection' => 'Liability and Indemnification',
-			'legal.lifetimeRefundPolicy' => 'If the Product ceases its activity within a period of less than 24 months, Users will receive a refund.',
-			'legal.lifetimeSubscriptionDuration' => 'Lifetime subscriptions are subscriptions that remain active for the entire duration of activity of the subscribed Product. Lifetime subscriptions start from the day the Owner receives payment. They terminate only if and when the related Product ceases its activity.',
-			'legal.lifetimeSubscriptions' => 'Lifetime Subscriptions',
 			'legal.limitedLiabilityScope' => 'Unless the damages were caused intentionally or through gross negligence or affect life and/or personal, physical or mental integrity, the Owner is only liable to the extent of damage typical for the type of contract and foreseeable at the time of conclusion.',
 			'legal.managingCookiesContent' => 'You have control over the cookies we use. You can manage your preferences through your browser settings or by using the controls we provide. Please note that disabling certain cookies may affect the functionality of our website.',
 			'legal.managingCookiesSection' => 'Managing cookies',
-			'legal.matomatoDescription' => 'Matomo is a statistics software used by AstroGods to analyze data directly and without the aid of third parties.',
-			'legal.matomoSelfHostedDescription' => 'We use Matomo, a privacy-focused analytics platform hosted on our own servers. This means your data never leaves our infrastructure and is not shared with third parties. Matomo helps us understand how users interact with our service while respecting your privacy.',
-			'legal.matomoSelfHostedTitle' => 'Matomo (self-hosted)',
-			'legal.measurementCookiesDescription' => 'These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.',
-			'legal.measurementCookiesTitle' => 'Measurement cookies',
 			'legal.mobileApplicationsDescription' => 'applications for mobile devices (iOS and Android), tablets, desktop (Linux, Windows, macOS) or similar platforms;',
 			'legal.modificationsEffectiveDate' => 'The changes will take effect in relation to the User only from the moment communicated to the User.',
 			'legal.nationalLawPrevails' => 'If the law of the User\'s country provides a higher level of consumer protection, that higher level of protection prevails.',
@@ -3812,6 +3849,7 @@ extension on Translations {
 			'legal.notUnderEmbargo' => 'User is not located in a country subject to a US government embargo or listed as a terrorist-sponsoring country',
 			'legal.offensesToOwnerOrThird' => 'offenses to the Owner or a third party.',
 			'legal.oneAccountPerUser' => 'Unless otherwise specified, each User may create only one account.',
+			'legal.openRouterDescription' => 'OpenRouter is a service by OpenRouter, Inc. that forwards the requests of AstroGods to the Anthropic API.',
 			'legal.orderConfirmation' => 'Once the order is submitted, Users will receive an order receipt confirmation.',
 			'legal.orderConfirmationEmail' => 'Once the order is submitted, Users will receive an order receipt confirmation.',
 			'legal.orderSubmission' => 'Order Submission',
@@ -3819,7 +3857,6 @@ extension on Translations {
 			'legal.orderSubmissionRequirement' => 'To submit the order, Users are required to accept these Terms and use the respective button or mechanism on AstroGods, thereby committing to pay the agreed price.',
 			'legal.ownerDefinition' => 'Indicates the natural or legal person who provides AstroGods and/or offers the Service to Users.',
 			'legal.ownerDefinitionTitle' => 'Owner (or We)',
-			'legal.ownerDiscretionaryRight' => 'The Owner reserves the right to cease the offer at any time at their sole discretion.',
 			'legal.ownerEmail' => 'Owner\'s email address:',
 			'legal.ownerName' => 'Arcangelo Massari - Bologna (Italy)',
 			'legal.ownerProtectiveRights' => 'Therefore, the Owner reserves the right to adopt any suitable measure to protect their legitimate interests, and in particular to deny the User access to AstroGods or the Service, terminate contracts, report any objectionable activity carried out through AstroGods or the Service to competent authorities - e.g. judicial or administrative authority - whenever the User implements or there is suspicion that they implement:',
@@ -3831,19 +3868,22 @@ extension on Translations {
 			'legal.paymentFailed' => 'Payment Failed',
 			'legal.paymentFailedDescription' => 'Your subscription payment could not be processed. Please update your payment method to continue using our services.',
 			'legal.paymentFailureConsequences' => 'In the event that payment made with one of the available methods fails or is rejected by the payment service provider, the Owner is not obligated to execute the order. In the event that payment is not successful, the Owner reserves the right to request the User to reimburse any related expenses or damages.',
-			'legal.paymentInformation' => 'payment information',
+			'legal.paymentInformation' => 'Payment information',
 			'legal.paymentManagement' => 'Payment management',
 			'legal.paymentManagementDescription' => 'Unless otherwise specified, AstroGods processes all payments with credit card, bank transfer or other means through external payment service providers. In general, and unless otherwise indicated, Users are requested to provide payment details and personal information directly to such payment service providers.\nAstroGods is not involved in the collection and processing of such information: it will instead only receive a notification from the relevant payment service provider about the payment made.',
 			'legal.paymentManagementTitle' => 'Payment management',
 			'legal.paymentMethods' => 'Payment Methods',
-			'legal.paymentMethodsConditions' => 'Payment processing is handled entirely by Stripe Technology Europe Ltd. AstroGods does not store or have access to your payment card details, which are processed and stored securely by Stripe according to the highest industry security standards.',
-			'legal.paymentMethodsInfo' => 'AstroGods processes all payments securely through Stripe, a certified PCI DSS compliant payment processor. Accepted payment methods include major credit and debit cards (Visa, Mastercard, American Express), digital wallets (Apple Pay, Google Pay), and other methods available through Stripe in your region.',
+			'legal.paymentMethodsConditions' => 'Stripe Technology Europe Ltd handles payments made through Stripe, while Apple handles those made through the App Store. AstroGods does not store or have access to your payment card details.',
+			'legal.paymentMethodsInfo' => 'On the website and in the Android, Windows and Linux apps, AstroGods processes payments through Stripe, a PCI DSS certified payment processor. Accepted payment methods include major credit and debit cards (Visa, Mastercard, American Express), digital wallets (Apple Pay, Google Pay), and other methods available through Stripe in your region. In the iPhone, iPad and Mac apps, subscriptions are purchased through Apple\'s App Store, as described in the section on subscriptions managed through Apple Account.',
 			'legal.paymentObligationRemains' => 'The suspension or cancellation of an account for causes attributable to the User does not exempt the User from payment of fees or prices that may be applicable.',
 			'legal.paymentProcessingError' => 'Payment processing error occurred',
-			'legal.paymentThirdPartyHandling' => 'All payments are handled independently by third-party services. Therefore, AstroGods does not collect payment-related data – such as credit card numbers – but receives a notification once the payment has been successful. For further information on the processing of personal data and related rights, the User can refer to the AstroGods privacy policy.',
+			'legal.paymentThirdPartyHandling' => 'All payments are handled independently by third-party services. Therefore, AstroGods does not collect payment-related data – such as credit card numbers – but receives a notification once the payment has been successful. For further information on the processing of personal data and related rights, the User can refer to the [AstroGods privacy policy](/privacy-policy).',
 			'legal.permittedUse' => 'Permitted Use',
 			'legal.permittedUseText' => 'AstroGods and the Service may only be used for the purposes for which they are offered, according to these Terms and applicable law.',
-			'legal.phoneNumber' => 'phone number',
+			'legal.phoneNumber' => 'Phone number',
+			'legal.placeSearchDescription' => 'When the User searches for a birthplace, the AstroGods servers send the typed text to Google Maps Platform to suggest places and find their coordinates. Google receives the request from the AstroGods servers, so it does not receive the User\'s IP address or account data.',
+			'legal.placeSearchTitle' => 'Place search',
+			'legal.planetaryPositions' => 'Planetary positions',
 			'legal.previousVersionValidity' => 'The previous version continues to govern the relationship until acceptance of the changes by the User. This version may be requested from the Owner.',
 			'legal.pricing' => 'Pricing',
 			'legal.pricingPolicy' => 'Prices on AstroGods include all applicable fees, taxes and costs.',
@@ -3857,15 +3897,15 @@ extension on Translations {
 			'legal.problemsDescription' => 'Although we strive to create a positive user experience, we know that problems can occasionally occur between us and our users.',
 			'legal.processingDetailsSection' => 'Processing details',
 			'legal.processingMethodsContent' => '### Processing methods\n\nThe Owner processes the Personal Data of Users by adopting appropriate security measures aimed at preventing unauthorized access, disclosure, modification or destruction of Personal Data.\n\nProcessing is carried out using computer and/or telematic tools, with organizational methods and logics strictly related to the indicated purposes. In addition to the Owner, in some cases, other subjects involved in the organization of AstroGods (administrative, commercial, marketing, legal personnel, system administrators) or external subjects (such as third-party technical service providers, postal couriers, hosting providers, IT companies, communication agencies) may have access to the Data, also appointed, if necessary, as Data Processors by the Owner. The updated list of Processors can always be requested from the Data Controller.\n\n### Location\n\nData is processed at the Owner\'s operating offices and in any other place where the parties involved in the processing are located.\n\nFor further information, contact the Owner.\n\nThe User\'s Personal Data may be transferred to a country other than the one where the User is located. To obtain further information on the place of processing, the User can refer to the section relating to details on Personal Data processing.\n\n### Retention time\n\nUnless otherwise specified in this document, Personal Data is processed and stored for the time required by the purposes for which it was collected and may be stored for a longer period due to any legal obligations or based on the consent of Users.',
-			_ => null,
-		} ?? switch (path) {
 			'legal.processingMethodsSection' => 'Methods and place of processing',
 			'legal.processingMethodsTitle' => 'Methods and place of processing of collected Data',
 			'legal.productCharacteristicsSpecified' => 'The characteristics of the selected Product will be specified during the purchase procedure.',
 			'legal.productDefinition' => 'A good or service available through AstroGods, including specifically: astrological interpretations, birth chart analyses, astrological predictions and forecasts, compatibility reports, astrological educational content, and any other astrological service or digital content defined separately in this document.',
 			'legal.productDefinitionTitle' => 'Product',
+			_ => null,
+		} ?? switch (path) {
 			'legal.productDescription' => 'Product Description',
-			'legal.productDescriptionInfo' => 'Prices, descriptions and availability of astrological Products (including birth chart readings, compatibility analyses, daily and monthly predictions, relationship insights, and travel astrology recommendations) are specified in the respective sections of AstroGods and are subject to change without notice.',
+			'legal.productDescriptionInfo' => 'Prices, descriptions and availability of astrological Products (including birth chart readings, compatibility analyses, daily and monthly predictions, and relationship insights) are specified in the respective sections of AstroGods and are subject to change without notice.',
 			'legal.productRepresentationDisclaimer' => 'Although Products on AstroGods are presented with the maximum technically possible accuracy, the representation on AstroGods through any means (including, as the case may be, graphic materials, images, colors, sounds) is to be understood as a mere reference and does not imply any guarantee regarding the characteristics of the Product purchased.',
 			'legal.promotionsAndDiscounts' => 'Promotions and Discounts',
 			'legal.promotionsDisclaimer' => 'The Owner may offer discounts or special promotions for the purchase of Products. Such promotions or discounts are always subject to the requirements and terms and conditions provided in the relevant section of AstroGods.',
@@ -3876,7 +3916,7 @@ extension on Translations {
 			'legal.proprietaryContentStandardTextAfter' => '. The backend, algorithms, trademarks, user database, and all server-side elements remain the exclusive property of the Owner with all rights reserved.',
 			'legal.proprietaryContentStandardTextBefore' => 'The application source code (frontend) is released under the GNU Affero General Public License v3.0 (AGPL-3.0) and is available at ',
 			'legal.providedByLabel' => 'Provided by: ',
-			'legal.purchaseHistory' => 'purchase history',
+			'legal.purchaseHistory' => 'Purchase history',
 			'legal.purchaseNotifications' => 'All notifications related to the purchase procedure described above will be sent to the email address provided by the User for this purpose.',
 			'legal.purchaseProcedure' => 'Purchase Procedure',
 			'legal.purchaseProcedureSteps' => 'Each step, from product selection to order submission, is part of the purchase procedure. The purchase procedure includes the following steps:',
@@ -3885,12 +3925,6 @@ extension on Translations {
 			'legal.purposesDetailedInfoText' => 'To obtain detailed information on the purposes of processing and the Personal Data specifically relevant to each purpose, the User can refer to the section "Details on Personal Data processing".',
 			'legal.purposesIntroText' => 'User Data is collected to enable the Owner to provide the Service, comply with legal obligations, respond to requests or enforcement actions, protect their rights and interests (or those of Users or third parties), identify any fraudulent or malicious activities, as well as for the following purposes:',
 			'legal.purposesSection' => 'Purposes of Processing',
-			'legal.referralBenefits' => 'AstroGods allows Users to receive benefits if, thanks to their recommendation, a new User purchases a Product offered on AstroGods.',
-			'legal.referralCodeLimitations' => 'Invitation codes may only be redeemable for some Products among those offered on AstroGods.',
-			'legal.referralCodeUsage' => 'To take advantage of this opportunity, the User can invite friends to purchase Products on AstroGods by sending them a special code provided by the Owner. Each code can be redeemed only once.',
-			'legal.referralLimitations' => 'Although there is no limit to the number of people who can be invited, the number of benefits or advantages that each User can receive for an equal number of redeemed invitation codes may be subject to a maximum limit.',
-			'legal.referralProgram' => 'Referral Program',
-			'legal.referralRewardSystem' => 'If one of the invited people purchasing a Product on AstroGods decides to redeem an invitation code, the User who invited them will receive the benefit or advantage (such as: a discount, an additional service, an upgrade etc.) indicated on AstroGods.',
 			'legal.refundTimeline' => 'The refund will be made without undue delay and in any case within 14 days from the day on which the Owner was informed of the User\'s decision to withdraw from the contract. Unless otherwise agreed with the User, the refund will be made using the same means of payment used for the initial transaction. The User will not incur any cost as a result of the withdrawal.',
 			'legal.registration' => 'Registration',
 			'legal.registrationAndAuth' => 'Registration and authentication',
@@ -3898,7 +3932,6 @@ extension on Translations {
 			'legal.registrationRequirementsText' => 'The registration of a User account on AstroGods is subject to the conditions specified below. By registering an account, the User confirms that they meet these conditions.',
 			'legal.registrationSuccessful' => 'Registration successful!',
 			'legal.renewalDurationMatch' => 'The renewal has the same duration as the original subscription period.',
-			'legal.resolution' => 'Resolution',
 			'legal.responseTimeline' => 'The Owner will process the request without undue delay and within 14 days of its receipt.',
 			'legal.rightOfWithdrawal' => 'Right of Withdrawal',
 			'legal.salesTerms' => 'Sales terms and conditions',
@@ -3913,18 +3946,16 @@ extension on Translations {
 			'legal.serviceTerminationRights' => 'Within the limits of the law, the Owner reserves the right to suspend or completely terminate the Service. In case of termination of the Service, the Owner will endeavor to allow Users to extract their personal data and information and will respect Users\' rights relating to continued use of the product and/or compensation, according to legal provisions.',
 			'legal.severabilityClause' => 'Severability Clause',
 			'legal.severabilityLimitations' => 'Notwithstanding the above, the nullity, invalidity, or ineffectiveness of a specific provision of these Terms does not result in nullity of the entire Agreement, unless the null, invalid, or ineffective provisions within the Agreement are essential or of such importance that the parties would not have concluded the contract if they had known the provision would be invalid, or in cases where the remaining provisions would impose an excessive and unacceptable burden on one of the parties.',
-			'legal.statistics' => 'Statistics',
-			'legal.statisticsDescription' => 'The services contained in this section allow the Data Controller to monitor and analyze traffic data and serve to track User behavior.',
-			'legal.statisticsTitle' => 'Statistics',
+			'legal.signInWithAppleDescription' => 'Sign in with Apple is an authentication service provided by Apple. If the User chooses to hide their email, AstroGods receives a forwarding address created by Apple.',
 			'legal.stripeBillingAddress' => 'Within the Stripe checkout area, Users may also be asked to specify their billing and shipping address.',
 			'legal.stripeCheckoutAccess' => 'By clicking the checkout button, Users access the Stripe checkout area where they will be asked to provide their contact details and a payment method of their choice.',
 			'legal.stripeCustomerPortal' => 'Users can access the Stripe Customer Portal to view billing history, download invoices, update payment methods, and manage subscription settings. This portal is provided directly by Stripe and ensures secure access to payment and billing information.',
 			'legal.stripeDescription' => 'Stripe is a payment service provided by Stripe Technology Europe Ltd.',
 			'legal.stripeExpressCheckout' => 'Within the Stripe checkout area, Users will have the possibility to choose express checkout. Express checkout allows Users to complete the purchase directly, using payment information and contact details stored by the most common online payment management services (such as "ApplePay", "Google Pay", "Microsoft Pay").',
-			'legal.stripePaymentStorage' => 'Users who have not yet done so, can request Stripe to store their payment information for future purchases on AstroGods or on other sites that use Stripe as a payment gateway. For information on the processing of personal data and related rights, the User can consult the privacy policy of Stripe and AstroGods.',
-			'legal.stripeRecurringPayments' => 'For subscription services, Stripe securely stores payment method information to process recurring payments automatically. Users can manage, update, or cancel their payment methods and subscriptions through the customer portal accessible from their account settings.',
+			'legal.stripePaymentStorage' => 'Users who have not yet done so, can request Stripe to store their payment information for future purchases on AstroGods or on other sites that use Stripe as a payment gateway. For information on the processing of personal data and related rights, the User can consult the [privacy policy of Stripe](https://stripe.com/privacy) and that of [AstroGods](/privacy-policy).',
+			'legal.stripeRecurringPayments' => 'For subscriptions purchased through Stripe, Stripe securely stores payment method information to process recurring payments automatically. Users can manage, update, or cancel their payment methods and subscriptions through the customer portal accessible from their account settings.',
 			'legal.subscriptionContinuousProduct' => 'Through subscription, the User receives a Product continuously or periodically. Details regarding the type of subscription and termination are described below.',
-			'legal.subscriptionTermination' => 'Subscriptions can be terminated by: (1) accessing the Stripe Customer Portal through your account settings to cancel immediately, (2) sending a clear cancellation notice to the Owner using the contact details provided in this document, or (3) following the cancellation instructions on AstroGods.',
+			'legal.subscriptionTermination' => 'Subscriptions can be canceled: (1) for purchases through Stripe, from the Stripe Customer Portal accessible from the [account settings](/settings?section=subscriptions); (2) for purchases through the App Store, from the [Apple Account settings](https://apps.apple.com/account/subscriptions); (3) by sending a clear cancellation notice to the Owner using the [contact details provided in this document](mailto:contact@astrogods.it).',
 			'legal.subscriptions' => 'Subscriptions',
 			'legal.subscriptionsTitle' => 'Subscriptions',
 			'legal.summary' => 'Summary',
@@ -3946,12 +3977,8 @@ extension on Translations {
 			'legal.termsTableOfContents' => 'Table of Contents',
 			'legal.thirdPartyResourcesDisclaimer' => 'The conditions applicable to resources provided by third parties, including those applicable to any grants of rights on content, are determined by the same third parties and governed by their respective terms and conditions or, in their absence, by law.',
 			'legal.thisSiteDescription' => 'this website, accessible via browser, including related subdomains and any other site through which the Owner offers the Service;',
-			'legal.trackingTools' => 'tracking tools',
-			'legal.trackingToolsIntro' => 'AstroGods uses the following tracking tools:',
-			'legal.trackingToolsSection' => 'Tracking tools',
-			'legal.trafficOptimization' => 'Traffic optimization and distribution',
-			'legal.trafficOptimizationDescription' => 'This type of service allows AstroGods to distribute its content through a network of geographically distributed servers and optimize its performance.\nThe Personal Data processed depends on the characteristics and mode of use of these services, whose function is to filter communications between AstroGods and the User\'s browser.\nGiven the distributed nature of this system, it is difficult to determine the places where content that may contain the User\'s Personal Data is transferred.',
-			'legal.trafficOptimizationTitle' => 'Traffic optimization and distribution',
+			'legal.trackingToolsIntro' => 'AstroGods does not use tracking tools for statistics or advertising. It only uses the cookies and browser storage needed for it to work, for example to keep you signed in.',
+			'legal.trackingToolsSection' => 'No tracking',
 			'legal.trialAutoConversion' => 'Upon expiration, the trial period will automatically convert to the equivalent paid Product unless the User cancels the purchase before the trial period expires.',
 			'legal.trialPeriod' => 'Trial Period',
 			'legal.trialPeriodAvailability' => 'Users have the opportunity to try AstroGods or individual Products free of charge for a 7-day, non-renewable trial period. Some functions or features of AstroGods may not be available during the trial period. Additional conditions applicable to the trial period will be specified on AstroGods.',
@@ -3959,7 +3986,7 @@ extension on Translations {
 			'legal.typesOfCookiesSection' => 'Types of cookies we use',
 			'legal.unauthorizedResale' => 'Users are not authorized to reproduce, duplicate, copy, sell, resell, or exploit AstroGods or the Service in whole or in part without the Owner\'s prior written consent, expressed directly or through a legitimate resale program.',
 			'legal.unitedStates' => 'United States',
-			'legal.usageData' => 'usage data',
+			'legal.usageData' => 'Usage data',
 			'legal.usageRightsReservation' => 'Until receipt of payment of the full purchase price by the Owner, the User does not acquire the usage rights of the ordered Products.',
 			'legal.usageRightsReservationTitle' => 'Usage rights reservation',
 			'legal.useOfService' => 'the use of AstroGods and',
@@ -3969,7 +3996,7 @@ extension on Translations {
 			'legal.userExclusiveResponsibility' => 'It is the User\'s exclusive responsibility to ensure that the use of AstroGods and/or the Service does not violate the law, regulations or the rights of third parties.',
 			'legal.userRights' => 'User Rights',
 			'legal.userRightsSection' => 'User Rights',
-			'legal.usingAccountClosureTools' => 'Using the account closure tools available on AstroGods.',
+			'legal.usingAccountClosureTools' => 'Using the [account closure tools](/settings?section=deleteAccount) available on AstroGods.',
 			'legal.usingAstroGodsUserDeclares' => 'By using AstroGods the User declares to meet the following requirements:',
 			'legal.viewCookiePolicy' => 'View Cookie Policy',
 			'legal.viewPrivacyPolicy' => 'View Privacy Policy',
@@ -4032,18 +4059,23 @@ extension on Translations {
 			'releaseNotes.releaseNotes_4_7_7' => 'Fixed errors in monthly transit calculations. Subscription badges now display only when appropriate.',
 			'releaseNotes.releaseNotes_4_8_0' => 'New app icon. Optimized starry night background.',
 			'releaseNotes.releaseNotes_4_9_0' => 'Updated terms and conditions and privacy policy. Fixed a registration issue with email and password. Birth chart is now automatically generated after registration.',
+			'releaseNotes.releaseNotes_5_0_0' => 'On iPhone and Mac you can sign in with Apple and subscribe through the App Store. Change your email or password from settings, or add a password to a Google or Apple account. Readings follow the gender you choose, or stay neutral if you prefer not to say. Your birth charts are visible only to you, and readings no longer send your names to the AI. Please log in again after updating. Profile pictures and charts created without an account are gone.',
 			'releaseNotes.version' => ({required Object version}) => 'Version ${version}',
 			'ui.about' => 'About',
 			'ui.account' => 'Account',
 			'ui.accountDeleted' => 'Account deleted successfully',
-			'ui.activeSubscriptionDeleteWarning' => 'You have an active subscription. To delete your account, your subscription will be cancelled first.\n\nThis action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.',
+			'ui.activeSubscriptionDeleteWarning' => 'You have an active subscription. To delete your account, your subscription will be cancelled first.\n\nThis action cannot be undone. All your data and saved charts will be permanently deleted.',
+			'ui.addEmail' => 'Add email',
 			'ui.addNewsletter' => 'Add horoscope by email',
 			'ui.allNewsletters' => 'All newsletters',
+			'ui.allPremiumFeatures' => 'All Premium features',
 			'ui.alreadyHaveAccount' => 'Already have an account?',
 			'ui.analyzing' => 'ANALYZING...',
 			'ui.annual' => 'Annual',
 			'ui.anticipateYourDayWithTransits' => 'Anticipate your day with transit analysis',
 			'ui.anticipateYourMonthWithTransits' => 'Anticipate your month with transit analysis',
+			'ui.appleAutoRenewNotice' => 'The subscription renews automatically at the price shown unless you cancel it at least 24 hours before the current period ends. Payment is charged to your Apple account. You can manage or cancel it in your App Store account settings.',
+			'ui.appleSubscriptionDeleteWarning' => 'Deleting your account does not cancel your App Store subscription. To stop the renewals, cancel it in your App Store account settings.\n\nThis action cannot be undone. All your data and saved charts will be permanently deleted.',
 			'ui.appTitle' => 'AstroGods',
 			'ui.appVersion' => 'App Version',
 			'ui.at' => 'at',
@@ -4069,15 +4101,16 @@ extension on Translations {
 			'ui.birthChartsCountSingular' => '1 saved birth chart',
 			'ui.birthChartsFilter' => 'Birth charts',
 			'ui.birthChartsMustBeDifferent' => 'The two birth charts must be different',
-			'ui.birthDate' => 'birth date',
+			'ui.birthDate' => 'Birth date',
 			'ui.birthInfo' => 'Birth Information',
 			'ui.birthInformation' => 'Birth Information',
-			'ui.birthPlace' => 'Birth Place',
-			'ui.birthTime' => 'birth time',
+			'ui.birthPlace' => 'Birth place',
+			'ui.birthTime' => 'Birth time',
 			'ui.birthTimeRequired' => 'Enter time or check unknown time',
 			'ui.cancel' => 'Cancel',
 			'ui.cancelSubscriptionAndDelete' => 'Cancel subscription and delete account',
 			'ui.cancellingSubscription' => 'Cancelling subscription...',
+			'ui.changePassword' => 'Change password',
 			'ui.changePlan' => 'Change plan',
 			'ui.chartNotAvailable' => 'Chart not available.',
 			'ui.chartOnlyMode' => 'Chart only, without reading',
@@ -4096,6 +4129,7 @@ extension on Translations {
 			'ui.confirmingSubscription' => 'Confirming your subscription...',
 			'ui.connectionError' => 'Connection failed. Check your network and try again.',
 			'ui.connectionTimeout' => 'The request took too long. Please try again.',
+			'ui.continueWithApple' => 'Continue with Apple',
 			'ui.continueWithGoogle' => 'Continue with Google',
 			'ui.couplesChartReadings' => 'Couple\'s chart readings',
 			'ui.create' => 'Create',
@@ -4106,6 +4140,7 @@ extension on Translations {
 			'ui.createSynastry' => 'Create synastry',
 			'ui.creating' => 'Creating...',
 			'ui.currentLocation' => 'Current location',
+			'ui.currentPassword' => 'Current password',
 			'ui.currentPlan' => 'Current plan',
 			'ui.daily' => 'Daily',
 			'ui.dailyMonthlyTransits' => 'Daily and monthly transits',
@@ -4119,7 +4154,6 @@ extension on Translations {
 			'ui.dailyTransitsCountSingular' => '1 saved daily transit',
 			'ui.dailyTransitsFilter' => 'Daily transits',
 			'ui.darkMode' => 'Dark',
-			'ui.dataCollectedByMatomo' => 'Data collected by Matomo:',
 			'ui.dateOfBirth' => 'Date of Birth',
 			'ui.dayCount' => ({required Object day}) => 'Day ${day}',
 			'ui.dayNumber' => ({required Object number}) => 'day ${number}',
@@ -4127,7 +4161,7 @@ extension on Translations {
 			'ui.deleteAccount' => 'Delete Account',
 			'ui.deleteAccountConfirmation' => 'Are you absolutely sure you want to delete your account?',
 			'ui.deleteAccountTitle' => 'Delete Account',
-			'ui.deleteAccountWarning' => 'This action cannot be undone. All your data, saved charts, and profile pictures will be permanently deleted.',
+			'ui.deleteAccountWarning' => 'This action cannot be undone. All your data and saved charts will be permanently deleted.',
 			'ui.deleteConfirmationWord' => 'DELETE',
 			'ui.deleteFreeReadingTitle' => 'Delete your only reading?',
 			'ui.deleteFreeReadingWarning' => 'This is your only saved reading. An active subscription is required to generate new readings.',
@@ -4135,6 +4169,10 @@ extension on Translations {
 			'ui.discoverHeartOfRelationship' => 'Discover the heart of a relationship through its synastry',
 			'ui.dontHaveAccount' => 'Don\'t have an account?',
 			'ui.dontKnowBirthTime' => 'I don\'t know the birth time',
+			'ui.emailAddressCopied' => ({required Object email}) => 'No email app available. Address copied to the clipboard: ${email}',
+			'ui.noPurchasesToRestore' => 'No App Store subscription to restore',
+			'ui.passwordChanged' => 'Password changed',
+			'ui.passwordSetupLinkSent' => ({required Object email}) => 'Link sent to ${email}',
 			'ui.repeatedTimeFirst' => 'The first time, during daylight saving time',
 			'ui.repeatedTimeSecond' => 'The second time, during standard time',
 			'ui.downgrade' => 'Downgrade to Standard',
@@ -4143,7 +4181,7 @@ extension on Translations {
 			'ui.editBirthChart' => 'Edit Birth Chart',
 			'ui.editDaily' => 'Edit daily newsletter',
 			'ui.editMonthly' => 'Edit monthly newsletter',
-			'ui.email' => 'email',
+			'ui.email' => 'Email',
 			'ui.emailAlreadyExists' => 'This email address is already registered',
 			'ui.emailNotifications' => 'Horoscope by email',
 			'ui.emailSentSuccessfully' => 'Email sent successfully',
@@ -4159,13 +4197,17 @@ extension on Translations {
 			'ui.failedToLoadSubscriptions' => 'Failed to load subscriptions',
 			'ui.familyNameRequired' => 'Last name is required',
 			'ui.finish' => 'Finish',
-			'ui.firstName' => 'First Name',
+			'ui.firstName' => 'First name',
 			'ui.firstQuarter' => 'First quarter',
 			'ui.forSearchTerm' => ({required Object term}) => 'for "${term}"',
 			'ui.forgotPassword' => 'Forgot Password?',
 			'ui.fourMonthsFree' => '4 months FREE',
 			'ui.fullMoon' => 'Full moon',
-			'ui.gender' => 'gender',
+			'ui.gender' => 'Gender',
+			'ui.genderMan' => 'Man',
+			'ui.genderNonBinary' => 'Non-binary',
+			'ui.genderPreferNotToSay' => 'Prefer not to say',
+			'ui.genderWoman' => 'Woman',
 			'ui.generateAnalysis' => 'Generate Analysis',
 			'ui.generateDailyTransit' => 'Generate Daily Transit',
 			'ui.generateDetailedCompatibilityAnalysis' => ({required Object relationshipTitle}) => 'Generate a detailed compatibility analysis between ${relationshipTitle}',
@@ -4182,6 +4224,12 @@ extension on Translations {
 			'ui.goHome' => 'Go to Home',
 			'ui.goToHome' => 'Go to Home',
 			'ui.goToLogin' => 'Login',
+			'ui.appleSignInError' => ({required Object error}) => 'Apple Sign-In error: ${error}',
+			'ui.appleSignUpError' => ({required Object error}) => 'Apple Sign-Up error: ${error}',
+			'ui.changeEmail' => 'Change email',
+			'ui.confirmingEmail' => 'Confirming your email',
+			'ui.emailChangeConfirmed' => 'Email updated',
+			'ui.emailChangeLinkSent' => ({required Object email}) => 'We\'ve sent a confirmation link to ${email}. Open it to finish the change',
 			'ui.googleSignInError' => ({required Object error}) => 'Google Sign-In error: ${error}',
 			'ui.googleSignInSuccessful' => 'Successfully signed in with Google',
 			'ui.googleSignUpError' => ({required Object error}) => 'Google Sign-Up error: ${error}',
@@ -4195,7 +4243,7 @@ extension on Translations {
 			'ui.language' => 'Language',
 			'ui.languageEnglish' => 'English',
 			'ui.languageItalian' => 'Italian',
-			'ui.lastName' => 'Last Name',
+			'ui.lastName' => 'Last name',
 			'ui.lastQuarter' => 'Last quarter',
 			'ui.lightMode' => 'Light',
 			'ui.loadingImage' => 'Loading image...',
@@ -4221,10 +4269,12 @@ extension on Translations {
 			'ui.monthlyTransitsCountPlural' => ({required Object count}) => '${count} saved monthly transits',
 			'ui.monthlyTransitsCountSingular' => '1 saved monthly transit',
 			'ui.monthlyTransitsFilter' => 'Monthly transits',
-			'ui.name' => 'name',
+			'ui.name' => 'Name',
 			'ui.needBirthChartForPredictions' => 'You need a birth chart first for predictions',
 			'ui.needTwoBirthChartsForSynastry' => 'To create a synastry you need at least two saved birth charts.',
 			'ui.networkErrorOccurred' => 'Network error occurred',
+			'ui.newEmail' => 'New email',
+			'ui.newsletterNeedsEmail' => 'Add an email to your profile to receive the horoscope by email.',
 			'ui.newImprovedVersion' => 'New improved version',
 			'ui.newMoon' => 'New moon',
 			'ui.newPassword' => 'New password',
@@ -4250,7 +4300,7 @@ extension on Translations {
 			'ui.oneMonthFree' => '1 month FREE',
 			'ui.oneMoreChartNeeded' => 'You have one chart. Create a second for synastry',
 			'ui.or' => 'OR',
-			'ui.password' => 'password',
+			'ui.password' => 'Password',
 			'ui.passwordResetSuccessful' => 'Password reset successful',
 			'ui.passwordTooShort' => 'Password must be at least 8 characters long',
 			'ui.passwordsDoNotMatch' => 'Passwords do not match',
@@ -4291,7 +4341,6 @@ extension on Translations {
 			'ui.previous' => 'Previous',
 			'ui.processingUnsubscribeRequest' => 'Processing unsubscribe request...',
 			'ui.profile' => 'Profile',
-			'ui.profilePhoto' => 'profile photo',
 			'ui.profileTitle' => 'Profile',
 			'ui.profileUpdatedSuccessfully' => 'Profile updated successfully',
 			'ui.reactivateSubscription' => 'Reactivate',
@@ -4313,6 +4362,7 @@ extension on Translations {
 			'ui.resetLinkSent' => ({required Object email}) => 'We\'ve sent a password reset link to ${email}',
 			'ui.resetPassword' => 'Reset password',
 			'ui.resetPasswordTitle' => 'Reset your password',
+			'ui.restorePurchases' => 'Restore purchases',
 			'ui.retry' => 'Retry',
 			'ui.save' => 'Save',
 			'ui.save20Percent' => 'Save 20%',
@@ -4320,6 +4370,7 @@ extension on Translations {
 			'ui.save40Percent' => 'Save 40%',
 			'ui.saveAmount' => ({required Object amount}) => 'SAVE ${amount}/YEAR',
 			'ui.saveChanges' => 'Save changes',
+			'ui.savePassword' => 'Save password',
 			'ui.savePdfDialogTitle' => 'Save PDF',
 			'ui.savedChartsTitle' => 'Saved analyses',
 			'ui.searchBirthCharts' => 'Search birth charts...',
@@ -4329,22 +4380,25 @@ extension on Translations {
 			'ui.searchInProgress' => 'Search in progress...',
 			'ui.searchMonthlyTransits' => 'Search monthly transits...',
 			'ui.searchSynastries' => 'Search synastries...',
-			'ui.searching' => 'Searching...',
 			'ui.selectChart' => 'Select chart',
 			'ui.selectDate' => 'Select Date',
-			'ui.selectFirstBirthChart' => 'Select the first birth chart',
 			'ui.selectLocation' => 'Select location',
 			'ui.selectMonth' => 'Select Month',
-			'ui.selectSecondBirthChart' => 'Select the second birth chart',
 			'ui.semiannual' => 'Semiannual',
+			'ui.sendConfirmationLink' => 'Send confirmation link',
+			'ui.sendLink' => 'Send link',
 			'ui.sendResetLink' => 'Send reset link',
 			'ui.serverUnavailable' => 'We\'re making some improvements. Back in a moment!',
 			'ui.setAsPersonal' => 'This is my theme',
+			'ui.setPassword' => 'Set password',
+			'ui.setPasswordDescription' => ({required Object email}) => 'We will send a link to ${email} to choose a password. Then you can also sign in with your email.',
+			'ui.setPasswordNeedsEmail' => 'Add an email to your account first, so we can send you the link to choose a password.',
 			'ui.settingsTitle' => 'Settings',
 			'ui.sevenDaysFreeTrial' => '7 days of free trial',
 			'ui.sharePdf' => 'Share PDF',
 			'ui.signIn' => 'Sign in',
 			'ui.signUp' => 'Sign up',
+			'ui.sixMonthsPeriod' => '6 months',
 			'ui.standardAnnual' => 'Standard - annual',
 			'ui.standardMonthly' => 'Standard - monthly',
 			'ui.standardSemiannual' => 'Standard - semiannual',
@@ -4358,10 +4412,17 @@ extension on Translations {
 			'ui.subscriptionAmount' => 'Amount',
 			'ui.subscriptionCancelledSuccessfully' => 'Subscription cancelled successfully',
 			'ui.subscriptionCancelsOn' => 'Ends on',
-			'ui.subscriptionConfirmationFailed' => 'Failed to confirm subscription. Please contact support.',
+			'ui.subscriptionConfirmationFailed' => 'Failed to confirm subscription. Please contact support',
 			'ui.subscriptionEndDate' => 'Renews on',
 			'ui.subscriptionIncomplete' => 'Payment Incomplete',
+			'ui.subscriptionManagedElsewhere' => 'This subscription was purchased outside the App Store: you can manage it on the website',
+			_ => null,
+		} ?? switch (path) {
 			'ui.subscriptionPastDue' => 'Payment Overdue',
+			'ui.subscriptionPurchasedOnAndroid' => 'This subscription was purchased in the Android app: you can manage it there or on the website',
+			'ui.subscriptionPurchasedOnLinux' => 'This subscription was purchased in the Linux app: you can manage it there or on the website',
+			'ui.subscriptionPurchasedOnWeb' => 'This subscription was purchased on the website: you can manage it there',
+			'ui.subscriptionPurchasedOnWindows' => 'This subscription was purchased in the Windows app: you can manage it there or on the website',
 			'ui.subscriptionRequiredForRegeneration' => 'To regenerate this reading in another language you need a subscription (standard is enough)',
 			'ui.subscriptionStartDate' => 'Started on',
 			'ui.subscriptionSuccessGoHome' => 'Go to home',
@@ -4371,12 +4432,10 @@ extension on Translations {
 			'ui.subscriptionSuccessTrialInfo' => 'Your 7-day trial has started',
 			'ui.subscriptionTrialing' => 'Trial',
 			'ui.subscriptionUnpaid' => 'Payment Failed',
-			_ => null,
-		} ?? switch (path) {
 			'ui.subtitlePart1' => 'Align',
 			'ui.subtitlePart2' => 'with your',
 			'ui.subtitlePart3' => 'sky',
-			'ui.surname' => 'surname',
+			'ui.surname' => 'Surname',
 			'ui.swipeToView' => 'Swipe to view',
 			'ui.synastriesCountPlural' => ({required Object count}) => '${count} saved synastries',
 			'ui.synastriesCountSingular' => '1 saved synastry',
@@ -4390,7 +4449,7 @@ extension on Translations {
 			'ui.systemMode' => 'System',
 			'ui.termsOfService' => 'Terms of Service',
 			'ui.theme' => 'Theme',
-			'ui.thenPricePerMonth' => ({required Object price}) => 'Then ${price}/month',
+			'ui.thenPrice' => ({required Object price, required Object period}) => 'Then ${price}/${period}',
 			'ui.timeOfBirth' => 'Time of Birth',
 			'ui.transitDate' => 'Transit date',
 			'ui.transitDescription' => 'Transits are the movements of planets that, passing over natal sky positions, activate temporary astrological influences.',
@@ -4427,6 +4486,7 @@ extension on Translations {
 			'ui.waxingGibbous' => 'Waxing gibbous',
 			'ui.welcomeBack' => 'Welcome back!',
 			'ui.withoutBirthTimeWarning' => 'Without the time of birth the reading will not take the Ascendant into account',
+			'ui.yearPeriod' => 'year',
 			_ => null,
 		};
 	}

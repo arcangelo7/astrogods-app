@@ -1,15 +1,8 @@
-import 'dart:io';
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:http/http.dart' as http;
 
 import '../models/user.dart';
 import '../models/auth_request.dart';
 import '../services/auth_service.dart';
-import '../services/api_client.dart';
-import '../config/environment.dart';
 import 'language_provider.dart';
 import 'theme_provider.dart';
 
@@ -64,11 +57,13 @@ class AuthProvider extends ChangeNotifier {
     _setLoading(true);
     try {
       final user = await _authService.getCurrentUser();
-      if (user != null) {
+      final token = await _authService.getToken();
+      if (user != null && token != null) {
         _currentUser = user;
         _isAuthenticated = true;
         _syncUserWithProviders();
       } else {
+        await _authService.clearUserSession();
         _isAuthenticated = false;
       }
     } catch (e) {
@@ -79,17 +74,12 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> login(
-    String email,
-    String password, {
-    BuildContext? context,
-  }) async {
+  Future<bool> login(String email, String password) async {
     _setLoading(true);
     _clearError();
 
     try {
-      final authService = AuthService(context: context);
-      final response = await authService.login(email, password);
+      final response = await _authService.login(email, password);
 
       if (response.success && response.user != null) {
         _currentUser = response.user;
@@ -111,16 +101,12 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> register(
-    RegisterRequest request, {
-    BuildContext? context,
-  }) async {
+  Future<bool> register(RegisterRequest request) async {
     _setLoading(true);
     _clearError();
 
     try {
-      final authService = AuthService(context: context);
-      final response = await authService.register(request);
+      final response = await _authService.register(request);
 
       if (response.success && response.user != null) {
         _currentUser = response.user;
@@ -143,32 +129,51 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> loginWithGoogle({
-    required String idToken,
-    BuildContext? context,
-  }) async {
+  Future<AuthResponse> loginWithGoogle({required String idToken}) {
+    return _loginWithIdentityProvider(
+      () => _authService.loginWithGoogle(idToken: idToken),
+    );
+  }
+
+  Future<AuthResponse> loginWithApple({
+    required String identityToken,
+    required String authorizationCode,
+    required String? givenName,
+    required String? familyName,
+  }) {
+    return _loginWithIdentityProvider(
+      () => _authService.loginWithApple(
+        identityToken: identityToken,
+        authorizationCode: authorizationCode,
+        givenName: givenName,
+        familyName: familyName,
+      ),
+    );
+  }
+
+  Future<AuthResponse> _loginWithIdentityProvider(
+    Future<AuthResponse> Function() login,
+  ) async {
     _setLoading(true);
     _clearError();
 
     try {
-      final authService = AuthService(context: context);
-      final response = await authService.loginWithGoogle(idToken: idToken);
+      final response = await login();
 
       if (response.success && response.user != null) {
         _currentUser = response.user;
         _isAuthenticated = true;
         _syncUserWithProviders();
         notifyListeners();
-        return true;
       } else {
         _errorMessage = response.message!;
         notifyListeners();
-        return false;
       }
+      return response;
     } catch (e) {
       _errorMessage = AuthService.extractUserMessage(e);
       notifyListeners();
-      return false;
+      return const AuthResponse(success: false);
     } finally {
       _setLoading(false);
     }
@@ -298,112 +303,59 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<User?> uploadProfilePictureBytes(Uint8List imageBytes) async {
+  Future<bool> requestEmailChange(String email, String? currentPassword) =>
+      _runAccountRequest(
+        () => _authService.requestEmailChange(email, currentPassword),
+      );
+
+  Future<bool> changePassword(String currentPassword, String newPassword) =>
+      _runAccountRequest(
+        () => _authService.changePassword(currentPassword, newPassword),
+      );
+
+  Future<bool> requestPasswordSetup() =>
+      _runAccountRequest(_authService.requestPasswordSetup);
+
+  Future<bool> _runAccountRequest(
+    Future<AuthResponse> Function() request,
+  ) async {
     _setLoading(true);
     _clearError();
 
     try {
-      final token = await _authService.getToken();
-      if (token == null) {
-        _errorMessage = 'Not authenticated';
-        notifyListeners();
-        return null;
+      final response = await request();
+      if (!response.success) {
+        _errorMessage = response.message!;
       }
-
-      var request = http.MultipartRequest(
-        'POST',
-        Uri.parse('${ApiClient.baseUrl}/upload-profile-picture'),
-      );
-
-      request.headers.addAll({
-        'Authorization': 'Bearer $token',
-        'X-Client-Version': Environment.appVersion,
-      });
-
-      request.files.add(
-        http.MultipartFile.fromBytes(
-          'profile_picture',
-          imageBytes,
-          filename: 'profile.webp',
-        ),
-      );
-
-      final streamedResponse = await request.send();
-      final response = await http.Response.fromStream(streamedResponse);
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        if (data['user'] != null) {
-          final user = User.fromJson(data['user']);
-          _currentUser = user;
-          notifyListeners();
-          return user;
-        }
-      } else {
-        final data = json.decode(response.body);
-        _errorMessage = data['error']!;
-        notifyListeners();
-      }
+      return response.success;
     } catch (e) {
       _errorMessage = AuthService.extractUserMessage(e);
-      notifyListeners();
+      return false;
     } finally {
       _setLoading(false);
     }
-
-    return null;
   }
 
-  Future<User?> uploadProfilePicture(File imageFile) async {
+  Future<bool> confirmEmailChange(String token) async {
     _setLoading(true);
     _clearError();
 
     try {
-      final token = await _authService.getToken();
-      if (token == null) {
-        _errorMessage = 'Not authenticated';
-        notifyListeners();
-        return null;
+      final response = await _authService.confirmEmailChange(token);
+      if (!response.success) {
+        _errorMessage = response.message!;
+        return false;
       }
-
-      var request = http.MultipartRequest(
-        'POST',
-        Uri.parse('${ApiClient.baseUrl}/upload-profile-picture'),
-      );
-
-      request.headers.addAll({
-        'Authorization': 'Bearer $token',
-        'X-Client-Version': Environment.appVersion,
-      });
-
-      request.files.add(
-        await http.MultipartFile.fromPath('profile_picture', imageFile.path),
-      );
-
-      final streamedResponse = await request.send();
-      final response = await http.Response.fromStream(streamedResponse);
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        if (data['user'] != null) {
-          final user = User.fromJson(data['user']);
-          _currentUser = user;
-          notifyListeners();
-          return user;
-        }
-      } else {
-        final data = json.decode(response.body);
-        _errorMessage = data['error']!;
-        notifyListeners();
+      if (_isAuthenticated) {
+        await refreshUserData();
       }
+      return true;
     } catch (e) {
       _errorMessage = AuthService.extractUserMessage(e);
-      notifyListeners();
+      return false;
     } finally {
       _setLoading(false);
     }
-
-    return null;
   }
 
   Future<bool> forgotPassword(String email) async {

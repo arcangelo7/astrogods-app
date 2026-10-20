@@ -9,6 +9,7 @@ import '../widgets/birth_chart_selector.dart';
 import '../widgets/location_search_field.dart';
 import '../widgets/generic_dialog.dart';
 import '../models/location.dart';
+import '../utils/error_utils.dart';
 
 class NewsletterEditDialog extends StatefulWidget {
   final NewsletterSubscription subscription;
@@ -47,7 +48,7 @@ class _NewsletterEditDialogState extends State<NewsletterEditDialog> {
 
   Future<void> _loadAndSelectBirthChart() async {
     try {
-      final birthChartService = BirthChartService(context: context);
+      final birthChartService = BirthChartService();
       final charts = await birthChartService.getSavedCharts();
 
       // Find the chart that matches the subscription's birth chart ID
@@ -81,7 +82,7 @@ class _NewsletterEditDialogState extends State<NewsletterEditDialog> {
     });
 
     try {
-      final newsletterService = NewsletterService(context: context);
+      final newsletterService = NewsletterService();
 
       if (widget.type == 'daily') {
         await newsletterService.updateDailyNewsletter(
@@ -111,7 +112,7 @@ class _NewsletterEditDialogState extends State<NewsletterEditDialog> {
         setState(() {
           _isLoading = false;
         });
-        SnackbarUtils.showError(context, e.toString());
+        SnackbarUtils.showError(context, userErrorMessage(context, e));
       }
     }
   }

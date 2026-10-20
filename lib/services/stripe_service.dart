@@ -159,6 +159,20 @@ class StripeService {
     }
   }
 
+  /// Platform recorded with the subscription, so other devices can tell the
+  /// user where to manage it. iOS and macOS sell through Apple In-App Purchase.
+  static String get stripePurchasePlatform {
+    if (kIsWeb) return 'web';
+    return switch (defaultTargetPlatform) {
+      TargetPlatform.android => 'android',
+      TargetPlatform.windows => 'windows',
+      TargetPlatform.linux => 'linux',
+      _ => throw UnsupportedError(
+        'Stripe purchases are not offered on $defaultTargetPlatform',
+      ),
+    };
+  }
+
   static Future<Map<String, dynamic>> createCheckoutSession(
     BuildContext context,
     String priceId, {
@@ -179,7 +193,10 @@ class StripeService {
         throw ApiException('User not authenticated', statusCode: 401);
       }
 
-      final body = <String, dynamic>{'price_id': priceId};
+      final body = <String, dynamic>{
+        'price_id': priceId,
+        'platform': stripePurchasePlatform,
+      };
       if (successUrl != null) body['success_url'] = successUrl;
       if (cancelUrl != null) body['cancel_url'] = cancelUrl;
 
@@ -239,7 +256,11 @@ class StripeService {
           'Accept-Language': languageCode,
           'X-Client-Version': Environment.appVersion,
         },
-        body: json.encode({'customer_id': customerId, 'price_id': priceId}),
+        body: json.encode({
+          'customer_id': customerId,
+          'price_id': priceId,
+          'platform': stripePurchasePlatform,
+        }),
       );
 
       if (response.statusCode == 200) {

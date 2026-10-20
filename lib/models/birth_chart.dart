@@ -17,6 +17,7 @@ class BirthChart {
   final bool unknownTime;
   @JsonKey(name: 'time_fold')
   final int? timeFold;
+  final String? gender;
   @JsonKey(name: 'is_personal')
   final bool? isPersonal;
   @JsonKey(name: 'created_on')
@@ -44,6 +45,7 @@ class BirthChart {
     this.place,
     this.unknownTime = false,
     this.timeFold,
+    this.gender,
     this.isPersonal,
     this.createdOn,
     this.hasReading,
@@ -68,6 +70,7 @@ class BirthChart {
     String? place,
     bool? unknownTime,
     int? timeFold,
+    String? gender,
     bool? isPersonal,
     DateTime? createdOn,
     bool? hasReading,
@@ -87,6 +90,7 @@ class BirthChart {
       place: place ?? this.place,
       unknownTime: unknownTime ?? this.unknownTime,
       timeFold: timeFold ?? this.timeFold,
+      gender: gender ?? this.gender,
       isPersonal: isPersonal ?? this.isPersonal,
       createdOn: createdOn ?? this.createdOn,
       hasReading: hasReading ?? this.hasReading,

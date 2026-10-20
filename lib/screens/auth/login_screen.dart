@@ -9,6 +9,7 @@ import '../../widgets/gradient_button.dart';
 import '../../widgets/mystical_text_field.dart';
 import '../../widgets/mystical_password_field.dart';
 import '../../widgets/auth/auth_container.dart';
+import '../../widgets/auth/auth_link_box.dart';
 import '../../widgets/auth/google_signin_widget.dart';
 import '../../constants/text_styles.dart';
 import '../../utils/snackbar_utils.dart';
@@ -66,7 +67,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final success = await authProvider.login(
       _emailController.text.trim(),
       _passwordController.text,
-      context: context,
     );
 
     if (mounted) {
@@ -238,16 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 24),
 
                             // Register Link
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface
-                                    .withValues(alpha: 0.85),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                            AuthLinkBox(
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,

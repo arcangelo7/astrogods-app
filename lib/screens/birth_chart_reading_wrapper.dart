@@ -6,6 +6,7 @@ import '../services/birth_chart_service.dart';
 import '../widgets/starry_night_background.dart';
 import '../i18n/translations.g.dart';
 import 'birth_chart_reading_screen.dart';
+import '../utils/error_utils.dart';
 
 class BirthChartReadingWrapper extends StatefulWidget {
   final int birthChartId;
@@ -31,7 +32,7 @@ class _BirthChartReadingWrapperState extends State<BirthChartReadingWrapper> {
   @override
   void initState() {
     super.initState();
-    _service = BirthChartService(context: context);
+    _service = BirthChartService();
     _loadBirthChart();
   }
 
@@ -53,7 +54,7 @@ class _BirthChartReadingWrapperState extends State<BirthChartReadingWrapper> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = e.toString();
+          _error = userErrorMessage(context, e);
           _isLoading = false;
         });
       }

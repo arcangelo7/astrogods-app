@@ -8,29 +8,31 @@ part of 'subscription.dart';
 
 Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
   id: json['id'] as String,
+  source: json['source'] as String,
   status: json['status'] as String,
   currentPeriodStart: (json['current_period_start'] as num?)?.toInt(),
   currentPeriodEnd: (json['current_period_end'] as num?)?.toInt(),
   cancelAtPeriodEnd: json['cancel_at_period_end'] as bool,
-  customerId: json['customer_id'] as String,
-  planName: json['plan_name'] as String,
-  amount: (json['amount'] as num).toInt(),
-  currency: json['currency'] as String,
-  interval: json['interval'] as String,
+  tier: json['tier'] as String,
+  period: json['period'] as String,
+  amount: (json['amount'] as num?)?.toInt(),
+  currency: json['currency'] as String?,
+  platform: json['platform'] as String?,
 );
 
 Map<String, dynamic> _$SubscriptionToJson(Subscription instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'source': instance.source,
       'status': instance.status,
       'current_period_start': instance.currentPeriodStart,
       'current_period_end': instance.currentPeriodEnd,
       'cancel_at_period_end': instance.cancelAtPeriodEnd,
-      'customer_id': instance.customerId,
-      'plan_name': instance.planName,
+      'tier': instance.tier,
+      'period': instance.period,
       'amount': instance.amount,
       'currency': instance.currency,
-      'interval': instance.interval,
+      'platform': instance.platform,
     };
 
 SubscriptionStatusResponse _$SubscriptionStatusResponseFromJson(

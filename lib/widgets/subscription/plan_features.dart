@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../../constants/text_styles.dart';
+import '../../i18n/translations.g.dart';
 
 enum FeaturesDisplayStyle { main, alternative, normal }
 
@@ -20,7 +21,7 @@ class PlanFeatures extends StatelessWidget {
   Widget build(BuildContext context) {
     if (displayStyle == FeaturesDisplayStyle.alternative) {
       return Text(
-        'Tutte le funzioni Premium',
+        Translations.of(context).ui.allPremiumFeatures,
         style: AppTextStyles.getBodyStyle(context),
         textAlign: TextAlign.center,
       );

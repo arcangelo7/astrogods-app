@@ -16,6 +16,7 @@ BirthChart _$BirthChartFromJson(Map<String, dynamic> json) => BirthChart(
   place: json['place'] as String?,
   unknownTime: json['unknown_time'] as bool? ?? false,
   timeFold: (json['time_fold'] as num?)?.toInt(),
+  gender: json['gender'] as String?,
   isPersonal: json['is_personal'] as bool?,
   createdOn: json['created_on'] == null
       ? null
@@ -39,6 +40,7 @@ Map<String, dynamic> _$BirthChartToJson(BirthChart instance) =>
       'place': instance.place,
       'unknown_time': instance.unknownTime,
       'time_fold': instance.timeFold,
+      'gender': instance.gender,
       'is_personal': instance.isPersonal,
       'created_on': instance.createdOn?.toIso8601String(),
       'has_reading': instance.hasReading,

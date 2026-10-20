@@ -1,5 +1,3 @@
-import 'package:material_ui/material_ui.dart';
-
 import '../models/reading.dart';
 import '../models/reading_chunk.dart';
 import '../models/synastry.dart';
@@ -8,8 +6,8 @@ import 'api_client.dart';
 class SynastryService {
   final ApiClient _apiClient;
 
-  SynastryService({ApiClient? apiClient, BuildContext? context})
-    : _apiClient = apiClient ?? ApiClient(context: context);
+  SynastryService({ApiClient? apiClient})
+    : _apiClient = apiClient ?? ApiClient();
 
   Future<List<Synastry>> getSavedSynastries() async {
     try {

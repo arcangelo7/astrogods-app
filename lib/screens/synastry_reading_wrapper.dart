@@ -6,6 +6,7 @@ import '../services/synastry_service.dart';
 import '../widgets/starry_night_background.dart';
 import '../i18n/translations.g.dart';
 import 'synastry_reading_screen.dart';
+import '../utils/error_utils.dart';
 
 class SynastryReadingWrapper extends StatefulWidget {
   final int synastryId;
@@ -30,7 +31,7 @@ class _SynastryReadingWrapperState extends State<SynastryReadingWrapper> {
   @override
   void initState() {
     super.initState();
-    _service = SynastryService(context: context);
+    _service = SynastryService();
     _loadSynastry();
   }
 
@@ -52,7 +53,7 @@ class _SynastryReadingWrapperState extends State<SynastryReadingWrapper> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = e.toString();
+          _error = userErrorMessage(context, e);
           _isLoading = false;
         });
       }

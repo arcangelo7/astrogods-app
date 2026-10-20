@@ -27,6 +27,9 @@ import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
 import '../screens/auth/forgot_password_screen.dart';
 import '../screens/auth/reset_password_screen.dart';
+import '../screens/auth/change_email_screen.dart';
+import '../screens/auth/change_password_screen.dart';
+import '../screens/auth/confirm_email_screen.dart';
 import '../screens/birth_chart_reading_screen.dart';
 import '../screens/birth_chart_reading_wrapper.dart';
 import '../screens/birth_chart_preview_screen.dart';
@@ -46,6 +49,7 @@ import '../models/synastry.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/main_navigation_wrapper.dart';
 import '../widgets/auth_guard.dart';
+import '../utils/auth_navigation_utils.dart';
 
 late GoRouter _appRouter;
 
@@ -77,11 +81,12 @@ class AppRouter {
         final isAuthRoute =
             state.fullPath == '/login' ||
             state.fullPath == '/register' ||
-            state.fullPath == '/forgot-password' ||
-            state.fullPath?.startsWith('/reset-password') == true;
+            state.fullPath == '/forgot-password';
 
         final isPublicRoute =
             state.fullPath?.startsWith('/unsubscribe') == true ||
+            state.fullPath == '/confirm-email' ||
+            state.fullPath == '/reset-password' ||
             state.fullPath == '/privacy-policy' ||
             state.fullPath == '/cookie-policy' ||
             state.fullPath == '/terms-and-conditions';
@@ -90,11 +95,24 @@ class AppRouter {
           return null;
         }
 
+        if (!authProvider.isAuthenticated &&
+            !authProvider.isLoading &&
+            !isAuthRoute) {
+          await clearPendingAuthRedirects();
+        }
+
         // Redirect authenticated users away from auth routes
         if (authProvider.isAuthenticated &&
             !authProvider.isLoading &&
             isAuthRoute) {
           return '/';
+        }
+
+        if (!authProvider.isAuthenticated &&
+            !authProvider.isLoading &&
+            (state.fullPath == '/change-email' ||
+                state.fullPath == '/change-password')) {
+          return '/login';
         }
 
         return null;
@@ -267,7 +285,14 @@ class AppRouter {
         GoRoute(
           path: '/settings',
           name: 'settings',
-          builder: (context, state) => const SettingsScreen(),
+          builder: (context, state) {
+            final section = state.uri.queryParameters['section'];
+            return SettingsScreen(
+              section: section == null
+                  ? null
+                  : SettingsSection.values.byName(section),
+            );
+          },
         ),
         GoRoute(
           path: '/profile',
@@ -302,6 +327,22 @@ class AppRouter {
             }
             return ResetPasswordScreen(token: token);
           },
+        ),
+        GoRoute(
+          path: '/change-email',
+          name: 'change-email',
+          builder: (context, state) => const ChangeEmailScreen(),
+        ),
+        GoRoute(
+          path: '/change-password',
+          name: 'change-password',
+          builder: (context, state) => const ChangePasswordScreen(),
+        ),
+        GoRoute(
+          path: '/confirm-email',
+          name: 'confirm-email',
+          builder: (context, state) =>
+              ConfirmEmailScreen(token: state.uri.queryParameters['token']!),
         ),
         GoRoute(
           path: '/birth-chart-reading/:id',

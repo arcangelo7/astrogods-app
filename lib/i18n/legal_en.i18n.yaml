@@ -1,7 +1,7 @@
 accountClosureProcedure: 'Users are free to close their account and cease using the Service at any time by following this procedure:'
 accountClosureTitle: Account Closure
 accountRequirements: Account Requirements
-accountResponsibility: By creating an account, the User accepts to be fully responsible for all activities carried out with their access credentials. Users are required to inform the Owner immediately and unambiguously through the contact details indicated in this document if they believe that their personal information, such as the User account, access credentials or personal data, have been violated, unlawfully disclosed or stolen.
+accountResponsibility: By creating an account, the User accepts to be fully responsible for all activities carried out with their access credentials. Users are required to inform the Owner immediately and unambiguously through the [contact details indicated in this document](mailto:contact@astrogods.it) if they believe that their personal information, such as the User account, access credentials or personal data, have been violated, unlawfully disclosed or stolen.
 accountSharingProhibited: Unless expressly permitted, a User's account may not be shared with other people.
 accountSuspension: Account Suspension and Cancellation
 accountSuspensionText: The Owner reserves the right to suspend or cancel a User's account at any time at its sole discretion and without notice if deemed inappropriate, offensive, or contrary to these Terms.
@@ -13,13 +13,16 @@ agreementDefinition: Any legally binding relationship or contract between the Ow
 agreementDefinitionTitle: Agreement
 amicableDisputeComposition: Amicable dispute composition
 amicableDisputeResolution: Users may report any disputes to the Owner, who will seek to resolve them amicably.
-anthropicApiDescription: Anthropic API is an artificial intelligence service provided by Anthropic PBC.
+anthropicApiDescription: The Anthropic API gives access to Claude, the language model by Anthropic PBC that AstroGods uses to write the text of the readings.
+anthropicApiName: Anthropic API
+appStoreDescription: The App Store is Apple's service for buying apps and subscriptions. For subscriptions bought on iPhone, iPad and Mac, Apple handles the payment and shares with AstroGods only the details of the purchased subscription, such as the product, the dates and the transaction identifier.
 appStorePurchases: AstroGods or certain Products sold on AstroGods must be purchased through a third-party app store. To make such purchases, Users are asked to follow the instructions in the relevant app store (for example "Apple App Store" or "Google Play"). This information may vary depending on the specific device used.
 appStoreTermsAcceptance: Therefore, Users who make purchases through such third-party online stores are asked to carefully read and accept the related terms and conditions of sale.
-appStoreTermsPrecedence: Unless otherwise specified, purchases made through third-party online stores are also subject to the terms and conditions of such third parties. Such terms and conditions prevail in any case of inconsistency or conflict with respect to these Terms.
+appStoreTermsPrecedence: Unless otherwise specified, purchases made through third-party online stores are also subject to the terms and conditions of such third parties, such as the [App Store terms](https://www.apple.com/legal/internet-services/itunes/) and the [Google Play terms](https://play.google.com/about/play-terms/). Such terms and conditions prevail in any case of inconsistency or conflict with respect to these Terms.
 appleAccountAutoRenewal: subscriptions automatically renew for the same duration unless the User communicates cancellation at least 24 hours before the expiration of the current subscription period;
-appleAccountManagement: subscriptions can be managed or canceled directly through the User's Apple App Store account settings.
+appleAccountManagement: subscriptions can be managed or canceled directly through the User's [Apple App Store account settings](https://apps.apple.com/account/subscriptions).
 appleAccountPayment: any payment due will be charged to the Apple account;
+appleAccountRefunds: refunds for purchases made through the App Store are handled by Apple and must be requested from Apple through [its procedure](https://reportaproblem.apple.com).
 appleAccountRenewalCharges: all fees or payments due for renewal will be charged within 24 hours before the expiration of the current period;
 appleAccountSubscriptions: 'Users can subscribe to a Product using the Apple Account associated with their Apple App Store account through the related procedure on AstroGods. In doing so, Users acknowledge and accept that:'
 appleAccountSubscriptionsTitle: Subscriptions managed through Apple Account
@@ -47,11 +50,11 @@ authenticationDescription: |-
   Depending on what is indicated below, third-party services could provide simplified registration and authentication.
 authenticationTitle: Registration and authentication
 automaticRenewal: Automatic Renewal
-automaticRenewalPolicy: Subscriptions automatically renew through Stripe's secure billing system with a charge to the User's chosen payment method. Users receive email notifications before each renewal and can cancel or modify their subscription anytime through the Stripe Customer Portal.
+automaticRenewalPolicy: 'Subscriptions renew automatically when they expire and are charged to the payment method used for the purchase: the method chosen at checkout for purchases through Stripe, or the Apple Account for purchases through the App Store.'
 backendApi: Backend API
-backendApiDescription: AstroGods uses third-party APIs to process user requests and provide content.
+backendApiDescription: To write readings, AstroGods replaces the names of the people in the charts with a placeholder. The services below receive only the planetary positions calculated from the birth data, the language of the reading and the grammatical gender to use in the text, if the User gave one. Giving a gender is optional; without it, the reading uses neutral wording, with no gendered agreement. They receive no names, birth dates or birth places, and no data that identifies the User or the people in the charts. AstroGods puts the real names back into the text on its own servers.
 backendApiTitle: Backend API
-billingAddress: billing address
+billingAddress: Billing address
 bindingManner: in a binding manner. Capitalized terms are defined in the relevant section of this document.
 botRegistrationProhibited: Account opening via bots or other automated means is not permitted.
 browserSettingsContent: Most web browsers allow you to control cookies through their settings preferences. You can set your browser to refuse cookies or delete certain cookies. Generally, you can also manage similar technologies in the same way.
@@ -60,24 +63,18 @@ cancellation: Cancellation
 cancellationEffectiveTiming: If the cancellation notice reaches the Owner before the subscription renewal date, the termination will take effect at the end of the current period.
 commonProvisions: Common Provisions
 commonProvisionsSection: Common Provisions
-communicatedDataDuringService: data communicated during service use
-communicationRequirement: All communications relating to the use of AstroGods must be sent to the contact details indicated in this document.
+communicatedDataDuringService: Data communicated during service use
+communicationRequirement: All communications relating to the use of AstroGods must be sent to the [contact details indicated in this document](mailto:contact@astrogods.it).
 competentJurisdiction: Competent Jurisdiction
-complaintProcedure: Users may address a complaint to the Owner's email address indicated in this document, including a brief description and, if applicable, details of the affected order, purchase, or account.
-complianceContent: Our cookie policy complies with EU data protection standards. We only use first-party tracking tools and do not share your data with third-party advertisers.
+complaintProcedure: Users may address a complaint to the [Owner's email address](mailto:contact@astrogods.it) indicated in this document, including a brief description and, if applicable, details of the affected order, purchase, or account.
+complianceContent: Our cookie policy complies with EU data protection standards. We do not use tracking tools for statistics or advertising and do not share your data with advertisers. To learn how we process your personal data, consult the [Privacy Policy](/privacy-policy).
 complianceSection: Compliance
 consequencesOfBlockingContent: If you choose to block or delete cookies, some features of our website may not work properly.
 consequencesOfBlockingTitle: Consequences of blocking cookies
-consumerCancellationTiming: If the cancellation reaches the Owner within the end of the current month, the subscription expires at the end of that month.
 consumerDefinition: Any User considered as such under applicable law.
 consumerDefinitionTitle: Consumer
-consumerExceptionText: 'However, regardless of the foregoing, if the User acts as a Consumer, the following applies:'
-consumerExceptionTitle: Exception for Consumers
-consumerIndefiniteExtension: At the end of the initial term, subscriptions are automatically extended indefinitely, unless the User cancels before the end of such term.
-consumerMonthlyTermination: After the extension, the subscription will have an indefinite duration and may be terminated monthly.
-consumerRenewalCharging: The fee due at the time of extension will be charged to the payment method that the User chose when purchasing.
 consumerRequirement: User acts as a Consumer
-contactForCookiesContent: 'If you have any questions about our use of cookies or tracking technologies, please contact us:'
+contactForCookiesContent: 'If you have any questions about our use of cookies, please contact us:'
 contactForCookiesTitle: Contact us about cookies
 contactUs: Contact us
 contactUsSection: Contact Us
@@ -87,18 +84,18 @@ contractConclusion: Order submission by the user determines the conclusion of th
 contractDuration: Contract Duration
 contractDurationSection: Contract Duration
 contractTransferRight: The Owner reserves the right to transfer, assign, dispose of, novate, or subcontract any or all rights and obligations under these Terms, having regard for the legitimate interests of Users.
-contractualWithdrawalRight: The Owner grants Users the contractual right to withdraw from the purchase contract according to the terms and conditions set out in the relevant section of AstroGods within 30 days of the conclusion of the contract.
+contractualWithdrawalRight: The Owner grants Users the contractual right to withdraw from the purchase contract according to the terms and conditions set out in the [relevant section of AstroGods](/subscription-plans) within 30 days of the conclusion of the contract. For purchases made through the App Store, [Apple's refund procedure](https://reportaproblem.apple.com) applies.
 contractualWithdrawalRightTitle: Contractual withdrawal right
 cookiePolicy: Cookie Policy
-cookiePolicyContent: AstroGods uses Tracking Tools. To learn more, consult the Cookie Policy.
-cookiePolicyLastModified: 'Last modified: September 7, 2025'
+cookiePolicyContent: AstroGods only uses the cookies and browser storage needed for it to work and no tracking tools for statistics or advertising. To learn more, consult the [Cookie Policy](/cookie-policy).
+cookiePolicyLastModified: 'Last modified: October 19, 2026'
 cookiePolicyPageTitle: Cookie Policy
 cookiePolicySection: Cookie Policy
 cookiePolicyTitle: Cookie Policy
-cookiePolicyWelcomeText: This page explains how we use cookies and tracking technologies to improve your experience.
-cookiesAndTrackingReferenceContent: For detailed information about cookies and tracking technologies we use, please refer to our complete Cookie Policy.
-cookiesAndTrackingSection: Cookies and tracking
-cookiesAndTrackingTitle: Cookies and tracking
+cookiePolicyWelcomeText: This page explains which cookies and browser data AstroGods uses and why.
+cookiesAndTrackingReferenceContent: To find out which cookies and browser data AstroGods needs to work, please refer to our complete Cookie Policy.
+cookiesAndTrackingSection: Cookies
+cookiesAndTrackingTitle: Cookies
 dataControllerEmail: contact@astrogods.it
 dataControllerEmailLabel: 'Data Controller email address: '
 dataControllerName: Arcangelo Massari - Bologna (Italy)
@@ -112,7 +109,7 @@ dataTypesDetailedContent: |-
 
   Users who have doubts about which Data is mandatory are encouraged to contact the Owner.
 
-  Any use of Cookies - or other tracking tools - by AstroGods or the owners of third-party services used by AstroGods serves the purpose of providing the Service requested by the User, in addition to the other purposes described in this document and in the Cookie Policy.
+  AstroGods uses Cookies only to provide the Service requested by the User, as described in the [Cookie Policy](/cookie-policy).
 
   The User takes responsibility for the Personal Data of third parties obtained, published or shared through AstroGods.
 dataTypesIntro: 'Among the Personal Data collected by AstroGods, independently or through third parties, there are:'
@@ -153,7 +150,7 @@ definitionsContent: |-
 
   ### Service
 
-  The service provided by AstroGods as described in the relative terms (if available) and on this site/application.
+  The service provided by AstroGods as described in the relative [terms](/terms-and-conditions) and on this site/application.
 
   ### European Union (or EU)
 
@@ -161,11 +158,7 @@ definitionsContent: |-
 
   ### Cookie
 
-  Cookies are Trackers consisting of small sets of data stored in the User's browser.
-
-  ### Tracker
-
-  Tracker indicates any technology (e.g., Cookies, unique identifiers, web beacons, embedded scripts, e-tags and fingerprinting) that enables the tracking of Users, for example by accessing or storing information on the User's device.
+  Cookies are small sets of data stored in the User's browser.
 
   ### Legal information
 
@@ -175,8 +168,8 @@ delivery: Delivery
 deliveryCostException: However, the additional cost arising from the choice of a particular delivery method other than the cheapest standard delivery offered by the Owner will remain the User's responsibility.
 deliveryOfDigitalContent: Delivery of Digital Content
 deliverySection: Delivery
-deviceIdentifiers: device identifiers
-deviceInformation: device information
+deviceIdentifiers: Device identifiers
+deviceInformation: Device information
 deviceRequirements: Users acknowledge and accept that, to download and/or use the Product, the chosen device(s) and their respective software (including operating systems) must be legal, commonly used, updated and in line with current market standards.
 differentiatedLicensing: Differentiated licensing for content
 differentiatedLicensingSection: Differentiated licensing
@@ -190,6 +183,8 @@ disputeResolutionSection: Dispute Resolution
 doNotHesitateContact: In such cases, do not hesitate to contact us.
 downloadLimitations: Users acknowledge and accept that the possibility of downloading the purchased Product may be limited in time and space.
 effectsOfWithdrawal: Effects of withdrawal
+emailSendingDescription: AstroGods sends service emails, such as password recovery and email change confirmation, and, if the User subscribes, newsletters with the daily and monthly horoscope. The emails are sent from an AstroGods mail server hosted by IONOS SE.
+emailSendingTitle: Email delivery
 euExtendedContent: |-
   ### Legal basis for processing
 
@@ -227,7 +222,7 @@ euExtendedContent: |-
   - **Access their Data.** Users have the right to learn if Data is being processed by the Owner, obtain disclosure regarding certain aspects of the processing and obtain a copy of the Data undergoing processing.
   - **Verify and seek rectification.** Users have the right to verify the accuracy of their Data and ask for it to be updated or corrected.
   - **Restrict the processing of their Data.** Users have the right to restrict the processing of their Data. In this case, the Owner will not process their Data for any purpose other than storing it.
-  - **Have their Personal Data deleted or otherwise removed.** Users have the right to obtain the erasure of their Data from the Owner.
+  - **Have their Personal Data deleted or otherwise removed.** Users have the right to obtain the erasure of their Data from the Owner or to delete their account from the [Settings](/settings?section=deleteAccount).
   - **Receive their Data and have it transferred to another controller.** Users have the right to receive their Data in a structured, commonly used and machine readable format and, if technically feasible, to have it transmitted to another controller without any hindrance.
   - **Lodge a complaint.** Users have the right to bring a claim before their competent data protection authority.
 
@@ -241,7 +236,7 @@ euExtendedContent: |-
 
   ### How to exercise these rights
 
-  Any requests to exercise User rights can be directed to the Owner through the contact details provided in this document. Such requests are free of charge and will be answered by the Owner as early as possible and always within one month, providing Users with the information required by law. Any rectification or erasure of Personal Data or restriction of processing will be communicated by the Owner to each recipient, if any, to whom the Personal Data has been disclosed unless this proves impossible or involves disproportionate effort. At the Users' request, the Owner will inform Users about those recipients.
+  Any requests to exercise User rights can be directed to the Owner through the [contact details provided in this document](mailto:contact@astrogods.it). Such requests are free of charge and will be answered by the Owner as early as possible and always within one month, providing Users with the information required by law. Any rectification or erasure of Personal Data or restriction of processing will be communicated by the Owner to each recipient, if any, to whom the Personal Data has been disclosed unless this proves impossible or involves disproportionate effort. At the Users' request, the Owner will inform Users about those recipients.
 euInfoContent: |-
   This section applies to all users of the European Union, in accordance with the General Data Protection Regulation (the "GDPR") and, for such Users, supersedes any other information that may be divergent or conflicting contained in the privacy policy.
 
@@ -265,11 +260,11 @@ fixedTermSubscriptionText: Paid fixed-term subscriptions start from the day the 
 fixedTermSubscriptions: Fixed-term Subscriptions
 forceMAjeureExclusion: damages or losses arising from interruptions or malfunctions of AstroGods due to force majeure or unforeseen and unforeseeable events and, in any case, independent of the will and beyond the control of the Owner, such as, by way of example only, failures or interruptions of telephone or electrical lines, Internet connection and/or other means of transmission, inaccessibility of websites, strikes, natural disasters, viruses and computer attacks, interruptions in the supply of third-party products, services or applications;
 forceMAjeureUnavailability: Additionally, the Service may not be available for reasons beyond the reasonable control of the Owner, such as force majeure (e.g., infrastructure malfunctions, blackouts, etc.).
+genderOptional: Gender (optional)
 generalLiabilityExclusion: Unless otherwise specified and subject to applicable legal provisions, any claim for damages against the Owner (or any natural or legal person acting on its behalf) is excluded.
 generalSeverability: Should any provision of these Terms be or become null or ineffective under applicable law, the nullity or ineffectiveness of such provision does not cause the ineffectiveness of the remaining provisions, which therefore remain valid and effective.
 germany: Germany
-godaddyDescription: GoDaddy Web Hosting is a hosting service provided by GoDaddy.com, LLC.
-googleFontsDescription: Google Fonts is a web font service provided by Google Inc.
+googleMapsDescription: Google Maps Platform is a maps and place search service provided by Google Ireland Limited.
 googleOAuthDescription: Google OAuth is an authentication service provided by Google Inc.
 governingLaw: The Terms are governed by the law of the place where the Owner is established, as indicated in the relevant section of this document, regardless of conflict of law rules.
 hetznerDescription: Hetzner is a hosting service provided by Hetzner Online GmbH.
@@ -285,27 +280,20 @@ indemnification: Indemnification
 indemnificationText: The User agrees to indemnify and hold harmless the Owner and its subordinates, affiliates, officers, agents, co-trademark holders, partners and employees to the extent permitted by law from any claim or demand - including, without limitation, legal fees and costs - advanced by third parties due to or in connection with behaviors in violation of these Terms, third party rights or law, implemented in connection with the use of the Service and attributable to the User, its affiliates, officers, agents, co-trademark holders, partners and employees, on the basis of fault.
 indirectLossExclusion: any lost profits or other losses, including indirect ones, that the User may have suffered (such as, by way of example only, commercial losses, loss of revenue, profits or anticipated savings, loss of contractual or commercial relationships, loss of goodwill or damage to reputation, etc.);
 injuryToThirdPartyRights: injury to third party rights;
-ipAddress: ip address
+ionosDescription: IONOS is a hosting service provided by IONOS SE.
+ipAddress: IP address
 ireland: Ireland
 italy: Italy
-judicialRightsPreservation: Without prejudice to the Users' right to bring legal action, in case of disputes concerning the use of AstroGods or the Service, Users are requested to contact the Owner at the contact details indicated in this document.
-lastModified: 'Last modified: January 10, 2026'
-lastModifiedTerms: 'Last modified: January 10, 2026'
+judicialRightsPreservation: Without prejudice to the Users' right to bring legal action, in case of disputes concerning the use of AstroGods or the Service, Users are requested to contact the Owner at the [contact details indicated in this document](mailto:contact@astrogods.it).
+lastModified: 'Last modified: October 20, 2026'
+lastModifiedTerms: 'Last modified: October 19, 2026'
 legalRelationship: any other Agreement or legal relationship with the Owner
 liabilityAndIndemnification: Liability and Indemnification
 liabilityExceptions: The foregoing does not limit the Owner's liability for death, personal injury or damage to physical or mental integrity, damages arising from breach of essential contractual obligations, such as obligations strictly necessary to achieve the purpose of the contract, and/or damages caused intentionally or through gross negligence, provided that the User's use of AstroGods has been appropriate and correct.
 liabilitySection: Liability and Indemnification
-lifetimeRefundPolicy: If the Product ceases its activity within a period of less than 24 months, Users will receive a refund.
-lifetimeSubscriptionDuration: Lifetime subscriptions are subscriptions that remain active for the entire duration of activity of the subscribed Product. Lifetime subscriptions start from the day the Owner receives payment. They terminate only if and when the related Product ceases its activity.
-lifetimeSubscriptions: Lifetime Subscriptions
 limitedLiabilityScope: Unless the damages were caused intentionally or through gross negligence or affect life and/or personal, physical or mental integrity, the Owner is only liable to the extent of damage typical for the type of contract and foreseeable at the time of conclusion.
 managingCookiesContent: You have control over the cookies we use. You can manage your preferences through your browser settings or by using the controls we provide. Please note that disabling certain cookies may affect the functionality of our website.
 managingCookiesSection: Managing cookies
-matomatoDescription: Matomo is a statistics software used by AstroGods to analyze data directly and without the aid of third parties.
-matomoSelfHostedDescription: We use Matomo, a privacy-focused analytics platform hosted on our own servers. This means your data never leaves our infrastructure and is not shared with third parties. Matomo helps us understand how users interact with our service while respecting your privacy.
-matomoSelfHostedTitle: Matomo (self-hosted)
-measurementCookiesDescription: These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.
-measurementCookiesTitle: Measurement cookies
 mobileApplicationsDescription: applications for mobile devices (iOS and Android), tablets, desktop (Linux, Windows, macOS) or similar platforms;
 modificationsEffectiveDate: The changes will take effect in relation to the User only from the moment communicated to the User.
 nationalLawPrevails: If the law of the User's country provides a higher level of consumer protection, that higher level of protection prevails.
@@ -322,6 +310,7 @@ notOnProhibitedList: User is not listed on any US government list of prohibited 
 notUnderEmbargo: User is not located in a country subject to a US government embargo or listed as a terrorist-sponsoring country
 offensesToOwnerOrThird: offenses to the Owner or a third party.
 oneAccountPerUser: Unless otherwise specified, each User may create only one account.
+openRouterDescription: OpenRouter is a service by OpenRouter, Inc. that forwards the requests of AstroGods to the Anthropic API.
 orderConfirmation: Once the order is submitted, Users will receive an order receipt confirmation.
 orderConfirmationEmail: Once the order is submitted, Users will receive an order receipt confirmation.
 orderSubmission: Order Submission
@@ -329,7 +318,6 @@ orderSubmissionConsequences: 'Order submission entails the following:'
 orderSubmissionRequirement: To submit the order, Users are required to accept these Terms and use the respective button or mechanism on AstroGods, thereby committing to pay the agreed price.
 ownerDefinition: Indicates the natural or legal person who provides AstroGods and/or offers the Service to Users.
 ownerDefinitionTitle: Owner (or We)
-ownerDiscretionaryRight: The Owner reserves the right to cease the offer at any time at their sole discretion.
 ownerEmail: 'Owner''s email address:'
 ownerName: Arcangelo Massari - Bologna (Italy)
 ownerProtectiveRights: 'Therefore, the Owner reserves the right to adopt any suitable measure to protect their legitimate interests, and in particular to deny the User access to AstroGods or the Service, terminate contracts, report any objectionable activity carried out through AstroGods or the Service to competent authorities - e.g. judicial or administrative authority - whenever the User implements or there is suspicion that they implement:'
@@ -341,21 +329,24 @@ passwordSecurity: It is the Users' responsibility to keep their access credentia
 paymentFailed: Payment Failed
 paymentFailedDescription: Your subscription payment could not be processed. Please update your payment method to continue using our services.
 paymentFailureConsequences: In the event that payment made with one of the available methods fails or is rejected by the payment service provider, the Owner is not obligated to execute the order. In the event that payment is not successful, the Owner reserves the right to request the User to reimburse any related expenses or damages.
-paymentInformation: payment information
+paymentInformation: Payment information
 paymentManagement: Payment management
 paymentManagementDescription: |-
   Unless otherwise specified, AstroGods processes all payments with credit card, bank transfer or other means through external payment service providers. In general, and unless otherwise indicated, Users are requested to provide payment details and personal information directly to such payment service providers.
   AstroGods is not involved in the collection and processing of such information: it will instead only receive a notification from the relevant payment service provider about the payment made.
 paymentManagementTitle: Payment management
 paymentMethods: Payment Methods
-paymentMethodsConditions: Payment processing is handled entirely by Stripe Technology Europe Ltd. AstroGods does not store or have access to your payment card details, which are processed and stored securely by Stripe according to the highest industry security standards.
-paymentMethodsInfo: AstroGods processes all payments securely through Stripe, a certified PCI DSS compliant payment processor. Accepted payment methods include major credit and debit cards (Visa, Mastercard, American Express), digital wallets (Apple Pay, Google Pay), and other methods available through Stripe in your region.
+paymentMethodsConditions: Stripe Technology Europe Ltd handles payments made through Stripe, while Apple handles those made through the App Store. AstroGods does not store or have access to your payment card details.
+paymentMethodsInfo: On the website and in the Android, Windows and Linux apps, AstroGods processes payments through Stripe, a PCI DSS certified payment processor. Accepted payment methods include major credit and debit cards (Visa, Mastercard, American Express), digital wallets (Apple Pay, Google Pay), and other methods available through Stripe in your region. In the iPhone, iPad and Mac apps, subscriptions are purchased through Apple's App Store, as described in the section on subscriptions managed through Apple Account.
 paymentObligationRemains: The suspension or cancellation of an account for causes attributable to the User does not exempt the User from payment of fees or prices that may be applicable.
 paymentProcessingError: Payment processing error occurred
-paymentThirdPartyHandling: All payments are handled independently by third-party services. Therefore, AstroGods does not collect payment-related data – such as credit card numbers – but receives a notification once the payment has been successful. For further information on the processing of personal data and related rights, the User can refer to the AstroGods privacy policy.
+paymentThirdPartyHandling: All payments are handled independently by third-party services. Therefore, AstroGods does not collect payment-related data – such as credit card numbers – but receives a notification once the payment has been successful. For further information on the processing of personal data and related rights, the User can refer to the [AstroGods privacy policy](/privacy-policy).
 permittedUse: Permitted Use
 permittedUseText: AstroGods and the Service may only be used for the purposes for which they are offered, according to these Terms and applicable law.
-phoneNumber: phone number
+phoneNumber: Phone number
+placeSearchDescription: When the User searches for a birthplace, the AstroGods servers send the typed text to Google Maps Platform to suggest places and find their coordinates. Google receives the request from the AstroGods servers, so it does not receive the User's IP address or account data.
+placeSearchTitle: Place search
+planetaryPositions: Planetary positions
 previousVersionValidity: The previous version continues to govern the relationship until acceptance of the changes by the User. This version may be requested from the Owner.
 pricing: Pricing
 pricingPolicy: Prices on AstroGods include all applicable fees, taxes and costs.
@@ -392,7 +383,7 @@ productCharacteristicsSpecified: The characteristics of the selected Product wil
 productDefinition: 'A good or service available through AstroGods, including specifically: astrological interpretations, birth chart analyses, astrological predictions and forecasts, compatibility reports, astrological educational content, and any other astrological service or digital content defined separately in this document.'
 productDefinitionTitle: Product
 productDescription: Product Description
-productDescriptionInfo: Prices, descriptions and availability of astrological Products (including birth chart readings, compatibility analyses, daily and monthly predictions, relationship insights, and travel astrology recommendations) are specified in the respective sections of AstroGods and are subject to change without notice.
+productDescriptionInfo: Prices, descriptions and availability of astrological Products (including birth chart readings, compatibility analyses, daily and monthly predictions, and relationship insights) are specified in the respective sections of AstroGods and are subject to change without notice.
 productRepresentationDisclaimer: Although Products on AstroGods are presented with the maximum technically possible accuracy, the representation on AstroGods through any means (including, as the case may be, graphic materials, images, colors, sounds) is to be understood as a mere reference and does not imply any guarantee regarding the characteristics of the Product purchased.
 promotionsAndDiscounts: Promotions and Discounts
 promotionsDisclaimer: The Owner may offer discounts or special promotions for the purchase of Products. Such promotions or discounts are always subject to the requirements and terms and conditions provided in the relevant section of AstroGods.
@@ -403,7 +394,7 @@ proprietaryContentStandard: A) Software licensing
 proprietaryContentStandardTextAfter: . The backend, algorithms, trademarks, user database, and all server-side elements remain the exclusive property of the Owner with all rights reserved.
 proprietaryContentStandardTextBefore: 'The application source code (frontend) is released under the GNU Affero General Public License v3.0 (AGPL-3.0) and is available at '
 providedByLabel: 'Provided by: '
-purchaseHistory: purchase history
+purchaseHistory: Purchase history
 purchaseNotifications: All notifications related to the purchase procedure described above will be sent to the email address provided by the User for this purpose.
 purchaseProcedure: Purchase Procedure
 purchaseProcedureSteps: 'Each step, from product selection to order submission, is part of the purchase procedure. The purchase procedure includes the following steps:'
@@ -412,12 +403,6 @@ purchaseViaAppStore: Purchase via App Store
 purposesDetailedInfoText: To obtain detailed information on the purposes of processing and the Personal Data specifically relevant to each purpose, the User can refer to the section "Details on Personal Data processing".
 purposesIntroText: 'User Data is collected to enable the Owner to provide the Service, comply with legal obligations, respond to requests or enforcement actions, protect their rights and interests (or those of Users or third parties), identify any fraudulent or malicious activities, as well as for the following purposes:'
 purposesSection: Purposes of Processing
-referralBenefits: AstroGods allows Users to receive benefits if, thanks to their recommendation, a new User purchases a Product offered on AstroGods.
-referralCodeLimitations: Invitation codes may only be redeemable for some Products among those offered on AstroGods.
-referralCodeUsage: To take advantage of this opportunity, the User can invite friends to purchase Products on AstroGods by sending them a special code provided by the Owner. Each code can be redeemed only once.
-referralLimitations: Although there is no limit to the number of people who can be invited, the number of benefits or advantages that each User can receive for an equal number of redeemed invitation codes may be subject to a maximum limit.
-referralProgram: Referral Program
-referralRewardSystem: 'If one of the invited people purchasing a Product on AstroGods decides to redeem an invitation code, the User who invited them will receive the benefit or advantage (such as: a discount, an additional service, an upgrade etc.) indicated on AstroGods.'
 refundTimeline: The refund will be made without undue delay and in any case within 14 days from the day on which the Owner was informed of the User's decision to withdraw from the contract. Unless otherwise agreed with the User, the refund will be made using the same means of payment used for the initial transaction. The User will not incur any cost as a result of the withdrawal.
 registration: Registration
 registrationAndAuth: Registration and authentication
@@ -425,7 +410,6 @@ registrationRequired: To use the Service, User can open an account by providing 
 registrationRequirementsText: The registration of a User account on AstroGods is subject to the conditions specified below. By registering an account, the User confirms that they meet these conditions.
 registrationSuccessful: Registration successful!
 renewalDurationMatch: The renewal has the same duration as the original subscription period.
-resolution: Resolution
 responseTimeline: The Owner will process the request without undue delay and within 14 days of its receipt.
 rightOfWithdrawal: Right of Withdrawal
 salesTerms: Sales terms and conditions
@@ -440,18 +424,16 @@ serviceResale: Service Resale
 serviceTerminationRights: Within the limits of the law, the Owner reserves the right to suspend or completely terminate the Service. In case of termination of the Service, the Owner will endeavor to allow Users to extract their personal data and information and will respect Users' rights relating to continued use of the product and/or compensation, according to legal provisions.
 severabilityClause: Severability Clause
 severabilityLimitations: Notwithstanding the above, the nullity, invalidity, or ineffectiveness of a specific provision of these Terms does not result in nullity of the entire Agreement, unless the null, invalid, or ineffective provisions within the Agreement are essential or of such importance that the parties would not have concluded the contract if they had known the provision would be invalid, or in cases where the remaining provisions would impose an excessive and unacceptable burden on one of the parties.
-statistics: Statistics
-statisticsDescription: The services contained in this section allow the Data Controller to monitor and analyze traffic data and serve to track User behavior.
-statisticsTitle: Statistics
+signInWithAppleDescription: Sign in with Apple is an authentication service provided by Apple. If the User chooses to hide their email, AstroGods receives a forwarding address created by Apple.
 stripeBillingAddress: Within the Stripe checkout area, Users may also be asked to specify their billing and shipping address.
 stripeCheckoutAccess: By clicking the checkout button, Users access the Stripe checkout area where they will be asked to provide their contact details and a payment method of their choice.
 stripeCustomerPortal: Users can access the Stripe Customer Portal to view billing history, download invoices, update payment methods, and manage subscription settings. This portal is provided directly by Stripe and ensures secure access to payment and billing information.
 stripeDescription: Stripe is a payment service provided by Stripe Technology Europe Ltd.
 stripeExpressCheckout: Within the Stripe checkout area, Users will have the possibility to choose express checkout. Express checkout allows Users to complete the purchase directly, using payment information and contact details stored by the most common online payment management services (such as "ApplePay", "Google Pay", "Microsoft Pay").
-stripePaymentStorage: Users who have not yet done so, can request Stripe to store their payment information for future purchases on AstroGods or on other sites that use Stripe as a payment gateway. For information on the processing of personal data and related rights, the User can consult the privacy policy of Stripe and AstroGods.
-stripeRecurringPayments: For subscription services, Stripe securely stores payment method information to process recurring payments automatically. Users can manage, update, or cancel their payment methods and subscriptions through the customer portal accessible from their account settings.
+stripePaymentStorage: Users who have not yet done so, can request Stripe to store their payment information for future purchases on AstroGods or on other sites that use Stripe as a payment gateway. For information on the processing of personal data and related rights, the User can consult the [privacy policy of Stripe](https://stripe.com/privacy) and that of [AstroGods](/privacy-policy).
+stripeRecurringPayments: For subscriptions purchased through Stripe, Stripe securely stores payment method information to process recurring payments automatically. Users can manage, update, or cancel their payment methods and subscriptions through the customer portal accessible from their account settings.
 subscriptionContinuousProduct: Through subscription, the User receives a Product continuously or periodically. Details regarding the type of subscription and termination are described below.
-subscriptionTermination: 'Subscriptions can be terminated by: (1) accessing the Stripe Customer Portal through your account settings to cancel immediately, (2) sending a clear cancellation notice to the Owner using the contact details provided in this document, or (3) following the cancellation instructions on AstroGods.'
+subscriptionTermination: 'Subscriptions can be canceled: (1) for purchases through Stripe, from the Stripe Customer Portal accessible from the [account settings](/settings?section=subscriptions); (2) for purchases through the App Store, from the [Apple Account settings](https://apps.apple.com/account/subscriptions); (3) by sending a clear cancellation notice to the Owner using the [contact details provided in this document](mailto:contact@astrogods.it).'
 subscriptions: Subscriptions
 subscriptionsTitle: Subscriptions
 summary: Summary
@@ -473,15 +455,8 @@ termsOfUseSection: Terms of Use
 termsTableOfContents: Table of Contents
 thirdPartyResourcesDisclaimer: The conditions applicable to resources provided by third parties, including those applicable to any grants of rights on content, are determined by the same third parties and governed by their respective terms and conditions or, in their absence, by law.
 thisSiteDescription: this website, accessible via browser, including related subdomains and any other site through which the Owner offers the Service;
-trackingTools: tracking tools
-trackingToolsIntro: 'AstroGods uses the following tracking tools:'
-trackingToolsSection: Tracking tools
-trafficOptimization: Traffic optimization and distribution
-trafficOptimizationDescription: |-
-  This type of service allows AstroGods to distribute its content through a network of geographically distributed servers and optimize its performance.
-  The Personal Data processed depends on the characteristics and mode of use of these services, whose function is to filter communications between AstroGods and the User's browser.
-  Given the distributed nature of this system, it is difficult to determine the places where content that may contain the User's Personal Data is transferred.
-trafficOptimizationTitle: Traffic optimization and distribution
+trackingToolsIntro: AstroGods does not use tracking tools for statistics or advertising. It only uses the cookies and browser storage needed for it to work, for example to keep you signed in.
+trackingToolsSection: No tracking
 trialAutoConversion: Upon expiration, the trial period will automatically convert to the equivalent paid Product unless the User cancels the purchase before the trial period expires.
 trialPeriod: Trial Period
 trialPeriodAvailability: Users have the opportunity to try AstroGods or individual Products free of charge for a 7-day, non-renewable trial period. Some functions or features of AstroGods may not be available during the trial period. Additional conditions applicable to the trial period will be specified on AstroGods.
@@ -489,7 +464,7 @@ trustedThirdParties: Trusted third parties that help us process them
 typesOfCookiesSection: Types of cookies we use
 unauthorizedResale: Users are not authorized to reproduce, duplicate, copy, sell, resell, or exploit AstroGods or the Service in whole or in part without the Owner's prior written consent, expressed directly or through a legitimate resale program.
 unitedStates: United States
-usageData: usage data
+usageData: Usage data
 usageRightsReservation: Until receipt of payment of the full purchase price by the Owner, the User does not acquire the usage rights of the ordered Products.
 usageRightsReservationTitle: Usage rights reservation
 useOfService: the use of AstroGods and
@@ -499,7 +474,7 @@ userCollaborationObligation: In the event that the purchased Product requires ac
 userExclusiveResponsibility: It is the User's exclusive responsibility to ensure that the use of AstroGods and/or the Service does not violate the law, regulations or the rights of third parties.
 userRights: User Rights
 userRightsSection: User Rights
-usingAccountClosureTools: Using the account closure tools available on AstroGods.
+usingAccountClosureTools: Using the [account closure tools](/settings?section=deleteAccount) available on AstroGods.
 usingAstroGodsUserDeclares: 'By using AstroGods the User declares to meet the following requirements:'
 viewCookiePolicy: View Cookie Policy
 viewPrivacyPolicy: View Privacy Policy

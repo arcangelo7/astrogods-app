@@ -1,5 +1,3 @@
-import 'package:material_ui/material_ui.dart';
-
 import '../models/reading_chunk.dart';
 import '../models/transit.dart';
 import 'api_client.dart';
@@ -7,8 +5,8 @@ import 'api_client.dart';
 class TransitService {
   final ApiClient _apiClient;
 
-  TransitService({ApiClient? apiClient, BuildContext? context})
-    : _apiClient = apiClient ?? ApiClient(context: context);
+  TransitService({ApiClient? apiClient})
+    : _apiClient = apiClient ?? ApiClient();
 
   void dispose() {}
 

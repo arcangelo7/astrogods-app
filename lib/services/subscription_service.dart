@@ -11,12 +11,10 @@ import '../i18n/translations.g.dart';
 import 'loopback_server.dart';
 
 class SubscriptionService {
-  final ApiClient _apiClient;
-  final BuildContext? _context;
+  final ApiClient _apiClient = ApiClient();
+  final BuildContext? context;
 
-  SubscriptionService({BuildContext? context})
-    : _apiClient = ApiClient(context: context),
-      _context = context;
+  SubscriptionService({this.context});
 
   Future<SubscriptionStatusResponse> getSubscriptionStatus() async {
     try {
@@ -42,8 +40,9 @@ class SubscriptionService {
       String? returnUrl;
       LoopbackServer? server;
 
-      if (isDesktop && _context != null) {
-        final t = Translations.of(_context);
+      final context = this.context;
+      if (isDesktop && context != null) {
+        final t = Translations.of(context);
         server = LoopbackServer(
           title: t.ui.portalReturnTitle,
           message: t.ui.portalReturnMessage,
@@ -74,12 +73,13 @@ class SubscriptionService {
       } else if (isDesktop) {
         await _openInBrowserWithLoopback(url, server!);
       } else {
-        final context = _context;
         if (context == null || !context.mounted) {
           throw Exception('Context not available');
         }
         await _openInAppWebView(url, context);
       }
+    } on ApiException {
+      rethrow;
     } catch (e) {
       throw Exception('Failed to open customer portal: ${e.toString()}');
     }

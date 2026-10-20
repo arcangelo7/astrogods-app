@@ -11,10 +11,12 @@ import '../../i18n/translations.g.dart';
 import '../../providers/auth_provider.dart';
 import '../../constants/text_styles.dart';
 import '../../utils/snackbar_utils.dart';
+import '../../utils/error_utils.dart';
 import '../../services/auth_service.dart';
 import '../../services/google_sign_in_native_service.dart';
 import '../../services/google_sign_in_desktop_service.dart';
 import '../../utils/auth_navigation_utils.dart';
+import 'apple_signin_button.dart';
 import 'google_signin_button.dart';
 
 class GoogleSignInWidget extends StatefulWidget {
@@ -53,7 +55,7 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
     });
 
     try {
-      final authService = AuthService(context: context);
+      final authService = AuthService();
       final config = await authService.getOAuthConfig();
 
       if (kIsWeb) {
@@ -118,18 +120,18 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
 
     try {
       final auth = user.authentication;
-      final success = await authProvider.loginWithGoogle(
+      final response = await authProvider.loginWithGoogle(
         idToken: auth.idToken ?? '',
-        context: context,
       );
 
       if (mounted) {
-        if (success) {
+        if (response.success) {
+          showAuthSuccess(context, created: response.created);
           await navigateAfterAuth();
         } else {
           SnackbarUtils.showCopyableErrorSnackBar(
             context,
-            authProvider.errorMessage!,
+            translateConnectionError(context, authProvider.errorMessage!),
           );
         }
       }
@@ -157,18 +159,18 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
       final googleUser = await _googleNativeService.signIn();
 
       if (googleUser != null && mounted) {
-        final success = await authProvider.loginWithGoogle(
+        final response = await authProvider.loginWithGoogle(
           idToken: googleUser.idToken,
-          context: context,
         );
 
         if (mounted) {
-          if (success) {
+          if (response.success) {
+            showAuthSuccess(context, created: response.created);
             await navigateAfterAuth();
           } else {
             SnackbarUtils.showCopyableErrorSnackBar(
               context,
-              authProvider.errorMessage!,
+              translateConnectionError(context, authProvider.errorMessage!),
             );
           }
         }
@@ -243,6 +245,9 @@ class _GoogleSignInWidgetState extends State<GoogleSignInWidget> {
         ),
 
         const SizedBox(height: 16),
+
+        if (supportsAppleSignIn)
+          AppleSignInButton(isRegisterMode: widget.isRegisterMode),
 
         if (!_isInitialized)
           SizedBox(

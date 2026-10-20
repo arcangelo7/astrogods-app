@@ -43,7 +43,7 @@ class _SynastryReadingScreenState extends State<SynastryReadingScreen>
   @override
   void initState() {
     super.initState();
-    _service = SynastryService(context: context);
+    _service = SynastryService();
     _readingStateService = ReadingStateService();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {

@@ -28,6 +28,7 @@ RegisterRequest _$RegisterRequestFromJson(Map<String, dynamic> json) =>
       birthPlaceId: json['birth_place_id'] as String?,
       unknownTime: json['unknown_time'] as bool?,
       birthTimeFold: (json['birth_time_fold'] as num?)?.toInt(),
+      gender: json['gender'] as String?,
     );
 
 Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
@@ -44,6 +45,7 @@ Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
       'birth_place_id': instance.birthPlaceId,
       'unknown_time': instance.unknownTime,
       'birth_time_fold': instance.birthTimeFold,
+      'gender': instance.gender,
     };
 
 AuthResponse _$AuthResponseFromJson(Map<String, dynamic> json) => AuthResponse(

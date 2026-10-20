@@ -4,14 +4,21 @@ accountDeleted: Account eliminato con successo
 activeSubscriptionDeleteWarning: |-
   Hai un abbonamento attivo. Per eliminare il tuo account, il tuo abbonamento verrà prima annullato.
 
-  Questa azione non può essere annullata. Tutti i tuoi dati, analisi salvate e immagini del profilo saranno eliminati permanentemente.
+  Questa azione non può essere annullata. Tutti i tuoi dati e le analisi salvate saranno eliminati per sempre.
+addEmail: Aggiungi email
 addNewsletter: Aggiungi oroscopo via email
 allNewsletters: Tutte le newsletter
+allPremiumFeatures: Tutte le funzioni Premium
 alreadyHaveAccount: Hai già un account?
 analyzing: ANALIZZANDO...
 annual: Annuale
 anticipateYourDayWithTransits: Anticipa la tua giornata con l'analisi dei transiti
 anticipateYourMonthWithTransits: Anticipa il tuo mese con l'analisi dei transiti
+appleAutoRenewNotice: "L'abbonamento si rinnova automaticamente al prezzo indicato, a meno che tu non lo disdica almeno 24 ore prima della fine del periodo in corso. Il pagamento viene addebitato sul tuo account Apple. Puoi gestirlo o disdirlo dalle impostazioni del tuo account App Store."
+appleSubscriptionDeleteWarning: |-
+  Eliminare l'account non disdice l'abbonamento App Store. Per fermare i rinnovi, disdicilo dalle impostazioni del tuo account App Store.
+
+  Questa azione non può essere annullata. Tutti i tuoi dati e le analisi salvate saranno eliminati per sempre.
 appTitle: AstroGods
 appVersion: Versione App
 at: alle
@@ -37,15 +44,16 @@ birthChartsCountPlural: ${count} temi natali salvati
 birthChartsCountSingular: 1 tema natale salvato
 birthChartsFilter: Temi natali
 birthChartsMustBeDifferent: I due temi natali devono essere diversi
-birthDate: data di nascita
+birthDate: Data di nascita
 birthInfo: Informazioni di Nascita
 birthInformation: Informazioni di Nascita
 birthPlace: Luogo di nascita
-birthTime: ora di nascita
+birthTime: Ora di nascita
 birthTimeRequired: Inserisci ora o spunta ora sconosciuta
 cancel: Annulla
 cancelSubscriptionAndDelete: Annulla abbonamento ed elimina account
 cancellingSubscription: Cancellazione in corso...
+changePassword: Cambia password
 changePlan: Cambia piano
 chartNotAvailable: Grafico non disponibile.
 chartOnlyMode: Solo grafico, senza lettura
@@ -64,6 +72,7 @@ confirmPassword: Conferma password
 confirmingSubscription: Conferma dell'abbonamento in corso...
 connectionError: Connessione non riuscita. Controlla la rete e riprova.
 connectionTimeout: La richiesta ha impiegato troppo tempo. Riprova.
+continueWithApple: Continua con Apple
 continueWithGoogle: Continua con Google
 couplesChartReadings: Letture del tema di coppia
 create: Crea
@@ -74,6 +83,7 @@ createSecondChart: Crea il secondo tema
 createSynastry: Crea sinastria
 creating: Creazione in corso...
 currentLocation: Posizione attuale
+currentPassword: Password attuale
 currentPlan: Piano attuale
 daily: Giornaliere
 dailyMonthlyTransits: Transiti giornalieri e mensili
@@ -87,7 +97,6 @@ dailyTransitsCountPlural: ${count} transiti giornalieri salvati
 dailyTransitsCountSingular: 1 transito giornaliero salvato
 dailyTransitsFilter: Transiti giornalieri
 darkMode: Scuro
-dataCollectedByMatomo: 'Dati raccolti da Matomo:'
 dateOfBirth: Data di Nascita
 dayCount: Giorno ${day}
 dayNumber: giorno ${number}
@@ -95,7 +104,7 @@ delete: Elimina
 deleteAccount: Elimina Account
 deleteAccountConfirmation: Sei assolutamente sicuro di voler eliminare il tuo account?
 deleteAccountTitle: Elimina Account
-deleteAccountWarning: Questa azione non può essere annullata. Tutti i tuoi dati, analisi salvate e immagini del profilo saranno eliminati permanentemente.
+deleteAccountWarning: Questa azione non può essere annullata. Tutti i tuoi dati e le analisi salvate saranno eliminati per sempre.
 deleteConfirmationWord: ELIMINA
 deleteFreeReadingTitle: Eliminare l'unica lettura?
 deleteFreeReadingWarning: Questa è la tua unica lettura salvata. Per generare nuove letture è necessario un abbonamento attivo.
@@ -103,6 +112,10 @@ didntReceiveEmail: Non hai ricevuto l'email?
 discoverHeartOfRelationship: Scopri il cuore di una relazione attraverso la sua sinastria
 dontHaveAccount: Non hai un account?
 dontKnowBirthTime: Non conosco l'ora di nascita
+emailAddressCopied: 'Nessuna app email disponibile. Indirizzo copiato negli appunti: ${email}'
+noPurchasesToRestore: Nessun abbonamento App Store da ripristinare
+passwordChanged: Password cambiata
+passwordSetupLinkSent: Link inviato a ${email}
 repeatedTimeFirst: La prima volta, durante l'ora legale
 repeatedTimeSecond: La seconda volta, durante l'ora solare
 downgrade: Passa a Standard
@@ -111,7 +124,7 @@ edit: Modifica
 editBirthChart: Modifica tema natale
 editDaily: Modifica newsletter giornaliera
 editMonthly: Modifica newsletter mensile
-email: email
+email: Email
 emailAlreadyExists: Questo indirizzo email è già registrato
 emailNotifications: Oroscopo via email
 emailSentSuccessfully: Email inviata con successo
@@ -133,7 +146,11 @@ forSearchTerm: per "${term}"
 forgotPassword: Password dimenticata?
 fourMonthsFree: 4 mesi GRATIS
 fullMoon: Luna piena
-gender: sesso
+gender: Genere
+genderMan: Uomo
+genderNonBinary: Non binario
+genderPreferNotToSay: Preferisco non dirlo
+genderWoman: Donna
 generateAnalysis: Genera Analisi
 generateDailyTransit: Genera Transito Giornaliero
 generateDetailedCompatibilityAnalysis: Genera un'analisi dettagliata della compatibilità tra ${relationshipTitle}
@@ -150,6 +167,12 @@ givenNameRequired: Il nome è obbligatorio
 goHome: Vai alla Home
 goToHome: Vai alla Home
 goToLogin: Accedi
+appleSignInError: 'Errore accesso Apple: ${error}'
+appleSignUpError: 'Errore registrazione Apple: ${error}'
+changeEmail: Modifica email
+confirmingEmail: Conferma dell'email in corso
+emailChangeConfirmed: Email aggiornata
+emailChangeLinkSent: 'Abbiamo inviato un link di conferma a ${email}. Aprilo per completare la modifica'
 googleSignInError: 'Errore accesso Google: ${error}'
 googleSignInSuccessful: Accesso con Google completato con successo
 googleSignUpError: 'Errore registrazione Google: ${error}'
@@ -189,10 +212,12 @@ monthlyTransitOf: Transito mensile di ${name}
 monthlyTransitsCountPlural: ${count} transiti mensili salvati
 monthlyTransitsCountSingular: 1 transito mensile salvato
 monthlyTransitsFilter: Transiti mensili
-name: nome
+name: Nome
 needBirthChartForPredictions: Per le previsioni ti serve prima un tema natale
 needTwoBirthChartsForSynastry: Per creare una sinastria hai bisogno di almeno due temi natali salvati.
 networkErrorOccurred: Si è verificato un errore di rete
+newEmail: Nuova email
+newsletterNeedsEmail: "Aggiungi un'email al tuo profilo per ricevere l'oroscopo via email."
 newImprovedVersion: Nuova versione migliorata
 newMoon: Luna nuova
 newPassword: Nuova password
@@ -218,7 +243,7 @@ notProvided: Non fornito
 oneMonthFree: 1 mese GRATIS
 oneMoreChartNeeded: Hai già un tema. Creane un secondo per la sinastria
 or: OPPURE
-password: password
+password: Password
 passwordResetSuccessful: Password reimpostata con successo
 passwordTooShort: La password deve essere lunga almeno 8 caratteri
 passwordsDoNotMatch: Le password non corrispondono
@@ -259,7 +284,6 @@ previewTitle: Il tuo tema natale ti attende
 previous: Indietro
 processingUnsubscribeRequest: Elaborazione richiesta di disiscrizione...
 profile: Profilo
-profilePhoto: foto profilo
 profileTitle: Profilo
 profileUpdatedSuccessfully: Profilo aggiornato con successo
 reactivateSubscription: Riattiva
@@ -281,6 +305,7 @@ resendEmail: Reinvia email
 resetLinkSent: Abbiamo inviato un link per reimpostare la password a ${email}
 resetPassword: Reimposta password
 resetPasswordTitle: Reimposta la tua password
+restorePurchases: Ripristina acquisti
 retry: Riprova
 save: Salva
 save20Percent: Risparmia 20%
@@ -288,6 +313,7 @@ save33Percent: Risparmia 33%
 save40Percent: Risparmia 40%
 saveAmount: RISPARMI ${amount}/ANNO
 saveChanges: Salva modifiche
+savePassword: Salva password
 savePdfDialogTitle: Salva PDF
 savedChartsTitle: Analisi salvate
 searchBirthCharts: Cerca temi natali...
@@ -297,22 +323,25 @@ searchDailyTransits: Cerca transiti giornalieri...
 searchInProgress: Ricerca in corso...
 searchMonthlyTransits: Cerca transiti mensili...
 searchSynastries: Cerca sinastrie...
-searching: Cercando...
 selectChart: Seleziona tema
 selectDate: Seleziona data
-selectFirstBirthChart: Seleziona il primo tema natale
 selectLocation: Seleziona località
 selectMonth: Seleziona mese
-selectSecondBirthChart: Seleziona il secondo tema natale
 semiannual: Semestrale
+sendConfirmationLink: Invia link di conferma
+sendLink: Invia link
 sendResetLink: Invia link di reset
 serverUnavailable: Stiamo facendo qualche miglioria. Torniamo tra un attimo!
 setAsPersonal: È il mio tema
+setPassword: Imposta password
+setPasswordDescription: Ti invieremo un link a ${email} per scegliere una password. Poi potrai accedere anche con la tua email.
+setPasswordNeedsEmail: Aggiungi prima un'email al tuo account, così potremo inviarti il link per scegliere una password.
 settingsTitle: Impostazioni
 sevenDaysFreeTrial: 7 giorni di prova gratuita
 sharePdf: Condividi PDF
 signIn: Accedi
 signUp: Registrati
+sixMonthsPeriod: 6 mesi
 standardAnnual: Standard - annuale
 standardMonthly: Standard - mensile
 standardSemiannual: Standard - semestrale
@@ -326,10 +355,15 @@ subscriptionActive: Attivo
 subscriptionAmount: Importo
 subscriptionCancelledSuccessfully: Abbonamento annullato con successo
 subscriptionCancelsOn: Termina il
-subscriptionConfirmationFailed: Impossibile confermare l'abbonamento. Contatta l'assistenza.
+subscriptionConfirmationFailed: Impossibile confermare l'abbonamento. Contatta l'assistenza
 subscriptionEndDate: Si rinnova il
 subscriptionIncomplete: Pagamento Incompleto
+subscriptionManagedElsewhere: 'Questo abbonamento è stato acquistato fuori dall''App Store: puoi gestirlo dal sito'
 subscriptionPastDue: Pagamento Scaduto
+subscriptionPurchasedOnAndroid: 'Questo abbonamento è stato acquistato nell''app per Android: puoi gestirlo da lì o dal sito'
+subscriptionPurchasedOnLinux: 'Questo abbonamento è stato acquistato nell''app per Linux: puoi gestirlo da lì o dal sito'
+subscriptionPurchasedOnWeb: 'Questo abbonamento è stato acquistato sul sito: puoi gestirlo da lì'
+subscriptionPurchasedOnWindows: 'Questo abbonamento è stato acquistato nell''app per Windows: puoi gestirlo da lì o dal sito'
 subscriptionRequiredForRegeneration: Per rigenerare questa lettura in un'altra lingua è necessario un abbonamento (va bene anche lo standard)
 subscriptionStartDate: Iniziato il
 subscriptionSuccessGoHome: Vai alla home
@@ -342,7 +376,7 @@ subscriptionUnpaid: Pagamento Fallito
 subtitlePart1: Allineati
 subtitlePart2: al tuo
 subtitlePart3: cielo
-surname: cognome
+surname: Cognome
 swipeToView: Scorri per visualizzare
 synastriesCountPlural: ${count} sinastrie salvate
 synastriesCountSingular: 1 sinastria salvata
@@ -356,7 +390,7 @@ synastryRemovedFromSaved: Sinastria rimossa dalle salvate
 systemMode: Sistema
 termsOfService: Termini di Servizio
 theme: Tema
-thenPricePerMonth: Poi ${price}/mese
+thenPrice: Poi ${price}/${period}
 timeOfBirth: Ora di Nascita
 transitDate: Data del transito
 transitDescription: I transiti sono i movimenti dei pianeti che, passando sulle posizioni del cielo natale, attivano influenze astrologiche temporanee.
@@ -393,3 +427,4 @@ waxingCrescent: Luna crescente
 waxingGibbous: Gibbosa crescente
 welcomeBack: Bentornato!
 withoutBirthTimeWarning: Senza l'ora di nascita la lettura non prenderà in considerazione l'Ascendente
+yearPeriod: anno

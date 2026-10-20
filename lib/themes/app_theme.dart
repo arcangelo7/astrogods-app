@@ -6,9 +6,15 @@ import '../constants/colors.dart';
 
 class AppTheme {
   static const Color _seedColor = AppColors.seedColor;
+  static const _dialogTheme = DialogThemeData(
+    insetPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+  );
 
   static ThemeData buildDarkTheme(ColorScheme scheme) {
     return ThemeData(
+      fontFamily: AppTextStyles.fontFamily,
+      fontFamilyFallback: AppTextStyles.fontFamilyFallback,
+      dialogTheme: _dialogTheme,
       useMaterial3: true,
       colorScheme: scheme,
       scaffoldBackgroundColor: scheme.surface,
@@ -86,17 +92,16 @@ class AppTheme {
           );
         }),
       ),
-      chipTheme: ChipThemeData(
-        backgroundColor: scheme.primary.withValues(alpha: 0.1),
-        selectedColor: scheme.secondary.withValues(alpha: 0.25),
-        labelStyle: TextStyle(color: scheme.onSurface),
-      ),
+      chipTheme: _chipTheme(scheme, backgroundAlpha: 0.1),
       iconTheme: IconThemeData(color: scheme.onSurface.withValues(alpha: 0.7)),
     );
   }
 
   static ThemeData buildLightTheme(ColorScheme scheme) {
     return ThemeData(
+      fontFamily: AppTextStyles.fontFamily,
+      fontFamilyFallback: AppTextStyles.fontFamilyFallback,
+      dialogTheme: _dialogTheme,
       useMaterial3: true,
       colorScheme: scheme,
       scaffoldBackgroundColor: scheme.surface,
@@ -174,12 +179,26 @@ class AppTheme {
           );
         }),
       ),
-      chipTheme: ChipThemeData(
-        backgroundColor: scheme.primary.withValues(alpha: 0.05),
-        selectedColor: scheme.secondary.withValues(alpha: 0.12),
-        labelStyle: TextStyle(color: scheme.onSurface),
-      ),
+      chipTheme: _chipTheme(scheme, backgroundAlpha: 0.05),
       iconTheme: IconThemeData(color: scheme.onSurface.withValues(alpha: 0.7)),
+    );
+  }
+
+  static ChipThemeData _chipTheme(
+    ColorScheme scheme, {
+    required double backgroundAlpha,
+  }) {
+    return ChipThemeData(
+      backgroundColor: scheme.primary.withValues(alpha: backgroundAlpha),
+      selectedColor: scheme.primary,
+      showCheckmark: false,
+      labelStyle: TextStyle(
+        color: WidgetStateColor.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? scheme.onPrimary
+              : scheme.onSurface,
+        ),
+      ),
     );
   }
 

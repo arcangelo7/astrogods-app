@@ -8,6 +8,7 @@ import '../../widgets/starry_night_background.dart';
 import '../../widgets/gradient_button.dart';
 import '../../widgets/mystical_text_field.dart';
 import '../../widgets/auth/auth_container.dart';
+import '../../widgets/auth/auth_link_box.dart';
 import '../../constants/text_styles.dart';
 import '../../utils/snackbar_utils.dart';
 import '../../utils/auth_validators.dart';
@@ -32,10 +33,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   Future<void> _handleForgotPassword() async {
-    if (_formKey.currentState == null || !_formKey.currentState!.validate()) {
-      return;
-    }
+    if (!_formKey.currentState!.validate()) return;
+    await _sendResetEmail();
+  }
 
+  Future<void> _sendResetEmail() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final email = _emailController.text.trim();
 
@@ -53,20 +55,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       } else {
         SnackbarUtils.showError(
           context,
-          translateConnectionError(
-            context,
-            authProvider.errorMessage ?? 'Failed to send reset email',
-          ),
+          translateConnectionError(context, authProvider.errorMessage!),
         );
       }
     }
-  }
-
-  void _resendEmail() {
-    setState(() {
-      _emailSent = false;
-    });
-    _handleForgotPassword();
   }
 
   @override
@@ -201,7 +193,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                               (context, authProvider, child) {
                                                 return GradientButton(
                                                   text: t.ui.resendEmail,
-                                                  onPressed: _resendEmail,
+                                                  onPressed: _sendResetEmail,
                                                   enabled:
                                                       !authProvider.isLoading,
                                                   isLoading:
@@ -260,16 +252,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             const SizedBox(height: 24),
 
                             // Back to Login Link
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface
-                                    .withValues(alpha: 0.85),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                            AuthLinkBox(
                               child: TextButton(
                                 onPressed: () {
                                   context.go('/login');

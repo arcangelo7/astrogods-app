@@ -1,7 +1,14 @@
 import 'package:material_ui/material_ui.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyles {
+  static const String fontFamily = 'Inter';
+  // Inter has no Hebrew or Chinese; the app bundles the few characters the
+  // Codex uses so the web build never fetches fonts from a CDN.
+  static const List<String> fontFamilyFallback = [
+    'Noto Sans Hebrew',
+    'Noto Sans SC',
+  ];
+
   static const double heroSize = 64.0;
   static const double h1Size = 48.0;
   static const double h2Size = 42.0;
@@ -39,7 +46,9 @@ class AppTextStyles {
   static const double iconSmall = 16.0;
   static const double iconMedium = 20.0;
   static TextStyle getHeroStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: heroSize,
       fontWeight: extrabold,
       letterSpacing: wideLetterSpacing,
@@ -49,7 +58,9 @@ class AppTextStyles {
   }
 
   static TextStyle getH1Style(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: h1Size,
       fontWeight: extrabold,
       letterSpacing: wideLetterSpacing,
@@ -59,7 +70,9 @@ class AppTextStyles {
   }
 
   static TextStyle getH2Style(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: h2Size,
       fontWeight: extrabold,
       letterSpacing: wideLetterSpacing,
@@ -69,7 +82,9 @@ class AppTextStyles {
   }
 
   static TextStyle getH3Style(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: h3Size,
       fontWeight: bold,
       color: Theme.of(context).colorScheme.onSurface,
@@ -77,7 +92,9 @@ class AppTextStyles {
   }
 
   static TextStyle getH4Style(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: h4Size,
       fontWeight: light,
       color: Theme.of(context).colorScheme.onSurface,
@@ -86,7 +103,9 @@ class AppTextStyles {
   }
 
   static TextStyle getH5Style(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: h5Size,
       height: relaxedLineHeight,
       fontWeight: bold,
@@ -95,7 +114,9 @@ class AppTextStyles {
   }
 
   static TextStyle getH6Style(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: h6Size,
       height: relaxedLineHeight,
       fontWeight: semibold,
@@ -104,7 +125,9 @@ class AppTextStyles {
   }
 
   static TextStyle getSubtitleLargeStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: bodyLargeSize,
       fontWeight: light,
       letterSpacing: normalLetterSpacing,
@@ -114,7 +137,9 @@ class AppTextStyles {
   }
 
   static TextStyle getSubtitleMediumStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: bodyMediumSize,
       fontWeight: regular,
       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
@@ -122,7 +147,9 @@ class AppTextStyles {
   }
 
   static TextStyle getBodyLargeStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: bodySmallSize,
       height: looseLineHeight,
       fontWeight: regular,
@@ -131,7 +158,9 @@ class AppTextStyles {
   }
 
   static TextStyle getBodyStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       color: Theme.of(context).colorScheme.onSurface,
       fontSize: bodySize,
       fontWeight: regular,
@@ -139,7 +168,9 @@ class AppTextStyles {
   }
 
   static TextStyle getFormLabelStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
       fontSize: captionSize,
       fontWeight: light,
@@ -147,14 +178,18 @@ class AppTextStyles {
   }
 
   static TextStyle getFloatingLabelStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       color: Theme.of(context).colorScheme.primary,
       fontSize: captionSize,
       fontWeight: regular,
     );
   }
 
-  static TextStyle get buttonTextStyle => GoogleFonts.roboto(
+  static TextStyle get buttonTextStyle => TextStyle(
+    fontFamily: fontFamily,
+    fontFamilyFallback: fontFamilyFallback,
     color: Colors.white,
     fontSize: bodySize,
     fontWeight: semibold,
@@ -162,14 +197,18 @@ class AppTextStyles {
   );
 
   static TextStyle getLinkStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       color: Theme.of(context).colorScheme.primary,
       fontWeight: semibold,
     );
   }
 
   static TextStyle getCaptionStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
       fontSize: captionSize,
       fontWeight: regular,
@@ -177,14 +216,18 @@ class AppTextStyles {
   }
 
   static TextStyle getSmallTextStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
       fontSize: tinySize,
     );
   }
 
   static TextStyle getWarningStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       color: Theme.of(context).colorScheme.error,
       fontSize: smallSize,
       fontWeight: medium,
@@ -192,7 +235,9 @@ class AppTextStyles {
   }
 
   static TextStyle getButtonStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       color: Theme.of(context).colorScheme.primary,
       fontSize: bodySize,
       fontWeight: medium,
@@ -203,7 +248,9 @@ class AppTextStyles {
     BuildContext context,
     Color backgroundColor,
   ) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       color:
           ThemeData.estimateBrightnessForColor(backgroundColor) ==
               Brightness.dark
@@ -222,41 +269,44 @@ class AppTextStyles {
       getH6Style(context);
 
   static TextStyle getMarkdownStrongStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontWeight: bold,
       color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.9),
     );
   }
 
   static TextStyle getMarkdownEmStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontStyle: FontStyle.italic,
       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
     );
   }
 
   static TextStyle getLocationMainStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontWeight: medium,
       color: Theme.of(context).colorScheme.onSurface,
     );
   }
 
   static TextStyle getLocationSecondaryStyle(BuildContext context) {
-    return GoogleFonts.roboto(
+    return TextStyle(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
       fontSize: tinySize,
       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
     );
   }
 
-  static TextStyle getLocationLoadingStyle(BuildContext context) {
-    return GoogleFonts.roboto(
-      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
-      fontSize: captionSize,
-    );
-  }
-
-  static TextStyle get drawerHeaderStyle => GoogleFonts.roboto(
+  static TextStyle get drawerHeaderStyle => TextStyle(
+    fontFamily: fontFamily,
+    fontFamilyFallback: fontFamilyFallback,
     color: Colors.white,
     fontSize: h4Size,
     fontWeight: bold,

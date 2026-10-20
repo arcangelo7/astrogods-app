@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../config/image_urls.dart';
 import '../constants/text_styles.dart';
+import '../utils/email_utils.dart';
 import '../constants/cavern_names.dart';
 import '../i18n/translations.g.dart';
 import 'cavern_tables.dart';
@@ -641,6 +642,10 @@ class _FormattedMarkdownContentState extends State<FormattedMarkdownContent> {
   Future<void> _launchUrl(String url, BuildContext context) async {
     if (url.startsWith('/')) {
       context.go(url);
+      return;
+    }
+    if (url.startsWith('mailto:')) {
+      await openEmail(context, url.substring('mailto:'.length));
       return;
     }
     final uri = Uri.parse(url);

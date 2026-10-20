@@ -1,0 +1,193 @@
+{
+  "appPolicies": {
+    "eula": "",
+    "policies": [
+      {
+        "locale": "it",
+        "policyText": "",
+        "policyURL": ""
+      }
+    ]
+  },
+  "identifier": "A57B3C21",
+  "nonRenewingSubscriptions": [],
+  "products": [],
+  "settings": {
+    "_applicationInternalID": "6758268326",
+    "_developerTeamID": "YZUYBUSD2H",
+    "_failTransactionsEnabled": false,
+    "_lastSynchronizedDate": 0,
+    "_locale": "it",
+    "_storefront": "ITA",
+    "_storeKitErrors": []
+  },
+  "subscriptionGroups": [
+    {
+      "id": "22490362",
+      "localizations": [],
+      "name": "AstroGods",
+      "subscriptions": [
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "4.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "6824202271",
+          "introductoryOffer": {
+            "internalID": "96824202271",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1W"
+          },
+          "localizations": [
+            {
+              "description": "Premium mensile",
+              "displayName": "Premium mensile",
+              "locale": "it"
+            }
+          ],
+          "productID": "it.astrogods.premium.monthly",
+          "recurringSubscriptionPeriod": "P1M",
+          "referenceName": "Premium monthly",
+          "subscriptionGroupID": "22490362",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        },
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "23.95",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "6824202049",
+          "introductoryOffer": {
+            "internalID": "96824202049",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1W"
+          },
+          "localizations": [
+            {
+              "description": "Premium semestrale",
+              "displayName": "Premium semestrale",
+              "locale": "it"
+            }
+          ],
+          "productID": "it.astrogods.premium.semiannual",
+          "recurringSubscriptionPeriod": "P6M",
+          "referenceName": "Premium semiannual",
+          "subscriptionGroupID": "22490362",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        },
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "35.90",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "6824202338",
+          "introductoryOffer": {
+            "internalID": "96824202338",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1W"
+          },
+          "localizations": [
+            {
+              "description": "Premium annuale",
+              "displayName": "Premium annuale",
+              "locale": "it"
+            }
+          ],
+          "productID": "it.astrogods.premium.annual",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "Premium annual",
+          "subscriptionGroupID": "22490362",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        },
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "2.99",
+          "familyShareable": false,
+          "groupNumber": 2,
+          "internalID": "6824202281",
+          "introductoryOffer": {
+            "internalID": "96824202281",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1W"
+          },
+          "localizations": [
+            {
+              "description": "Standard mensile",
+              "displayName": "Standard mensile",
+              "locale": "it"
+            }
+          ],
+          "productID": "it.astrogods.standard.monthly",
+          "recurringSubscriptionPeriod": "P1M",
+          "referenceName": "Standard monthly",
+          "subscriptionGroupID": "22490362",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        },
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "14.49",
+          "familyShareable": false,
+          "groupNumber": 2,
+          "internalID": "6824202282",
+          "introductoryOffer": {
+            "internalID": "96824202282",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1W"
+          },
+          "localizations": [
+            {
+              "description": "Standard semestrale",
+              "displayName": "Standard semestrale",
+              "locale": "it"
+            }
+          ],
+          "productID": "it.astrogods.standard.semiannual",
+          "recurringSubscriptionPeriod": "P6M",
+          "referenceName": "Standard semiannual",
+          "subscriptionGroupID": "22490362",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        },
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "23.90",
+          "familyShareable": false,
+          "groupNumber": 2,
+          "internalID": "6824202319",
+          "introductoryOffer": {
+            "internalID": "96824202319",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1W"
+          },
+          "localizations": [
+            {
+              "description": "Standard annuale",
+              "displayName": "Standard annuale",
+              "locale": "it"
+            }
+          ],
+          "productID": "it.astrogods.standard.annual",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "Standard annual",
+          "subscriptionGroupID": "22490362",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        }
+      ]
+    }
+  ],
+  "version": {
+    "major": 4,
+    "minor": 0
+  }
+}

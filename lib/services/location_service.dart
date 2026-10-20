@@ -1,15 +1,12 @@
 import 'dart:async';
 
-import 'package:material_ui/material_ui.dart';
-
 import '../services/api_client.dart';
 import '../models/location.dart';
 
 class LocationService {
   final ApiClient _apiClient;
 
-  LocationService({BuildContext? context})
-    : _apiClient = ApiClient(context: context);
+  LocationService() : _apiClient = ApiClient();
   Timer? _debounceTimer;
 
   Future<List<PlaceSearchResult>> searchPlaces(

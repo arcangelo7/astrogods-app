@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
 import '../utils/snackbar_utils.dart';
+import '../utils/auth_navigation_utils.dart';
 
 class AuthGuard extends StatefulWidget {
   final Widget child;
@@ -43,12 +44,14 @@ class _AuthGuardState extends State<AuthGuard> {
         // User is not authenticated, handle redirect
         if (widget.showLoginPrompt && !_hasRedirected) {
           _hasRedirected = true;
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+          final protectedLocation = GoRouterState.of(context).uri.toString();
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
             if (mounted && !authProvider.isAuthenticated) {
               if (widget.message != null) {
-                SnackbarUtils.showError(context, widget.message!);
+                SnackbarUtils.showError(this.context, widget.message!);
               }
-              context.go('/login');
+              await saveReturnUrl(protectedLocation);
+              if (mounted) this.context.go('/login');
             }
           });
         }

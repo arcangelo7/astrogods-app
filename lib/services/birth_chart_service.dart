@@ -1,5 +1,3 @@
-import 'package:material_ui/material_ui.dart';
-
 import '../models/birth_chart.dart';
 import '../models/reading.dart';
 import '../models/reading_chunk.dart';
@@ -8,12 +6,13 @@ import 'api_client.dart';
 class BirthChartService {
   final ApiClient _apiClient;
 
-  BirthChartService({ApiClient? apiClient, BuildContext? context})
-    : _apiClient = apiClient ?? ApiClient(context: context);
+  BirthChartService({ApiClient? apiClient})
+    : _apiClient = apiClient ?? ApiClient();
 
   Future<BirthChart> createBirthChart({
     required String givenName,
     required String familyName,
+    required String? gender,
     required String date,
     required String placeId,
     String? place,
@@ -27,6 +26,7 @@ class BirthChartService {
         body: {
           'given_name': givenName,
           'family_name': familyName,
+          'gender': gender,
           'date': date,
           'place_id': placeId,
           'place': place,
@@ -36,7 +36,12 @@ class BirthChartService {
         },
       );
 
-      return BirthChart.fromJson(response['birth_chart']);
+      final birthChart = BirthChart.fromJson(response['birth_chart']);
+      final chartToken = response['chart_token'] as String?;
+      if (chartToken != null) {
+        await ApiClient.saveBirthChartToken(birthChart.id, chartToken);
+      }
+      return birthChart;
     } catch (e) {
       if (e is ApiException) rethrow;
       throw BirthChartException(
@@ -133,19 +138,6 @@ class BirthChartService {
       '/birth-chart/$birthChartId/lunar-phase',
     );
     return response;
-  }
-
-  Future<List<Reading>> getReadings(int birthChartId) async {
-    try {
-      final response = await _apiClient.get(
-        '/birth-chart/$birthChartId/readings',
-      );
-      final List<dynamic> readingsJson = response['readings'];
-
-      return readingsJson.map((json) => Reading.fromJson(json)).toList();
-    } catch (e) {
-      throw BirthChartException('Failed to get readings: ${e.toString()}');
-    }
   }
 
   Stream<ReadingChunk> streamReading(int birthChartId) async* {

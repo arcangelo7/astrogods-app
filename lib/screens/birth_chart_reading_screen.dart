@@ -44,7 +44,7 @@ class _BirthChartReadingScreenState extends State<BirthChartReadingScreen>
   @override
   void initState() {
     super.initState();
-    _service = BirthChartService(context: context);
+    _service = BirthChartService();
     _readingStateService = ReadingStateService();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {

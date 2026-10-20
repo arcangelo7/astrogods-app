@@ -4,26 +4,44 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
-import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../i18n/translations.g.dart';
 import '../models/reading_chunk.dart';
-import '../providers/language_provider.dart';
 import '../config/environment.dart';
 import '../config/router.dart';
 
 class ApiClient {
   static const Duration timeout = Duration(seconds: 30);
-  final BuildContext? context;
-
   static String get baseUrl => Environment.apiBaseUrl;
 
   final http.Client _client = http.Client();
 
-  ApiClient({this.context});
+  static const String _chartTokensKey = 'birth_chart_tokens';
+  static final RegExp _birthChartPath = RegExp(
+    r'^/birth-chart/(\d+)(?:[/?]|$)',
+  );
 
-  Future<Map<String, String>> _getHeaders() async {
+  /// Keeps the token that proves who created a chart while signed out, so
+  /// the creator can still open it, also after signing in.
+  static Future<void> saveBirthChartToken(
+    int birthChartId,
+    String token,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    final tokens = _decodeChartTokens(prefs);
+    tokens['$birthChartId'] = token;
+    await prefs.setString(_chartTokensKey, jsonEncode(tokens));
+  }
+
+  static Map<String, dynamic> _decodeChartTokens(SharedPreferences prefs) {
+    final stored = prefs.getString(_chartTokensKey);
+    return stored == null
+        ? <String, dynamic>{}
+        : jsonDecode(stored) as Map<String, dynamic>;
+  }
+
+  Future<Map<String, String>> _getHeaders(String endpoint) async {
     final headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -31,23 +49,20 @@ class ApiClient {
 
     headers['X-Client-Version'] = Environment.appVersion;
 
-    if (context != null) {
-      final languageProvider = Provider.of<LanguageProvider>(
-        context!,
-        listen: false,
-      );
-      headers['Accept-Language'] = languageProvider.currentLocale.languageCode;
+    headers['Accept-Language'] = LocaleSettings.currentLocale.languageCode;
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('auth_token');
+    if (token != null && token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $token';
     }
 
-    // Include JWT token if available
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('auth_token');
-      if (token != null && token.isNotEmpty) {
-        headers['Authorization'] = 'Bearer $token';
+    final chartId = _birthChartPath.firstMatch(endpoint)?.group(1);
+    if (chartId != null) {
+      final chartToken = _decodeChartTokens(prefs)[chartId] as String?;
+      if (chartToken != null) {
+        headers['X-Birth-Chart-Token'] = chartToken;
       }
-    } catch (e) {
-      // Continue without token if SharedPreferences fails
     }
 
     return headers;
@@ -60,7 +75,7 @@ class ApiClient {
   }) async {
     try {
       final uri = Uri.parse('$baseUrl$endpoint');
-      final headers = await _getHeaders();
+      final headers = await _getHeaders(endpoint);
       final response = await _client
           .get(uri, headers: {...headers, ...?extraHeaders})
           .timeout(requestTimeout ?? timeout);
@@ -88,7 +103,7 @@ class ApiClient {
   }) async {
     try {
       final uri = Uri.parse('$baseUrl$endpoint');
-      final headers = await _getHeaders();
+      final headers = await _getHeaders(endpoint);
       final response = await _client
           .post(
             uri,
@@ -120,7 +135,7 @@ class ApiClient {
   }) async {
     try {
       final uri = Uri.parse('$baseUrl$endpoint');
-      final headers = await _getHeaders();
+      final headers = await _getHeaders(endpoint);
       final response = await _client
           .put(
             uri,
@@ -151,7 +166,7 @@ class ApiClient {
   }) async {
     try {
       final uri = Uri.parse('$baseUrl$endpoint');
-      final headers = await _getHeaders();
+      final headers = await _getHeaders(endpoint);
       final response = await _client
           .delete(uri, headers: headers)
           .timeout(requestTimeout ?? timeout);
@@ -206,7 +221,7 @@ class ApiClient {
   }) async {
     try {
       final uri = Uri.parse('$baseUrl$endpoint');
-      final headers = await _getHeaders();
+      final headers = await _getHeaders(endpoint);
       final response = await _client
           .get(uri, headers: {...headers, ...?extraHeaders})
           .timeout(requestTimeout ?? timeout);
@@ -236,7 +251,7 @@ class ApiClient {
   }) async {
     try {
       final uri = Uri.parse('$baseUrl$endpoint');
-      final headers = await _getHeaders();
+      final headers = await _getHeaders(endpoint);
       // Remove JSON content type for binary response
       headers.remove('Content-Type');
       headers['Accept'] = 'application/pdf';
@@ -280,7 +295,7 @@ class ApiClient {
       final uri = Uri.parse('$baseUrl$endpoint');
       final request = http.Request('GET', uri);
 
-      final headers = await _getHeaders();
+      final headers = await _getHeaders(endpoint);
       headers['Accept'] = 'text/event-stream';
       headers['Cache-Control'] = 'no-cache';
       headers['Connection'] = 'keep-alive';
@@ -429,7 +444,7 @@ class ApiClient {
     try {
       final uri = Uri.parse('$baseUrl$endpoint');
       final request = http.Request('GET', uri);
-      final headers = await _getHeaders();
+      final headers = await _getHeaders(endpoint);
       request.headers.addAll(headers);
 
       final response = await _client.send(request);

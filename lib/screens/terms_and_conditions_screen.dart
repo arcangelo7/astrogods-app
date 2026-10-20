@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../i18n/translations.g.dart';
+import '../utils/email_utils.dart';
+import '../widgets/linked_text.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
 
@@ -641,7 +643,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               InkWell(
-                onTap: () => _launchExternalUrl('mailto:contact@astrogods.it'),
+                onTap: () => openEmail(context, 'contact@astrogods.it'),
                 child: Text(
                   'contact@astrogods.it',
                   style: AppTextStyles.getBodyStyle(context).copyWith(
@@ -733,7 +735,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
-          Text(
+          LinkedText(
             t.legal.accountResponsibility,
             style: AppTextStyles.getBodyStyle(context),
           ),
@@ -824,40 +826,6 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           _buildBulletPoint(context, t.legal.injuryToThirdPartyRights),
           _buildBulletPoint(context, t.legal.actsHarmingOwnerInterests),
           _buildBulletPoint(context, t.legal.offensesToOwnerOrThird),
-
-          const SizedBox(height: 24),
-
-          // Referral Program
-          _buildSubSectionTitle(context, t.legal.referralProgram),
-          Text(
-            t.legal.referralBenefits,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.referralCodeUsage,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.referralRewardSystem,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.referralCodeLimitations,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.ownerDiscretionaryRight,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.referralLimitations,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
         ],
       ),
     );
@@ -1029,7 +997,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
-          Text(
+          LinkedText(
             t.legal.paymentThirdPartyHandling,
             style: AppTextStyles.getBodyStyle(context),
           ),
@@ -1062,7 +1030,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
-          Text(
+          LinkedText(
             t.legal.appStoreTermsPrecedence,
             style: AppTextStyles.getBodyStyle(context),
           ),
@@ -1097,7 +1065,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             context,
             t.legal.contractualWithdrawalRightTitle,
           ),
-          Text(
+          LinkedText(
             t.legal.contractualWithdrawalRight,
             style: AppTextStyles.getBodyStyle(context),
           ),
@@ -1178,25 +1146,6 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           const SizedBox(height: 20),
 
-          // Lifetime Subscriptions
-          Text(
-            t.legal.lifetimeSubscriptions,
-            style: AppTextStyles.getBodyStyle(context)
-                .copyWith(fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            t.legal.lifetimeSubscriptionDuration,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.lifetimeRefundPolicy,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
-
-          const SizedBox(height: 20),
-
           // Fixed-term Subscriptions
           Text(
             t.legal.fixedTermSubscriptions,
@@ -1231,6 +1180,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           _buildBulletPoint(context, t.legal.appleAccountAutoRenewal),
           _buildBulletPoint(context, t.legal.appleAccountRenewalCharges),
           _buildBulletPoint(context, t.legal.appleAccountManagement),
+          _buildBulletPoint(context, t.legal.appleAccountRefunds),
           const SizedBox(height: 16),
           Text(
             t.legal.appleTermsPrecedence,
@@ -1267,7 +1217,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                 .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
-          Text(
+          LinkedText(
             t.legal.subscriptionTermination,
             style: AppTextStyles.getBodyStyle(context)
                 .copyWith(fontWeight: FontWeight.w600),
@@ -1277,49 +1227,6 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             t.legal.cancellationEffectiveTiming,
             style: AppTextStyles.getBodyStyle(context)
                 .copyWith(fontWeight: FontWeight.w600),
-          ),
-
-          const SizedBox(height: 20),
-
-          // Consumer Exception
-          _buildSubSectionTitle(context, t.legal.consumerExceptionTitle),
-          Text(
-            t.legal.consumerExceptionText,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.consumerIndefiniteExtension,
-            style: AppTextStyles.getBodyStyle(context)
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.consumerRenewalCharging,
-            style: AppTextStyles.getBodyStyle(context)
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.consumerMonthlyTermination,
-            style: AppTextStyles.getBodyStyle(context)
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-
-          const SizedBox(height: 24),
-
-          // Resolution (subsection within Consumer Exception)
-          _buildSubSectionTitle(context, t.legal.resolution),
-          Text(
-            t.legal.subscriptionTermination,
-            style: AppTextStyles.getBodyStyle(context)
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.consumerCancellationTiming,
-            style: AppTextStyles.getBodyStyle(context)
-                .copyWith(fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -1556,7 +1463,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
 
           // Contacts
           _buildSubSectionTitle(context, t.legal.contacts),
-          Text(
+          LinkedText(
             t.legal.communicationRequirement,
             style: AppTextStyles.getBodyStyle(context),
           ),
@@ -1643,12 +1550,12 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
-          Text(
+          LinkedText(
             t.legal.judicialRightsPreservation,
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
-          Text(
+          LinkedText(
             t.legal.complaintProcedure,
             style: AppTextStyles.getBodyStyle(context),
           ),
@@ -1702,7 +1609,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
     final t = Translations.of(context);
     return _buildSection(
       context,
-      Icons.track_changes_outlined,
+      Icons.cookie_outlined,
       t.legal.cookiesAndTrackingTitle,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2045,7 +1952,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           ),
           const SizedBox(height: 24),
           ElevatedButton.icon(
-            onPressed: () => _launchExternalUrl('mailto:contact@astrogods.it'),
+            onPressed: () => openEmail(context, 'contact@astrogods.it'),
             icon: const Icon(Icons.email_outlined),
             label: Text(t.legal.contactUs),
             style: ElevatedButton.styleFrom(
@@ -2271,8 +2178,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 InkWell(
-                  onTap: () =>
-                      _launchExternalUrl('mailto:contact@astrogods.it'),
+                  onTap: () => openEmail(context, 'contact@astrogods.it'),
                   child: Text(
                     'contact@astrogods.it',
                     style: AppTextStyles.getCaptionStyle(context).copyWith(
@@ -2305,7 +2211,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             ),
           ),
           Expanded(
-            child: Text(
+            child: LinkedText(
               text,
               style: AppTextStyles.getBodyStyle(context).copyWith(
                 height: 1.5,

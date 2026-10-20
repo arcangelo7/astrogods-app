@@ -5,7 +5,7 @@ part 'user.g.dart';
 @JsonSerializable()
 class User {
   final int id;
-  final String email;
+  final String? email;
   @JsonKey(name: 'preferred_language')
   final String preferredLanguage;
   @JsonKey(name: 'given_name')
@@ -24,18 +24,19 @@ class User {
   final bool? unknownTime;
   @JsonKey(name: 'birth_time_fold')
   final int? birthTimeFold;
-  @JsonKey(name: 'profile_picture')
-  final String? profilePicture;
   @JsonKey(name: 'night_mode')
   final bool nightMode;
   @JsonKey(name: 'has_birth_data')
   final bool? hasBirthData;
+  @JsonKey(name: 'has_password')
+  final bool hasPassword;
+  final String? gender;
   @JsonKey(name: 'created_on')
   final DateTime createdOn;
 
   const User({
     required this.id,
-    required this.email,
+    this.email,
     required this.preferredLanguage,
     this.givenName,
     this.familyName,
@@ -45,9 +46,10 @@ class User {
     this.birthPlace,
     this.unknownTime,
     this.birthTimeFold,
-    this.profilePicture,
     this.nightMode = true,
     this.hasBirthData,
+    required this.hasPassword,
+    this.gender,
     required this.createdOn,
   });
 
@@ -66,9 +68,10 @@ class User {
     String? birthPlace,
     bool? unknownTime,
     int? birthTimeFold,
-    String? profilePicture,
     bool? nightMode,
     bool? hasBirthData,
+    bool? hasPassword,
+    String? gender,
     DateTime? createdOn,
   }) {
     return User(
@@ -83,9 +86,10 @@ class User {
       birthPlace: birthPlace ?? this.birthPlace,
       unknownTime: unknownTime ?? this.unknownTime,
       birthTimeFold: birthTimeFold ?? this.birthTimeFold,
-      profilePicture: profilePicture ?? this.profilePicture,
       nightMode: nightMode ?? this.nightMode,
       hasBirthData: hasBirthData ?? this.hasBirthData,
+      hasPassword: hasPassword ?? this.hasPassword,
+      gender: gender ?? this.gender,
       createdOn: createdOn ?? this.createdOn,
     );
   }
@@ -94,6 +98,6 @@ class User {
     if (givenName != null && familyName != null) {
       return '$givenName $familyName';
     }
-    return email;
+    return email ?? '';
   }
 }

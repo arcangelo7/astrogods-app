@@ -1,6 +1,5 @@
 import 'package:material_ui/material_ui.dart';
 
-import '../i18n/translations.g.dart';
 import '../models/location.dart';
 import '../services/location_service.dart';
 import '../constants/text_styles.dart';
@@ -27,24 +26,21 @@ class LocationSearchField extends StatefulWidget {
 
 class _LocationSearchFieldState extends State<LocationSearchField> {
   final LocationService _locationService = LocationService();
+  final FocusNode _focusNode = FocusNode();
   List<PlaceSearchResult> _suggestions = [];
   bool _isSearching = false;
-  bool _showSuggestions = false;
-  final FocusNode _focusNode = FocusNode();
-  final LayerLink _layerLink = LayerLink();
-  OverlayEntry? _overlayEntry;
+  String? _selectedText;
 
   @override
   void initState() {
     super.initState();
+    _selectedText = widget.controller.text;
     _focusNode.addListener(_handleFocusChange);
     widget.controller.addListener(_handleTextChange);
   }
 
   @override
   void dispose() {
-    _hideOverlay();
-    _locationService.cancelPendingRequests();
     _locationService.dispose();
     widget.controller.removeListener(_handleTextChange);
     _focusNode.removeListener(_handleFocusChange);
@@ -53,186 +49,126 @@ class _LocationSearchFieldState extends State<LocationSearchField> {
   }
 
   void _handleFocusChange() {
-    if (_focusNode.hasFocus) {
-      _showOverlay();
-    } else {
-      Future.delayed(const Duration(milliseconds: 200), () {
-        if (mounted) {
-          _hideOverlay();
-        }
+    if (!_focusNode.hasFocus) {
+      _locationService.cancelPendingRequests();
+      setState(() {
+        _suggestions = [];
+        _isSearching = false;
       });
     }
   }
 
   void _handleTextChange() {
-    if (!mounted) return;
-
     final text = widget.controller.text;
+    if (!_focusNode.hasFocus) {
+      _selectedText = text;
+      return;
+    }
+    if (text == _selectedText) return;
 
-    if (text.length >= 2) {
+    if (_selectedText != null) {
+      _selectedText = null;
+      widget.onLocationSelected?.call(null);
+    }
+
+    if (text.trim().length >= 2) {
       _searchPlaces(text);
     } else {
-      if (mounted) {
-        setState(() {
-          _suggestions = [];
-          _showSuggestions = false;
-        });
-        _updateOverlay();
-      }
+      _locationService.cancelPendingRequests();
+      setState(() {
+        _suggestions = [];
+        _isSearching = false;
+      });
     }
   }
 
   Future<void> _searchPlaces(String query) async {
-    if (!mounted) return;
+    setState(() => _isSearching = true);
 
-    setState(() {
-      _isSearching = true;
-    });
-
+    List<PlaceSearchResult> results;
     try {
-      final results = await _locationService.searchPlacesDebounced(
+      results = await _locationService.searchPlacesDebounced(
         query,
         language: widget.language,
       );
+    } on LocationServiceException {
+      results = [];
+    }
 
-      if (mounted) {
-        setState(() {
-          _suggestions = results;
-          _showSuggestions = results.isNotEmpty;
-          _isSearching = false;
-        });
-        _updateOverlay();
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _suggestions = [];
-          _showSuggestions = false;
-          _isSearching = false;
-        });
-        _updateOverlay();
-      }
+    if (!mounted || !_focusNode.hasFocus || widget.controller.text != query) {
+      return;
+    }
+    setState(() {
+      _suggestions = results;
+      _isSearching = false;
+    });
+    if (results.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          Scrollable.ensureVisible(
+            context,
+            duration: const Duration(milliseconds: 200),
+          );
+        }
+      });
     }
   }
 
-  Future<void> _selectPlace(PlaceSearchResult place) async {
-    _hideOverlay();
+  void _selectPlace(PlaceSearchResult place) {
+    _selectedText = place.description;
     widget.controller.text = place.description;
     _focusNode.unfocus();
 
-    setState(() {
-      _showSuggestions = false;
-    });
-
-    final details = PlaceDetails(
-      placeId: place.placeId,
-      name: place.mainText,
-      formattedAddress: place.description,
-    );
-
-    widget.onLocationSelected?.call(details);
-  }
-
-  void _showOverlay() {
-    if (_overlayEntry != null) return;
-
-    _overlayEntry = _createOverlayEntry();
-    Overlay.of(context).insert(_overlayEntry!);
-  }
-
-  void _hideOverlay() {
-    _overlayEntry?.remove();
-    _overlayEntry = null;
-  }
-
-  void _updateOverlay() {
-    if (_overlayEntry != null) {
-      _overlayEntry!.markNeedsBuild();
-    }
-  }
-
-  OverlayEntry _createOverlayEntry() {
-    final renderBox = context.findRenderObject() as RenderBox;
-
-    return OverlayEntry(
-      builder: (context) => Positioned(
-        width: renderBox.size.width,
-        child: CompositedTransformFollower(
-          link: _layerLink,
-          showWhenUnlinked: false,
-          offset: Offset(0.0, renderBox.size.height + 4.0),
-          child: Material(
-            elevation: 8.0,
-            borderRadius: BorderRadius.circular(12),
-            color: Theme.of(context).colorScheme.surface,
-            child: _buildSuggestionsWidget(),
-          ),
-        ),
+    widget.onLocationSelected?.call(
+      PlaceDetails(
+        placeId: place.placeId,
+        name: place.mainText,
+        formattedAddress: place.description,
       ),
     );
   }
 
-  Widget _buildSuggestionsWidget() {
-    if (_isSearching) {
-      return Container(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              width: 16,
-              height: 16,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+  Widget _buildSuggestions(ThemeData theme) {
+    return TextFieldTapRegion(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: Material(
+          elevation: 4,
+          borderRadius: BorderRadius.circular(12),
+          color: theme.colorScheme.surface,
+          child: ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.all(8),
+            itemCount: _suggestions.length,
+            separatorBuilder: (context, index) => Divider(
+              height: 1,
+              color: theme.colorScheme.outline.withValues(alpha: 0.1),
             ),
-            const SizedBox(width: 12),
-            Text(
-              Translations.of(context).ui.searching,
-              style: AppTextStyles.getLocationLoadingStyle(context),
-            ),
-          ],
+            itemBuilder: (context, index) {
+              final suggestion = _suggestions[index];
+              return ListTile(
+                dense: true,
+                leading: Icon(
+                  Icons.location_on_outlined,
+                  color: theme.colorScheme.primary,
+                  size: 20,
+                ),
+                title: Text(
+                  suggestion.mainText,
+                  style: AppTextStyles.getLocationMainStyle(context),
+                ),
+                subtitle: suggestion.secondaryText.isNotEmpty
+                    ? Text(
+                        suggestion.secondaryText,
+                        style: AppTextStyles.getLocationSecondaryStyle(context),
+                      )
+                    : null,
+                onTap: () => _selectPlace(suggestion),
+              );
+            },
+          ),
         ),
-      );
-    }
-
-    if (!_showSuggestions || _suggestions.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 200),
-      child: ListView.separated(
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(8),
-        itemCount: _suggestions.length,
-        separatorBuilder: (context, index) => Divider(
-          height: 1,
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
-        ),
-        itemBuilder: (context, index) {
-          final suggestion = _suggestions[index];
-          return ListTile(
-            dense: true,
-            leading: Icon(
-              Icons.location_on_outlined,
-              color: Theme.of(context).colorScheme.primary,
-              size: 20,
-            ),
-            title: Text(
-              suggestion.mainText,
-              style: AppTextStyles.getLocationMainStyle(context),
-            ),
-            subtitle: suggestion.secondaryText.isNotEmpty
-                ? Text(
-                    suggestion.secondaryText,
-                    style: AppTextStyles.getLocationSecondaryStyle(context),
-                  )
-                : null,
-            onTap: () => _selectPlace(suggestion),
-          );
-        },
       ),
     );
   }
@@ -241,61 +177,68 @@ class _LocationSearchFieldState extends State<LocationSearchField> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return CompositedTransformTarget(
-      link: _layerLink,
-      child: TextFormField(
-        controller: widget.controller,
-        focusNode: _focusNode,
-        validator: widget.validator,
-        maxLines: null,
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.done,
-        style: AppTextStyles.getBodyStyle(context),
-        decoration: InputDecoration(
-          labelText: widget.labelText,
-          labelStyle: AppTextStyles.getFormLabelStyle(context),
-          floatingLabelStyle: AppTextStyles.getFormLabelStyle(context),
-          suffixIcon: _isSearching
-              ? Container(
-                  width: 20,
-                  height: 20,
-                  padding: const EdgeInsets.all(12),
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: theme.colorScheme.primary,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TextFormField(
+          controller: widget.controller,
+          focusNode: _focusNode,
+          validator: widget.validator,
+          maxLines: null,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.done,
+          style: AppTextStyles.getBodyStyle(context),
+          decoration: InputDecoration(
+            labelText: widget.labelText,
+            labelStyle: AppTextStyles.getFormLabelStyle(context),
+            floatingLabelStyle: AppTextStyles.getFormLabelStyle(context),
+            suffixIcon: _isSearching
+                ? Container(
+                    width: 20,
+                    height: 20,
+                    padding: const EdgeInsets.all(12),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: theme.colorScheme.primary,
+                    ),
+                  )
+                : Icon(
+                    Icons.location_on_outlined,
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                    size: 20,
                   ),
-                )
-              : Icon(
-                  Icons.location_on_outlined,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                  size: 20,
-                ),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: theme.colorScheme.outline.withValues(alpha: 0.5),
-              width: 1,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: theme.colorScheme.outline.withValues(alpha: 0.5),
+                width: 1,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: theme.colorScheme.primary,
+                width: 2,
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: theme.colorScheme.error, width: 1),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16,
+            ),
+            filled: true,
+            fillColor: theme.colorScheme.surfaceContainerHighest.withValues(
+              alpha: 0.3,
             ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: theme.colorScheme.error, width: 1),
-          ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
-          ),
-          filled: true,
-          fillColor: theme.colorScheme.surfaceContainerHighest.withValues(
-            alpha: 0.3,
-          ),
         ),
-      ),
+        if (_suggestions.isNotEmpty) _buildSuggestions(theme),
+      ],
     );
   }
 }

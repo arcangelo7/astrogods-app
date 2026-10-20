@@ -33,7 +33,7 @@ class _BirthChartPreviewScreenState extends State<BirthChartPreviewScreen> {
   @override
   void initState() {
     super.initState();
-    _service = BirthChartService(context: context);
+    _service = BirthChartService();
   }
 
   @override

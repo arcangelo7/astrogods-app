@@ -8,7 +8,7 @@ part of 'user.dart';
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
   id: (json['id'] as num).toInt(),
-  email: json['email'] as String,
+  email: json['email'] as String?,
   preferredLanguage: json['preferred_language'] as String,
   givenName: json['given_name'] as String?,
   familyName: json['family_name'] as String?,
@@ -20,9 +20,10 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
   birthPlace: json['birth_place'] as String?,
   unknownTime: json['unknown_time'] as bool?,
   birthTimeFold: (json['birth_time_fold'] as num?)?.toInt(),
-  profilePicture: json['profile_picture'] as String?,
   nightMode: json['night_mode'] as bool? ?? true,
   hasBirthData: json['has_birth_data'] as bool?,
+  hasPassword: json['has_password'] as bool,
+  gender: json['gender'] as String?,
   createdOn: DateTime.parse(json['created_on'] as String),
 );
 
@@ -38,8 +39,9 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
   'birth_place': instance.birthPlace,
   'unknown_time': instance.unknownTime,
   'birth_time_fold': instance.birthTimeFold,
-  'profile_picture': instance.profilePicture,
   'night_mode': instance.nightMode,
   'has_birth_data': instance.hasBirthData,
+  'has_password': instance.hasPassword,
+  'gender': instance.gender,
   'created_on': instance.createdOn.toIso8601String(),
 };

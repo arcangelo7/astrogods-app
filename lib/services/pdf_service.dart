@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:material_ui/material_ui.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:pdf/pdf.dart';
@@ -21,22 +22,33 @@ import 'reading_state_service.dart';
 
 class PdfService {
   final BuildContext context;
-  pw.ThemeData? _unicodeTheme;
+  pw.ThemeData? _theme;
 
   PdfService({required this.context});
 
-  pw.SvgImage _createSvgImage(String svgString) {
-    return pw.SvgImage(svg: svgString);
+  pw.SvgImage _createSvgImage(String svgString, pw.ThemeData theme) {
+    return pw.SvgImage(
+      svg: svgString,
+      customFontLookup: (family, style, weight) {
+        final fonts = theme.defaultTextStyle;
+        final isBold = weight != 'normal' && weight != 'lighter';
+        if (style == 'normal') {
+          return isBold ? fonts.fontBold : fonts.fontNormal;
+        }
+        return isBold ? fonts.fontBoldItalic : fonts.fontItalic;
+      },
+    );
   }
 
-  pw.ThemeData _getTheme() {
-    _unicodeTheme ??= pw.ThemeData.withFont(
-      base: pw.Font.helvetica(),
-      bold: pw.Font.helveticaBold(),
-      italic: pw.Font.helveticaOblique(),
-      boldItalic: pw.Font.helveticaBoldOblique(),
+  Future<pw.ThemeData> _getTheme() async {
+    Future<pw.Font> load(String file) async =>
+        pw.Font.ttf(await rootBundle.load('assets/fonts/$file'));
+    return _theme ??= pw.ThemeData.withFont(
+      base: await load('Inter-Regular.ttf'),
+      bold: await load('Inter-Bold.ttf'),
+      italic: await load('Inter-Italic.ttf'),
+      boldItalic: await load('Inter-BoldItalic.ttf'),
     );
-    return _unicodeTheme!;
   }
 
   final Map<String, Uint8List> _cavernImageCache = {};
@@ -77,14 +89,14 @@ class PdfService {
   }) async {
     final pdf = pw.Document();
     final t = Translations.of(context);
-    final theme = _getTheme();
+    final theme = await _getTheme();
     final stateService = ReadingStateService();
 
     final cachedSvg = stateService.getCachedChartSvg(cacheKey, id);
     if (cachedSvg == null) {
       throw StateError('Chart SVG not found in cache for $cacheKey:$id');
     }
-    final chartSvg = _createSvgImage(cachedSvg);
+    final chartSvg = _createSvgImage(cachedSvg, theme);
 
     final chartWidget = pw.Center(
       child: pw.Container(width: 450, height: 598, child: chartSvg),
@@ -102,7 +114,7 @@ class PdfService {
         child: pw.Container(
           width: 450,
           height: 598,
-          child: _createSvgImage(detailsSvg),
+          child: _createSvgImage(detailsSvg, theme),
         ),
       );
     }
@@ -118,7 +130,7 @@ class PdfService {
         child: pw.Container(
           width: 500,
           height: 400,
-          child: _createSvgImage(aspectGridSvg),
+          child: _createSvgImage(aspectGridSvg, theme),
         ),
       );
     }

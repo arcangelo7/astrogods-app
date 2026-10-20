@@ -2,6 +2,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/flash_highlight.dart';
+import '../widgets/choice_chip_group.dart';
 import '../widgets/local_flag.dart';
 import '../i18n/translations.g.dart';
 import '../providers/language_provider.dart';
@@ -19,9 +21,14 @@ import '../widgets/subscription_card.dart';
 import '../services/newsletter_service.dart';
 import '../widgets/newsletter_subscription_dialog.dart';
 import '../widgets/newsletter_edit_dialog.dart';
+import '../utils/error_utils.dart';
+
+enum SettingsSection { subscriptions, deleteAccount }
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  final SettingsSection? section;
+
+  const SettingsScreen({super.key, this.section});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -36,6 +43,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   NewsletterSubscriptions? _newsletterSubscriptions;
   bool _isLoadingNewsletters = false;
   String? _newsletterError;
+
+  final _subscriptionsKey = GlobalKey();
+  final _deleteAccountKey = GlobalKey();
+  bool _revealScheduled = false;
+  bool _sectionRevealed = false;
 
   @override
   void initState() {
@@ -66,6 +78,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  // The sections change height while subscriptions and newsletters load, so
+  // the requested section is scrolled into view only once both have loaded.
+  void _revealSectionWhenLoaded() {
+    if (widget.section == null ||
+        _revealScheduled ||
+        !_hasInitialized ||
+        _isLoadingSubscriptions ||
+        _isLoadingNewsletters) {
+      return;
+    }
+    _revealScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final key = switch (widget.section!) {
+        SettingsSection.subscriptions => _subscriptionsKey,
+        SettingsSection.deleteAccount => _deleteAccountKey,
+      };
+      await Scrollable.ensureVisible(
+        key.currentContext!,
+        alignment: 0.5,
+        duration: const Duration(milliseconds: 400),
+      );
+      if (mounted) setState(() => _sectionRevealed = true);
+    });
+  }
+
   Future<void> _loadSubscriptions() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     if (!authProvider.isAuthenticated) return;
@@ -89,7 +126,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _subscriptionError = e.toString();
+          _subscriptionError = userErrorMessage(context, e);
           _isLoadingSubscriptions = false;
         });
       }
@@ -106,7 +143,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
 
     try {
-      final newsletterService = NewsletterService(context: context);
+      final newsletterService = NewsletterService();
       final newsletters = await newsletterService.getSubscriptions();
 
       if (mounted) {
@@ -118,7 +155,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _newsletterError = e.toString();
+          _newsletterError = userErrorMessage(context, e);
           _isLoadingNewsletters = false;
         });
       }
@@ -126,11 +163,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _showDeleteAccountDialog(BuildContext context) async {
+    final t = Translations.of(context);
     if (_subscriptionStatus?.hasActiveSubscription == true) {
+      if (_subscriptionStatus!.subscription!.isApple) {
+        await _showStandardDeleteAccountDialog(
+          context,
+          warning: t.ui.appleSubscriptionDeleteWarning,
+        );
+        return;
+      }
       await _showActiveSubscriptionDeleteDialog(context);
       return;
     }
-    await _showStandardDeleteAccountDialog(context);
+    await _showStandardDeleteAccountDialog(
+      context,
+      warning: t.ui.deleteAccountWarning,
+    );
   }
 
   Future<bool?> _showDeleteConfirmationDialog({
@@ -267,12 +315,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-  Future<void> _showStandardDeleteAccountDialog(BuildContext context) async {
+  Future<void> _showStandardDeleteAccountDialog(
+    BuildContext context, {
+    required String warning,
+  }) async {
     final t = Translations.of(context);
     final result = await _showDeleteConfirmationDialog(
       context: context,
       title: t.ui.deleteAccountTitle,
-      warning: t.ui.deleteAccountWarning,
+      warning: warning,
       confirmButtonText: t.ui.delete,
       additionalText: t.ui.deleteAccountConfirmation,
     );
@@ -283,7 +334,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _deleteAccount(BuildContext context) async {
     final t = Translations.of(context);
-    final authService = AuthService(context: context);
+    final authService = AuthService();
 
     final response = await authService.deleteAccount();
 
@@ -308,6 +359,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final t = Translations.of(context);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    _revealSectionWhenLoaded();
 
     return Scaffold(
       body: StarryNightBackground(
@@ -331,219 +383,185 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 title: Text(t.ui.settingsTitle),
               ),
               Expanded(
-                child: ListView(
+                child: SingleChildScrollView(
                   padding: EdgeInsets.only(
                     left: 16,
                     right: 16,
                     top: 16,
                     bottom: MediaQuery.of(context).padding.bottom + 16,
                   ),
-                  children: [
-                    // Preferences Section
-                    Text(
-                      t.ui.preferences,
-                      style: AppTextStyles.getCaptionStyle(context).copyWith(
-                        color: Theme.of(context).colorScheme.onSurface
-                            .withValues(alpha: 0.95),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Consumer<LanguageProvider>(
-                      builder: (context, languageProvider, _) => Card(
-                        color: Theme.of(context).colorScheme.surface,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.language),
-                              const SizedBox(width: 16),
-                              Text(t.ui.language),
-                              const Spacer(),
-                              SegmentedButton<String>(
-                                segments: [
-                                  ButtonSegment<String>(
-                                    value: 'en',
-                                    icon: const LocalFlag(countryCode: 'us'),
-                                  ),
-                                  ButtonSegment<String>(
-                                    value: 'it',
-                                    icon: const LocalFlag(countryCode: 'it'),
-                                  ),
-                                ],
-                                selected: {
-                                  languageProvider.currentLocale.languageCode,
-                                },
-                                onSelectionChanged: (Set<String> selection) {
-                                  if (selection.isNotEmpty) {
-                                    languageProvider.changeLanguage(
-                                      Locale(selection.first),
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Preferences Section
+                      Text(
+                        t.ui.preferences,
+                        style: AppTextStyles.getCaptionStyle(context).copyWith(
+                          color: Theme.of(context).colorScheme.onSurface
+                              .withValues(alpha: 0.95),
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    Consumer<ThemeProvider>(
-                      builder: (context, themeProvider, _) => Card(
-                        color: Theme.of(context).colorScheme.surface,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Row(
-                            children: [
-                              Icon(
+                      const SizedBox(height: 8),
+                      Consumer<LanguageProvider>(
+                        builder: (context, languageProvider, _) =>
+                            _buildPreferenceCard(
+                              icon: const Icon(Icons.language),
+                              title: t.ui.language,
+                              selector: ChoiceChipGroup<String>(
+                                options: [
+                                  ChoiceChipOption(
+                                    value: 'en',
+                                    label: t.ui.english,
+                                    avatar: const LocalFlag(countryCode: 'us'),
+                                  ),
+                                  ChoiceChipOption(
+                                    value: 'it',
+                                    label: t.ui.italian,
+                                    avatar: const LocalFlag(countryCode: 'it'),
+                                  ),
+                                ],
+                                selected:
+                                    languageProvider.currentLocale.languageCode,
+                                onSelected: (code) => languageProvider
+                                    .changeLanguage(Locale(code)),
+                              ),
+                            ),
+                      ),
+                      const SizedBox(height: 8),
+                      Consumer<ThemeProvider>(
+                        builder: (context, themeProvider, _) =>
+                            _buildPreferenceCard(
+                              icon: Icon(
                                 themeProvider.isDarkMode
                                     ? Icons.dark_mode
                                     : Icons.light_mode,
                               ),
-                              const SizedBox(width: 16),
-                              Text(t.ui.theme),
-                              const Spacer(),
-                              SegmentedButton<String>(
-                                showSelectedIcon: false,
-                                segments: [
-                                  ButtonSegment<String>(
-                                    value: 'light',
-                                    icon: const Icon(
-                                      Icons.light_mode,
-                                      size: 18,
-                                    ),
+                              title: t.ui.theme,
+                              selector: ChoiceChipGroup<ThemeMode>(
+                                options: [
+                                  ChoiceChipOption(
+                                    value: ThemeMode.light,
+                                    label: t.ui.lightMode,
+                                    avatar: const Icon(Icons.light_mode),
                                   ),
-                                  ButtonSegment<String>(
-                                    value: 'dark',
-                                    icon: const Icon(Icons.dark_mode, size: 18),
+                                  ChoiceChipOption(
+                                    value: ThemeMode.dark,
+                                    label: t.ui.darkMode,
+                                    avatar: const Icon(Icons.dark_mode),
                                   ),
-                                  ButtonSegment<String>(
-                                    value: 'system',
-                                    icon: const Icon(Icons.settings, size: 18),
+                                  ChoiceChipOption(
+                                    value: ThemeMode.system,
+                                    label: t.ui.systemMode,
+                                    avatar: const Icon(Icons.settings),
                                   ),
                                 ],
-                                selected: {themeProvider.themeMode.name},
-                                onSelectionChanged: (Set<String> selection) {
-                                  if (selection.isNotEmpty) {
-                                    ThemeMode mode = ThemeMode.values
-                                        .firstWhere(
-                                          (e) => e.name == selection.first,
-                                        );
-                                    themeProvider.setThemeMode(mode);
-                                  }
-                                },
+                                selected: themeProvider.themeMode,
+                                onSelected: themeProvider.setThemeMode,
                               ),
-                            ],
+                            ),
+                      ),
+
+                      // Newsletter Section
+                      if (authProvider.isAuthenticated) ...[
+                        const SizedBox(height: 24),
+                        Text(
+                          t.ui.emailNotifications,
+                          style: AppTextStyles.getCaptionStyle(context)
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.onSurface
+                                    .withValues(alpha: 0.95),
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
+                        const SizedBox(height: 8),
+                        _buildNewsletterSection(t),
+                      ],
+
+                      // Subscriptions Section
+                      if (authProvider.isAuthenticated) ...[
+                        const SizedBox(height: 24),
+                        Text(
+                          t.legal.subscriptionsTitle,
+                          style: AppTextStyles.getCaptionStyle(context)
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.onSurface
+                                    .withValues(alpha: 0.95),
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
+                        const SizedBox(height: 8),
+                        FlashHighlight(
+                          key: _subscriptionsKey,
+                          active:
+                              _sectionRevealed &&
+                              widget.section == SettingsSection.subscriptions,
+                          child: _buildSubscriptionsSection(t),
+                        ),
+                        const SizedBox(height: 8),
+                      ],
+
+                      // Account Section
+                      if (authProvider.isAuthenticated) ...[
+                        const SizedBox(height: 24),
+                        Text(
+                          t.ui.account,
+                          style: AppTextStyles.getCaptionStyle(context)
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.onSurface
+                                    .withValues(alpha: 0.95),
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
+                        const SizedBox(height: 8),
+                        _buildCredentialsCard(t),
+                        const SizedBox(height: 8),
+                        Card(
+                          color: Theme.of(context).colorScheme.surface,
+                          child: ListTile(
+                            leading: const Icon(Icons.logout),
+                            title: Text(t.ui.logout),
+                            onTap: () async {
+                              await authProvider.logout();
+                              if (context.mounted) {
+                                context.go('/');
+                              }
+                            },
                           ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Newsletter Section
-                    if (authProvider.isAuthenticated) ...[
-                      Text(
-                        t.ui.emailNotifications,
-                        style: AppTextStyles.getCaptionStyle(context).copyWith(
-                          color: Theme.of(context).colorScheme.onSurface
-                              .withValues(alpha: 0.95),
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      _buildNewsletterSection(t),
-                      const SizedBox(height: 24),
-                    ],
-
-                    // About Section
-                    Text(
-                      t.ui.about,
-                      style: AppTextStyles.getCaptionStyle(context).copyWith(
-                        color: Theme.of(context).colorScheme.onSurface
-                            .withValues(alpha: 0.95),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Card(
-                      color: Theme.of(context).colorScheme.surface,
-                      child: ListTile(
-                        leading: const Icon(Icons.info_outline),
-                        title: Text(t.ui.appVersion),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              Environment.appVersion,
-                              style: AppTextStyles.getCaptionStyle(context),
+                        const SizedBox(height: 8),
+                        FlashHighlight(
+                          key: _deleteAccountKey,
+                          active:
+                              _sectionRevealed &&
+                              widget.section == SettingsSection.deleteAccount,
+                          child: Card(
+                            color: Theme.of(context).colorScheme.error
+                                .withValues(alpha: 0.1),
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.delete_forever,
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                              title: Text(
+                                t.ui.deleteAccount,
+                                style: AppTextStyles.getBodyStyle(context)
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .error,
+                                    ),
+                              ),
+                              onTap: () => _showDeleteAccountDialog(context),
                             ),
-                            const SizedBox(width: 8),
-                            const Icon(Icons.arrow_forward_ios, size: 16),
-                          ],
+                          ),
                         ),
-                        onTap: () {
-                          context.push('/release-notes');
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Card(
-                      color: Theme.of(context).colorScheme.surface,
-                      child: ListTile(
-                        leading: const Icon(Icons.description_outlined),
-                        title: Text(t.ui.termsOfService),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () {
-                          context.push('/terms-and-conditions');
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Card(
-                      color: Theme.of(context).colorScheme.surface,
-                      child: ListTile(
-                        leading: const Icon(Icons.privacy_tip_outlined),
-                        title: Text(t.legal.privacyPolicy),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () {
-                          context.push('/privacy-policy');
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Card(
-                      color: Theme.of(context).colorScheme.surface,
-                      child: ListTile(
-                        leading: const Icon(Icons.cookie_outlined),
-                        title: Text(t.legal.cookiePolicy),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        onTap: () {
-                          context.push('/cookie-policy');
-                        },
-                      ),
-                    ),
+                      ],
 
-                    // Subscriptions Section
-                    if (authProvider.isAuthenticated) ...[
                       const SizedBox(height: 24),
+                      // About Section
                       Text(
-                        t.legal.subscriptionsTitle,
-                        style: AppTextStyles.getCaptionStyle(context).copyWith(
-                          color: Theme.of(context).colorScheme.onSurface
-                              .withValues(alpha: 0.95),
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      _buildSubscriptionsSection(t),
-                      const SizedBox(height: 8),
-                    ],
-
-                    // Account Section
-                    if (authProvider.isAuthenticated) ...[
-                      const SizedBox(height: 24),
-                      Text(
-                        t.ui.account,
+                        t.ui.about,
                         style: AppTextStyles.getCaptionStyle(context).copyWith(
                           color: Theme.of(context).colorScheme.onSurface
                               .withValues(alpha: 0.95),
@@ -554,40 +572,194 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Card(
                         color: Theme.of(context).colorScheme.surface,
                         child: ListTile(
-                          leading: const Icon(Icons.logout),
-                          title: Text(t.ui.logout),
-                          onTap: () async {
-                            await authProvider.logout();
-                            if (context.mounted) {
-                              context.go('/');
-                            }
+                          leading: const Icon(Icons.info_outline),
+                          title: Text(t.ui.appVersion),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                Environment.appVersion,
+                                style: AppTextStyles.getCaptionStyle(context),
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(Icons.arrow_forward_ios, size: 16),
+                            ],
+                          ),
+                          onTap: () {
+                            context.push('/release-notes');
                           },
                         ),
                       ),
                       const SizedBox(height: 8),
                       Card(
-                        color: Theme.of(context).colorScheme.error
-                            .withValues(alpha: 0.1),
+                        color: Theme.of(context).colorScheme.surface,
                         child: ListTile(
-                          leading: Icon(
-                            Icons.delete_forever,
-                            color: Theme.of(context).colorScheme.error,
+                          leading: const Icon(Icons.description_outlined),
+                          title: Text(t.ui.termsOfService),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
                           ),
-                          title: Text(
-                            t.ui.deleteAccount,
-                            style: AppTextStyles.getBodyStyle(context).copyWith(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
+                          onTap: () {
+                            context.push('/terms-and-conditions');
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Card(
+                        color: Theme.of(context).colorScheme.surface,
+                        child: ListTile(
+                          leading: const Icon(Icons.privacy_tip_outlined),
+                          title: Text(t.legal.privacyPolicy),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
                           ),
-                          onTap: () => _showDeleteAccountDialog(context),
+                          onTap: () {
+                            context.push('/privacy-policy');
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Card(
+                        color: Theme.of(context).colorScheme.surface,
+                        child: ListTile(
+                          leading: const Icon(Icons.cookie_outlined),
+                          title: Text(t.legal.cookiePolicy),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
+                          ),
+                          onTap: () {
+                            context.push('/cookie-policy');
+                          },
                         ),
                       ),
                     ],
-                  ],
+                  ),
                 ),
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCredentialsCard(Translations t) {
+    final user = context.watch<AuthProvider>().currentUser!;
+    final chevron = const Icon(Icons.chevron_right);
+
+    return Card(
+      color: Theme.of(context).colorScheme.surface,
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.alternate_email),
+            title: Text(t.ui.email),
+            subtitle: Text(user.email ?? t.ui.notProvided),
+            trailing: chevron,
+            onTap: () => context.push('/change-email'),
+          ),
+          const Divider(height: 1),
+          ListTile(
+            leading: const Icon(Icons.lock_outline),
+            title: Text(t.ui.password),
+            subtitle: Text(user.hasPassword ? '••••••••' : t.ui.setPassword),
+            trailing: chevron,
+            onTap: user.hasPassword
+                ? () => context.push('/change-password')
+                : () => _showSetPasswordDialog(user.email),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showSetPasswordDialog(String? email) {
+    final t = Translations.of(context);
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(t.ui.setPassword, style: AppTextStyles.getH5Style(context)),
+        content: email == null
+            ? Text(
+                t.ui.setPasswordNeedsEmail,
+                style: AppTextStyles.getBodyStyle(context),
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    t.ui.setPasswordDescription(email: email),
+                    style: AppTextStyles.getBodyStyle(context),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    t.ui.checkSpamFolder,
+                    style: AppTextStyles.getCaptionStyle(
+                      context,
+                    ).copyWith(color: Theme.of(context).colorScheme.secondary),
+                  ),
+                ],
+              ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(t.ui.cancel),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(dialogContext).pop();
+              if (email == null) {
+                context.push('/change-email');
+              } else {
+                _requestPasswordSetup(email);
+              }
+            },
+            child: Text(email == null ? t.ui.addEmail : t.ui.sendLink),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _requestPasswordSetup(String email) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final success = await authProvider.requestPasswordSetup();
+
+    if (!mounted) return;
+
+    if (success) {
+      SnackbarUtils.showSuccess(
+        context,
+        Translations.of(context).ui.passwordSetupLinkSent(email: email),
+      );
+    } else {
+      SnackbarUtils.showError(
+        context,
+        translateConnectionError(context, authProvider.errorMessage!),
+      );
+    }
+  }
+
+  Widget _buildPreferenceCard({
+    required Widget icon,
+    required String title,
+    required Widget selector,
+  }) {
+    return Card(
+      color: Theme.of(context).colorScheme.surface,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(children: [icon, const SizedBox(width: 16), Text(title)]),
+            const SizedBox(height: 12),
+            selector,
+          ],
         ),
       ),
     );
@@ -685,17 +857,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Center(
-            child: Column(
-              children: [
-                CircularProgressIndicator(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  t.ui.generating,
-                  style: AppTextStyles.getBodyStyle(context),
-                ),
-              ],
+            child: CircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),
@@ -921,7 +1084,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _unsubscribeDaily(int newsletterId) async {
     final t = Translations.of(context);
     try {
-      final newsletterService = NewsletterService(context: context);
+      final newsletterService = NewsletterService();
       await newsletterService.unsubscribeDailyNewsletter(newsletterId);
 
       if (mounted) {
@@ -942,7 +1105,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _unsubscribeMonthly(int newsletterId) async {
     final t = Translations.of(context);
     try {
-      final newsletterService = NewsletterService(context: context);
+      final newsletterService = NewsletterService();
       await newsletterService.unsubscribeMonthlyNewsletter(newsletterId);
 
       if (mounted) {
@@ -961,6 +1124,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _showNewsletterSubscriptionDialog(BuildContext context) {
+    if (context.read<AuthProvider>().currentUser!.email == null) {
+      _showEmailRequiredDialog(context);
+      return;
+    }
     showDialog(
       context: context,
       builder: (context) => const NewsletterSubscriptionDialog(),
@@ -968,6 +1135,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
       // Reload newsletters after dialog closes
       _loadNewsletters();
     });
+  }
+
+  void _showEmailRequiredDialog(BuildContext context) {
+    final t = Translations.of(context);
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(t.ui.addEmail, style: AppTextStyles.getH5Style(context)),
+        content: Text(
+          t.ui.newsletterNeedsEmail,
+          style: AppTextStyles.getBodyStyle(context),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(t.ui.cancel),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(dialogContext).pop();
+              context.push('/change-email');
+            },
+            child: Text(t.ui.addEmail),
+          ),
+        ],
+      ),
+    );
   }
 
   void _editSubscription(NewsletterSubscription subscription, String type) {

@@ -1,15 +1,36 @@
 import 'dart:convert';
 
-import 'package:material_ui/material_ui.dart' show TimeOfDay;
+import 'package:material_ui/material_ui.dart' show BuildContext, TimeOfDay;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/router.dart';
+import '../i18n/translations.g.dart';
 import '../services/birth_chart_service.dart';
 import 'date_utils.dart';
+import 'snackbar_utils.dart';
 
 Future<void> saveReturnUrl(String url) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString('redirect_after_login', url);
+}
+
+/// Forgets where to go after signing in. Called when the user leaves the
+/// sign-in screens without signing in, so an abandoned attempt cannot steer a
+/// later one.
+Future<void> clearPendingAuthRedirects() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('redirect_after_login');
+  await prefs.remove('pending_registration_data');
+  await prefs.remove('redirect_to_reading');
+  await prefs.remove('pending_birth_chart');
+}
+
+void showAuthSuccess(BuildContext context, {required bool created}) {
+  final t = Translations.of(context);
+  SnackbarUtils.showSuccess(
+    context,
+    created ? t.legal.registrationSuccessful : t.ui.loginSuccessful,
+  );
 }
 
 Future<void> navigateAfterAuth() async {
@@ -83,6 +104,7 @@ Future<void> _createBirthChartAndNavigate(Map<String, dynamic> data) async {
     final birthChart = await birthChartService.createBirthChart(
       givenName: data['givenName'] ?? '',
       familyName: data['familyName'] ?? '',
+      gender: data['gender'],
       date: DateUtils.toBirthDateTimeIso(
         DateTime.parse(data['birthDate']),
         birthTime,
@@ -110,4 +132,9 @@ Future<void> saveRegistrationDataForRedirect(Map<String, dynamic> data) async {
   if (data.isEmpty) return;
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString('pending_registration_data', jsonEncode(data));
+}
+
+Future<void> clearRegistrationDataForRedirect() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('pending_registration_data');
 }

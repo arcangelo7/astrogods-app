@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../i18n/translations.g.dart';
+import '../utils/email_utils.dart';
 import '../widgets/starry_night_background.dart';
 import '../widgets/formatted_markdown_content.dart';
 import '../constants/text_styles.dart';
@@ -353,8 +354,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                             ),
                                             InkWell(
                                               onTap: () {
-                                                _launchExternalUrl(
-                                                  'mailto:${t.legal.dataControllerEmail}',
+                                                openEmail(
+                                                  context,
+                                                  t.legal.dataControllerEmail,
                                                 );
                                               },
                                               child: Text(
@@ -476,16 +478,10 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         t.legal.deviceInformation,
         t.legal.deviceIdentifiers,
         t.ui.language,
-        t.legal.trackingTools,
       ],
-      ['Hetzner', 'GoDaddy', 'Google Fonts', 'Stripe'],
+      ['Hetzner', 'Stripe'],
       t.legal.howWeUseThem,
-      [
-        t.legal.registrationAndAuth,
-        t.legal.hostingAndBackend,
-        t.legal.trafficOptimization,
-        t.legal.statistics,
-      ],
+      [t.legal.registrationAndAuth, t.legal.hostingAndBackend],
     );
 
     final providedDataCard = _buildSummaryCard(
@@ -500,19 +496,29 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         t.ui.password,
         t.ui.birthDate,
         t.ui.birthTime,
-        t.ui.gender,
+        t.ui.birthPlace,
+        t.legal.genderOptional,
         t.legal.phoneNumber,
         t.legal.billingAddress,
         t.legal.paymentInformation,
         t.legal.purchaseHistory,
-        t.ui.profilePhoto,
       ],
-      ['Stripe', 'Anthropic', 'Google OAuth'],
+      [
+        'Stripe',
+        'Apple',
+        'OpenRouter',
+        'Anthropic',
+        'Google OAuth',
+        'Google Maps',
+        'IONOS',
+      ],
       t.legal.howWeUseThem,
       [
         t.legal.registrationAndAuth,
         t.legal.backendApi,
         t.legal.paymentManagement,
+        t.legal.placeSearchTitle,
+        t.legal.emailSendingTitle,
       ],
     );
 
@@ -772,19 +778,18 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               Translations.of(context).ui.password,
               Translations.of(context).ui.birthDate,
               Translations.of(context).ui.birthTime,
-              Translations.of(context).ui.gender,
+              Translations.of(context).ui.birthPlace,
+              Translations.of(context).legal.genderOptional,
               Translations.of(context).legal.phoneNumber,
               Translations.of(context).ui.language,
               Translations.of(context).legal.paymentInformation,
               Translations.of(context).legal.billingAddress,
               Translations.of(context).legal.purchaseHistory,
-              Translations.of(context).ui.profilePhoto,
               Translations.of(context).legal.usageData,
               Translations.of(context).legal.communicatedDataDuringService,
               Translations.of(context).legal.ipAddress,
               Translations.of(context).legal.deviceInformation,
               Translations.of(context).legal.deviceIdentifiers,
-              Translations.of(context).legal.trackingTools,
             ].map((label) => _buildDataChip(context, label)).toList(),
           ),
           const SizedBox(height: 24),
@@ -838,9 +843,12 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           ),
           _buildCheckItem(
             context,
-            Translations.of(context).legal.trafficOptimizationTitle,
+            Translations.of(context).legal.placeSearchTitle,
           ),
-          _buildCheckItem(context, Translations.of(context).legal.statistics),
+          _buildCheckItem(
+            context,
+            Translations.of(context).legal.emailSendingTitle,
+          ),
           const SizedBox(height: 16),
           Text(
             Translations.of(context).legal.purposesDetailedInfoText,
@@ -885,6 +893,16 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                       .stripeDescription,
                   'privacyUrl': 'https://stripe.com/privacy',
                 },
+                {
+                  'name': 'Apple App Store',
+                  'provider': 'Apple Distribution International Ltd.',
+                  'location': Translations.of(context).legal.ireland,
+                  'tags': [Translations.of(context).legal.purchaseHistory],
+                  'description': Translations.of(context)
+                      .legal
+                      .appStoreDescription,
+                  'privacyUrl': 'https://www.apple.com/legal/privacy/',
+                },
               ],
             ),
 
@@ -908,20 +926,6 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                       .hetznerDescription,
                   'privacyUrl': 'https://www.hetzner.com/legal/privacy-policy',
                 },
-                {
-                  'name': 'GoDaddy Web Hosting',
-                  'provider': 'GoDaddy.com, LLC',
-                  'location': Translations.of(context).legal.unitedStates,
-                  'tags': [
-                    Translations.of(context).legal.usageData,
-                    Translations.of(context).legal.deviceInformation,
-                  ],
-                  'description': Translations.of(context)
-                      .legal
-                      .godaddyDescription,
-                  'privacyUrl':
-                      'https://www.godaddy.com/legal/agreements/privacy-policy',
-                },
               ],
             ),
 
@@ -932,19 +936,32 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               Translations.of(context).legal.backendApiDescription,
               [
                 {
-                  'name': 'API di Anthropic',
-                  'provider': 'Anthropic',
+                  'name': 'OpenRouter',
+                  'provider': 'OpenRouter, Inc.',
                   'location': Translations.of(context).legal.unitedStates,
                   'tags': [
-                    Translations.of(context).ui.name,
-                    Translations.of(context).ui.surname,
-                    Translations.of(context).ui.gender,
+                    Translations.of(context).legal.planetaryPositions,
+                    Translations.of(context).legal.genderOptional,
+                    Translations.of(context).ui.language,
+                  ],
+                  'description': Translations.of(context)
+                      .legal
+                      .openRouterDescription,
+                  'privacyUrl': 'https://openrouter.ai/privacy',
+                },
+                {
+                  'name': Translations.of(context).legal.anthropicApiName,
+                  'provider': 'Anthropic PBC',
+                  'location': Translations.of(context).legal.unitedStates,
+                  'tags': [
+                    Translations.of(context).legal.planetaryPositions,
+                    Translations.of(context).legal.genderOptional,
                     Translations.of(context).ui.language,
                   ],
                   'description': Translations.of(context)
                       .legal
                       .anthropicApiDescription,
-                  'privacyUrl': 'https://www.anthropic.com/privacy',
+                  'privacyUrl': 'https://www.anthropic.com/legal/privacy',
                 },
               ],
             ),
@@ -964,6 +981,19 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                       .legal
                       .googleOAuthDescription,
                   'privacyUrl': 'https://policies.google.com/privacy',
+                },
+                {
+                  'name': 'Sign in with Apple',
+                  'provider': 'Apple Distribution International Ltd.',
+                  'location': Translations.of(context).legal.ireland,
+                  'tags': [
+                    Translations.of(context).ui.name,
+                    Translations.of(context).ui.email,
+                  ],
+                  'description': Translations.of(context)
+                      .legal
+                      .signInWithAppleDescription,
+                  'privacyUrl': 'https://www.apple.com/legal/privacy/',
                 },
               ],
             ),
@@ -985,7 +1015,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     Translations.of(context).ui.password,
                     Translations.of(context).ui.birthDate,
                     Translations.of(context).ui.birthTime,
-                    Translations.of(context).ui.gender,
+                    Translations.of(context).ui.birthPlace,
+                    Translations.of(context).legal.genderOptional,
                     Translations.of(context).ui.language,
                   ],
                   'description': Translations.of(context)
@@ -996,47 +1027,44 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               ],
             ),
 
-            // Optimization and Traffic Distribution
+            // Place Search
             _buildServiceDetailCard(
               context,
-              Translations.of(context).legal.trafficOptimizationTitle,
-              Translations.of(context).legal.trafficOptimizationDescription,
+              Translations.of(context).legal.placeSearchTitle,
+              Translations.of(context).legal.placeSearchDescription,
               [
                 {
-                  'name': 'Google Fonts',
+                  'name': 'Google Maps Platform',
                   'provider': 'Google Ireland Limited',
                   'location': Translations.of(context).legal.ireland,
-                  'tags': [
-                    Translations.of(context).legal.usageData,
-                    Translations.of(context).legal.ipAddress,
-                  ],
+                  'tags': [Translations.of(context).ui.birthPlace],
                   'description': Translations.of(context)
                       .legal
-                      .googleFontsDescription,
+                      .googleMapsDescription,
                   'privacyUrl': 'https://policies.google.com/privacy',
                 },
               ],
             ),
 
-            // Statistics
+            // Email Delivery
             _buildServiceDetailCard(
               context,
-              Translations.of(context).legal.statisticsTitle,
-              Translations.of(context).legal.statisticsDescription,
+              Translations.of(context).legal.emailSendingTitle,
+              Translations.of(context).legal.emailSendingDescription,
               [
                 {
-                  'name': 'Matomo (self-hosted)',
-                  'provider': 'AstroGods',
-                  'location': Translations.of(context).legal.italy,
+                  'name': 'IONOS',
+                  'provider': 'IONOS SE',
+                  'location': Translations.of(context).legal.europeanUnion,
                   'tags': [
-                    Translations.of(context).legal.usageData,
-                    Translations.of(context).legal.ipAddress,
-                    Translations.of(context).legal.trackingTools,
+                    Translations.of(context).ui.name,
+                    Translations.of(context).ui.email,
                   ],
                   'description': Translations.of(context)
                       .legal
-                      .matomatoDescription,
-                  'privacyUrl': '',
+                      .ionosDescription,
+                  'privacyUrl':
+                      'https://www.ionos.com/terms-gtc/privacy-policy/',
                 },
               ],
             ),
@@ -1048,27 +1076,21 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
 
   Widget _buildServiceDetailsHeader(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 48.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.only(bottom: 24.0),
+      child: Row(
         children: [
-          Row(
-            children: [
-              Icon(
-                Icons.description,
-                color: Theme.of(context).colorScheme.primary,
-                size: 28,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  Translations.of(context).legal.processingDetailsSection,
-                  style: AppTextStyles.getH3Style(context),
-                ),
-              ),
-            ],
+          Icon(
+            Icons.description,
+            color: Theme.of(context).colorScheme.primary,
+            size: 28,
           ),
-          const SizedBox(height: 24),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              Translations.of(context).legal.processingDetailsSection,
+              style: AppTextStyles.getH3Style(context),
+            ),
+          ),
         ],
       ),
     );
@@ -1355,7 +1377,7 @@ ${Translations.of(context).legal.euExtendedContent}
           ),
           const SizedBox(height: 24),
           ElevatedButton.icon(
-            onPressed: () => _launchExternalUrl('mailto:contact@astrogods.it'),
+            onPressed: () => openEmail(context, 'contact@astrogods.it'),
             icon: const Icon(Icons.email_outlined),
             label: Text(Translations.of(context).legal.contactUs),
             style: ElevatedButton.styleFrom(
@@ -1406,8 +1428,7 @@ ${Translations.of(context).legal.euExtendedContent}
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 InkWell(
-                  onTap: () =>
-                      _launchExternalUrl('mailto:contact@astrogods.it'),
+                  onTap: () => openEmail(context, 'contact@astrogods.it'),
                   child: Text(
                     'contact@astrogods.it',
                     style: AppTextStyles.getCaptionStyle(context).copyWith(

@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../constants/text_styles.dart';
+import '../utils/date_utils.dart' as app_date_utils;
 
 class MysticalDatePickerField extends StatelessWidget {
   final TextEditingController controller;
@@ -47,9 +48,9 @@ class MysticalDatePickerField extends StatelessWidget {
       },
     );
 
-    if (date != null) {
+    if (date != null && context.mounted) {
       onDateSelected(date);
-      controller.text = '${date.day}/${date.month}/${date.year}';
+      controller.text = app_date_utils.DateUtils.formatDate(context, date);
     }
   }
 

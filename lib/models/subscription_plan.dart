@@ -1,3 +1,6 @@
+import 'package:in_app_purchase/in_app_purchase.dart';
+
+import '../services/apple_store_service.dart';
 import '../services/stripe_service.dart';
 import 'subscription.dart';
 
@@ -102,21 +105,9 @@ class SubscriptionPlan {
     );
   }
 
-  static SubscriptionPlan? findPlanByPriceId(
-    List<SubscriptionPlan> plans,
-    String priceId,
-  ) {
-    try {
-      return plans.firstWhere((plan) => plan.priceId == priceId);
-    } catch (e) {
-      return null;
-    }
-  }
-
   static List<SubscriptionPlan> annotateWithCurrentPlan(
     List<SubscriptionPlan> plans,
     Subscription? currentSubscription,
-    StripeConfig stripeConfig,
   ) {
     if (currentSubscription == null) {
       return plans;
@@ -129,21 +120,14 @@ class SubscriptionPlan {
       return plans;
     }
 
-    final currentPriceId = _extractPriceIdFromSubscription(
-      currentSubscription,
-      stripeConfig,
+    final currentTier = PlanTier.values.byName(currentSubscription.tier);
+    final currentType = PlanType.values.byName(currentSubscription.period);
+    final currentPlan = plans.firstWhere(
+      (plan) => plan.tier == currentTier && plan.type == currentType,
     );
-    if (currentPriceId == null) {
-      return plans;
-    }
-
-    final currentPlan = findPlanByPriceId(plans, currentPriceId);
-    if (currentPlan == null) {
-      return plans;
-    }
 
     return plans.map((plan) {
-      if (plan.priceId == currentPriceId) {
+      if (plan.tier == currentTier && plan.type == currentType) {
         return plan.copyWith(
           badge: PlanBadge.currentPlan,
           isCurrentPlan: true,
@@ -155,30 +139,6 @@ class SubscriptionPlan {
       final badge = _determinePlanBadge(plan, currentPlan);
       return plan.copyWith(badge: badge);
     }).toList();
-  }
-
-  static String? _extractPriceIdFromSubscription(
-    Subscription subscription,
-    StripeConfig stripeConfig,
-  ) {
-    final amountInEuros = (subscription.amount / 100).toStringAsFixed(2);
-    final interval = subscription.interval;
-
-    final priceMap = <String, String>{
-      '4.99-month': stripeConfig.premiumMonthly,
-      '23.94-month': stripeConfig.premiumSemestral,
-      '3.99-month': stripeConfig.premiumSemestral,
-      '2.99-month': stripeConfig.standardMonthly,
-      '14.35-month': stripeConfig.standardSemestral,
-      '2.39-month': stripeConfig.standardSemestral,
-      '35.88-year': stripeConfig.premiumAnnual,
-      '2.99-year': stripeConfig.premiumAnnual,
-      '23.88-year': stripeConfig.standardAnnual,
-      '1.99-year': stripeConfig.standardAnnual,
-    };
-
-    final key = '$amountInEuros-$interval';
-    return priceMap[key];
   }
 
   static PlanBadge _determinePlanBadge(
@@ -364,6 +324,42 @@ class SubscriptionPlan {
     ];
   }
 
+  static List<SubscriptionPlan> getApplePlans(
+    dynamic t,
+    List<ProductDetails> products,
+  ) {
+    return products.map((product) {
+      final (tier, type) = AppleStoreService.products[product.id]!;
+      final isPremium = tier == PlanTier.premium;
+      return SubscriptionPlan(
+        title: switch (type) {
+          PlanType.monthly =>
+            isPremium ? t.ui.premiumMonthly : t.ui.standardMonthly,
+          PlanType.semiannual =>
+            isPremium ? t.ui.premiumSemiannual : t.ui.standardSemiannual,
+          PlanType.annual =>
+            isPremium ? t.ui.premiumAnnual : t.ui.standardAnnual,
+        },
+        price: product.price,
+        period: switch (type) {
+          PlanType.monthly => t.ui.monthPeriod,
+          PlanType.semiannual => t.ui.sixMonthsPeriod,
+          PlanType.annual => t.ui.yearPeriod,
+        },
+        billingInfo: switch (type) {
+          PlanType.monthly => t.ui.billedMonthly,
+          PlanType.semiannual => t.ui.billedSemiannually,
+          PlanType.annual => t.ui.billedAnnually,
+        },
+        features: isPremium ? getPremiumFeatures(t) : getStandardFeatures(t),
+        excludedFeatures: isPremium ? null : getStandardExcludedFeatures(t),
+        tier: tier,
+        type: type,
+        priceId: product.id,
+      );
+    }).toList();
+  }
+
   static List<SubscriptionPlan> getSimplifiedPlans(
     dynamic t,
     StripeConfig stripeConfig,
@@ -372,7 +368,7 @@ class SubscriptionPlan {
       SubscriptionPlan(
         title: t.ui.premiumAnnual,
         price: '2,99 €',
-        period: 'mese',
+        period: t.ui.monthPeriod,
         billingInfo: t.ui.billedAnnually,
         originalPrice: '4,99 €',
         saveAmount: '24 €',
@@ -386,7 +382,7 @@ class SubscriptionPlan {
       SubscriptionPlan(
         title: t.ui.premiumMonthly,
         price: '4,99 €',
-        period: 'mese',
+        period: t.ui.monthPeriod,
         billingInfo: t.ui.billedMonthly,
         features: getPremiumFeatures(t),
         tier: PlanTier.premium,

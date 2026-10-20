@@ -1,12 +1,17 @@
+import 'dart:convert';
+
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../i18n/translations.g.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/language_provider.dart';
 import '../../models/auth_request.dart';
+import '../../models/birth_chart.dart';
 import '../../models/location.dart';
+import '../../widgets/gender_selector.dart';
 import '../../widgets/starry_night_background.dart';
 import '../../widgets/gradient_button.dart';
 import '../../widgets/location_search_field.dart';
@@ -15,14 +20,13 @@ import '../../widgets/mystical_password_field.dart';
 import '../../widgets/birth_time_check.dart';
 import '../../utils/date_utils.dart' as app_date_utils;
 import '../../widgets/auth/auth_container.dart';
+import '../../widgets/auth/auth_link_box.dart';
 import '../../widgets/auth/google_signin_widget.dart';
 import '../../constants/text_styles.dart';
 import '../../utils/snackbar_utils.dart';
 import '../../utils/auth_validators.dart';
 import '../../utils/error_utils.dart';
 import '../../utils/auth_navigation_utils.dart';
-
-import 'package:intl/intl.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -33,7 +37,6 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _pageController = PageController();
 
   // Controllers
   final _emailController = TextEditingController();
@@ -48,8 +51,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
   DateTime? _birthDate;
   TimeOfDay? _birthTime;
   bool _unknownTime = false;
+  String? _gender;
   PlaceDetails? _selectedLocation;
+  double? _birthLatitude;
+  double? _birthLongitude;
   final _birthTimeCheck = BirthTimeController();
+
+  bool _isValidatingPage = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _prefillFromPendingChart();
+  }
+
+  Future<void> _prefillFromPendingChart() async {
+    final prefs = await SharedPreferences.getInstance();
+    final birthChartJson = prefs.getString('pending_birth_chart');
+    if (birthChartJson == null || !mounted) return;
+
+    final chart = BirthChart.fromJson(
+      jsonDecode(birthChartJson) as Map<String, dynamic>,
+    );
+    setState(() {
+      _givenNameController.text = chart.givenName;
+      _familyNameController.text = chart.familyName;
+      _gender = chart.gender;
+      _birthDate = DateTime(chart.date.year, chart.date.month, chart.date.day);
+      _unknownTime = chart.unknownTime;
+      if (!chart.unknownTime) {
+        _birthTime = TimeOfDay.fromDateTime(chart.date);
+      }
+      _birthPlaceController.text = chart.place!;
+      _birthLatitude = chart.latitude;
+      _birthLongitude = chart.longitude;
+    });
+    if (chart.timeFold != null) {
+      _birthTimeCheck.choose(chart.timeFold!);
+    }
+  }
 
   @override
   void dispose() {
@@ -59,23 +99,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _givenNameController.dispose();
     _familyNameController.dispose();
     _birthPlaceController.dispose();
-    _pageController.dispose();
     _birthTimeCheck.dispose();
     super.dispose();
   }
 
   Future<void> _nextPage() async {
-    if (_currentPage < 2) {
-      if (await _validateCurrentPage()) {
-        setState(() {
-          _currentPage++;
-        });
-        _pageController.nextPage(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-      }
-    }
+    if (_isValidatingPage || _currentPage >= 2) return;
+    setState(() => _isValidatingPage = true);
+    final isValid = await _validateCurrentPage();
+    if (!mounted) return;
+    setState(() {
+      _isValidatingPage = false;
+      if (isValid) _currentPage++;
+    });
   }
 
   void _previousPage() {
@@ -83,10 +119,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() {
         _currentPage--;
       });
-      _pageController.previousPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
     }
   }
 
@@ -208,14 +240,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ? _familyNameController.text.trim()
           : null,
       birthDatetime: birthDateTimeString,
-      birthLatitude: null,
-      birthLongitude: null,
+      birthLatitude: _birthLatitude,
+      birthLongitude: _birthLongitude,
       birthPlace: _birthPlaceController.text.trim().isNotEmpty
           ? _birthPlaceController.text.trim()
           : null,
       birthPlaceId: _selectedLocation?.placeId,
       unknownTime: _unknownTime,
       birthTimeFold: _birthTimeCheck.fold,
+      gender: _gender,
     );
 
     // Save registration data before calling register
@@ -223,7 +256,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     if (!mounted) return;
 
-    final success = await authProvider.register(request, context: context);
+    final success = await authProvider.register(request);
+    if (!success) await clearRegistrationDataForRedirect();
 
     if (!mounted) return;
 
@@ -252,6 +286,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     if (_familyNameController.text.trim().isNotEmpty) {
       data['familyName'] = _familyNameController.text.trim();
+    }
+    if (_gender != null) {
+      data['gender'] = _gender;
     }
     if (_birthDate != null) {
       data['birthDate'] = _birthDate!.toIso8601String();
@@ -348,6 +385,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           textInputAction: TextInputAction.done,
           validator: (value) => AuthValidators.validateRequiredField(value, t),
         ),
+
+        const SizedBox(height: 20),
+
+        GenderSelector(
+          value: _gender,
+          onChanged: (gender) => setState(() => _gender = gender),
+        ),
       ],
     );
   }
@@ -382,7 +426,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Expanded(
                   child: Text(
                     _birthDate != null
-                        ? DateFormat.yMMMd().format(_birthDate!)
+                        ? app_date_utils.DateUtils.formatDate(
+                            context,
+                            _birthDate!,
+                          )
                         : t.ui.birthDate,
                     style: TextStyle(
                       color: _birthDate != null
@@ -462,9 +509,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
                 child: Text(
                   message,
-                  style: AppTextStyles.getCaptionStyle(
-                    context,
-                  ).copyWith(color: Theme.of(context).colorScheme.error),
+                  style: AppTextStyles.getCaptionStyle(context)
+                      .copyWith(color: Theme.of(context).colorScheme.error),
                 ),
               );
             },
@@ -507,6 +553,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           onLocationSelected: (PlaceDetails? location) {
             setState(() {
               _selectedLocation = location;
+              _birthLatitude = null;
+              _birthLongitude = null;
             });
             _birthTimeCheck.reset();
           },
@@ -613,17 +661,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    SizedBox(
-                                      height: 280,
-                                      child: PageView(
-                                        controller: _pageController,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        children: [
-                                          _buildAccountInfoPage(isDark),
-                                          _buildPersonalInfoPage(isDark),
-                                          _buildBirthInfoPage(),
-                                        ],
+                                    AnimatedSize(
+                                      duration: const Duration(
+                                        milliseconds: 300,
+                                      ),
+                                      curve: Curves.easeInOut,
+                                      alignment: Alignment.topCenter,
+                                      child: KeyedSubtree(
+                                        key: ValueKey(_currentPage),
+                                        child: switch (_currentPage) {
+                                          0 => _buildAccountInfoPage(isDark),
+                                          1 => _buildPersonalInfoPage(isDark),
+                                          _ => _buildBirthInfoPage(),
+                                        },
                                       ),
                                     ),
 
@@ -675,7 +725,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     ? _nextPage
                                                     : _handleRegister,
                                                 enabled:
-                                                    !authProvider.isLoading,
+                                                    !authProvider.isLoading &&
+                                                    !_isValidatingPage,
                                                 padding: _currentPage == 2
                                                     ? const EdgeInsets.symmetric(
                                                         horizontal: 16,
@@ -700,16 +751,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             const SizedBox(height: 24),
 
                             // Login Link
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface
-                                    .withValues(alpha: 0.85),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                            AuthLinkBox(
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,

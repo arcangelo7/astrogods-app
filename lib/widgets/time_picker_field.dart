@@ -56,48 +56,48 @@ class MysticalTimePickerField extends StatelessWidget {
     return ListenableBuilder(
       listenable: birthTime,
       builder: (context, _) => TextFormField(
-      controller: controller,
-      validator: validator,
-      readOnly: true,
-      enabled: enabled,
-      onTap: enabled ? () => _selectTime(context) : null,
-      style: AppTextStyles.getBodyStyle(context),
-      decoration: InputDecoration(
-        labelText: labelText,
-        errorText: birthTime.missingMessage,
-        errorMaxLines: 4,
-        labelStyle: AppTextStyles.getFormLabelStyle(context),
-        floatingLabelStyle: AppTextStyles.getFloatingLabelStyle(context),
-        suffixIcon: Icon(
-          Icons.access_time,
-          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-          size: AppTextStyles.iconMedium,
-        ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.5),
-            width: 1,
+        controller: controller,
+        validator: validator,
+        readOnly: true,
+        enabled: enabled,
+        onTap: enabled ? () => _selectTime(context) : null,
+        style: AppTextStyles.getBodyStyle(context),
+        decoration: InputDecoration(
+          labelText: labelText,
+          errorText: birthTime.missingMessage,
+          errorMaxLines: 4,
+          labelStyle: AppTextStyles.getFormLabelStyle(context),
+          floatingLabelStyle: AppTextStyles.getFloatingLabelStyle(context),
+          suffixIcon: Icon(
+            Icons.access_time,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+            size: AppTextStyles.iconMedium,
+          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: 0.5),
+              width: 1,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: theme.colorScheme.error, width: 1),
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+          filled: true,
+          fillColor: theme.colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.3,
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.error, width: 1),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
-        ),
-        filled: true,
-        fillColor: theme.colorScheme.surfaceContainerHighest.withValues(
-          alpha: 0.3,
-        ),
-      ),
       ),
     );
   }

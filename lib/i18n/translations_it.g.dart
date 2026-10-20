@@ -343,7 +343,7 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get accountClosureProcedure => 'L\'Utente è libero di chiudere il proprio account e cessare l\'utilizzo del Servizio in qualsiasi momento, seguendo questa procedura:';
 	@override String get accountClosureTitle => 'Chiusura account';
 	@override String get accountRequirements => 'Requisiti per la registrazione';
-	@override String get accountResponsibility => 'Creando un account l\'Utente accetta di essere pienamente responsabile di ogni attività posta in atto con le sue credenziali d\'accesso. Gli Utenti sono tenuti a informare il Titolare immediatamente e univocamente tramite i recapiti indicati in questo documento qualora ritengano che le proprie informazioni personali, quali ad esempio l\'account Utente, le credenziali d\'accesso o dati personali, siano state violate, illecitamente diffuse o sottratte.';
+	@override String get accountResponsibility => 'Creando un account l\'Utente accetta di essere pienamente responsabile di ogni attività posta in atto con le sue credenziali d\'accesso. Gli Utenti sono tenuti a informare il Titolare immediatamente e univocamente tramite i [recapiti indicati in questo documento](mailto:contact@astrogods.it) qualora ritengano che le proprie informazioni personali, quali ad esempio l\'account Utente, le credenziali d\'accesso o dati personali, siano state violate, illecitamente diffuse o sottratte.';
 	@override String get accountSharingProhibited => 'Salvo ove espressamente consentito, l\'account di un Utente non può essere condiviso con altre persone.';
 	@override String get accountSuspension => 'Sospensione e cancellazione account';
 	@override String get accountSuspensionText => 'Il Titolare si riserva il diritto di sospendere o cancellare l\'account di un Utente in qualsiasi momento a propria discrezione e senza preavviso, qualora lo ritenga inopportuno, offensivo o contrario a questi Termini.';
@@ -355,13 +355,16 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get agreementDefinitionTitle => 'Accordo';
 	@override String get amicableDisputeComposition => 'Composizione amichevole delle controversie';
 	@override String get amicableDisputeResolution => 'Gli Utenti possono segnalare eventuali controversie al Titolare, che cercherà di risolvere in via amichevole.';
-	@override String get anthropicApiDescription => 'L\'API di Anthropic è un servizio di intelligenza artificiale fornito da Anthropic PBC.';
+	@override String get anthropicApiDescription => 'L\'API di Anthropic dà accesso a Claude, il modello linguistico di Anthropic PBC che AstroGods usa per scrivere il testo delle letture.';
+	@override String get anthropicApiName => 'API di Anthropic';
+	@override String get appStoreDescription => 'L\'App Store è il servizio di Apple per l\'acquisto di app e abbonamenti. Per gli abbonamenti acquistati su iPhone, iPad e Mac, Apple gestisce il pagamento e comunica ad AstroGods solo i dati dell\'abbonamento acquistato, come il prodotto, le date e l\'identificativo della transazione.';
 	@override String get appStorePurchases => 'AstroGods o determinati Prodotti in vendita su AstroGods devono essere acquistati tramite un app store terzo. Per poter effettuare tali acquisti gli Utenti sono pregati di seguire le istruzioni nel relativo app store (ad esempio "Apple App Store" o "Google Play"). Tali informazioni possono variare a seconda dello specifico dispositivo utilizzato.';
 	@override String get appStoreTermsAcceptance => 'Pertanto, gli Utenti che effettuano acquisti attraverso tali negozi online di terzi sono pregati di leggere attentamente ed accettare i relativi termini e condizioni di vendita.';
-	@override String get appStoreTermsPrecedence => 'Salvo ove diversamente specificato, gli acquisti effettuati tramite negozi online di terze parti sono soggetti anche ai termini e condizioni di tali terzi. Tali termini e condizioni prevalgono in ogni caso di incongruenza o conflitto rispetto ai presenti Termini.';
+	@override String get appStoreTermsPrecedence => 'Salvo ove diversamente specificato, gli acquisti effettuati tramite negozi online di terze parti sono soggetti anche ai termini e condizioni di tali terzi, come i [termini dell\'App Store](https://www.apple.com/legal/internet-services/itunes/) e i [termini di Google Play](https://play.google.com/about/play-terms/). Tali termini e condizioni prevalgono in ogni caso di incongruenza o conflitto rispetto ai presenti Termini.';
 	@override String get appleAccountAutoRenewal => 'gli abbonamenti si rinnovano automaticamente per la stessa durata a meno che l\'Utente non comunichi disdetta almeno 24 ore prima della scadenza del periodo di abbonamento corrente;';
-	@override String get appleAccountManagement => 'gli abbonamenti possono essere gestiti o disdetti direttamente tramite le impostazioni dell\'account Apple App Store dell\'Utente.';
+	@override String get appleAccountManagement => 'gli abbonamenti possono essere gestiti o disdetti direttamente tramite le [impostazioni dell\'account Apple App Store](https://apps.apple.com/account/subscriptions) dell\'Utente.';
 	@override String get appleAccountPayment => 'qualsiasi pagamento dovuto sarà addebitato all\'account Apple;';
+	@override String get appleAccountRefunds => 'i rimborsi degli acquisti effettuati tramite l\'App Store sono gestiti da Apple e vanno richiesti ad Apple secondo la [sua procedura](https://reportaproblem.apple.com).';
 	@override String get appleAccountRenewalCharges => 'tutti i compensi o pagamenti dovuti per il rinnovo saranno addebitati entro 24 ore prima della scadenza del periodo corrente;';
 	@override String get appleAccountSubscriptions => 'Gli Utenti possono concludere l\'abbonamento ad un Prodotto utilizzando l\'Apple Account associato al loro account Apple App Store tramite la relativa procedura su AstroGods. Nel fare ciò, gli Utenti riconoscono ed accettano che:';
 	@override String get appleAccountSubscriptionsTitle => 'Abbonamenti gestiti tramite Apple Account';
@@ -387,11 +390,11 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get authenticationDescription => 'Registrando o autenticando, gli Utenti consentono a AstroGods di identificarli e dar loro accesso a servizi dedicati.\nA seconda di quanto indicato di seguito, i servizi di terze parti potrebbero fornire una registrazione e autenticazione semplificata.';
 	@override String get authenticationTitle => 'Registrazione ed autenticazione';
 	@override String get automaticRenewal => 'Rinnovo automatico';
-	@override String get automaticRenewalPolicy => 'Gli abbonamenti si rinnovano automaticamente tramite il sistema di fatturazione sicuro di Stripe con addebito sul mezzo di pagamento scelto dall\'Utente. Gli utenti ricevono notifiche email prima di ogni rinnovo e possono annullare o modificare il loro abbonamento in qualsiasi momento tramite il Portale Clienti Stripe.';
+	@override String get automaticRenewalPolicy => 'Gli abbonamenti si rinnovano automaticamente alla scadenza, con addebito sul mezzo di pagamento usato per l\'acquisto: per gli acquisti tramite Stripe il mezzo scelto al checkout, per quelli tramite l\'App Store l\'account Apple.';
 	@override String get backendApi => 'Backend API';
-	@override String get backendApiDescription => 'AstroGods utilizza API di terze parti per elaborare richieste degli utenti e fornire contenuti.';
+	@override String get backendApiDescription => 'Per scrivere le letture, AstroGods sostituisce i nomi delle persone nei temi con un segnaposto. I servizi seguenti ricevono solo le posizioni planetarie calcolate dai dati di nascita, la lingua della lettura e il genere grammaticale da usare nel testo, se l\'Utente lo ha indicato. Indicare il genere è facoltativo; se manca, la lettura usa un linguaggio neutro, senza accordi di genere. Non ricevono nomi, date o luoghi di nascita, né dati che identifichino l\'Utente o le persone nei temi. AstroGods rimette i nomi veri nel testo sui propri server.';
 	@override String get backendApiTitle => 'Backend API';
-	@override String get billingAddress => 'indirizzo di fatturazione';
+	@override String get billingAddress => 'Indirizzo di fatturazione';
 	@override String get bindingManner => 'in maniera vincolante. Le espressioni con l\'iniziale maiuscola sono definite nella relativa sezione di questo documento.';
 	@override String get botRegistrationProhibited => 'L\'apertura di account tramite bot o altri mezzi automatizzati non è ammessa.';
 	@override String get browserSettingsContent => 'La maggior parte dei browser web consente di controllare i cookie attraverso le preferenze delle impostazioni. Puoi impostare il tuo browser per rifiutare i cookie o eliminare determinati cookie. In generale, puoi anche gestire tecnologie simili allo stesso modo.';
@@ -400,24 +403,18 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get cancellationEffectiveTiming => 'Qualora la comunicazione della disdetta pervenga al Titolare prima della data di rinnovo dell\'abbonamento, la risoluzione avrà effetto allo scadere del periodo in corso.';
 	@override String get commonProvisions => 'Disposizioni comuni';
 	@override String get commonProvisionsSection => 'Disposizioni comuni';
-	@override String get communicatedDataDuringService => 'dati comunicati durante l\'utilizzo del servizio';
-	@override String get communicationRequirement => 'Tutte le comunicazioni inerenti all\'uso di AstroGods devono essere inviate ai recapiti indicati in questo documento.';
+	@override String get communicatedDataDuringService => 'Dati comunicati durante l\'utilizzo del servizio';
+	@override String get communicationRequirement => 'Tutte le comunicazioni inerenti all\'uso di AstroGods devono essere inviate ai [recapiti indicati in questo documento](mailto:contact@astrogods.it).';
 	@override String get competentJurisdiction => 'Foro competente';
-	@override String get complaintProcedure => 'L\'Utente può indirizzare un reclamo all\'indirizzo e-mail del Titolare indicato in questo documento, includendo una breve descrizione e, se del caso, i dettagli dell\'ordine, acquisto o account interessato.';
-	@override String get complianceContent => 'La nostra cookie policy è conforme agli standard di protezione dei dati dell\'UE. Utilizziamo solo strumenti di tracciamento di prima parte e non condividiamo i tuoi dati con inserzionisti di terze parti.';
+	@override String get complaintProcedure => 'L\'Utente può indirizzare un reclamo all\'[indirizzo e-mail del Titolare](mailto:contact@astrogods.it) indicato in questo documento, includendo una breve descrizione e, se del caso, i dettagli dell\'ordine, acquisto o account interessato.';
+	@override String get complianceContent => 'La nostra cookie policy è conforme agli standard di protezione dei dati dell\'UE. Non utilizziamo strumenti di tracciamento per statistiche o pubblicità e non condividiamo i tuoi dati con inserzionisti. Per sapere come trattiamo i tuoi dati personali, consulta la [Privacy Policy](/privacy-policy).';
 	@override String get complianceSection => 'Conformità';
 	@override String get consequencesOfBlockingContent => 'Se scegli di bloccare o eliminare i cookie, alcune funzionalità del nostro sito web potrebbero non funzionare correttamente.';
 	@override String get consequencesOfBlockingTitle => 'Conseguenze del blocco dei cookie';
-	@override String get consumerCancellationTiming => 'Qualora la disdetta pervenga al Titolare entro la fine del mese in corso, l\'abbonamento scade alla fine di tale mese.';
 	@override String get consumerDefinition => 'Vale come Consumatore qualsiasi Utente considerato tale ai sensi della legge applicabile.';
 	@override String get consumerDefinitionTitle => 'Consumatore';
-	@override String get consumerExceptionText => 'Tuttavia, a prescindere da quanto precede, se l\'Utente agisce come Consumatore, si applica quanto segue:';
-	@override String get consumerExceptionTitle => 'Eccezione per i Consumatori';
-	@override String get consumerIndefiniteExtension => 'Alla fine del termine iniziale, gli abbonamenti sono automaticamente prorogati a tempo indeterminato, a meno che l\'Utente non disdica prima della fine di tale termine.';
-	@override String get consumerMonthlyTermination => 'Dopo la proroga, l\'abbonamento avrà una durata indeterminata e potrà essere risolto mensilmente.';
-	@override String get consumerRenewalCharging => 'Il corrispettivo dovuto al momento della proroga sarà addebitato sul metodo di pagamento che l\'Utente ha scelto in occasione dell\'acquisto.';
 	@override String get consumerRequirement => 'L\'Utente agisce come Consumatore';
-	@override String get contactForCookiesContent => 'Se hai domande sul nostro utilizzo di cookie o tecnologie di tracciamento, contattaci:';
+	@override String get contactForCookiesContent => 'Se hai domande sul nostro utilizzo dei cookie, contattaci:';
 	@override String get contactForCookiesTitle => 'Contattaci sui cookie';
 	@override String get contactUs => 'Contattaci';
 	@override String get contactUsSection => 'Contattaci';
@@ -427,23 +424,23 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get contractDuration => 'Durata del contratto';
 	@override String get contractDurationSection => 'Durata del contratto';
 	@override String get contractTransferRight => 'Il Titolare si riserva il diritto di trasferire, cedere, disporre di, novare o appaltare singoli o tutti i diritti e le obbligazioni secondo questi Termini, avendo riguardo per gli interessi legittimi degli Utenti.';
-	@override String get contractualWithdrawalRight => 'Il Titolare concede agli Utenti il diritto contrattuale di recedere dal contratto d\'acquisto secondo i termini e le condizioni esplicitati nella relativa sezione di AstroGods entro 30 giorni dalla conclusione del contratto.';
+	@override String get contractualWithdrawalRight => 'Il Titolare concede agli Utenti il diritto contrattuale di recedere dal contratto d\'acquisto secondo i termini e le condizioni esplicitati nella [relativa sezione di AstroGods](/subscription-plans) entro 30 giorni dalla conclusione del contratto. Per gli acquisti effettuati tramite l\'App Store si applica la [procedura di rimborso di Apple](https://reportaproblem.apple.com).';
 	@override String get contractualWithdrawalRightTitle => 'Diritto contrattuale di recesso';
 	@override String get cookiePolicy => 'Cookie Policy';
-	@override String get cookiePolicyContent => 'AstroGods fa utilizzo di Strumenti di Tracciamento. Per saperne di più, consulta la Cookie Policy.';
-	@override String get cookiePolicyLastModified => 'Ultima modifica: 7 settembre 2025';
+	@override String get cookiePolicyContent => 'AstroGods usa solo i cookie e la memoria del browser necessari al funzionamento e nessuno strumento di tracciamento per statistiche o pubblicità. Per saperne di più, consulta la [Cookie Policy](/cookie-policy).';
+	@override String get cookiePolicyLastModified => 'Ultima modifica: 19 ottobre 2026';
 	@override String get cookiePolicyPageTitle => 'Cookie Policy';
 	@override String get cookiePolicySection => 'Cookie Policy';
 	@override String get cookiePolicyTitle => 'Cookie Policy';
-	@override String get cookiePolicyWelcomeText => 'Questa pagina spiega come utilizziamo i cookie e le tecnologie di tracciamento per migliorare la tua esperienza.';
-	@override String get cookiesAndTrackingReferenceContent => 'Per informazioni dettagliate sui cookie e le tecnologie di tracciamento che utilizziamo, consulta la nostra Cookie Policy completa.';
-	@override String get cookiesAndTrackingSection => 'Cookie e tracciamento';
-	@override String get cookiesAndTrackingTitle => 'Cookie e tracciamento';
+	@override String get cookiePolicyWelcomeText => 'Questa pagina spiega quali cookie e quali dati salvati nel browser usa AstroGods e perché.';
+	@override String get cookiesAndTrackingReferenceContent => 'Per sapere quali cookie e quali dati salvati nel browser servono al funzionamento di AstroGods, consulta la Cookie Policy completa.';
+	@override String get cookiesAndTrackingSection => 'Cookie';
+	@override String get cookiesAndTrackingTitle => 'Cookie';
 	@override String get dataControllerEmail => 'contact@astrogods.it';
 	@override String get dataControllerEmailLabel => 'Indirizzo email del Titolare: ';
 	@override String get dataControllerName => 'Arcangelo Massari - Bologna (Italia)';
 	@override String get dataControllerSection => 'Titolare del Trattamento dei Dati';
-	@override String get dataTypesDetailedContent => 'Dettagli completi su ciascuna tipologia di Dati Personali raccolti sono forniti nelle sezioni dedicate di questa privacy policy o mediante specifici testi informativi visualizzati prima della raccolta dei Dati stessi.\n\nI Dati Personali possono essere liberamente forniti dall\'Utente o, nel caso di Dati di Utilizzo, raccolti automaticamente durante l\'uso di AstroGods.\n\nSe non diversamente specificato, tutti i Dati richiesti da AstroGods sono obbligatori. Se l\'Utente rifiuta di comunicarli, potrebbe essere impossibile per AstroGods fornire il Servizio. Nei casi in cui AstroGods indichi alcuni Dati come facoltativi, gli Utenti sono liberi di astenersi dal comunicare tali Dati, senza che ciò abbia alcuna conseguenza sulla disponibilità del Servizio o sulla sua operatività.\n\nGli Utenti che dovessero avere dubbi su quali Dati siano obbligatori sono incoraggiati a contattare il Titolare.\n\nL\'eventuale utilizzo di Cookie - o di altri strumenti di tracciamento - da parte di AstroGods o dei titolari dei servizi terzi utilizzati da AstroGods ha la finalità di fornire il Servizio richiesto dall\'Utente, oltre alle ulteriori finalità descritte nel presente documento e nella Cookie Policy.\n\nL\'Utente si assume la responsabilità dei Dati Personali di terzi ottenuti, pubblicati o condivisi mediante AstroGods.';
+	@override String get dataTypesDetailedContent => 'Dettagli completi su ciascuna tipologia di Dati Personali raccolti sono forniti nelle sezioni dedicate di questa privacy policy o mediante specifici testi informativi visualizzati prima della raccolta dei Dati stessi.\n\nI Dati Personali possono essere liberamente forniti dall\'Utente o, nel caso di Dati di Utilizzo, raccolti automaticamente durante l\'uso di AstroGods.\n\nSe non diversamente specificato, tutti i Dati richiesti da AstroGods sono obbligatori. Se l\'Utente rifiuta di comunicarli, potrebbe essere impossibile per AstroGods fornire il Servizio. Nei casi in cui AstroGods indichi alcuni Dati come facoltativi, gli Utenti sono liberi di astenersi dal comunicare tali Dati, senza che ciò abbia alcuna conseguenza sulla disponibilità del Servizio o sulla sua operatività.\n\nGli Utenti che dovessero avere dubbi su quali Dati siano obbligatori sono incoraggiati a contattare il Titolare.\n\nAstroGods usa i Cookie solo per fornire il Servizio richiesto dall\'Utente, come descritto nella [Cookie Policy](/cookie-policy).\n\nL\'Utente si assume la responsabilità dei Dati Personali di terzi ottenuti, pubblicati o condivisi mediante AstroGods.';
 	@override String get dataTypesIntro => 'Fra i Dati Personali raccolti da AstroGods, in modo autonomo o tramite terze parti, ci sono:';
 	@override String get dataTypesSection => 'Tipologie di Dati raccolti';
 	@override String get dataWeCollectAutomatically => 'Dati che raccogliamo automaticamente';
@@ -451,14 +448,14 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get dataYouProvide => 'Dati che ci fornisce';
 	@override String get dataYouProvideDesc => 'Raccogliamo i dati che ci fornisci, ad esempio quando crei un account su AstroGods.';
 	@override String get definitions => 'Definizioni e riferimenti legali';
-	@override String get definitionsContent => '### Dati Personali (o Dati)\n\nQualunque informazione che, direttamente o indirettamente, anche in collegamento con qualsiasi altra informazione, renda identificata o identificabile una persona fisica.\n\n### Dati di Utilizzo\n\nSono le informazioni raccolte automaticamente attraverso AstroGods (anche da applicazioni di parti terze integrate in AstroGods), tra cui: gli indirizzi IP o i nomi a dominio dei computer utilizzati dall\'Utente che si connette con AstroGods, gli indirizzi in notazione URI (Uniform Resource Identifier), l\'orario della richiesta, il metodo utilizzato nell\'inoltrare la richiesta al server, la dimensione del file ottenuto in risposta, il codice numerico indicante lo stato della risposta dal server (buon fine, errore, ecc.), il paese di provenienza, le caratteristiche del browser e del sistema operativo utilizzati dal visitatore, le varie connotazioni temporali della visita (ad esempio il tempo di permanenza su ciascuna pagina) e i dettagli relativi all\'itinerario seguito all\'interno dell\'Applicazione, con particolare riferimento alla sequenza delle pagine consultate, ai parametri relativi al sistema operativo e all\'ambiente informatico dell\'Utente.\n\n### Utente\n\nL\'individuo che utilizza AstroGods che, salvo ove diversamente specificato, coincide con l\'Interessato.\n\n### Interessato\n\nLa persona fisica cui si riferiscono i Dati Personali.\n\n### Responsabile del Trattamento (o Responsabile)\n\nLa persona fisica, giuridica, la pubblica amministrazione e qualsiasi altro ente che tratta dati personali per conto del Titolare, secondo quanto esposto nella presente privacy policy.\n\n### Titolare del Trattamento (o Titolare)\n\nLa persona fisica o giuridica, l\'autorità pubblica, il servizio o altro organismo che, singolarmente o insieme ad altri, determina le finalità e i mezzi del trattamento di dati personali e gli strumenti adottati, ivi comprese le misure di sicurezza relative al funzionamento ed alla fruizione di AstroGods. Il Titolare del Trattamento, salvo quanto diversamente specificato, è il titolare di AstroGods.\n\n### AstroGods (o questa Applicazione)\n\nLo strumento hardware o software mediante il quale sono raccolti e trattati i Dati Personali degli Utenti.\n\n### Servizio\n\nIl Servizio fornito da AstroGods così come definito nei relativi termini (se presenti) e su questo sito/applicazione.\n\n### Unione Europea (o UE)\n\nSalvo ove diversamente specificato, ogni riferimento all\'Unione Europea contenuto in questo documento si intende esteso a tutti gli attuali stati membri dell\'Unione Europea e dello Spazio Economico Europeo.\n\n### Cookie\n\nI Cookie sono Strumenti di Tracciamento che consistono in piccole porzioni di dati conservate all\'interno del browser dell\'Utente.\n\n### Strumento di Tracciamento\n\nPer Strumento di Tracciamento s\'intende qualsiasi tecnologia (es. Cookie, identificativi univoci, web beacon, script integrati, e-tag e fingerprinting) che consenta di tracciare gli Utenti, per esempio raccogliendo o salvando informazioni sul dispositivo dell\'Utente.\n\n### Riferimenti legali\n\nQuesta informativa privacy riguarda esclusivamente AstroGods, se non diversamente indicato in questo documento.';
+	@override String get definitionsContent => '### Dati Personali (o Dati)\n\nQualunque informazione che, direttamente o indirettamente, anche in collegamento con qualsiasi altra informazione, renda identificata o identificabile una persona fisica.\n\n### Dati di Utilizzo\n\nSono le informazioni raccolte automaticamente attraverso AstroGods (anche da applicazioni di parti terze integrate in AstroGods), tra cui: gli indirizzi IP o i nomi a dominio dei computer utilizzati dall\'Utente che si connette con AstroGods, gli indirizzi in notazione URI (Uniform Resource Identifier), l\'orario della richiesta, il metodo utilizzato nell\'inoltrare la richiesta al server, la dimensione del file ottenuto in risposta, il codice numerico indicante lo stato della risposta dal server (buon fine, errore, ecc.), il paese di provenienza, le caratteristiche del browser e del sistema operativo utilizzati dal visitatore, le varie connotazioni temporali della visita (ad esempio il tempo di permanenza su ciascuna pagina) e i dettagli relativi all\'itinerario seguito all\'interno dell\'Applicazione, con particolare riferimento alla sequenza delle pagine consultate, ai parametri relativi al sistema operativo e all\'ambiente informatico dell\'Utente.\n\n### Utente\n\nL\'individuo che utilizza AstroGods che, salvo ove diversamente specificato, coincide con l\'Interessato.\n\n### Interessato\n\nLa persona fisica cui si riferiscono i Dati Personali.\n\n### Responsabile del Trattamento (o Responsabile)\n\nLa persona fisica, giuridica, la pubblica amministrazione e qualsiasi altro ente che tratta dati personali per conto del Titolare, secondo quanto esposto nella presente privacy policy.\n\n### Titolare del Trattamento (o Titolare)\n\nLa persona fisica o giuridica, l\'autorità pubblica, il servizio o altro organismo che, singolarmente o insieme ad altri, determina le finalità e i mezzi del trattamento di dati personali e gli strumenti adottati, ivi comprese le misure di sicurezza relative al funzionamento ed alla fruizione di AstroGods. Il Titolare del Trattamento, salvo quanto diversamente specificato, è il titolare di AstroGods.\n\n### AstroGods (o questa Applicazione)\n\nLo strumento hardware o software mediante il quale sono raccolti e trattati i Dati Personali degli Utenti.\n\n### Servizio\n\nIl Servizio fornito da AstroGods così come definito nei relativi [termini](/terms-and-conditions) e su questo sito/applicazione.\n\n### Unione Europea (o UE)\n\nSalvo ove diversamente specificato, ogni riferimento all\'Unione Europea contenuto in questo documento si intende esteso a tutti gli attuali stati membri dell\'Unione Europea e dello Spazio Economico Europeo.\n\n### Cookie\n\nI Cookie sono piccole porzioni di dati conservate all\'interno del browser dell\'Utente.\n\n### Riferimenti legali\n\nQuesta informativa privacy riguarda esclusivamente AstroGods, se non diversamente indicato in questo documento.';
 	@override String get definitionsSection => 'Definizioni e riferimenti legali';
 	@override String get delivery => 'Consegna';
 	@override String get deliveryCostException => 'Tuttavia, il maggior costo derivante dalla scelta di un particolare metodo di consegna diverso dalla consegna standard più economica offerta dal Titolare, resterà a carico dell\'Utente.';
 	@override String get deliveryOfDigitalContent => 'Consegna di contenuti digitali';
 	@override String get deliverySection => 'Consegna';
-	@override String get deviceIdentifiers => 'identificatori del dispositivo';
-	@override String get deviceInformation => 'informazioni sul dispositivo';
+	@override String get deviceIdentifiers => 'Identificatori del dispositivo';
+	@override String get deviceInformation => 'Informazioni sul dispositivo';
 	@override String get deviceRequirements => 'Gli Utenti riconoscono ed accettano che, per scaricare e/o utilizzare il Prodotto, il dispositivo o i dispositivi prescelti ed il rispettivo software (compresi i sistemi operativi) debbano essere legali, d\'uso comune, aggiornati e in linea con gli attuali standard di mercato.';
 	@override String get differentiatedLicensing => 'Licenze differenziate per contenuti';
 	@override String get differentiatedLicensingSection => 'Licenze differenziate';
@@ -472,7 +469,9 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get doNotHesitateContact => 'In tal caso, non esitare a contattarci.';
 	@override String get downloadLimitations => 'Gli Utenti riconoscono ed accettano che la possibilità di scaricare il Prodotto acquistato potrebbe essere limitata nel tempo e nello spazio.';
 	@override String get effectsOfWithdrawal => 'Effetti del recesso';
-	@override String get euExtendedContent => '### Base giuridica del trattamento\n\nIl Titolare può trattare i Dati Personali dell\'Utente, se sussiste una delle seguenti condizioni:\n\n- l\'Utente ha prestato il consenso per una o più finalità specifiche;\n- il trattamento è necessario all\'esecuzione di un contratto con l\'Utente e/o all\'esecuzione di misure precontrattuali;\n- il trattamento è necessario per adempiere un obbligo legale al quale è soggetto il Titolare;\n- il trattamento è necessario per l\'esecuzione di un compito di interesse pubblico o per l\'esercizio di pubblici poteri di cui è investito il Titolare;\n- il trattamento è necessario per il perseguimento del legittimo interesse del Titolare o di terzi.\n\nÈ comunque sempre possibile richiedere al Titolare di chiarire la concreta base giuridica di ciascun trattamento ed in particolare di specificare se il trattamento sia basato sulla legge, previsto da un contratto o necessario per concludere un contratto.\n\n### Ulteriori informazioni sui tempi di conservazione\n\nSe non diversamente indicato in questo documento, i Dati Personali sono trattati e conservati per il tempo richiesto dalla finalità per la quale sono stati raccolti e potrebbero essere conservati per un periodo più lungo a causa di eventuali obbligazioni legali o sulla base del consenso degli Utenti.\n\nPertanto:\n\n- I Dati Personali raccolti per scopi collegati all\'esecuzione di un contratto tra il Titolare e l\'Utente saranno trattenuti sino a quando sia completata l\'esecuzione di tale contratto.\n- I Dati Personali raccolti per finalità riconducibili all\'interesse legittimo del Titolare saranno trattenuti sino al soddisfacimento di tale interesse. L\'Utente può ottenere ulteriori informazioni in merito all\'interesse legittimo perseguito dal Titolare nelle relative sezioni di questo documento o contattando il Titolare.\n\nQuando il trattamento è basato sul consenso dell\'Utente, il Titolare può conservare i Dati Personali più a lungo sino a quando detto consenso non venga revocato. Inoltre, il Titolare potrebbe essere obbligato a conservare i Dati Personali per un periodo più lungo in ottemperanza ad un obbligo di legge o per ordine di un\'autorità.\n\nAllo scadere del periodo di conservazione i Dati Personali saranno cancellati. Pertanto, allo scadere di tale periodo il diritto di accesso, cancellazione, rettificazione ed il diritto alla portabilità dei Dati non potranno più essere esercitati.\n\n### Diritti dell\'Utente sulla base del Regolamento Generale sulla Protezione dei Dati (GDPR)\n\nGli Utenti possono esercitare determinati diritti con riferimento ai Dati trattati dal Titolare.\n\nIn particolare, l\'Utente ha il diritto di:\n\n- **revocare il consenso in ogni momento**. L\'Utente può revocare il consenso al trattamento dei propri Dati Personali precedentemente espresso.\n- **opporsi al trattamento dei propri Dati**. L\'Utente può opporsi al trattamento dei propri Dati quando esso avviene su una base giuridica diversa dal consenso.\n- **accedere ai propri Dati**. L\'Utente ha il diritto di ottenere informazioni sui Dati trattati dal Titolare, su determinati aspetti del trattamento, nonché di ottenere una copia dei Dati trattati.\n- **verificare e chiedere la rettificazione**. L\'Utente può verificare la correttezza dei propri Dati e richiederne l\'aggiornamento o la correzione.\n- **ottenere la limitazione del trattamento**. L\'Utente può chiedere la limitazione del trattamento dei propri Dati. In tal caso il Titolare non tratterà i Dati per alcun altro scopo se non la loro conservazione.\n- **ottenere la cancellazione o rimozione dei propri Dati Personali**. L\'Utente può chiedere la cancellazione dei propri Dati da parte del Titolare.\n- **ricevere i propri Dati o farli trasferire ad altro titolare**. L\'Utente ha il diritto di ricevere i propri Dati in formato strutturato, di uso comune e leggibile da dispositivo automatico e, ove tecnicamente fattibile, di ottenerne il trasferimento senza ostacoli ad un altro titolare.\n- **proporre reclamo**. L\'Utente può proporre un reclamo all\'autorità di controllo della protezione dei dati personali competente o agire in sede giudiziale.\n\nGli Utenti hanno diritto di ottenere informazioni in merito alla base giuridica per il trasferimento di Dati all\'estero incluso verso qualsiasi organizzazione internazionale regolata dal diritto internazionale o costituita da due o più paesi, come ad esempio l\'ONU, nonché in merito alle misure di sicurezza adottate dal Titolare per proteggere i loro Dati.\n\n### Dettagli sul diritto di opposizione\n\nQuando i Dati Personali sono trattati nell\'interesse pubblico, nell\'esercizio di pubblici poteri di cui è investito il Titolare oppure per perseguire un interesse legittimo del Titolare, gli Utenti hanno diritto ad opporsi al trattamento per motivi connessi alla loro situazione particolare.\n\nSi fa presente agli Utenti che, ove i loro Dati fossero trattati con finalità di marketing diretto, possono opporsi al trattamento in qualsiasi momento, gratuitamente e senza fornire alcuna motivazione. Qualora gli Utenti si oppongano al trattamento per finalità di marketing diretto, i Dati Personali non sono più oggetto di trattamento per tali finalità. Per scoprire se il Titolare tratti Dati con finalità di marketing diretto gli Utenti possono fare riferimento alle relative sezioni di questo documento.\n\n### Come esercitare i diritti\n\nEventuali richieste di esercizio dei diritti dell\'Utente possono essere indirizzate al Titolare attraverso i recapiti forniti in questo documento. La richiesta è gratuita e il Titolare risponderà nel più breve tempo possibile, in ogni caso entro un mese, fornendo all\'Utente tutte le informazioni previste dalla legge. Eventuali rettifiche, cancellazioni o limitazioni del trattamento saranno comunicate dal Titolare a ciascuno dei destinatari, se esistenti, a cui sono stati trasmessi i Dati Personali, salvo che ciò si riveli impossibile o implichi uno sforzo sproporzionato. Il Titolare comunica all\'Utente tali destinatari qualora egli lo richieda.';
+	@override String get emailSendingDescription => 'AstroGods invia le email del servizio, come il recupero della password e la conferma del cambio di indirizzo, e, se l\'Utente si iscrive, le newsletter con l\'oroscopo giornaliero e mensile. Le email partono da un server di posta di AstroGods ospitato da IONOS SE.';
+	@override String get emailSendingTitle => 'Invio di email';
+	@override String get euExtendedContent => '### Base giuridica del trattamento\n\nIl Titolare può trattare i Dati Personali dell\'Utente, se sussiste una delle seguenti condizioni:\n\n- l\'Utente ha prestato il consenso per una o più finalità specifiche;\n- il trattamento è necessario all\'esecuzione di un contratto con l\'Utente e/o all\'esecuzione di misure precontrattuali;\n- il trattamento è necessario per adempiere un obbligo legale al quale è soggetto il Titolare;\n- il trattamento è necessario per l\'esecuzione di un compito di interesse pubblico o per l\'esercizio di pubblici poteri di cui è investito il Titolare;\n- il trattamento è necessario per il perseguimento del legittimo interesse del Titolare o di terzi.\n\nÈ comunque sempre possibile richiedere al Titolare di chiarire la concreta base giuridica di ciascun trattamento ed in particolare di specificare se il trattamento sia basato sulla legge, previsto da un contratto o necessario per concludere un contratto.\n\n### Ulteriori informazioni sui tempi di conservazione\n\nSe non diversamente indicato in questo documento, i Dati Personali sono trattati e conservati per il tempo richiesto dalla finalità per la quale sono stati raccolti e potrebbero essere conservati per un periodo più lungo a causa di eventuali obbligazioni legali o sulla base del consenso degli Utenti.\n\nPertanto:\n\n- I Dati Personali raccolti per scopi collegati all\'esecuzione di un contratto tra il Titolare e l\'Utente saranno trattenuti sino a quando sia completata l\'esecuzione di tale contratto.\n- I Dati Personali raccolti per finalità riconducibili all\'interesse legittimo del Titolare saranno trattenuti sino al soddisfacimento di tale interesse. L\'Utente può ottenere ulteriori informazioni in merito all\'interesse legittimo perseguito dal Titolare nelle relative sezioni di questo documento o contattando il Titolare.\n\nQuando il trattamento è basato sul consenso dell\'Utente, il Titolare può conservare i Dati Personali più a lungo sino a quando detto consenso non venga revocato. Inoltre, il Titolare potrebbe essere obbligato a conservare i Dati Personali per un periodo più lungo in ottemperanza ad un obbligo di legge o per ordine di un\'autorità.\n\nAllo scadere del periodo di conservazione i Dati Personali saranno cancellati. Pertanto, allo scadere di tale periodo il diritto di accesso, cancellazione, rettificazione ed il diritto alla portabilità dei Dati non potranno più essere esercitati.\n\n### Diritti dell\'Utente sulla base del Regolamento Generale sulla Protezione dei Dati (GDPR)\n\nGli Utenti possono esercitare determinati diritti con riferimento ai Dati trattati dal Titolare.\n\nIn particolare, l\'Utente ha il diritto di:\n\n- **revocare il consenso in ogni momento**. L\'Utente può revocare il consenso al trattamento dei propri Dati Personali precedentemente espresso.\n- **opporsi al trattamento dei propri Dati**. L\'Utente può opporsi al trattamento dei propri Dati quando esso avviene su una base giuridica diversa dal consenso.\n- **accedere ai propri Dati**. L\'Utente ha il diritto di ottenere informazioni sui Dati trattati dal Titolare, su determinati aspetti del trattamento, nonché di ottenere una copia dei Dati trattati.\n- **verificare e chiedere la rettificazione**. L\'Utente può verificare la correttezza dei propri Dati e richiederne l\'aggiornamento o la correzione.\n- **ottenere la limitazione del trattamento**. L\'Utente può chiedere la limitazione del trattamento dei propri Dati. In tal caso il Titolare non tratterà i Dati per alcun altro scopo se non la loro conservazione.\n- **ottenere la cancellazione o rimozione dei propri Dati Personali**. L\'Utente può chiedere la cancellazione dei propri Dati da parte del Titolare oppure eliminare il proprio account dalle [Impostazioni](/settings?section=deleteAccount).\n- **ricevere i propri Dati o farli trasferire ad altro titolare**. L\'Utente ha il diritto di ricevere i propri Dati in formato strutturato, di uso comune e leggibile da dispositivo automatico e, ove tecnicamente fattibile, di ottenerne il trasferimento senza ostacoli ad un altro titolare.\n- **proporre reclamo**. L\'Utente può proporre un reclamo all\'autorità di controllo della protezione dei dati personali competente o agire in sede giudiziale.\n\nGli Utenti hanno diritto di ottenere informazioni in merito alla base giuridica per il trasferimento di Dati all\'estero incluso verso qualsiasi organizzazione internazionale regolata dal diritto internazionale o costituita da due o più paesi, come ad esempio l\'ONU, nonché in merito alle misure di sicurezza adottate dal Titolare per proteggere i loro Dati.\n\n### Dettagli sul diritto di opposizione\n\nQuando i Dati Personali sono trattati nell\'interesse pubblico, nell\'esercizio di pubblici poteri di cui è investito il Titolare oppure per perseguire un interesse legittimo del Titolare, gli Utenti hanno diritto ad opporsi al trattamento per motivi connessi alla loro situazione particolare.\n\nSi fa presente agli Utenti che, ove i loro Dati fossero trattati con finalità di marketing diretto, possono opporsi al trattamento in qualsiasi momento, gratuitamente e senza fornire alcuna motivazione. Qualora gli Utenti si oppongano al trattamento per finalità di marketing diretto, i Dati Personali non sono più oggetto di trattamento per tali finalità. Per scoprire se il Titolare tratti Dati con finalità di marketing diretto gli Utenti possono fare riferimento alle relative sezioni di questo documento.\n\n### Come esercitare i diritti\n\nEventuali richieste di esercizio dei diritti dell\'Utente possono essere indirizzate al Titolare attraverso i [recapiti forniti in questo documento](mailto:contact@astrogods.it). La richiesta è gratuita e il Titolare risponderà nel più breve tempo possibile, in ogni caso entro un mese, fornendo all\'Utente tutte le informazioni previste dalla legge. Eventuali rettifiche, cancellazioni o limitazioni del trattamento saranno comunicate dal Titolare a ciascuno dei destinatari, se esistenti, a cui sono stati trasmessi i Dati Personali, salvo che ciò si riveli impossibile o implichi uno sforzo sproporzionato. Il Titolare comunica all\'Utente tali destinatari qualora egli lo richieda.';
 	@override String get euInfoContent => 'Questa sezione si applica a tutti gli utenti dell\'Unione Europea, in conformità al Regolamento generale sulla protezione dei dati (il "GDPR") e, per tali Utenti, sostituisce qualsiasi altra informazione eventualmente divergente o in conflitto contenuta nell\'informativa sulla privacy.\n\nUlteriori dettagli relativi alle categorie di Dati trattati, alle finalità del trattamento, alle categorie di destinatari dei Dati personali, se presenti, e ulteriori informazioni sui Dati personali sono disponibili nella sezione "Dettagli sul trattamento dei Dati Personali" all\'interno del presente documento.';
 	@override String get euInfoSection => 'Ulteriori informazioni UE';
 	@override String get euInfoTitle => 'Ulteriori informazioni per gli utenti dell\'Unione Europea';
@@ -493,11 +492,11 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get fixedTermSubscriptions => 'Abbonamenti a tempo determinato';
 	@override String get forceMAjeureExclusion => 'danni o perdite derivanti da interruzioni o malfunzionamenti di AstroGods dovuti a cause di forza maggiore o eventi imprevisti ed imprevedibili e, in ogni caso, indipendenti dalla volontà e fuori dal controllo del Titolare, quali, a mero titolo esemplificativo, guasti o interruzioni delle linee telefoniche o elettriche, della connessione Internet e/o di altri mezzi di trasmissione, inaccessibilità di siti web, scioperi, calamità naturali, virus e attacchi informatici, interruzioni di fornitura dei prodotti, servizi o applicazioni di terzi;';
 	@override String get forceMAjeureUnavailability => 'Inoltre, il Servizio potrebbe non essere disponibile per cause che si sottraggono al ragionevole controllo del Titolare, quali cause di forza maggiore (p. es. malfunzionamenti infrastrutturali, blackout etc.).';
+	@override String get genderOptional => 'Genere (facoltativo)';
 	@override String get generalLiabilityExclusion => 'Salvo ove diversamente specificato e fatte salve le disposizioni di legge applicabili, è esclusa ogni pretesa risarcitoria nei confronti del Titolare (o di qualsiasi persona fisica o giuridica che agisca per suo conto).';
 	@override String get generalSeverability => 'Qualora alcuna delle disposizioni di questi Termini dovesse essere o divenire nulla o inefficace ai sensi della legge applicabile, la nullità o inefficacia di tale disposizione non provoca inefficacia delle restanti previsioni, che permangono pertanto valide ed efficaci.';
 	@override String get germany => 'Germania';
-	@override String get godaddyDescription => 'GoDaddy Web Hosting è un servizio di hosting fornito da GoDaddy.com, LLC.';
-	@override String get googleFontsDescription => 'Google Fonts è un servizio di web font fornito da Google Inc.';
+	@override String get googleMapsDescription => 'Google Maps Platform è un servizio di mappe e ricerca dei luoghi fornito da Google Ireland Limited.';
 	@override String get googleOAuthDescription => 'Google OAuth è un servizio di autenticazione fornito da Google Inc.';
 	@override String get governingLaw => 'I Termini sono disciplinati dalla legge del luogo in cui è stabilito il Titolare, così come indicato nella relativa sezione di questo documento a prescindere dalle norme di conflitto.';
 	@override String get hetznerDescription => 'Hetzner è un servizio di hosting fornito da Hetzner Online GmbH.';
@@ -510,27 +509,20 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get indemnificationText => 'L\'Utente si impegna a manlevare e tenere indenne il Titolare e i suoi sottoposti, affiliati, funzionari, agenti, contitolari del marchio, partner e dipendenti nella misura di legge da qualsivoglia rivendicazione o pretesa – compresi, senza alcuna limitazione, oneri e spese legali – avanzata da terzi a causa di o in collegamento con comportamenti in violazione dei presenti Termini, di diritti di terzi o di legge, posti in essere in collegamento con l\'utilizzo del Servizio e addebitabili all\'Utente, ai suoi affiliati, funzionari, agenti, contitolari del marchio, partner e dipendenti, a titolo di colpa.';
 	@override String get indirectLossExclusion => 'eventuali mancati guadagni o altre perdite, anche indirette, che l\'Utente potrebbe aver subito (quali, a mero titolo esemplificativo, perdite commerciali, perdita di ricavi, di profitti o risparmi preventivati, perdita di rapporti contrattuali o commerciali, perdita di avviamento o danni alla reputazione, etc.);';
 	@override String get injuryToThirdPartyRights => 'lesioni di diritti di terzi;';
-	@override String get ipAddress => 'indirizzo ip';
+	@override String get ionosDescription => 'IONOS è un servizio di hosting fornito da IONOS SE.';
+	@override String get ipAddress => 'Indirizzo IP';
 	@override String get ireland => 'Irlanda';
 	@override String get italy => 'Italia';
-	@override String get judicialRightsPreservation => 'Per quanto resti impregiudicato il diritto degli Utenti di promuovere un\'azione in giudizio, in caso di controversie inerenti all\'uso di AstroGods o al Servizio, gli Utenti sono pregati di contattare il Titolare ai recapiti indicati in questo documento.';
-	@override String get lastModified => 'Ultima modifica: 10 gennaio 2026';
-	@override String get lastModifiedTerms => 'Ultima modifica: 10 gennaio 2026';
+	@override String get judicialRightsPreservation => 'Per quanto resti impregiudicato il diritto degli Utenti di promuovere un\'azione in giudizio, in caso di controversie inerenti all\'uso di AstroGods o al Servizio, gli Utenti sono pregati di contattare il Titolare ai [recapiti indicati in questo documento](mailto:contact@astrogods.it).';
+	@override String get lastModified => 'Ultima modifica: 20 ottobre 2026';
+	@override String get lastModifiedTerms => 'Ultima modifica: 19 ottobre 2026';
 	@override String get legalRelationship => 'qualsiasi altro Accordo o rapporto giuridico con il Titolare';
 	@override String get liabilityAndIndemnification => 'Limitazione di responsabilità e manleva';
 	@override String get liabilityExceptions => 'Quanto precede non limita la responsabilità del Titolare per morte, danno alla persona o all\'integrità fisica o mentale, danni derivanti dalla violazione di obblighi contrattuali essenziali, quali gli obblighi strettamente necessari al raggiungimento della causa del contratto, e/o ai danni provocati con dolo o colpa grave, a condizione che l\'utilizzo di AstroGods da parte dell\'Utente sia stato idoneo e corretto.';
 	@override String get liabilitySection => 'Limitazione di responsabilità e manleva';
-	@override String get lifetimeRefundPolicy => 'Nel caso in cui il Prodotto cessi la sua attività entro un periodo di tempo inferiore a 24 mesi, gli Utenti riceveranno un rimborso.';
-	@override String get lifetimeSubscriptionDuration => 'Gli abbonamenti a vita sono abbonamenti che restano attivi per l\'intera durata di attività del Prodotto abbonato. Gli abbonamenti a vita decorrono dal giorno in cui il Titolare riceve il pagamento. Essi terminano solo se e quando il relativo Prodotto cessa la sua attività.';
-	@override String get lifetimeSubscriptions => 'Abbonamenti a vita';
 	@override String get limitedLiabilityScope => 'Salvo che i danni siano stati causati con dolo o colpa grave o incidano sulla vita e/o l\'integrità personale, fisica o mentale, il Titolare risponde solo nella misura del danno tipico per il tipo di contratto e prevedibile al momento della conclusione.';
 	@override String get managingCookiesContent => 'Hai il controllo sui cookie che utilizziamo. Puoi gestire le tue preferenze attraverso le impostazioni del browser o utilizzando i controlli che forniamo. Tieni presente che la disabilitazione di alcuni cookie potrebbe influire sulla funzionalità del nostro sito web.';
 	@override String get managingCookiesSection => 'Gestione dei cookie';
-	@override String get matomatoDescription => 'Matomo è un software di statistica utilizzato da AstroGods per analizzare i dati in maniera diretta e senza l\'ausilio di terzi.';
-	@override String get matomoSelfHostedDescription => 'Utilizziamo Matomo, una piattaforma di analisi incentrata sulla privacy ospitata sui nostri server. Ciò significa che i tuoi dati non lasciano mai la nostra infrastruttura e non vengono condivisi con terze parti. Matomo ci aiuta a capire come gli utenti interagiscono con il nostro servizio rispettando la tua privacy.';
-	@override String get matomoSelfHostedTitle => 'Matomo (self-hosted)';
-	@override String get measurementCookiesDescription => 'Questi cookie ci aiutano a capire come i visitatori interagiscono con il nostro sito web raccogliendo e riportando informazioni in modo anonimo.';
-	@override String get measurementCookiesTitle => 'Cookie di misurazione';
 	@override String get mobileApplicationsDescription => 'applicazioni per dispositivi mobili (iOS e Android), tablet, desktop (Linux, Windows, macOS) o piattaforme simili;';
 	@override String get modificationsEffectiveDate => 'Le modifiche avranno effetto nel rapporto con l\'Utente solo a partire dal momento comunicato all\'Utente.';
 	@override String get nationalLawPrevails => 'Se la legge del paese in cui si trova l\'Utente prevede un livello di tutela dei consumatori superiore, prevale tale superiore livello di tutela.';
@@ -547,6 +539,7 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get notUnderEmbargo => 'L\'Utente non è situato in un paese soggetto ad embargo governativo da parte degli Stati Uniti d\'America o in un paese inserito nella lista degli stati che sponsorizzano il terrorismo';
 	@override String get offensesToOwnerOrThird => 'offese al Titolare o a un terzo.';
 	@override String get oneAccountPerUser => 'Salvo ove diversamente specificato, ciascun Utente può creare un solo account.';
+	@override String get openRouterDescription => 'OpenRouter è un servizio di OpenRouter, Inc. che inoltra le richieste di AstroGods all\'API di Anthropic.';
 	@override String get orderConfirmation => 'Una volta inoltrato l\'ordine, agli Utenti sarà inviata una conferma di ricezione dell\'ordine.';
 	@override String get orderConfirmationEmail => 'Una volta inoltrato l\'ordine, agli Utenti sarà inviata una conferma di ricezione dell\'ordine.';
 	@override String get orderSubmission => 'Invio dell\'ordine';
@@ -554,7 +547,6 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get orderSubmissionRequirement => 'Per inoltrare l\'ordine, gli Utenti sono tenuti ad accettare i presenti Termini e ad utilizzare il rispettivo pulsante o meccanismo su AstroGods, in tal modo, impegnandosi a pagare il prezzo concordato.';
 	@override String get ownerDefinition => 'Indica la persona fisica o giuridica che fornisce AstroGods e/o offre il Servizio agli Utenti.';
 	@override String get ownerDefinitionTitle => 'Titolare (o Noi)';
-	@override String get ownerDiscretionaryRight => 'Il Titolare si riserva il diritto di cessare l\'offerta in qualsiasi momento a propria discrezione.';
 	@override String get ownerEmail => 'Indirizzo email del Titolare:';
 	@override String get ownerName => 'Arcangelo Massari - Bologna (Italia)';
 	@override String get ownerProtectiveRights => 'Pertanto, il Titolare si riserva il diritto di adottare ogni misura idonea a proteggere i propri interessi legittimi, ed in particolare di negare all\'Utente l\'accesso a AstroGods o al Servizio, risolvere contratti, denunciare ogni attività censurabile svolta tramite AstroGods o il Servizio alle autorità competenti – p. es. l\'autorità giudiziaria o amministrativa – ogniqualvolta l\'Utente ponga in essere o vi sia il sospetto che ponga in essere:';
@@ -566,19 +558,22 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get paymentFailed => 'Pagamento Fallito';
 	@override String get paymentFailedDescription => 'Il pagamento del tuo abbonamento non è stato elaborato. Aggiorna il metodo di pagamento per continuare a utilizzare i nostri servizi.';
 	@override String get paymentFailureConsequences => 'Nel caso in cui il pagamento effettuato con uno dei mezzi disponibili fallisca o venga rifiutato dal fornitore di servizi di pagamento, il Titolare non è obbligato a eseguire l\'ordine. Nel caso in cui il pagamento non vada a buon fine, il Titolare si riserva il diritto di richiedere all\'Utente il rimborso di qualsiasi spesa o danno correlato.';
-	@override String get paymentInformation => 'informazioni di pagamento';
+	@override String get paymentInformation => 'Informazioni di pagamento';
 	@override String get paymentManagement => 'Gestione dei pagamenti';
 	@override String get paymentManagementDescription => 'Se non diversamente specificato, AstroGods elabora tutti i pagamenti con carta di credito, bonifico bancario o altri mezzi tramite fornitori esterni di servizi di pagamento. In generale, e salvo diversa indicazione, gli Utenti sono pregati di fornire i dettagli di pagamento e le informazioni personali direttamente a tali fornitori di servizi di pagamento.\nAstroGods non è coinvolta nella raccolta e nell\'elaborazione di tali informazioni: riceverà invece solo una notifica da parte del fornitore di servizi di pagamento in questione circa l\'avvenuto pagamento.';
 	@override String get paymentManagementTitle => 'Gestione dei pagamenti';
 	@override String get paymentMethods => 'Mezzi di pagamento';
-	@override String get paymentMethodsConditions => 'L\'elaborazione dei pagamenti è gestita interamente da Stripe Technology Europe Ltd. AstroGods non memorizza né ha accesso ai dettagli delle tue carte di pagamento, che sono elaborati e archiviati in sicurezza da Stripe secondo i più alti standard di sicurezza del settore.';
-	@override String get paymentMethodsInfo => 'AstroGods elabora tutti i pagamenti in sicurezza tramite Stripe, un processore di pagamenti certificato conforme PCI DSS. I metodi di pagamento accettati includono le principali carte di credito e debito (Visa, Mastercard, American Express), portafogli digitali (Apple Pay, Google Pay) e altri metodi disponibili tramite Stripe nella tua regione.';
+	@override String get paymentMethodsConditions => 'Stripe Technology Europe Ltd gestisce i pagamenti effettuati tramite Stripe, mentre Apple gestisce quelli effettuati tramite l\'App Store. AstroGods non memorizza né ha accesso ai dettagli delle tue carte di pagamento.';
+	@override String get paymentMethodsInfo => 'Sul sito web e nelle app per Android, Windows e Linux, AstroGods elabora i pagamenti tramite Stripe, un processore di pagamenti certificato conforme PCI DSS. I metodi di pagamento accettati includono le principali carte di credito e debito (Visa, Mastercard, American Express), portafogli digitali (Apple Pay, Google Pay) e altri metodi disponibili tramite Stripe nella tua regione. Nelle app per iPhone, iPad e Mac gli abbonamenti si acquistano tramite l\'App Store di Apple, come descritto nella sezione sugli abbonamenti gestiti tramite Apple Account.';
 	@override String get paymentObligationRemains => 'La sospensione o cancellazione di un account per cause addebitabili all\'Utente non esonera l\'Utente dal pagamento dei compensi o prezzi eventualmente applicabili.';
 	@override String get paymentProcessingError => 'Si è verificato un errore nel processo di pagamento';
-	@override String get paymentThirdPartyHandling => 'Tutti i pagamenti vengono gestiti autonomamente da servizi terzi. Pertanto, AstroGods non raccoglie dati relativi al pagamento – quali numeri di carta di credito – ma riceve una notifica una volta che il pagamento è andato a buon fine. Per ricevere ulteriori informazioni sul trattamento dei dati personali e sui relativi diritti, l\'Utente può fare riferimento alla privacy policy di AstroGods.';
+	@override String get paymentThirdPartyHandling => 'Tutti i pagamenti vengono gestiti autonomamente da servizi terzi. Pertanto, AstroGods non raccoglie dati relativi al pagamento – quali numeri di carta di credito – ma riceve una notifica una volta che il pagamento è andato a buon fine. Per ricevere ulteriori informazioni sul trattamento dei dati personali e sui relativi diritti, l\'Utente può fare riferimento alla [privacy policy di AstroGods](/privacy-policy).';
 	@override String get permittedUse => 'Uso ammesso';
 	@override String get permittedUseText => 'AstroGods ed il Servizio possono essere utilizzati solo per gli scopi per i quali sono offerti, secondo questi Termini ed ai sensi della legge applicabile.';
-	@override String get phoneNumber => 'numero di telefono';
+	@override String get phoneNumber => 'Numero di telefono';
+	@override String get placeSearchDescription => 'Quando l\'Utente cerca un luogo di nascita, i server di AstroGods inviano il testo digitato a Google Maps Platform per suggerire i luoghi e ricavarne le coordinate. Google riceve la richiesta dai server di AstroGods, quindi non riceve l\'indirizzo IP dell\'Utente né i dati del suo account.';
+	@override String get placeSearchTitle => 'Ricerca dei luoghi';
+	@override String get planetaryPositions => 'Posizioni planetarie';
 	@override String get previousVersionValidity => 'La versione precedente continua a disciplinare il rapporto fino all\'accettazione delle modifiche da parte dell\'Utente. Tale versione può essere richiesta al Titolare.';
 	@override String get pricing => 'Prezzi';
 	@override String get pricingPolicy => 'I prezzi su AstroGods includono tutte le commissioni, tasse e costi applicabili.';
@@ -598,7 +593,7 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get productDefinition => 'Un bene o servizio disponibile tramite AstroGods, inclusi specificatamente: interpretazioni astrologiche, analisi del tema natale, previsioni e pronostici astrologici, rapporti di compatibilità, contenuti educativi astrologici e qualsiasi altro servizio astrologico o contenuto digitale definito separatamente nel presente documento.';
 	@override String get productDefinitionTitle => 'Prodotto';
 	@override String get productDescription => 'Descrizione del prodotto';
-	@override String get productDescriptionInfo => 'Prezzi, descrizioni e disponibilità dei Prodotti astrologici (incluse letture del tema natale, analisi di compatibilità, previsioni giornaliere e mensili, approfondimenti sulle relazioni e raccomandazioni astrologiche per i viaggi) sono specificati nelle rispettive sezioni di AstroGods e sono soggetti a modifica senza preavviso.';
+	@override String get productDescriptionInfo => 'Prezzi, descrizioni e disponibilità dei Prodotti astrologici (incluse letture del tema natale, analisi di compatibilità, previsioni giornaliere e mensili e approfondimenti sulle relazioni) sono specificati nelle rispettive sezioni di AstroGods e sono soggetti a modifica senza preavviso.';
 	@override String get productRepresentationDisclaimer => 'Sebbene i Prodotti su AstroGods siano presentati con la massima accuratezza tecnicamente possibile, la rappresentazione su AstroGods tramite qualsiasi mezzo (inclusi, a seconda dei casi, materiali grafici, immagini, colori, suoni) è da intendersi come mero riferimento e non implica alcuna garanzia in merito alle caratteristiche del Prodotto acquistato.';
 	@override String get promotionsAndDiscounts => 'Promozioni e sconti';
 	@override String get promotionsDisclaimer => 'Il Titolare potrebbe offrire sconti o promozioni speciali per l\'acquisto dei Prodotti. Tali promozioni o sconti sono sempre soggetti ai requisiti ed a termini e condizioni previste nella relativa sezione di AstroGods.';
@@ -609,7 +604,7 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get proprietaryContentStandardTextAfter => '. Il backend, gli algoritmi, i marchi, il database degli utenti e tutti gli elementi lato server rimangono di proprietà esclusiva del Titolare con tutti i diritti riservati.';
 	@override String get proprietaryContentStandardTextBefore => 'Il codice sorgente dell\'applicazione (frontend) è rilasciato sotto licenza GNU Affero General Public License v3.0 (AGPL-3.0) ed è disponibile su ';
 	@override String get providedByLabel => 'Servizio fornito da: ';
-	@override String get purchaseHistory => 'cronologia acquisti';
+	@override String get purchaseHistory => 'Cronologia acquisti';
 	@override String get purchaseNotifications => 'Tutte le notifiche relative alla procedura d\'acquisto sopra descritta saranno inviate all\'indirizzo di posta elettronica fornito dall\'Utente a tal fine.';
 	@override String get purchaseProcedure => 'Procedura d\'acquisto';
 	@override String get purchaseProcedureSteps => 'Ogni fase, dalla scelta del prodotto fino all\'inoltro dell\'ordine, fa parte della procedura d\'acquisto. La procedura d\'acquisto comprende i seguenti passaggi:';
@@ -618,12 +613,6 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get purposesDetailedInfoText => 'Per ottenere informazioni dettagliate sulle finalità del trattamento e sui Dati Personali concretamente rilevanti per ciascuna finalità, l\'Utente può fare riferimento alla sezione "Dettagli sul trattamento dei Dati Personali".';
 	@override String get purposesIntroText => 'I Dati dell\'Utente sono raccolti per consentire al Titolare di fornire il Servizio, adempiere agli obblighi di legge, rispondere a richieste o azioni esecutive, tutelare i propri diritti ed interessi (o quelli di Utenti o di terze parti), individuare eventuali attività dolose o fraudolente, nonché per le seguenti finalità:';
 	@override String get purposesSection => 'Finalità del Trattamento';
-	@override String get referralBenefits => 'AstroGods consente agli Utenti di ricevere dei vantaggi se, grazie a una loro raccomandazione, un nuovo Utente acquista un Prodotto offerto su AstroGods.';
-	@override String get referralCodeLimitations => 'I codici di invito potrebbero essere spendibili solo per alcuni Prodotti tra quelli offerti su AstroGods.';
-	@override String get referralCodeUsage => 'Per usufruire di questa opportunità, l\'Utente può invitare gli amici ad acquistare Prodotti su AstroGods inviando loro un apposito codice fornito dal Titolare. Ogni codice può essere riscattato una volta sola.';
-	@override String get referralLimitations => 'Sebbene non vi sia alcun limite al numero di persone che possono essere invitate, il numero di vantaggi o benefici che ogni Utente può ricevere per un egual numero di codici invito riscattati potrebbe essere sottoposto a un limite massimo.';
-	@override String get referralProgram => 'Passaparola';
-	@override String get referralRewardSystem => 'Se una delle persone invitate acquistando un Prodotto su AstroGods decide di riscattare un codice di invito, l\'Utente che l\'ha invitata riceverà il vantaggio o beneficio (quali, ad esempio: uno sconto, un servizio aggiuntivo, un upgrade etc.) indicato su AstroGods.';
 	@override String get refundTimeline => 'Il rimborso avviene senza indebito ritardo ed in ogni caso entro 14 giorni dal giorno in cui il Titolare è stato informato della decisione dell\'Utente di recedere dal contratto. Salvo ove diversamente pattuito con l\'Utente, il rimborso è effettuato utilizzando lo stesso mezzo di pagamento utilizzato per la transazione iniziale. L\'Utente non deve sostenere alcun costo quale conseguenza del recesso.';
 	@override String get registration => 'Registrazione';
 	@override String get registrationAndAuth => 'Registrazione ed autenticazione';
@@ -631,7 +620,6 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get registrationRequirementsText => 'La registrazione di un account Utente su AstroGods è soggetta alle condizioni sotto specificate. Registrando un account, l\'Utente conferma di soddisfare tali condizioni.';
 	@override String get registrationSuccessful => 'Registrazione completata con successo!';
 	@override String get renewalDurationMatch => 'Il rinnovo ha durata uguale al periodo di abbonamento originario.';
-	@override String get resolution => 'Risoluzione';
 	@override String get responseTimeline => 'Il Titolare provvederà ad evadere la richiesta senza indebito ritardo ed entro 14 giorni dalla sua ricezione.';
 	@override String get rightOfWithdrawal => 'Diritto di recesso';
 	@override String get salesTerms => 'Termini e condizioni di vendita';
@@ -646,18 +634,16 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get serviceTerminationRights => 'Nei limiti di legge, il Titolare si riserva di sospendere o cessare completamente l\'attività del Servizio. In caso di cessazione dell\'attività del Servizio, il Titolare si adopererà affinché gli Utenti possano estrarre i propri dati personali e le informazioni e rispetterà i diritti degli Utenti relativi all\'utilizzo continuato del prodotto e/o al risarcimento, secondo le disposizioni di legge.';
 	@override String get severabilityClause => 'Clausola di salvaguardia';
 	@override String get severabilityLimitations => 'Fermo restando quanto sopra, la nullità, invalidità o inefficacia di una specifica disposizione di questi Termini non comporta nullità dell\'intero Accordo, a meno che le disposizioni nulle, invalidi o inefficaci nel quadro dell\'Accordo siano essenziali o di tale importanza, che le parti non avrebbero concluso il contratto se avessero saputo che la disposizione sarebbe stata invalida, ovvero in casi in cui le disposizioni residue comporterebbero un onere eccessivo ed inaccettabile per una delle parti.';
-	@override String get statistics => 'Statistica';
-	@override String get statisticsDescription => 'I servizi contenuti nella presente sezione permettono al Titolare del Trattamento di monitorare e analizzare i dati di traffico e servono a tener traccia del comportamento dell\'Utente.';
-	@override String get statisticsTitle => 'Statistica';
+	@override String get signInWithAppleDescription => 'Accedi con Apple è un servizio di autenticazione fornito da Apple. Se l\'Utente sceglie di nascondere la propria email, AstroGods riceve un indirizzo di inoltro creato da Apple.';
 	@override String get stripeBillingAddress => 'All\'interno dell\'area di checkout di Stripe, potrebbe essere richiesto agli Utenti di specificare anche il loro indirizzo di fatturazione e di spedizione.';
 	@override String get stripeCheckoutAccess => 'Cliccando sul pulsante di checkout, gli Utenti accedono all\'area di checkout di Stripe dove verrà richiesto loro di indicare i propri recapiti e un mezzo di pagamento a loro scelta.';
 	@override String get stripeCustomerPortal => 'Gli utenti possono accedere al Portale Clienti Stripe per visualizzare la cronologia di fatturazione, scaricare fatture, aggiornare i metodi di pagamento e gestire le impostazioni degli abbonamenti. Questo portale è fornito direttamente da Stripe e garantisce l\'accesso sicuro alle informazioni di pagamento e fatturazione.';
 	@override String get stripeDescription => 'Stripe è un servizio di pagamento fornito da Stripe Technology Europe Ltd.';
 	@override String get stripeExpressCheckout => 'All\'interno dell\'area di checkout di Stripe, gli Utenti avranno la possibilità di scegliere il checkout diretto. Il checkout diretto consente agli Utenti di completare l\'acquisto direttamente, utilizzando le informazioni di pagamento e i recapiti memorizzati dai più comuni servizi online di gestione dei pagamenti (come "ApplePay", "Google Pay", "Microsoft Pay").';
-	@override String get stripePaymentStorage => 'Gli Utenti che non lo hanno ancora fatto, possono richiedere a Stripe di memorizzare le loro informazioni di pagamento per acquisti futuri su AstroGods o su altri siti che utilizzano Stripe come portale di pagamento. Per ricevere informazioni sul trattamento dei dati personali ed i relativi diritti, l\'Utente può consultare la privacy policy di Stripe e di AstroGods.';
-	@override String get stripeRecurringPayments => 'Per i servizi in abbonamento, Stripe memorizza in sicurezza le informazioni del metodo di pagamento per elaborare automaticamente i pagamenti ricorrenti. Gli utenti possono gestire, aggiornare o annullare i loro metodi di pagamento e abbonamenti tramite il portale clienti accessibile dalle impostazioni del loro account.';
+	@override String get stripePaymentStorage => 'Gli Utenti che non lo hanno ancora fatto, possono richiedere a Stripe di memorizzare le loro informazioni di pagamento per acquisti futuri su AstroGods o su altri siti che utilizzano Stripe come portale di pagamento. Per ricevere informazioni sul trattamento dei dati personali ed i relativi diritti, l\'Utente può consultare la [privacy policy di Stripe](https://stripe.com/privacy) e quella di [AstroGods](/privacy-policy).';
+	@override String get stripeRecurringPayments => 'Per gli abbonamenti acquistati tramite Stripe, Stripe memorizza in sicurezza le informazioni del metodo di pagamento per elaborare automaticamente i pagamenti ricorrenti. Gli utenti possono gestire, aggiornare o annullare i loro metodi di pagamento e abbonamenti tramite il portale clienti accessibile dalle impostazioni del loro account.';
 	@override String get subscriptionContinuousProduct => 'Grazie all\'abbonamento, l\'Utente riceve un Prodotto in via continuativa o periodica. I dettagli riguardanti il tipo di abbonamento e la risoluzione sono descritti di seguito.';
-	@override String get subscriptionTermination => 'Gli abbonamenti possono essere risolti: (1) accedendo al Portale Clienti Stripe tramite le impostazioni del proprio account per annullare immediatamente, (2) inviando una comunicazione di disdetta chiara al Titolare utilizzando i recapiti riportati in questo documento, o (3) seguendo le istruzioni di cancellazione su AstroGods.';
+	@override String get subscriptionTermination => 'Gli abbonamenti possono essere disdetti: (1) per gli acquisti tramite Stripe, dal Portale Clienti Stripe accessibile dalle [impostazioni dell\'account](/settings?section=subscriptions); (2) per gli acquisti tramite l\'App Store, dalle [impostazioni dell\'account Apple](https://apps.apple.com/account/subscriptions); (3) inviando una comunicazione di disdetta chiara al Titolare tramite i [recapiti riportati in questo documento](mailto:contact@astrogods.it).';
 	@override String get subscriptions => 'Abbonamenti';
 	@override String get subscriptionsTitle => 'Abbonamenti';
 	@override String get summary => 'Sommario';
@@ -679,12 +665,8 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get termsTableOfContents => 'Indice';
 	@override String get thirdPartyResourcesDisclaimer => 'Le condizioni applicabili alle risorse fornite da terzi, ivi incluse quelle applicabili a eventuali concessioni di diritti su contenuti, sono determinate dagli stessi terzi e regolate nei relativi termini e condizioni o, in loro assenza, dalla legge.';
 	@override String get thisSiteDescription => 'questo sito web, accessibile tramite browser, inclusi i relativi sottodomini ed ogni altro sito attraverso i quali il Titolare offre il Servizio;';
-	@override String get trackingTools => 'strumenti di tracciamento';
-	@override String get trackingToolsIntro => 'AstroGods utilizza i seguenti strumenti di tracciamento:';
-	@override String get trackingToolsSection => 'Strumenti di tracciamento';
-	@override String get trafficOptimization => 'Ottimizzazione e distribuzione del traffico';
-	@override String get trafficOptimizationDescription => 'Questo tipo di servizi permette a AstroGods di distribuire i propri contenuti tramite una rete di server distribuiti geograficamente e di ottimizzare le sue prestazioni.\nI Dati Personali trattati dipendono dalle caratteristiche e dalla modalità d\'uso di questi servizi, la cui funzione è quella di filtrare le comunicazioni fra AstroGods e il browser dell\'Utente.\nData la natura distribuita di questo sistema, è difficile determinare i luoghi in cui vengono trasferiti i contenuti che potrebbero contenere Dati Personali dell\'Utente.';
-	@override String get trafficOptimizationTitle => 'Ottimizzazione e distribuzione del traffico';
+	@override String get trackingToolsIntro => 'AstroGods non utilizza strumenti di tracciamento per statistiche o pubblicità. Usa solo i cookie e la memoria del browser necessari al funzionamento, ad esempio per mantenere l\'accesso.';
+	@override String get trackingToolsSection => 'Nessun tracciamento';
 	@override String get trialAutoConversion => 'Alla scadenza, il periodo di prova si trasformerà automaticamente nell\'equivalente Prodotto a pagamento, a meno che l\'Utente non disdica l\'acquisto prima che il periodo di prova scada.';
 	@override String get trialPeriod => 'Periodo di prova';
 	@override String get trialPeriodAvailability => 'Gli Utenti hanno la possibilità di provare AstroGods o singoli Prodotti gratuitamente per un periodo di prova di 7 giorni, non rinnovabile. Alcune funzioni o funzionalità di AstroGods potrebbero non essere disponibili durante il periodo di prova. Ulteriori condizioni applicabili al periodo di prova saranno esplicitate su AstroGods.';
@@ -692,7 +674,7 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get typesOfCookiesSection => 'Tipi di cookie che utilizziamo';
 	@override String get unauthorizedResale => 'Gli Utenti non sono autorizzati a riprodurre, duplicare, copiare, vendere, rivendere o sfruttare AstroGods o il Servizio in toto o in parte senza previo consenso scritto del Titolare, espresso direttamente o attraverso un legittimo programma di rivendite.';
 	@override String get unitedStates => 'Stati Uniti';
-	@override String get usageData => 'dati di utilizzo';
+	@override String get usageData => 'Dati di utilizzo';
 	@override String get usageRightsReservation => 'Fino alla ricezione del pagamento del prezzo integrale di acquisto da parte del Titolare, l\'Utente non acquista i diritti d\'uso dei Prodotti ordinati.';
 	@override String get usageRightsReservationTitle => 'Riserva dei diritti d\'uso';
 	@override String get useOfService => 'l\'utilizzo di AstroGods e';
@@ -702,7 +684,7 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get userExclusiveResponsibility => 'È responsabilità esclusiva dell\'Utente di far sì che l\'uso di AstroGods e/o del Servizio non violi la legge, i regolamenti o i diritti di terzi.';
 	@override String get userRights => 'Diritti dell\'Utente';
 	@override String get userRightsSection => 'Diritti dell\'Utente';
-	@override String get usingAccountClosureTools => 'Usando gli strumenti di chiusura dell\'account disponibili su AstroGods.';
+	@override String get usingAccountClosureTools => 'Usando gli [strumenti di chiusura dell\'account](/settings?section=deleteAccount) disponibili su AstroGods.';
 	@override String get usingAstroGodsUserDeclares => 'Utilizzando AstroGods l\'Utente dichiara di soddisfare i seguenti requisiti:';
 	@override String get viewCookiePolicy => 'Visualizza Cookie Policy';
 	@override String get viewPrivacyPolicy => 'Visualizza Privacy Policy';
@@ -774,6 +756,7 @@ class _Translations$releaseNotes$it implements Translations$releaseNotes$en {
 	@override String get releaseNotes_4_7_7 => 'Risolti errori nel calcolo dei transiti mensili. I badge degli abbonamenti ora si mostrano solo quando appropriato.';
 	@override String get releaseNotes_4_8_0 => 'Nuova icona dell\'app. Ottimizzato lo sfondo del cielo stellato.';
 	@override String get releaseNotes_4_9_0 => 'Aggiornati termini e condizioni e informativa sulla privacy. Risolto un problema di registrazione con email e password. Il tema natale viene ora generato automaticamente dopo la registrazione.';
+	@override String get releaseNotes_5_0_0 => 'Su iPhone e Mac puoi accedere con Apple e abbonarti tramite l\'App Store. Cambia email o password dalle impostazioni, o aggiungi una password a un account Google o Apple. Le letture seguono il genere che scegli, o restano neutre se preferisci non dirlo. I tuoi temi natali sono visibili solo a te e le letture non inviano più i tuoi nomi all\'IA. Dopo l\'aggiornamento accedi di nuovo. Le foto profilo e i temi creati senza account non ci sono più.';
 	@override String version({required Object version}) => 'Versione ${version}';
 }
 
@@ -787,14 +770,18 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get about => 'Informazioni';
 	@override String get account => 'Account';
 	@override String get accountDeleted => 'Account eliminato con successo';
-	@override String get activeSubscriptionDeleteWarning => 'Hai un abbonamento attivo. Per eliminare il tuo account, il tuo abbonamento verrà prima annullato.\n\nQuesta azione non può essere annullata. Tutti i tuoi dati, analisi salvate e immagini del profilo saranno eliminati permanentemente.';
+	@override String get activeSubscriptionDeleteWarning => 'Hai un abbonamento attivo. Per eliminare il tuo account, il tuo abbonamento verrà prima annullato.\n\nQuesta azione non può essere annullata. Tutti i tuoi dati e le analisi salvate saranno eliminati per sempre.';
+	@override String get addEmail => 'Aggiungi email';
 	@override String get addNewsletter => 'Aggiungi oroscopo via email';
 	@override String get allNewsletters => 'Tutte le newsletter';
+	@override String get allPremiumFeatures => 'Tutte le funzioni Premium';
 	@override String get alreadyHaveAccount => 'Hai già un account?';
 	@override String get analyzing => 'ANALIZZANDO...';
 	@override String get annual => 'Annuale';
 	@override String get anticipateYourDayWithTransits => 'Anticipa la tua giornata con l\'analisi dei transiti';
 	@override String get anticipateYourMonthWithTransits => 'Anticipa il tuo mese con l\'analisi dei transiti';
+	@override String get appleAutoRenewNotice => 'L\'abbonamento si rinnova automaticamente al prezzo indicato, a meno che tu non lo disdica almeno 24 ore prima della fine del periodo in corso. Il pagamento viene addebitato sul tuo account Apple. Puoi gestirlo o disdirlo dalle impostazioni del tuo account App Store.';
+	@override String get appleSubscriptionDeleteWarning => 'Eliminare l\'account non disdice l\'abbonamento App Store. Per fermare i rinnovi, disdicilo dalle impostazioni del tuo account App Store.\n\nQuesta azione non può essere annullata. Tutti i tuoi dati e le analisi salvate saranno eliminati per sempre.';
 	@override String get appTitle => 'AstroGods';
 	@override String get appVersion => 'Versione App';
 	@override String get at => 'alle';
@@ -820,15 +807,16 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get birthChartsCountSingular => '1 tema natale salvato';
 	@override String get birthChartsFilter => 'Temi natali';
 	@override String get birthChartsMustBeDifferent => 'I due temi natali devono essere diversi';
-	@override String get birthDate => 'data di nascita';
+	@override String get birthDate => 'Data di nascita';
 	@override String get birthInfo => 'Informazioni di Nascita';
 	@override String get birthInformation => 'Informazioni di Nascita';
 	@override String get birthPlace => 'Luogo di nascita';
-	@override String get birthTime => 'ora di nascita';
+	@override String get birthTime => 'Ora di nascita';
 	@override String get birthTimeRequired => 'Inserisci ora o spunta ora sconosciuta';
 	@override String get cancel => 'Annulla';
 	@override String get cancelSubscriptionAndDelete => 'Annulla abbonamento ed elimina account';
 	@override String get cancellingSubscription => 'Cancellazione in corso...';
+	@override String get changePassword => 'Cambia password';
 	@override String get changePlan => 'Cambia piano';
 	@override String get chartNotAvailable => 'Grafico non disponibile.';
 	@override String get chartOnlyMode => 'Solo grafico, senza lettura';
@@ -847,6 +835,7 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get confirmingSubscription => 'Conferma dell\'abbonamento in corso...';
 	@override String get connectionError => 'Connessione non riuscita. Controlla la rete e riprova.';
 	@override String get connectionTimeout => 'La richiesta ha impiegato troppo tempo. Riprova.';
+	@override String get continueWithApple => 'Continua con Apple';
 	@override String get continueWithGoogle => 'Continua con Google';
 	@override String get couplesChartReadings => 'Letture del tema di coppia';
 	@override String get create => 'Crea';
@@ -857,6 +846,7 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get createSynastry => 'Crea sinastria';
 	@override String get creating => 'Creazione in corso...';
 	@override String get currentLocation => 'Posizione attuale';
+	@override String get currentPassword => 'Password attuale';
 	@override String get currentPlan => 'Piano attuale';
 	@override String get daily => 'Giornaliere';
 	@override String get dailyMonthlyTransits => 'Transiti giornalieri e mensili';
@@ -870,7 +860,6 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get dailyTransitsCountSingular => '1 transito giornaliero salvato';
 	@override String get dailyTransitsFilter => 'Transiti giornalieri';
 	@override String get darkMode => 'Scuro';
-	@override String get dataCollectedByMatomo => 'Dati raccolti da Matomo:';
 	@override String get dateOfBirth => 'Data di Nascita';
 	@override String dayCount({required Object day}) => 'Giorno ${day}';
 	@override String dayNumber({required Object number}) => 'giorno ${number}';
@@ -878,7 +867,7 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get deleteAccount => 'Elimina Account';
 	@override String get deleteAccountConfirmation => 'Sei assolutamente sicuro di voler eliminare il tuo account?';
 	@override String get deleteAccountTitle => 'Elimina Account';
-	@override String get deleteAccountWarning => 'Questa azione non può essere annullata. Tutti i tuoi dati, analisi salvate e immagini del profilo saranno eliminati permanentemente.';
+	@override String get deleteAccountWarning => 'Questa azione non può essere annullata. Tutti i tuoi dati e le analisi salvate saranno eliminati per sempre.';
 	@override String get deleteConfirmationWord => 'ELIMINA';
 	@override String get deleteFreeReadingTitle => 'Eliminare l\'unica lettura?';
 	@override String get deleteFreeReadingWarning => 'Questa è la tua unica lettura salvata. Per generare nuove letture è necessario un abbonamento attivo.';
@@ -886,6 +875,10 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get discoverHeartOfRelationship => 'Scopri il cuore di una relazione attraverso la sua sinastria';
 	@override String get dontHaveAccount => 'Non hai un account?';
 	@override String get dontKnowBirthTime => 'Non conosco l\'ora di nascita';
+	@override String emailAddressCopied({required Object email}) => 'Nessuna app email disponibile. Indirizzo copiato negli appunti: ${email}';
+	@override String get noPurchasesToRestore => 'Nessun abbonamento App Store da ripristinare';
+	@override String get passwordChanged => 'Password cambiata';
+	@override String passwordSetupLinkSent({required Object email}) => 'Link inviato a ${email}';
 	@override String get repeatedTimeFirst => 'La prima volta, durante l\'ora legale';
 	@override String get repeatedTimeSecond => 'La seconda volta, durante l\'ora solare';
 	@override String get downgrade => 'Passa a Standard';
@@ -894,7 +887,7 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get editBirthChart => 'Modifica tema natale';
 	@override String get editDaily => 'Modifica newsletter giornaliera';
 	@override String get editMonthly => 'Modifica newsletter mensile';
-	@override String get email => 'email';
+	@override String get email => 'Email';
 	@override String get emailAlreadyExists => 'Questo indirizzo email è già registrato';
 	@override String get emailNotifications => 'Oroscopo via email';
 	@override String get emailSentSuccessfully => 'Email inviata con successo';
@@ -916,7 +909,11 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get forgotPassword => 'Password dimenticata?';
 	@override String get fourMonthsFree => '4 mesi GRATIS';
 	@override String get fullMoon => 'Luna piena';
-	@override String get gender => 'sesso';
+	@override String get gender => 'Genere';
+	@override String get genderMan => 'Uomo';
+	@override String get genderNonBinary => 'Non binario';
+	@override String get genderPreferNotToSay => 'Preferisco non dirlo';
+	@override String get genderWoman => 'Donna';
 	@override String get generateAnalysis => 'Genera Analisi';
 	@override String get generateDailyTransit => 'Genera Transito Giornaliero';
 	@override String generateDetailedCompatibilityAnalysis({required Object relationshipTitle}) => 'Genera un\'analisi dettagliata della compatibilità tra ${relationshipTitle}';
@@ -933,6 +930,12 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get goHome => 'Vai alla Home';
 	@override String get goToHome => 'Vai alla Home';
 	@override String get goToLogin => 'Accedi';
+	@override String appleSignInError({required Object error}) => 'Errore accesso Apple: ${error}';
+	@override String appleSignUpError({required Object error}) => 'Errore registrazione Apple: ${error}';
+	@override String get changeEmail => 'Modifica email';
+	@override String get confirmingEmail => 'Conferma dell\'email in corso';
+	@override String get emailChangeConfirmed => 'Email aggiornata';
+	@override String emailChangeLinkSent({required Object email}) => 'Abbiamo inviato un link di conferma a ${email}. Aprilo per completare la modifica';
 	@override String googleSignInError({required Object error}) => 'Errore accesso Google: ${error}';
 	@override String get googleSignInSuccessful => 'Accesso con Google completato con successo';
 	@override String googleSignUpError({required Object error}) => 'Errore registrazione Google: ${error}';
@@ -972,10 +975,12 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String monthlyTransitsCountPlural({required Object count}) => '${count} transiti mensili salvati';
 	@override String get monthlyTransitsCountSingular => '1 transito mensile salvato';
 	@override String get monthlyTransitsFilter => 'Transiti mensili';
-	@override String get name => 'nome';
+	@override String get name => 'Nome';
 	@override String get needBirthChartForPredictions => 'Per le previsioni ti serve prima un tema natale';
 	@override String get needTwoBirthChartsForSynastry => 'Per creare una sinastria hai bisogno di almeno due temi natali salvati.';
 	@override String get networkErrorOccurred => 'Si è verificato un errore di rete';
+	@override String get newEmail => 'Nuova email';
+	@override String get newsletterNeedsEmail => 'Aggiungi un\'email al tuo profilo per ricevere l\'oroscopo via email.';
 	@override String get newImprovedVersion => 'Nuova versione migliorata';
 	@override String get newMoon => 'Luna nuova';
 	@override String get newPassword => 'Nuova password';
@@ -1001,7 +1006,7 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get oneMonthFree => '1 mese GRATIS';
 	@override String get oneMoreChartNeeded => 'Hai già un tema. Creane un secondo per la sinastria';
 	@override String get or => 'OPPURE';
-	@override String get password => 'password';
+	@override String get password => 'Password';
 	@override String get passwordResetSuccessful => 'Password reimpostata con successo';
 	@override String get passwordTooShort => 'La password deve essere lunga almeno 8 caratteri';
 	@override String get passwordsDoNotMatch => 'Le password non corrispondono';
@@ -1042,7 +1047,6 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get previous => 'Indietro';
 	@override String get processingUnsubscribeRequest => 'Elaborazione richiesta di disiscrizione...';
 	@override String get profile => 'Profilo';
-	@override String get profilePhoto => 'foto profilo';
 	@override String get profileTitle => 'Profilo';
 	@override String get profileUpdatedSuccessfully => 'Profilo aggiornato con successo';
 	@override String get reactivateSubscription => 'Riattiva';
@@ -1064,6 +1068,7 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String resetLinkSent({required Object email}) => 'Abbiamo inviato un link per reimpostare la password a ${email}';
 	@override String get resetPassword => 'Reimposta password';
 	@override String get resetPasswordTitle => 'Reimposta la tua password';
+	@override String get restorePurchases => 'Ripristina acquisti';
 	@override String get retry => 'Riprova';
 	@override String get save => 'Salva';
 	@override String get save20Percent => 'Risparmia 20%';
@@ -1071,6 +1076,7 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get save40Percent => 'Risparmia 40%';
 	@override String saveAmount({required Object amount}) => 'RISPARMI ${amount}/ANNO';
 	@override String get saveChanges => 'Salva modifiche';
+	@override String get savePassword => 'Salva password';
 	@override String get savePdfDialogTitle => 'Salva PDF';
 	@override String get savedChartsTitle => 'Analisi salvate';
 	@override String get searchBirthCharts => 'Cerca temi natali...';
@@ -1080,22 +1086,25 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get searchInProgress => 'Ricerca in corso...';
 	@override String get searchMonthlyTransits => 'Cerca transiti mensili...';
 	@override String get searchSynastries => 'Cerca sinastrie...';
-	@override String get searching => 'Cercando...';
 	@override String get selectChart => 'Seleziona tema';
 	@override String get selectDate => 'Seleziona data';
-	@override String get selectFirstBirthChart => 'Seleziona il primo tema natale';
 	@override String get selectLocation => 'Seleziona località';
 	@override String get selectMonth => 'Seleziona mese';
-	@override String get selectSecondBirthChart => 'Seleziona il secondo tema natale';
 	@override String get semiannual => 'Semestrale';
+	@override String get sendConfirmationLink => 'Invia link di conferma';
+	@override String get sendLink => 'Invia link';
 	@override String get sendResetLink => 'Invia link di reset';
 	@override String get serverUnavailable => 'Stiamo facendo qualche miglioria. Torniamo tra un attimo!';
 	@override String get setAsPersonal => 'È il mio tema';
+	@override String get setPassword => 'Imposta password';
+	@override String setPasswordDescription({required Object email}) => 'Ti invieremo un link a ${email} per scegliere una password. Poi potrai accedere anche con la tua email.';
+	@override String get setPasswordNeedsEmail => 'Aggiungi prima un\'email al tuo account, così potremo inviarti il link per scegliere una password.';
 	@override String get settingsTitle => 'Impostazioni';
 	@override String get sevenDaysFreeTrial => '7 giorni di prova gratuita';
 	@override String get sharePdf => 'Condividi PDF';
 	@override String get signIn => 'Accedi';
 	@override String get signUp => 'Registrati';
+	@override String get sixMonthsPeriod => '6 mesi';
 	@override String get standardAnnual => 'Standard - annuale';
 	@override String get standardMonthly => 'Standard - mensile';
 	@override String get standardSemiannual => 'Standard - semestrale';
@@ -1109,10 +1118,15 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get subscriptionAmount => 'Importo';
 	@override String get subscriptionCancelledSuccessfully => 'Abbonamento annullato con successo';
 	@override String get subscriptionCancelsOn => 'Termina il';
-	@override String get subscriptionConfirmationFailed => 'Impossibile confermare l\'abbonamento. Contatta l\'assistenza.';
+	@override String get subscriptionConfirmationFailed => 'Impossibile confermare l\'abbonamento. Contatta l\'assistenza';
 	@override String get subscriptionEndDate => 'Si rinnova il';
 	@override String get subscriptionIncomplete => 'Pagamento Incompleto';
+	@override String get subscriptionManagedElsewhere => 'Questo abbonamento è stato acquistato fuori dall\'App Store: puoi gestirlo dal sito';
 	@override String get subscriptionPastDue => 'Pagamento Scaduto';
+	@override String get subscriptionPurchasedOnAndroid => 'Questo abbonamento è stato acquistato nell\'app per Android: puoi gestirlo da lì o dal sito';
+	@override String get subscriptionPurchasedOnLinux => 'Questo abbonamento è stato acquistato nell\'app per Linux: puoi gestirlo da lì o dal sito';
+	@override String get subscriptionPurchasedOnWeb => 'Questo abbonamento è stato acquistato sul sito: puoi gestirlo da lì';
+	@override String get subscriptionPurchasedOnWindows => 'Questo abbonamento è stato acquistato nell\'app per Windows: puoi gestirlo da lì o dal sito';
 	@override String get subscriptionRequiredForRegeneration => 'Per rigenerare questa lettura in un\'altra lingua è necessario un abbonamento (va bene anche lo standard)';
 	@override String get subscriptionStartDate => 'Iniziato il';
 	@override String get subscriptionSuccessGoHome => 'Vai alla home';
@@ -1125,7 +1139,7 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get subtitlePart1 => 'Allineati';
 	@override String get subtitlePart2 => 'al tuo';
 	@override String get subtitlePart3 => 'cielo';
-	@override String get surname => 'cognome';
+	@override String get surname => 'Cognome';
 	@override String get swipeToView => 'Scorri per visualizzare';
 	@override String synastriesCountPlural({required Object count}) => '${count} sinastrie salvate';
 	@override String get synastriesCountSingular => '1 sinastria salvata';
@@ -1139,7 +1153,7 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get systemMode => 'Sistema';
 	@override String get termsOfService => 'Termini di Servizio';
 	@override String get theme => 'Tema';
-	@override String thenPricePerMonth({required Object price}) => 'Poi ${price}/mese';
+	@override String thenPrice({required Object price, required Object period}) => 'Poi ${price}/${period}';
 	@override String get timeOfBirth => 'Ora di Nascita';
 	@override String get transitDate => 'Data del transito';
 	@override String get transitDescription => 'I transiti sono i movimenti dei pianeti che, passando sulle posizioni del cielo natale, attivano influenze astrologiche temporanee.';
@@ -1176,6 +1190,7 @@ class _Translations$ui$it implements Translations$ui$en {
 	@override String get waxingGibbous => 'Gibbosa crescente';
 	@override String get welcomeBack => 'Bentornato!';
 	@override String get withoutBirthTimeWarning => 'Senza l\'ora di nascita la lettura non prenderà in considerazione l\'Ascendente';
+	@override String get yearPeriod => 'anno';
 }
 
 /// The flat map containing all translations for locale <it>.
@@ -1449,7 +1464,7 @@ extension on TranslationsIt {
 			'legal.accountClosureProcedure' => 'L\'Utente è libero di chiudere il proprio account e cessare l\'utilizzo del Servizio in qualsiasi momento, seguendo questa procedura:',
 			'legal.accountClosureTitle' => 'Chiusura account',
 			'legal.accountRequirements' => 'Requisiti per la registrazione',
-			'legal.accountResponsibility' => 'Creando un account l\'Utente accetta di essere pienamente responsabile di ogni attività posta in atto con le sue credenziali d\'accesso. Gli Utenti sono tenuti a informare il Titolare immediatamente e univocamente tramite i recapiti indicati in questo documento qualora ritengano che le proprie informazioni personali, quali ad esempio l\'account Utente, le credenziali d\'accesso o dati personali, siano state violate, illecitamente diffuse o sottratte.',
+			'legal.accountResponsibility' => 'Creando un account l\'Utente accetta di essere pienamente responsabile di ogni attività posta in atto con le sue credenziali d\'accesso. Gli Utenti sono tenuti a informare il Titolare immediatamente e univocamente tramite i [recapiti indicati in questo documento](mailto:contact@astrogods.it) qualora ritengano che le proprie informazioni personali, quali ad esempio l\'account Utente, le credenziali d\'accesso o dati personali, siano state violate, illecitamente diffuse o sottratte.',
 			'legal.accountSharingProhibited' => 'Salvo ove espressamente consentito, l\'account di un Utente non può essere condiviso con altre persone.',
 			'legal.accountSuspension' => 'Sospensione e cancellazione account',
 			'legal.accountSuspensionText' => 'Il Titolare si riserva il diritto di sospendere o cancellare l\'account di un Utente in qualsiasi momento a propria discrezione e senza preavviso, qualora lo ritenga inopportuno, offensivo o contrario a questi Termini.',
@@ -1461,13 +1476,16 @@ extension on TranslationsIt {
 			'legal.agreementDefinitionTitle' => 'Accordo',
 			'legal.amicableDisputeComposition' => 'Composizione amichevole delle controversie',
 			'legal.amicableDisputeResolution' => 'Gli Utenti possono segnalare eventuali controversie al Titolare, che cercherà di risolvere in via amichevole.',
-			'legal.anthropicApiDescription' => 'L\'API di Anthropic è un servizio di intelligenza artificiale fornito da Anthropic PBC.',
+			'legal.anthropicApiDescription' => 'L\'API di Anthropic dà accesso a Claude, il modello linguistico di Anthropic PBC che AstroGods usa per scrivere il testo delle letture.',
+			'legal.anthropicApiName' => 'API di Anthropic',
+			'legal.appStoreDescription' => 'L\'App Store è il servizio di Apple per l\'acquisto di app e abbonamenti. Per gli abbonamenti acquistati su iPhone, iPad e Mac, Apple gestisce il pagamento e comunica ad AstroGods solo i dati dell\'abbonamento acquistato, come il prodotto, le date e l\'identificativo della transazione.',
 			'legal.appStorePurchases' => 'AstroGods o determinati Prodotti in vendita su AstroGods devono essere acquistati tramite un app store terzo. Per poter effettuare tali acquisti gli Utenti sono pregati di seguire le istruzioni nel relativo app store (ad esempio "Apple App Store" o "Google Play"). Tali informazioni possono variare a seconda dello specifico dispositivo utilizzato.',
 			'legal.appStoreTermsAcceptance' => 'Pertanto, gli Utenti che effettuano acquisti attraverso tali negozi online di terzi sono pregati di leggere attentamente ed accettare i relativi termini e condizioni di vendita.',
-			'legal.appStoreTermsPrecedence' => 'Salvo ove diversamente specificato, gli acquisti effettuati tramite negozi online di terze parti sono soggetti anche ai termini e condizioni di tali terzi. Tali termini e condizioni prevalgono in ogni caso di incongruenza o conflitto rispetto ai presenti Termini.',
+			'legal.appStoreTermsPrecedence' => 'Salvo ove diversamente specificato, gli acquisti effettuati tramite negozi online di terze parti sono soggetti anche ai termini e condizioni di tali terzi, come i [termini dell\'App Store](https://www.apple.com/legal/internet-services/itunes/) e i [termini di Google Play](https://play.google.com/about/play-terms/). Tali termini e condizioni prevalgono in ogni caso di incongruenza o conflitto rispetto ai presenti Termini.',
 			'legal.appleAccountAutoRenewal' => 'gli abbonamenti si rinnovano automaticamente per la stessa durata a meno che l\'Utente non comunichi disdetta almeno 24 ore prima della scadenza del periodo di abbonamento corrente;',
-			'legal.appleAccountManagement' => 'gli abbonamenti possono essere gestiti o disdetti direttamente tramite le impostazioni dell\'account Apple App Store dell\'Utente.',
+			'legal.appleAccountManagement' => 'gli abbonamenti possono essere gestiti o disdetti direttamente tramite le [impostazioni dell\'account Apple App Store](https://apps.apple.com/account/subscriptions) dell\'Utente.',
 			'legal.appleAccountPayment' => 'qualsiasi pagamento dovuto sarà addebitato all\'account Apple;',
+			'legal.appleAccountRefunds' => 'i rimborsi degli acquisti effettuati tramite l\'App Store sono gestiti da Apple e vanno richiesti ad Apple secondo la [sua procedura](https://reportaproblem.apple.com).',
 			'legal.appleAccountRenewalCharges' => 'tutti i compensi o pagamenti dovuti per il rinnovo saranno addebitati entro 24 ore prima della scadenza del periodo corrente;',
 			'legal.appleAccountSubscriptions' => 'Gli Utenti possono concludere l\'abbonamento ad un Prodotto utilizzando l\'Apple Account associato al loro account Apple App Store tramite la relativa procedura su AstroGods. Nel fare ciò, gli Utenti riconoscono ed accettano che:',
 			'legal.appleAccountSubscriptionsTitle' => 'Abbonamenti gestiti tramite Apple Account',
@@ -1493,11 +1511,11 @@ extension on TranslationsIt {
 			'legal.authenticationDescription' => 'Registrando o autenticando, gli Utenti consentono a AstroGods di identificarli e dar loro accesso a servizi dedicati.\nA seconda di quanto indicato di seguito, i servizi di terze parti potrebbero fornire una registrazione e autenticazione semplificata.',
 			'legal.authenticationTitle' => 'Registrazione ed autenticazione',
 			'legal.automaticRenewal' => 'Rinnovo automatico',
-			'legal.automaticRenewalPolicy' => 'Gli abbonamenti si rinnovano automaticamente tramite il sistema di fatturazione sicuro di Stripe con addebito sul mezzo di pagamento scelto dall\'Utente. Gli utenti ricevono notifiche email prima di ogni rinnovo e possono annullare o modificare il loro abbonamento in qualsiasi momento tramite il Portale Clienti Stripe.',
+			'legal.automaticRenewalPolicy' => 'Gli abbonamenti si rinnovano automaticamente alla scadenza, con addebito sul mezzo di pagamento usato per l\'acquisto: per gli acquisti tramite Stripe il mezzo scelto al checkout, per quelli tramite l\'App Store l\'account Apple.',
 			'legal.backendApi' => 'Backend API',
-			'legal.backendApiDescription' => 'AstroGods utilizza API di terze parti per elaborare richieste degli utenti e fornire contenuti.',
+			'legal.backendApiDescription' => 'Per scrivere le letture, AstroGods sostituisce i nomi delle persone nei temi con un segnaposto. I servizi seguenti ricevono solo le posizioni planetarie calcolate dai dati di nascita, la lingua della lettura e il genere grammaticale da usare nel testo, se l\'Utente lo ha indicato. Indicare il genere è facoltativo; se manca, la lettura usa un linguaggio neutro, senza accordi di genere. Non ricevono nomi, date o luoghi di nascita, né dati che identifichino l\'Utente o le persone nei temi. AstroGods rimette i nomi veri nel testo sui propri server.',
 			'legal.backendApiTitle' => 'Backend API',
-			'legal.billingAddress' => 'indirizzo di fatturazione',
+			'legal.billingAddress' => 'Indirizzo di fatturazione',
 			'legal.bindingManner' => 'in maniera vincolante. Le espressioni con l\'iniziale maiuscola sono definite nella relativa sezione di questo documento.',
 			'legal.botRegistrationProhibited' => 'L\'apertura di account tramite bot o altri mezzi automatizzati non è ammessa.',
 			'legal.browserSettingsContent' => 'La maggior parte dei browser web consente di controllare i cookie attraverso le preferenze delle impostazioni. Puoi impostare il tuo browser per rifiutare i cookie o eliminare determinati cookie. In generale, puoi anche gestire tecnologie simili allo stesso modo.',
@@ -1506,24 +1524,18 @@ extension on TranslationsIt {
 			'legal.cancellationEffectiveTiming' => 'Qualora la comunicazione della disdetta pervenga al Titolare prima della data di rinnovo dell\'abbonamento, la risoluzione avrà effetto allo scadere del periodo in corso.',
 			'legal.commonProvisions' => 'Disposizioni comuni',
 			'legal.commonProvisionsSection' => 'Disposizioni comuni',
-			'legal.communicatedDataDuringService' => 'dati comunicati durante l\'utilizzo del servizio',
-			'legal.communicationRequirement' => 'Tutte le comunicazioni inerenti all\'uso di AstroGods devono essere inviate ai recapiti indicati in questo documento.',
+			'legal.communicatedDataDuringService' => 'Dati comunicati durante l\'utilizzo del servizio',
+			'legal.communicationRequirement' => 'Tutte le comunicazioni inerenti all\'uso di AstroGods devono essere inviate ai [recapiti indicati in questo documento](mailto:contact@astrogods.it).',
 			'legal.competentJurisdiction' => 'Foro competente',
-			'legal.complaintProcedure' => 'L\'Utente può indirizzare un reclamo all\'indirizzo e-mail del Titolare indicato in questo documento, includendo una breve descrizione e, se del caso, i dettagli dell\'ordine, acquisto o account interessato.',
-			'legal.complianceContent' => 'La nostra cookie policy è conforme agli standard di protezione dei dati dell\'UE. Utilizziamo solo strumenti di tracciamento di prima parte e non condividiamo i tuoi dati con inserzionisti di terze parti.',
+			'legal.complaintProcedure' => 'L\'Utente può indirizzare un reclamo all\'[indirizzo e-mail del Titolare](mailto:contact@astrogods.it) indicato in questo documento, includendo una breve descrizione e, se del caso, i dettagli dell\'ordine, acquisto o account interessato.',
+			'legal.complianceContent' => 'La nostra cookie policy è conforme agli standard di protezione dei dati dell\'UE. Non utilizziamo strumenti di tracciamento per statistiche o pubblicità e non condividiamo i tuoi dati con inserzionisti. Per sapere come trattiamo i tuoi dati personali, consulta la [Privacy Policy](/privacy-policy).',
 			'legal.complianceSection' => 'Conformità',
 			'legal.consequencesOfBlockingContent' => 'Se scegli di bloccare o eliminare i cookie, alcune funzionalità del nostro sito web potrebbero non funzionare correttamente.',
 			'legal.consequencesOfBlockingTitle' => 'Conseguenze del blocco dei cookie',
-			'legal.consumerCancellationTiming' => 'Qualora la disdetta pervenga al Titolare entro la fine del mese in corso, l\'abbonamento scade alla fine di tale mese.',
 			'legal.consumerDefinition' => 'Vale come Consumatore qualsiasi Utente considerato tale ai sensi della legge applicabile.',
 			'legal.consumerDefinitionTitle' => 'Consumatore',
-			'legal.consumerExceptionText' => 'Tuttavia, a prescindere da quanto precede, se l\'Utente agisce come Consumatore, si applica quanto segue:',
-			'legal.consumerExceptionTitle' => 'Eccezione per i Consumatori',
-			'legal.consumerIndefiniteExtension' => 'Alla fine del termine iniziale, gli abbonamenti sono automaticamente prorogati a tempo indeterminato, a meno che l\'Utente non disdica prima della fine di tale termine.',
-			'legal.consumerMonthlyTermination' => 'Dopo la proroga, l\'abbonamento avrà una durata indeterminata e potrà essere risolto mensilmente.',
-			'legal.consumerRenewalCharging' => 'Il corrispettivo dovuto al momento della proroga sarà addebitato sul metodo di pagamento che l\'Utente ha scelto in occasione dell\'acquisto.',
 			'legal.consumerRequirement' => 'L\'Utente agisce come Consumatore',
-			'legal.contactForCookiesContent' => 'Se hai domande sul nostro utilizzo di cookie o tecnologie di tracciamento, contattaci:',
+			'legal.contactForCookiesContent' => 'Se hai domande sul nostro utilizzo dei cookie, contattaci:',
 			'legal.contactForCookiesTitle' => 'Contattaci sui cookie',
 			'legal.contactUs' => 'Contattaci',
 			'legal.contactUsSection' => 'Contattaci',
@@ -1533,23 +1545,23 @@ extension on TranslationsIt {
 			'legal.contractDuration' => 'Durata del contratto',
 			'legal.contractDurationSection' => 'Durata del contratto',
 			'legal.contractTransferRight' => 'Il Titolare si riserva il diritto di trasferire, cedere, disporre di, novare o appaltare singoli o tutti i diritti e le obbligazioni secondo questi Termini, avendo riguardo per gli interessi legittimi degli Utenti.',
-			'legal.contractualWithdrawalRight' => 'Il Titolare concede agli Utenti il diritto contrattuale di recedere dal contratto d\'acquisto secondo i termini e le condizioni esplicitati nella relativa sezione di AstroGods entro 30 giorni dalla conclusione del contratto.',
+			'legal.contractualWithdrawalRight' => 'Il Titolare concede agli Utenti il diritto contrattuale di recedere dal contratto d\'acquisto secondo i termini e le condizioni esplicitati nella [relativa sezione di AstroGods](/subscription-plans) entro 30 giorni dalla conclusione del contratto. Per gli acquisti effettuati tramite l\'App Store si applica la [procedura di rimborso di Apple](https://reportaproblem.apple.com).',
 			'legal.contractualWithdrawalRightTitle' => 'Diritto contrattuale di recesso',
 			'legal.cookiePolicy' => 'Cookie Policy',
-			'legal.cookiePolicyContent' => 'AstroGods fa utilizzo di Strumenti di Tracciamento. Per saperne di più, consulta la Cookie Policy.',
-			'legal.cookiePolicyLastModified' => 'Ultima modifica: 7 settembre 2025',
+			'legal.cookiePolicyContent' => 'AstroGods usa solo i cookie e la memoria del browser necessari al funzionamento e nessuno strumento di tracciamento per statistiche o pubblicità. Per saperne di più, consulta la [Cookie Policy](/cookie-policy).',
+			'legal.cookiePolicyLastModified' => 'Ultima modifica: 19 ottobre 2026',
 			'legal.cookiePolicyPageTitle' => 'Cookie Policy',
 			'legal.cookiePolicySection' => 'Cookie Policy',
 			'legal.cookiePolicyTitle' => 'Cookie Policy',
-			'legal.cookiePolicyWelcomeText' => 'Questa pagina spiega come utilizziamo i cookie e le tecnologie di tracciamento per migliorare la tua esperienza.',
-			'legal.cookiesAndTrackingReferenceContent' => 'Per informazioni dettagliate sui cookie e le tecnologie di tracciamento che utilizziamo, consulta la nostra Cookie Policy completa.',
-			'legal.cookiesAndTrackingSection' => 'Cookie e tracciamento',
-			'legal.cookiesAndTrackingTitle' => 'Cookie e tracciamento',
+			'legal.cookiePolicyWelcomeText' => 'Questa pagina spiega quali cookie e quali dati salvati nel browser usa AstroGods e perché.',
+			'legal.cookiesAndTrackingReferenceContent' => 'Per sapere quali cookie e quali dati salvati nel browser servono al funzionamento di AstroGods, consulta la Cookie Policy completa.',
+			'legal.cookiesAndTrackingSection' => 'Cookie',
+			'legal.cookiesAndTrackingTitle' => 'Cookie',
 			'legal.dataControllerEmail' => 'contact@astrogods.it',
 			'legal.dataControllerEmailLabel' => 'Indirizzo email del Titolare: ',
 			'legal.dataControllerName' => 'Arcangelo Massari - Bologna (Italia)',
 			'legal.dataControllerSection' => 'Titolare del Trattamento dei Dati',
-			'legal.dataTypesDetailedContent' => 'Dettagli completi su ciascuna tipologia di Dati Personali raccolti sono forniti nelle sezioni dedicate di questa privacy policy o mediante specifici testi informativi visualizzati prima della raccolta dei Dati stessi.\n\nI Dati Personali possono essere liberamente forniti dall\'Utente o, nel caso di Dati di Utilizzo, raccolti automaticamente durante l\'uso di AstroGods.\n\nSe non diversamente specificato, tutti i Dati richiesti da AstroGods sono obbligatori. Se l\'Utente rifiuta di comunicarli, potrebbe essere impossibile per AstroGods fornire il Servizio. Nei casi in cui AstroGods indichi alcuni Dati come facoltativi, gli Utenti sono liberi di astenersi dal comunicare tali Dati, senza che ciò abbia alcuna conseguenza sulla disponibilità del Servizio o sulla sua operatività.\n\nGli Utenti che dovessero avere dubbi su quali Dati siano obbligatori sono incoraggiati a contattare il Titolare.\n\nL\'eventuale utilizzo di Cookie - o di altri strumenti di tracciamento - da parte di AstroGods o dei titolari dei servizi terzi utilizzati da AstroGods ha la finalità di fornire il Servizio richiesto dall\'Utente, oltre alle ulteriori finalità descritte nel presente documento e nella Cookie Policy.\n\nL\'Utente si assume la responsabilità dei Dati Personali di terzi ottenuti, pubblicati o condivisi mediante AstroGods.',
+			'legal.dataTypesDetailedContent' => 'Dettagli completi su ciascuna tipologia di Dati Personali raccolti sono forniti nelle sezioni dedicate di questa privacy policy o mediante specifici testi informativi visualizzati prima della raccolta dei Dati stessi.\n\nI Dati Personali possono essere liberamente forniti dall\'Utente o, nel caso di Dati di Utilizzo, raccolti automaticamente durante l\'uso di AstroGods.\n\nSe non diversamente specificato, tutti i Dati richiesti da AstroGods sono obbligatori. Se l\'Utente rifiuta di comunicarli, potrebbe essere impossibile per AstroGods fornire il Servizio. Nei casi in cui AstroGods indichi alcuni Dati come facoltativi, gli Utenti sono liberi di astenersi dal comunicare tali Dati, senza che ciò abbia alcuna conseguenza sulla disponibilità del Servizio o sulla sua operatività.\n\nGli Utenti che dovessero avere dubbi su quali Dati siano obbligatori sono incoraggiati a contattare il Titolare.\n\nAstroGods usa i Cookie solo per fornire il Servizio richiesto dall\'Utente, come descritto nella [Cookie Policy](/cookie-policy).\n\nL\'Utente si assume la responsabilità dei Dati Personali di terzi ottenuti, pubblicati o condivisi mediante AstroGods.',
 			'legal.dataTypesIntro' => 'Fra i Dati Personali raccolti da AstroGods, in modo autonomo o tramite terze parti, ci sono:',
 			'legal.dataTypesSection' => 'Tipologie di Dati raccolti',
 			'legal.dataWeCollectAutomatically' => 'Dati che raccogliamo automaticamente',
@@ -1557,14 +1569,14 @@ extension on TranslationsIt {
 			'legal.dataYouProvide' => 'Dati che ci fornisce',
 			'legal.dataYouProvideDesc' => 'Raccogliamo i dati che ci fornisci, ad esempio quando crei un account su AstroGods.',
 			'legal.definitions' => 'Definizioni e riferimenti legali',
-			'legal.definitionsContent' => '### Dati Personali (o Dati)\n\nQualunque informazione che, direttamente o indirettamente, anche in collegamento con qualsiasi altra informazione, renda identificata o identificabile una persona fisica.\n\n### Dati di Utilizzo\n\nSono le informazioni raccolte automaticamente attraverso AstroGods (anche da applicazioni di parti terze integrate in AstroGods), tra cui: gli indirizzi IP o i nomi a dominio dei computer utilizzati dall\'Utente che si connette con AstroGods, gli indirizzi in notazione URI (Uniform Resource Identifier), l\'orario della richiesta, il metodo utilizzato nell\'inoltrare la richiesta al server, la dimensione del file ottenuto in risposta, il codice numerico indicante lo stato della risposta dal server (buon fine, errore, ecc.), il paese di provenienza, le caratteristiche del browser e del sistema operativo utilizzati dal visitatore, le varie connotazioni temporali della visita (ad esempio il tempo di permanenza su ciascuna pagina) e i dettagli relativi all\'itinerario seguito all\'interno dell\'Applicazione, con particolare riferimento alla sequenza delle pagine consultate, ai parametri relativi al sistema operativo e all\'ambiente informatico dell\'Utente.\n\n### Utente\n\nL\'individuo che utilizza AstroGods che, salvo ove diversamente specificato, coincide con l\'Interessato.\n\n### Interessato\n\nLa persona fisica cui si riferiscono i Dati Personali.\n\n### Responsabile del Trattamento (o Responsabile)\n\nLa persona fisica, giuridica, la pubblica amministrazione e qualsiasi altro ente che tratta dati personali per conto del Titolare, secondo quanto esposto nella presente privacy policy.\n\n### Titolare del Trattamento (o Titolare)\n\nLa persona fisica o giuridica, l\'autorità pubblica, il servizio o altro organismo che, singolarmente o insieme ad altri, determina le finalità e i mezzi del trattamento di dati personali e gli strumenti adottati, ivi comprese le misure di sicurezza relative al funzionamento ed alla fruizione di AstroGods. Il Titolare del Trattamento, salvo quanto diversamente specificato, è il titolare di AstroGods.\n\n### AstroGods (o questa Applicazione)\n\nLo strumento hardware o software mediante il quale sono raccolti e trattati i Dati Personali degli Utenti.\n\n### Servizio\n\nIl Servizio fornito da AstroGods così come definito nei relativi termini (se presenti) e su questo sito/applicazione.\n\n### Unione Europea (o UE)\n\nSalvo ove diversamente specificato, ogni riferimento all\'Unione Europea contenuto in questo documento si intende esteso a tutti gli attuali stati membri dell\'Unione Europea e dello Spazio Economico Europeo.\n\n### Cookie\n\nI Cookie sono Strumenti di Tracciamento che consistono in piccole porzioni di dati conservate all\'interno del browser dell\'Utente.\n\n### Strumento di Tracciamento\n\nPer Strumento di Tracciamento s\'intende qualsiasi tecnologia (es. Cookie, identificativi univoci, web beacon, script integrati, e-tag e fingerprinting) che consenta di tracciare gli Utenti, per esempio raccogliendo o salvando informazioni sul dispositivo dell\'Utente.\n\n### Riferimenti legali\n\nQuesta informativa privacy riguarda esclusivamente AstroGods, se non diversamente indicato in questo documento.',
+			'legal.definitionsContent' => '### Dati Personali (o Dati)\n\nQualunque informazione che, direttamente o indirettamente, anche in collegamento con qualsiasi altra informazione, renda identificata o identificabile una persona fisica.\n\n### Dati di Utilizzo\n\nSono le informazioni raccolte automaticamente attraverso AstroGods (anche da applicazioni di parti terze integrate in AstroGods), tra cui: gli indirizzi IP o i nomi a dominio dei computer utilizzati dall\'Utente che si connette con AstroGods, gli indirizzi in notazione URI (Uniform Resource Identifier), l\'orario della richiesta, il metodo utilizzato nell\'inoltrare la richiesta al server, la dimensione del file ottenuto in risposta, il codice numerico indicante lo stato della risposta dal server (buon fine, errore, ecc.), il paese di provenienza, le caratteristiche del browser e del sistema operativo utilizzati dal visitatore, le varie connotazioni temporali della visita (ad esempio il tempo di permanenza su ciascuna pagina) e i dettagli relativi all\'itinerario seguito all\'interno dell\'Applicazione, con particolare riferimento alla sequenza delle pagine consultate, ai parametri relativi al sistema operativo e all\'ambiente informatico dell\'Utente.\n\n### Utente\n\nL\'individuo che utilizza AstroGods che, salvo ove diversamente specificato, coincide con l\'Interessato.\n\n### Interessato\n\nLa persona fisica cui si riferiscono i Dati Personali.\n\n### Responsabile del Trattamento (o Responsabile)\n\nLa persona fisica, giuridica, la pubblica amministrazione e qualsiasi altro ente che tratta dati personali per conto del Titolare, secondo quanto esposto nella presente privacy policy.\n\n### Titolare del Trattamento (o Titolare)\n\nLa persona fisica o giuridica, l\'autorità pubblica, il servizio o altro organismo che, singolarmente o insieme ad altri, determina le finalità e i mezzi del trattamento di dati personali e gli strumenti adottati, ivi comprese le misure di sicurezza relative al funzionamento ed alla fruizione di AstroGods. Il Titolare del Trattamento, salvo quanto diversamente specificato, è il titolare di AstroGods.\n\n### AstroGods (o questa Applicazione)\n\nLo strumento hardware o software mediante il quale sono raccolti e trattati i Dati Personali degli Utenti.\n\n### Servizio\n\nIl Servizio fornito da AstroGods così come definito nei relativi [termini](/terms-and-conditions) e su questo sito/applicazione.\n\n### Unione Europea (o UE)\n\nSalvo ove diversamente specificato, ogni riferimento all\'Unione Europea contenuto in questo documento si intende esteso a tutti gli attuali stati membri dell\'Unione Europea e dello Spazio Economico Europeo.\n\n### Cookie\n\nI Cookie sono piccole porzioni di dati conservate all\'interno del browser dell\'Utente.\n\n### Riferimenti legali\n\nQuesta informativa privacy riguarda esclusivamente AstroGods, se non diversamente indicato in questo documento.',
 			'legal.definitionsSection' => 'Definizioni e riferimenti legali',
 			'legal.delivery' => 'Consegna',
 			'legal.deliveryCostException' => 'Tuttavia, il maggior costo derivante dalla scelta di un particolare metodo di consegna diverso dalla consegna standard più economica offerta dal Titolare, resterà a carico dell\'Utente.',
 			'legal.deliveryOfDigitalContent' => 'Consegna di contenuti digitali',
 			'legal.deliverySection' => 'Consegna',
-			'legal.deviceIdentifiers' => 'identificatori del dispositivo',
-			'legal.deviceInformation' => 'informazioni sul dispositivo',
+			'legal.deviceIdentifiers' => 'Identificatori del dispositivo',
+			'legal.deviceInformation' => 'Informazioni sul dispositivo',
 			'legal.deviceRequirements' => 'Gli Utenti riconoscono ed accettano che, per scaricare e/o utilizzare il Prodotto, il dispositivo o i dispositivi prescelti ed il rispettivo software (compresi i sistemi operativi) debbano essere legali, d\'uso comune, aggiornati e in linea con gli attuali standard di mercato.',
 			'legal.differentiatedLicensing' => 'Licenze differenziate per contenuti',
 			'legal.differentiatedLicensingSection' => 'Licenze differenziate',
@@ -1578,7 +1590,9 @@ extension on TranslationsIt {
 			'legal.doNotHesitateContact' => 'In tal caso, non esitare a contattarci.',
 			'legal.downloadLimitations' => 'Gli Utenti riconoscono ed accettano che la possibilità di scaricare il Prodotto acquistato potrebbe essere limitata nel tempo e nello spazio.',
 			'legal.effectsOfWithdrawal' => 'Effetti del recesso',
-			'legal.euExtendedContent' => '### Base giuridica del trattamento\n\nIl Titolare può trattare i Dati Personali dell\'Utente, se sussiste una delle seguenti condizioni:\n\n- l\'Utente ha prestato il consenso per una o più finalità specifiche;\n- il trattamento è necessario all\'esecuzione di un contratto con l\'Utente e/o all\'esecuzione di misure precontrattuali;\n- il trattamento è necessario per adempiere un obbligo legale al quale è soggetto il Titolare;\n- il trattamento è necessario per l\'esecuzione di un compito di interesse pubblico o per l\'esercizio di pubblici poteri di cui è investito il Titolare;\n- il trattamento è necessario per il perseguimento del legittimo interesse del Titolare o di terzi.\n\nÈ comunque sempre possibile richiedere al Titolare di chiarire la concreta base giuridica di ciascun trattamento ed in particolare di specificare se il trattamento sia basato sulla legge, previsto da un contratto o necessario per concludere un contratto.\n\n### Ulteriori informazioni sui tempi di conservazione\n\nSe non diversamente indicato in questo documento, i Dati Personali sono trattati e conservati per il tempo richiesto dalla finalità per la quale sono stati raccolti e potrebbero essere conservati per un periodo più lungo a causa di eventuali obbligazioni legali o sulla base del consenso degli Utenti.\n\nPertanto:\n\n- I Dati Personali raccolti per scopi collegati all\'esecuzione di un contratto tra il Titolare e l\'Utente saranno trattenuti sino a quando sia completata l\'esecuzione di tale contratto.\n- I Dati Personali raccolti per finalità riconducibili all\'interesse legittimo del Titolare saranno trattenuti sino al soddisfacimento di tale interesse. L\'Utente può ottenere ulteriori informazioni in merito all\'interesse legittimo perseguito dal Titolare nelle relative sezioni di questo documento o contattando il Titolare.\n\nQuando il trattamento è basato sul consenso dell\'Utente, il Titolare può conservare i Dati Personali più a lungo sino a quando detto consenso non venga revocato. Inoltre, il Titolare potrebbe essere obbligato a conservare i Dati Personali per un periodo più lungo in ottemperanza ad un obbligo di legge o per ordine di un\'autorità.\n\nAllo scadere del periodo di conservazione i Dati Personali saranno cancellati. Pertanto, allo scadere di tale periodo il diritto di accesso, cancellazione, rettificazione ed il diritto alla portabilità dei Dati non potranno più essere esercitati.\n\n### Diritti dell\'Utente sulla base del Regolamento Generale sulla Protezione dei Dati (GDPR)\n\nGli Utenti possono esercitare determinati diritti con riferimento ai Dati trattati dal Titolare.\n\nIn particolare, l\'Utente ha il diritto di:\n\n- **revocare il consenso in ogni momento**. L\'Utente può revocare il consenso al trattamento dei propri Dati Personali precedentemente espresso.\n- **opporsi al trattamento dei propri Dati**. L\'Utente può opporsi al trattamento dei propri Dati quando esso avviene su una base giuridica diversa dal consenso.\n- **accedere ai propri Dati**. L\'Utente ha il diritto di ottenere informazioni sui Dati trattati dal Titolare, su determinati aspetti del trattamento, nonché di ottenere una copia dei Dati trattati.\n- **verificare e chiedere la rettificazione**. L\'Utente può verificare la correttezza dei propri Dati e richiederne l\'aggiornamento o la correzione.\n- **ottenere la limitazione del trattamento**. L\'Utente può chiedere la limitazione del trattamento dei propri Dati. In tal caso il Titolare non tratterà i Dati per alcun altro scopo se non la loro conservazione.\n- **ottenere la cancellazione o rimozione dei propri Dati Personali**. L\'Utente può chiedere la cancellazione dei propri Dati da parte del Titolare.\n- **ricevere i propri Dati o farli trasferire ad altro titolare**. L\'Utente ha il diritto di ricevere i propri Dati in formato strutturato, di uso comune e leggibile da dispositivo automatico e, ove tecnicamente fattibile, di ottenerne il trasferimento senza ostacoli ad un altro titolare.\n- **proporre reclamo**. L\'Utente può proporre un reclamo all\'autorità di controllo della protezione dei dati personali competente o agire in sede giudiziale.\n\nGli Utenti hanno diritto di ottenere informazioni in merito alla base giuridica per il trasferimento di Dati all\'estero incluso verso qualsiasi organizzazione internazionale regolata dal diritto internazionale o costituita da due o più paesi, come ad esempio l\'ONU, nonché in merito alle misure di sicurezza adottate dal Titolare per proteggere i loro Dati.\n\n### Dettagli sul diritto di opposizione\n\nQuando i Dati Personali sono trattati nell\'interesse pubblico, nell\'esercizio di pubblici poteri di cui è investito il Titolare oppure per perseguire un interesse legittimo del Titolare, gli Utenti hanno diritto ad opporsi al trattamento per motivi connessi alla loro situazione particolare.\n\nSi fa presente agli Utenti che, ove i loro Dati fossero trattati con finalità di marketing diretto, possono opporsi al trattamento in qualsiasi momento, gratuitamente e senza fornire alcuna motivazione. Qualora gli Utenti si oppongano al trattamento per finalità di marketing diretto, i Dati Personali non sono più oggetto di trattamento per tali finalità. Per scoprire se il Titolare tratti Dati con finalità di marketing diretto gli Utenti possono fare riferimento alle relative sezioni di questo documento.\n\n### Come esercitare i diritti\n\nEventuali richieste di esercizio dei diritti dell\'Utente possono essere indirizzate al Titolare attraverso i recapiti forniti in questo documento. La richiesta è gratuita e il Titolare risponderà nel più breve tempo possibile, in ogni caso entro un mese, fornendo all\'Utente tutte le informazioni previste dalla legge. Eventuali rettifiche, cancellazioni o limitazioni del trattamento saranno comunicate dal Titolare a ciascuno dei destinatari, se esistenti, a cui sono stati trasmessi i Dati Personali, salvo che ciò si riveli impossibile o implichi uno sforzo sproporzionato. Il Titolare comunica all\'Utente tali destinatari qualora egli lo richieda.',
+			'legal.emailSendingDescription' => 'AstroGods invia le email del servizio, come il recupero della password e la conferma del cambio di indirizzo, e, se l\'Utente si iscrive, le newsletter con l\'oroscopo giornaliero e mensile. Le email partono da un server di posta di AstroGods ospitato da IONOS SE.',
+			'legal.emailSendingTitle' => 'Invio di email',
+			'legal.euExtendedContent' => '### Base giuridica del trattamento\n\nIl Titolare può trattare i Dati Personali dell\'Utente, se sussiste una delle seguenti condizioni:\n\n- l\'Utente ha prestato il consenso per una o più finalità specifiche;\n- il trattamento è necessario all\'esecuzione di un contratto con l\'Utente e/o all\'esecuzione di misure precontrattuali;\n- il trattamento è necessario per adempiere un obbligo legale al quale è soggetto il Titolare;\n- il trattamento è necessario per l\'esecuzione di un compito di interesse pubblico o per l\'esercizio di pubblici poteri di cui è investito il Titolare;\n- il trattamento è necessario per il perseguimento del legittimo interesse del Titolare o di terzi.\n\nÈ comunque sempre possibile richiedere al Titolare di chiarire la concreta base giuridica di ciascun trattamento ed in particolare di specificare se il trattamento sia basato sulla legge, previsto da un contratto o necessario per concludere un contratto.\n\n### Ulteriori informazioni sui tempi di conservazione\n\nSe non diversamente indicato in questo documento, i Dati Personali sono trattati e conservati per il tempo richiesto dalla finalità per la quale sono stati raccolti e potrebbero essere conservati per un periodo più lungo a causa di eventuali obbligazioni legali o sulla base del consenso degli Utenti.\n\nPertanto:\n\n- I Dati Personali raccolti per scopi collegati all\'esecuzione di un contratto tra il Titolare e l\'Utente saranno trattenuti sino a quando sia completata l\'esecuzione di tale contratto.\n- I Dati Personali raccolti per finalità riconducibili all\'interesse legittimo del Titolare saranno trattenuti sino al soddisfacimento di tale interesse. L\'Utente può ottenere ulteriori informazioni in merito all\'interesse legittimo perseguito dal Titolare nelle relative sezioni di questo documento o contattando il Titolare.\n\nQuando il trattamento è basato sul consenso dell\'Utente, il Titolare può conservare i Dati Personali più a lungo sino a quando detto consenso non venga revocato. Inoltre, il Titolare potrebbe essere obbligato a conservare i Dati Personali per un periodo più lungo in ottemperanza ad un obbligo di legge o per ordine di un\'autorità.\n\nAllo scadere del periodo di conservazione i Dati Personali saranno cancellati. Pertanto, allo scadere di tale periodo il diritto di accesso, cancellazione, rettificazione ed il diritto alla portabilità dei Dati non potranno più essere esercitati.\n\n### Diritti dell\'Utente sulla base del Regolamento Generale sulla Protezione dei Dati (GDPR)\n\nGli Utenti possono esercitare determinati diritti con riferimento ai Dati trattati dal Titolare.\n\nIn particolare, l\'Utente ha il diritto di:\n\n- **revocare il consenso in ogni momento**. L\'Utente può revocare il consenso al trattamento dei propri Dati Personali precedentemente espresso.\n- **opporsi al trattamento dei propri Dati**. L\'Utente può opporsi al trattamento dei propri Dati quando esso avviene su una base giuridica diversa dal consenso.\n- **accedere ai propri Dati**. L\'Utente ha il diritto di ottenere informazioni sui Dati trattati dal Titolare, su determinati aspetti del trattamento, nonché di ottenere una copia dei Dati trattati.\n- **verificare e chiedere la rettificazione**. L\'Utente può verificare la correttezza dei propri Dati e richiederne l\'aggiornamento o la correzione.\n- **ottenere la limitazione del trattamento**. L\'Utente può chiedere la limitazione del trattamento dei propri Dati. In tal caso il Titolare non tratterà i Dati per alcun altro scopo se non la loro conservazione.\n- **ottenere la cancellazione o rimozione dei propri Dati Personali**. L\'Utente può chiedere la cancellazione dei propri Dati da parte del Titolare oppure eliminare il proprio account dalle [Impostazioni](/settings?section=deleteAccount).\n- **ricevere i propri Dati o farli trasferire ad altro titolare**. L\'Utente ha il diritto di ricevere i propri Dati in formato strutturato, di uso comune e leggibile da dispositivo automatico e, ove tecnicamente fattibile, di ottenerne il trasferimento senza ostacoli ad un altro titolare.\n- **proporre reclamo**. L\'Utente può proporre un reclamo all\'autorità di controllo della protezione dei dati personali competente o agire in sede giudiziale.\n\nGli Utenti hanno diritto di ottenere informazioni in merito alla base giuridica per il trasferimento di Dati all\'estero incluso verso qualsiasi organizzazione internazionale regolata dal diritto internazionale o costituita da due o più paesi, come ad esempio l\'ONU, nonché in merito alle misure di sicurezza adottate dal Titolare per proteggere i loro Dati.\n\n### Dettagli sul diritto di opposizione\n\nQuando i Dati Personali sono trattati nell\'interesse pubblico, nell\'esercizio di pubblici poteri di cui è investito il Titolare oppure per perseguire un interesse legittimo del Titolare, gli Utenti hanno diritto ad opporsi al trattamento per motivi connessi alla loro situazione particolare.\n\nSi fa presente agli Utenti che, ove i loro Dati fossero trattati con finalità di marketing diretto, possono opporsi al trattamento in qualsiasi momento, gratuitamente e senza fornire alcuna motivazione. Qualora gli Utenti si oppongano al trattamento per finalità di marketing diretto, i Dati Personali non sono più oggetto di trattamento per tali finalità. Per scoprire se il Titolare tratti Dati con finalità di marketing diretto gli Utenti possono fare riferimento alle relative sezioni di questo documento.\n\n### Come esercitare i diritti\n\nEventuali richieste di esercizio dei diritti dell\'Utente possono essere indirizzate al Titolare attraverso i [recapiti forniti in questo documento](mailto:contact@astrogods.it). La richiesta è gratuita e il Titolare risponderà nel più breve tempo possibile, in ogni caso entro un mese, fornendo all\'Utente tutte le informazioni previste dalla legge. Eventuali rettifiche, cancellazioni o limitazioni del trattamento saranno comunicate dal Titolare a ciascuno dei destinatari, se esistenti, a cui sono stati trasmessi i Dati Personali, salvo che ciò si riveli impossibile o implichi uno sforzo sproporzionato. Il Titolare comunica all\'Utente tali destinatari qualora egli lo richieda.',
 			'legal.euInfoContent' => 'Questa sezione si applica a tutti gli utenti dell\'Unione Europea, in conformità al Regolamento generale sulla protezione dei dati (il "GDPR") e, per tali Utenti, sostituisce qualsiasi altra informazione eventualmente divergente o in conflitto contenuta nell\'informativa sulla privacy.\n\nUlteriori dettagli relativi alle categorie di Dati trattati, alle finalità del trattamento, alle categorie di destinatari dei Dati personali, se presenti, e ulteriori informazioni sui Dati personali sono disponibili nella sezione "Dettagli sul trattamento dei Dati Personali" all\'interno del presente documento.',
 			'legal.euInfoSection' => 'Ulteriori informazioni UE',
 			'legal.euInfoTitle' => 'Ulteriori informazioni per gli utenti dell\'Unione Europea',
@@ -1599,11 +1613,11 @@ extension on TranslationsIt {
 			'legal.fixedTermSubscriptions' => 'Abbonamenti a tempo determinato',
 			'legal.forceMAjeureExclusion' => 'danni o perdite derivanti da interruzioni o malfunzionamenti di AstroGods dovuti a cause di forza maggiore o eventi imprevisti ed imprevedibili e, in ogni caso, indipendenti dalla volontà e fuori dal controllo del Titolare, quali, a mero titolo esemplificativo, guasti o interruzioni delle linee telefoniche o elettriche, della connessione Internet e/o di altri mezzi di trasmissione, inaccessibilità di siti web, scioperi, calamità naturali, virus e attacchi informatici, interruzioni di fornitura dei prodotti, servizi o applicazioni di terzi;',
 			'legal.forceMAjeureUnavailability' => 'Inoltre, il Servizio potrebbe non essere disponibile per cause che si sottraggono al ragionevole controllo del Titolare, quali cause di forza maggiore (p. es. malfunzionamenti infrastrutturali, blackout etc.).',
+			'legal.genderOptional' => 'Genere (facoltativo)',
 			'legal.generalLiabilityExclusion' => 'Salvo ove diversamente specificato e fatte salve le disposizioni di legge applicabili, è esclusa ogni pretesa risarcitoria nei confronti del Titolare (o di qualsiasi persona fisica o giuridica che agisca per suo conto).',
 			'legal.generalSeverability' => 'Qualora alcuna delle disposizioni di questi Termini dovesse essere o divenire nulla o inefficace ai sensi della legge applicabile, la nullità o inefficacia di tale disposizione non provoca inefficacia delle restanti previsioni, che permangono pertanto valide ed efficaci.',
 			'legal.germany' => 'Germania',
-			'legal.godaddyDescription' => 'GoDaddy Web Hosting è un servizio di hosting fornito da GoDaddy.com, LLC.',
-			'legal.googleFontsDescription' => 'Google Fonts è un servizio di web font fornito da Google Inc.',
+			'legal.googleMapsDescription' => 'Google Maps Platform è un servizio di mappe e ricerca dei luoghi fornito da Google Ireland Limited.',
 			'legal.googleOAuthDescription' => 'Google OAuth è un servizio di autenticazione fornito da Google Inc.',
 			'legal.governingLaw' => 'I Termini sono disciplinati dalla legge del luogo in cui è stabilito il Titolare, così come indicato nella relativa sezione di questo documento a prescindere dalle norme di conflitto.',
 			'legal.hetznerDescription' => 'Hetzner è un servizio di hosting fornito da Hetzner Online GmbH.',
@@ -1616,27 +1630,20 @@ extension on TranslationsIt {
 			'legal.indemnificationText' => 'L\'Utente si impegna a manlevare e tenere indenne il Titolare e i suoi sottoposti, affiliati, funzionari, agenti, contitolari del marchio, partner e dipendenti nella misura di legge da qualsivoglia rivendicazione o pretesa – compresi, senza alcuna limitazione, oneri e spese legali – avanzata da terzi a causa di o in collegamento con comportamenti in violazione dei presenti Termini, di diritti di terzi o di legge, posti in essere in collegamento con l\'utilizzo del Servizio e addebitabili all\'Utente, ai suoi affiliati, funzionari, agenti, contitolari del marchio, partner e dipendenti, a titolo di colpa.',
 			'legal.indirectLossExclusion' => 'eventuali mancati guadagni o altre perdite, anche indirette, che l\'Utente potrebbe aver subito (quali, a mero titolo esemplificativo, perdite commerciali, perdita di ricavi, di profitti o risparmi preventivati, perdita di rapporti contrattuali o commerciali, perdita di avviamento o danni alla reputazione, etc.);',
 			'legal.injuryToThirdPartyRights' => 'lesioni di diritti di terzi;',
-			'legal.ipAddress' => 'indirizzo ip',
+			'legal.ionosDescription' => 'IONOS è un servizio di hosting fornito da IONOS SE.',
+			'legal.ipAddress' => 'Indirizzo IP',
 			'legal.ireland' => 'Irlanda',
 			'legal.italy' => 'Italia',
-			'legal.judicialRightsPreservation' => 'Per quanto resti impregiudicato il diritto degli Utenti di promuovere un\'azione in giudizio, in caso di controversie inerenti all\'uso di AstroGods o al Servizio, gli Utenti sono pregati di contattare il Titolare ai recapiti indicati in questo documento.',
-			'legal.lastModified' => 'Ultima modifica: 10 gennaio 2026',
-			'legal.lastModifiedTerms' => 'Ultima modifica: 10 gennaio 2026',
+			'legal.judicialRightsPreservation' => 'Per quanto resti impregiudicato il diritto degli Utenti di promuovere un\'azione in giudizio, in caso di controversie inerenti all\'uso di AstroGods o al Servizio, gli Utenti sono pregati di contattare il Titolare ai [recapiti indicati in questo documento](mailto:contact@astrogods.it).',
+			'legal.lastModified' => 'Ultima modifica: 20 ottobre 2026',
+			'legal.lastModifiedTerms' => 'Ultima modifica: 19 ottobre 2026',
 			'legal.legalRelationship' => 'qualsiasi altro Accordo o rapporto giuridico con il Titolare',
 			'legal.liabilityAndIndemnification' => 'Limitazione di responsabilità e manleva',
 			'legal.liabilityExceptions' => 'Quanto precede non limita la responsabilità del Titolare per morte, danno alla persona o all\'integrità fisica o mentale, danni derivanti dalla violazione di obblighi contrattuali essenziali, quali gli obblighi strettamente necessari al raggiungimento della causa del contratto, e/o ai danni provocati con dolo o colpa grave, a condizione che l\'utilizzo di AstroGods da parte dell\'Utente sia stato idoneo e corretto.',
 			'legal.liabilitySection' => 'Limitazione di responsabilità e manleva',
-			'legal.lifetimeRefundPolicy' => 'Nel caso in cui il Prodotto cessi la sua attività entro un periodo di tempo inferiore a 24 mesi, gli Utenti riceveranno un rimborso.',
-			'legal.lifetimeSubscriptionDuration' => 'Gli abbonamenti a vita sono abbonamenti che restano attivi per l\'intera durata di attività del Prodotto abbonato. Gli abbonamenti a vita decorrono dal giorno in cui il Titolare riceve il pagamento. Essi terminano solo se e quando il relativo Prodotto cessa la sua attività.',
-			'legal.lifetimeSubscriptions' => 'Abbonamenti a vita',
 			'legal.limitedLiabilityScope' => 'Salvo che i danni siano stati causati con dolo o colpa grave o incidano sulla vita e/o l\'integrità personale, fisica o mentale, il Titolare risponde solo nella misura del danno tipico per il tipo di contratto e prevedibile al momento della conclusione.',
 			'legal.managingCookiesContent' => 'Hai il controllo sui cookie che utilizziamo. Puoi gestire le tue preferenze attraverso le impostazioni del browser o utilizzando i controlli che forniamo. Tieni presente che la disabilitazione di alcuni cookie potrebbe influire sulla funzionalità del nostro sito web.',
 			'legal.managingCookiesSection' => 'Gestione dei cookie',
-			'legal.matomatoDescription' => 'Matomo è un software di statistica utilizzato da AstroGods per analizzare i dati in maniera diretta e senza l\'ausilio di terzi.',
-			'legal.matomoSelfHostedDescription' => 'Utilizziamo Matomo, una piattaforma di analisi incentrata sulla privacy ospitata sui nostri server. Ciò significa che i tuoi dati non lasciano mai la nostra infrastruttura e non vengono condivisi con terze parti. Matomo ci aiuta a capire come gli utenti interagiscono con il nostro servizio rispettando la tua privacy.',
-			'legal.matomoSelfHostedTitle' => 'Matomo (self-hosted)',
-			'legal.measurementCookiesDescription' => 'Questi cookie ci aiutano a capire come i visitatori interagiscono con il nostro sito web raccogliendo e riportando informazioni in modo anonimo.',
-			'legal.measurementCookiesTitle' => 'Cookie di misurazione',
 			'legal.mobileApplicationsDescription' => 'applicazioni per dispositivi mobili (iOS e Android), tablet, desktop (Linux, Windows, macOS) o piattaforme simili;',
 			'legal.modificationsEffectiveDate' => 'Le modifiche avranno effetto nel rapporto con l\'Utente solo a partire dal momento comunicato all\'Utente.',
 			'legal.nationalLawPrevails' => 'Se la legge del paese in cui si trova l\'Utente prevede un livello di tutela dei consumatori superiore, prevale tale superiore livello di tutela.',
@@ -1653,6 +1660,7 @@ extension on TranslationsIt {
 			'legal.notUnderEmbargo' => 'L\'Utente non è situato in un paese soggetto ad embargo governativo da parte degli Stati Uniti d\'America o in un paese inserito nella lista degli stati che sponsorizzano il terrorismo',
 			'legal.offensesToOwnerOrThird' => 'offese al Titolare o a un terzo.',
 			'legal.oneAccountPerUser' => 'Salvo ove diversamente specificato, ciascun Utente può creare un solo account.',
+			'legal.openRouterDescription' => 'OpenRouter è un servizio di OpenRouter, Inc. che inoltra le richieste di AstroGods all\'API di Anthropic.',
 			'legal.orderConfirmation' => 'Una volta inoltrato l\'ordine, agli Utenti sarà inviata una conferma di ricezione dell\'ordine.',
 			'legal.orderConfirmationEmail' => 'Una volta inoltrato l\'ordine, agli Utenti sarà inviata una conferma di ricezione dell\'ordine.',
 			'legal.orderSubmission' => 'Invio dell\'ordine',
@@ -1660,7 +1668,6 @@ extension on TranslationsIt {
 			'legal.orderSubmissionRequirement' => 'Per inoltrare l\'ordine, gli Utenti sono tenuti ad accettare i presenti Termini e ad utilizzare il rispettivo pulsante o meccanismo su AstroGods, in tal modo, impegnandosi a pagare il prezzo concordato.',
 			'legal.ownerDefinition' => 'Indica la persona fisica o giuridica che fornisce AstroGods e/o offre il Servizio agli Utenti.',
 			'legal.ownerDefinitionTitle' => 'Titolare (o Noi)',
-			'legal.ownerDiscretionaryRight' => 'Il Titolare si riserva il diritto di cessare l\'offerta in qualsiasi momento a propria discrezione.',
 			'legal.ownerEmail' => 'Indirizzo email del Titolare:',
 			'legal.ownerName' => 'Arcangelo Massari - Bologna (Italia)',
 			'legal.ownerProtectiveRights' => 'Pertanto, il Titolare si riserva il diritto di adottare ogni misura idonea a proteggere i propri interessi legittimi, ed in particolare di negare all\'Utente l\'accesso a AstroGods o al Servizio, risolvere contratti, denunciare ogni attività censurabile svolta tramite AstroGods o il Servizio alle autorità competenti – p. es. l\'autorità giudiziaria o amministrativa – ogniqualvolta l\'Utente ponga in essere o vi sia il sospetto che ponga in essere:',
@@ -1672,19 +1679,22 @@ extension on TranslationsIt {
 			'legal.paymentFailed' => 'Pagamento Fallito',
 			'legal.paymentFailedDescription' => 'Il pagamento del tuo abbonamento non è stato elaborato. Aggiorna il metodo di pagamento per continuare a utilizzare i nostri servizi.',
 			'legal.paymentFailureConsequences' => 'Nel caso in cui il pagamento effettuato con uno dei mezzi disponibili fallisca o venga rifiutato dal fornitore di servizi di pagamento, il Titolare non è obbligato a eseguire l\'ordine. Nel caso in cui il pagamento non vada a buon fine, il Titolare si riserva il diritto di richiedere all\'Utente il rimborso di qualsiasi spesa o danno correlato.',
-			'legal.paymentInformation' => 'informazioni di pagamento',
+			'legal.paymentInformation' => 'Informazioni di pagamento',
 			'legal.paymentManagement' => 'Gestione dei pagamenti',
 			'legal.paymentManagementDescription' => 'Se non diversamente specificato, AstroGods elabora tutti i pagamenti con carta di credito, bonifico bancario o altri mezzi tramite fornitori esterni di servizi di pagamento. In generale, e salvo diversa indicazione, gli Utenti sono pregati di fornire i dettagli di pagamento e le informazioni personali direttamente a tali fornitori di servizi di pagamento.\nAstroGods non è coinvolta nella raccolta e nell\'elaborazione di tali informazioni: riceverà invece solo una notifica da parte del fornitore di servizi di pagamento in questione circa l\'avvenuto pagamento.',
 			'legal.paymentManagementTitle' => 'Gestione dei pagamenti',
 			'legal.paymentMethods' => 'Mezzi di pagamento',
-			'legal.paymentMethodsConditions' => 'L\'elaborazione dei pagamenti è gestita interamente da Stripe Technology Europe Ltd. AstroGods non memorizza né ha accesso ai dettagli delle tue carte di pagamento, che sono elaborati e archiviati in sicurezza da Stripe secondo i più alti standard di sicurezza del settore.',
-			'legal.paymentMethodsInfo' => 'AstroGods elabora tutti i pagamenti in sicurezza tramite Stripe, un processore di pagamenti certificato conforme PCI DSS. I metodi di pagamento accettati includono le principali carte di credito e debito (Visa, Mastercard, American Express), portafogli digitali (Apple Pay, Google Pay) e altri metodi disponibili tramite Stripe nella tua regione.',
+			'legal.paymentMethodsConditions' => 'Stripe Technology Europe Ltd gestisce i pagamenti effettuati tramite Stripe, mentre Apple gestisce quelli effettuati tramite l\'App Store. AstroGods non memorizza né ha accesso ai dettagli delle tue carte di pagamento.',
+			'legal.paymentMethodsInfo' => 'Sul sito web e nelle app per Android, Windows e Linux, AstroGods elabora i pagamenti tramite Stripe, un processore di pagamenti certificato conforme PCI DSS. I metodi di pagamento accettati includono le principali carte di credito e debito (Visa, Mastercard, American Express), portafogli digitali (Apple Pay, Google Pay) e altri metodi disponibili tramite Stripe nella tua regione. Nelle app per iPhone, iPad e Mac gli abbonamenti si acquistano tramite l\'App Store di Apple, come descritto nella sezione sugli abbonamenti gestiti tramite Apple Account.',
 			'legal.paymentObligationRemains' => 'La sospensione o cancellazione di un account per cause addebitabili all\'Utente non esonera l\'Utente dal pagamento dei compensi o prezzi eventualmente applicabili.',
 			'legal.paymentProcessingError' => 'Si è verificato un errore nel processo di pagamento',
-			'legal.paymentThirdPartyHandling' => 'Tutti i pagamenti vengono gestiti autonomamente da servizi terzi. Pertanto, AstroGods non raccoglie dati relativi al pagamento – quali numeri di carta di credito – ma riceve una notifica una volta che il pagamento è andato a buon fine. Per ricevere ulteriori informazioni sul trattamento dei dati personali e sui relativi diritti, l\'Utente può fare riferimento alla privacy policy di AstroGods.',
+			'legal.paymentThirdPartyHandling' => 'Tutti i pagamenti vengono gestiti autonomamente da servizi terzi. Pertanto, AstroGods non raccoglie dati relativi al pagamento – quali numeri di carta di credito – ma riceve una notifica una volta che il pagamento è andato a buon fine. Per ricevere ulteriori informazioni sul trattamento dei dati personali e sui relativi diritti, l\'Utente può fare riferimento alla [privacy policy di AstroGods](/privacy-policy).',
 			'legal.permittedUse' => 'Uso ammesso',
 			'legal.permittedUseText' => 'AstroGods ed il Servizio possono essere utilizzati solo per gli scopi per i quali sono offerti, secondo questi Termini ed ai sensi della legge applicabile.',
-			'legal.phoneNumber' => 'numero di telefono',
+			'legal.phoneNumber' => 'Numero di telefono',
+			'legal.placeSearchDescription' => 'Quando l\'Utente cerca un luogo di nascita, i server di AstroGods inviano il testo digitato a Google Maps Platform per suggerire i luoghi e ricavarne le coordinate. Google riceve la richiesta dai server di AstroGods, quindi non riceve l\'indirizzo IP dell\'Utente né i dati del suo account.',
+			'legal.placeSearchTitle' => 'Ricerca dei luoghi',
+			'legal.planetaryPositions' => 'Posizioni planetarie',
 			'legal.previousVersionValidity' => 'La versione precedente continua a disciplinare il rapporto fino all\'accettazione delle modifiche da parte dell\'Utente. Tale versione può essere richiesta al Titolare.',
 			'legal.pricing' => 'Prezzi',
 			'legal.pricingPolicy' => 'I prezzi su AstroGods includono tutte le commissioni, tasse e costi applicabili.',
@@ -1698,15 +1708,15 @@ extension on TranslationsIt {
 			'legal.problemsDescription' => 'Benché ci impegniamo a creare un\'esperienza utente positiva, sappiamo che occasionalmente possono verificarsi problemi tra noi e i nostri utenti.',
 			'legal.processingDetailsSection' => 'Dettagli sul trattamento',
 			'legal.processingMethodsContent' => '### Modalità di trattamento\n\nIl Titolare tratta i Dati Personali degli Utenti adottando le opportune misure di sicurezza volte ad impedire l\'accesso, la divulgazione, la modifica o la distruzione non autorizzate dei Dati Personali.\n\nIl trattamento viene effettuato mediante strumenti informatici e/o telematici, con modalità organizzative e con logiche strettamente correlate alle finalità indicate. Oltre al Titolare, in alcuni casi, potrebbero avere accesso ai Dati altri soggetti coinvolti nell\'organizzazione di AstroGods (personale amministrativo, commerciale, marketing, legali, amministratori di sistema) ovvero soggetti esterni (come fornitori di servizi tecnici terzi, corrieri postali, hosting provider, società informatiche, agenzie di comunicazione) nominati anche, se necessario, Responsabili del Trattamento da parte del Titolare. L\'elenco aggiornato dei Responsabili potrà sempre essere richiesto al Titolare del Trattamento.\n\n### Luogo\n\nI Dati sono trattati presso le sedi operative del Titolare ed in ogni altro luogo in cui le parti coinvolte nel trattamento siano localizzate.\n\nPer ulteriori informazioni, contatta il Titolare.\n\nI Dati Personali dell\'Utente potrebbero essere trasferiti in un paese diverso da quello in cui l\'Utente si trova. Per ottenere ulteriori informazioni sul luogo del trattamento l\'Utente può fare riferimento alla sezione relativa ai dettagli sul trattamento dei Dati Personali.\n\n### Tempo di conservazione\n\nSalvo quanto diversamente specificato in questo documento, i Dati Personali sono trattati e conservati per il tempo richiesto dalle finalità per le quali sono stati raccolti e potrebbero essere conservati per un periodo più lungo a causa di eventuali obbligazioni legali o sulla base del consenso degli Utenti.',
-			_ => null,
-		} ?? switch (path) {
 			'legal.processingMethodsSection' => 'Modalità e luogo del trattamento',
 			'legal.processingMethodsTitle' => 'Modalità e luogo del trattamento dei Dati raccolti',
 			'legal.productCharacteristicsSpecified' => 'Le caratteristiche del Prodotto selezionato saranno specificate durante la procedura d\'acquisto.',
 			'legal.productDefinition' => 'Un bene o servizio disponibile tramite AstroGods, inclusi specificatamente: interpretazioni astrologiche, analisi del tema natale, previsioni e pronostici astrologici, rapporti di compatibilità, contenuti educativi astrologici e qualsiasi altro servizio astrologico o contenuto digitale definito separatamente nel presente documento.',
 			'legal.productDefinitionTitle' => 'Prodotto',
+			_ => null,
+		} ?? switch (path) {
 			'legal.productDescription' => 'Descrizione del prodotto',
-			'legal.productDescriptionInfo' => 'Prezzi, descrizioni e disponibilità dei Prodotti astrologici (incluse letture del tema natale, analisi di compatibilità, previsioni giornaliere e mensili, approfondimenti sulle relazioni e raccomandazioni astrologiche per i viaggi) sono specificati nelle rispettive sezioni di AstroGods e sono soggetti a modifica senza preavviso.',
+			'legal.productDescriptionInfo' => 'Prezzi, descrizioni e disponibilità dei Prodotti astrologici (incluse letture del tema natale, analisi di compatibilità, previsioni giornaliere e mensili e approfondimenti sulle relazioni) sono specificati nelle rispettive sezioni di AstroGods e sono soggetti a modifica senza preavviso.',
 			'legal.productRepresentationDisclaimer' => 'Sebbene i Prodotti su AstroGods siano presentati con la massima accuratezza tecnicamente possibile, la rappresentazione su AstroGods tramite qualsiasi mezzo (inclusi, a seconda dei casi, materiali grafici, immagini, colori, suoni) è da intendersi come mero riferimento e non implica alcuna garanzia in merito alle caratteristiche del Prodotto acquistato.',
 			'legal.promotionsAndDiscounts' => 'Promozioni e sconti',
 			'legal.promotionsDisclaimer' => 'Il Titolare potrebbe offrire sconti o promozioni speciali per l\'acquisto dei Prodotti. Tali promozioni o sconti sono sempre soggetti ai requisiti ed a termini e condizioni previste nella relativa sezione di AstroGods.',
@@ -1717,7 +1727,7 @@ extension on TranslationsIt {
 			'legal.proprietaryContentStandardTextAfter' => '. Il backend, gli algoritmi, i marchi, il database degli utenti e tutti gli elementi lato server rimangono di proprietà esclusiva del Titolare con tutti i diritti riservati.',
 			'legal.proprietaryContentStandardTextBefore' => 'Il codice sorgente dell\'applicazione (frontend) è rilasciato sotto licenza GNU Affero General Public License v3.0 (AGPL-3.0) ed è disponibile su ',
 			'legal.providedByLabel' => 'Servizio fornito da: ',
-			'legal.purchaseHistory' => 'cronologia acquisti',
+			'legal.purchaseHistory' => 'Cronologia acquisti',
 			'legal.purchaseNotifications' => 'Tutte le notifiche relative alla procedura d\'acquisto sopra descritta saranno inviate all\'indirizzo di posta elettronica fornito dall\'Utente a tal fine.',
 			'legal.purchaseProcedure' => 'Procedura d\'acquisto',
 			'legal.purchaseProcedureSteps' => 'Ogni fase, dalla scelta del prodotto fino all\'inoltro dell\'ordine, fa parte della procedura d\'acquisto. La procedura d\'acquisto comprende i seguenti passaggi:',
@@ -1726,12 +1736,6 @@ extension on TranslationsIt {
 			'legal.purposesDetailedInfoText' => 'Per ottenere informazioni dettagliate sulle finalità del trattamento e sui Dati Personali concretamente rilevanti per ciascuna finalità, l\'Utente può fare riferimento alla sezione "Dettagli sul trattamento dei Dati Personali".',
 			'legal.purposesIntroText' => 'I Dati dell\'Utente sono raccolti per consentire al Titolare di fornire il Servizio, adempiere agli obblighi di legge, rispondere a richieste o azioni esecutive, tutelare i propri diritti ed interessi (o quelli di Utenti o di terze parti), individuare eventuali attività dolose o fraudolente, nonché per le seguenti finalità:',
 			'legal.purposesSection' => 'Finalità del Trattamento',
-			'legal.referralBenefits' => 'AstroGods consente agli Utenti di ricevere dei vantaggi se, grazie a una loro raccomandazione, un nuovo Utente acquista un Prodotto offerto su AstroGods.',
-			'legal.referralCodeLimitations' => 'I codici di invito potrebbero essere spendibili solo per alcuni Prodotti tra quelli offerti su AstroGods.',
-			'legal.referralCodeUsage' => 'Per usufruire di questa opportunità, l\'Utente può invitare gli amici ad acquistare Prodotti su AstroGods inviando loro un apposito codice fornito dal Titolare. Ogni codice può essere riscattato una volta sola.',
-			'legal.referralLimitations' => 'Sebbene non vi sia alcun limite al numero di persone che possono essere invitate, il numero di vantaggi o benefici che ogni Utente può ricevere per un egual numero di codici invito riscattati potrebbe essere sottoposto a un limite massimo.',
-			'legal.referralProgram' => 'Passaparola',
-			'legal.referralRewardSystem' => 'Se una delle persone invitate acquistando un Prodotto su AstroGods decide di riscattare un codice di invito, l\'Utente che l\'ha invitata riceverà il vantaggio o beneficio (quali, ad esempio: uno sconto, un servizio aggiuntivo, un upgrade etc.) indicato su AstroGods.',
 			'legal.refundTimeline' => 'Il rimborso avviene senza indebito ritardo ed in ogni caso entro 14 giorni dal giorno in cui il Titolare è stato informato della decisione dell\'Utente di recedere dal contratto. Salvo ove diversamente pattuito con l\'Utente, il rimborso è effettuato utilizzando lo stesso mezzo di pagamento utilizzato per la transazione iniziale. L\'Utente non deve sostenere alcun costo quale conseguenza del recesso.',
 			'legal.registration' => 'Registrazione',
 			'legal.registrationAndAuth' => 'Registrazione ed autenticazione',
@@ -1739,7 +1743,6 @@ extension on TranslationsIt {
 			'legal.registrationRequirementsText' => 'La registrazione di un account Utente su AstroGods è soggetta alle condizioni sotto specificate. Registrando un account, l\'Utente conferma di soddisfare tali condizioni.',
 			'legal.registrationSuccessful' => 'Registrazione completata con successo!',
 			'legal.renewalDurationMatch' => 'Il rinnovo ha durata uguale al periodo di abbonamento originario.',
-			'legal.resolution' => 'Risoluzione',
 			'legal.responseTimeline' => 'Il Titolare provvederà ad evadere la richiesta senza indebito ritardo ed entro 14 giorni dalla sua ricezione.',
 			'legal.rightOfWithdrawal' => 'Diritto di recesso',
 			'legal.salesTerms' => 'Termini e condizioni di vendita',
@@ -1754,18 +1757,16 @@ extension on TranslationsIt {
 			'legal.serviceTerminationRights' => 'Nei limiti di legge, il Titolare si riserva di sospendere o cessare completamente l\'attività del Servizio. In caso di cessazione dell\'attività del Servizio, il Titolare si adopererà affinché gli Utenti possano estrarre i propri dati personali e le informazioni e rispetterà i diritti degli Utenti relativi all\'utilizzo continuato del prodotto e/o al risarcimento, secondo le disposizioni di legge.',
 			'legal.severabilityClause' => 'Clausola di salvaguardia',
 			'legal.severabilityLimitations' => 'Fermo restando quanto sopra, la nullità, invalidità o inefficacia di una specifica disposizione di questi Termini non comporta nullità dell\'intero Accordo, a meno che le disposizioni nulle, invalidi o inefficaci nel quadro dell\'Accordo siano essenziali o di tale importanza, che le parti non avrebbero concluso il contratto se avessero saputo che la disposizione sarebbe stata invalida, ovvero in casi in cui le disposizioni residue comporterebbero un onere eccessivo ed inaccettabile per una delle parti.',
-			'legal.statistics' => 'Statistica',
-			'legal.statisticsDescription' => 'I servizi contenuti nella presente sezione permettono al Titolare del Trattamento di monitorare e analizzare i dati di traffico e servono a tener traccia del comportamento dell\'Utente.',
-			'legal.statisticsTitle' => 'Statistica',
+			'legal.signInWithAppleDescription' => 'Accedi con Apple è un servizio di autenticazione fornito da Apple. Se l\'Utente sceglie di nascondere la propria email, AstroGods riceve un indirizzo di inoltro creato da Apple.',
 			'legal.stripeBillingAddress' => 'All\'interno dell\'area di checkout di Stripe, potrebbe essere richiesto agli Utenti di specificare anche il loro indirizzo di fatturazione e di spedizione.',
 			'legal.stripeCheckoutAccess' => 'Cliccando sul pulsante di checkout, gli Utenti accedono all\'area di checkout di Stripe dove verrà richiesto loro di indicare i propri recapiti e un mezzo di pagamento a loro scelta.',
 			'legal.stripeCustomerPortal' => 'Gli utenti possono accedere al Portale Clienti Stripe per visualizzare la cronologia di fatturazione, scaricare fatture, aggiornare i metodi di pagamento e gestire le impostazioni degli abbonamenti. Questo portale è fornito direttamente da Stripe e garantisce l\'accesso sicuro alle informazioni di pagamento e fatturazione.',
 			'legal.stripeDescription' => 'Stripe è un servizio di pagamento fornito da Stripe Technology Europe Ltd.',
 			'legal.stripeExpressCheckout' => 'All\'interno dell\'area di checkout di Stripe, gli Utenti avranno la possibilità di scegliere il checkout diretto. Il checkout diretto consente agli Utenti di completare l\'acquisto direttamente, utilizzando le informazioni di pagamento e i recapiti memorizzati dai più comuni servizi online di gestione dei pagamenti (come "ApplePay", "Google Pay", "Microsoft Pay").',
-			'legal.stripePaymentStorage' => 'Gli Utenti che non lo hanno ancora fatto, possono richiedere a Stripe di memorizzare le loro informazioni di pagamento per acquisti futuri su AstroGods o su altri siti che utilizzano Stripe come portale di pagamento. Per ricevere informazioni sul trattamento dei dati personali ed i relativi diritti, l\'Utente può consultare la privacy policy di Stripe e di AstroGods.',
-			'legal.stripeRecurringPayments' => 'Per i servizi in abbonamento, Stripe memorizza in sicurezza le informazioni del metodo di pagamento per elaborare automaticamente i pagamenti ricorrenti. Gli utenti possono gestire, aggiornare o annullare i loro metodi di pagamento e abbonamenti tramite il portale clienti accessibile dalle impostazioni del loro account.',
+			'legal.stripePaymentStorage' => 'Gli Utenti che non lo hanno ancora fatto, possono richiedere a Stripe di memorizzare le loro informazioni di pagamento per acquisti futuri su AstroGods o su altri siti che utilizzano Stripe come portale di pagamento. Per ricevere informazioni sul trattamento dei dati personali ed i relativi diritti, l\'Utente può consultare la [privacy policy di Stripe](https://stripe.com/privacy) e quella di [AstroGods](/privacy-policy).',
+			'legal.stripeRecurringPayments' => 'Per gli abbonamenti acquistati tramite Stripe, Stripe memorizza in sicurezza le informazioni del metodo di pagamento per elaborare automaticamente i pagamenti ricorrenti. Gli utenti possono gestire, aggiornare o annullare i loro metodi di pagamento e abbonamenti tramite il portale clienti accessibile dalle impostazioni del loro account.',
 			'legal.subscriptionContinuousProduct' => 'Grazie all\'abbonamento, l\'Utente riceve un Prodotto in via continuativa o periodica. I dettagli riguardanti il tipo di abbonamento e la risoluzione sono descritti di seguito.',
-			'legal.subscriptionTermination' => 'Gli abbonamenti possono essere risolti: (1) accedendo al Portale Clienti Stripe tramite le impostazioni del proprio account per annullare immediatamente, (2) inviando una comunicazione di disdetta chiara al Titolare utilizzando i recapiti riportati in questo documento, o (3) seguendo le istruzioni di cancellazione su AstroGods.',
+			'legal.subscriptionTermination' => 'Gli abbonamenti possono essere disdetti: (1) per gli acquisti tramite Stripe, dal Portale Clienti Stripe accessibile dalle [impostazioni dell\'account](/settings?section=subscriptions); (2) per gli acquisti tramite l\'App Store, dalle [impostazioni dell\'account Apple](https://apps.apple.com/account/subscriptions); (3) inviando una comunicazione di disdetta chiara al Titolare tramite i [recapiti riportati in questo documento](mailto:contact@astrogods.it).',
 			'legal.subscriptions' => 'Abbonamenti',
 			'legal.subscriptionsTitle' => 'Abbonamenti',
 			'legal.summary' => 'Sommario',
@@ -1787,12 +1788,8 @@ extension on TranslationsIt {
 			'legal.termsTableOfContents' => 'Indice',
 			'legal.thirdPartyResourcesDisclaimer' => 'Le condizioni applicabili alle risorse fornite da terzi, ivi incluse quelle applicabili a eventuali concessioni di diritti su contenuti, sono determinate dagli stessi terzi e regolate nei relativi termini e condizioni o, in loro assenza, dalla legge.',
 			'legal.thisSiteDescription' => 'questo sito web, accessibile tramite browser, inclusi i relativi sottodomini ed ogni altro sito attraverso i quali il Titolare offre il Servizio;',
-			'legal.trackingTools' => 'strumenti di tracciamento',
-			'legal.trackingToolsIntro' => 'AstroGods utilizza i seguenti strumenti di tracciamento:',
-			'legal.trackingToolsSection' => 'Strumenti di tracciamento',
-			'legal.trafficOptimization' => 'Ottimizzazione e distribuzione del traffico',
-			'legal.trafficOptimizationDescription' => 'Questo tipo di servizi permette a AstroGods di distribuire i propri contenuti tramite una rete di server distribuiti geograficamente e di ottimizzare le sue prestazioni.\nI Dati Personali trattati dipendono dalle caratteristiche e dalla modalità d\'uso di questi servizi, la cui funzione è quella di filtrare le comunicazioni fra AstroGods e il browser dell\'Utente.\nData la natura distribuita di questo sistema, è difficile determinare i luoghi in cui vengono trasferiti i contenuti che potrebbero contenere Dati Personali dell\'Utente.',
-			'legal.trafficOptimizationTitle' => 'Ottimizzazione e distribuzione del traffico',
+			'legal.trackingToolsIntro' => 'AstroGods non utilizza strumenti di tracciamento per statistiche o pubblicità. Usa solo i cookie e la memoria del browser necessari al funzionamento, ad esempio per mantenere l\'accesso.',
+			'legal.trackingToolsSection' => 'Nessun tracciamento',
 			'legal.trialAutoConversion' => 'Alla scadenza, il periodo di prova si trasformerà automaticamente nell\'equivalente Prodotto a pagamento, a meno che l\'Utente non disdica l\'acquisto prima che il periodo di prova scada.',
 			'legal.trialPeriod' => 'Periodo di prova',
 			'legal.trialPeriodAvailability' => 'Gli Utenti hanno la possibilità di provare AstroGods o singoli Prodotti gratuitamente per un periodo di prova di 7 giorni, non rinnovabile. Alcune funzioni o funzionalità di AstroGods potrebbero non essere disponibili durante il periodo di prova. Ulteriori condizioni applicabili al periodo di prova saranno esplicitate su AstroGods.',
@@ -1800,7 +1797,7 @@ extension on TranslationsIt {
 			'legal.typesOfCookiesSection' => 'Tipi di cookie che utilizziamo',
 			'legal.unauthorizedResale' => 'Gli Utenti non sono autorizzati a riprodurre, duplicare, copiare, vendere, rivendere o sfruttare AstroGods o il Servizio in toto o in parte senza previo consenso scritto del Titolare, espresso direttamente o attraverso un legittimo programma di rivendite.',
 			'legal.unitedStates' => 'Stati Uniti',
-			'legal.usageData' => 'dati di utilizzo',
+			'legal.usageData' => 'Dati di utilizzo',
 			'legal.usageRightsReservation' => 'Fino alla ricezione del pagamento del prezzo integrale di acquisto da parte del Titolare, l\'Utente non acquista i diritti d\'uso dei Prodotti ordinati.',
 			'legal.usageRightsReservationTitle' => 'Riserva dei diritti d\'uso',
 			'legal.useOfService' => 'l\'utilizzo di AstroGods e',
@@ -1810,7 +1807,7 @@ extension on TranslationsIt {
 			'legal.userExclusiveResponsibility' => 'È responsabilità esclusiva dell\'Utente di far sì che l\'uso di AstroGods e/o del Servizio non violi la legge, i regolamenti o i diritti di terzi.',
 			'legal.userRights' => 'Diritti dell\'Utente',
 			'legal.userRightsSection' => 'Diritti dell\'Utente',
-			'legal.usingAccountClosureTools' => 'Usando gli strumenti di chiusura dell\'account disponibili su AstroGods.',
+			'legal.usingAccountClosureTools' => 'Usando gli [strumenti di chiusura dell\'account](/settings?section=deleteAccount) disponibili su AstroGods.',
 			'legal.usingAstroGodsUserDeclares' => 'Utilizzando AstroGods l\'Utente dichiara di soddisfare i seguenti requisiti:',
 			'legal.viewCookiePolicy' => 'Visualizza Cookie Policy',
 			'legal.viewPrivacyPolicy' => 'Visualizza Privacy Policy',
@@ -1873,18 +1870,23 @@ extension on TranslationsIt {
 			'releaseNotes.releaseNotes_4_7_7' => 'Risolti errori nel calcolo dei transiti mensili. I badge degli abbonamenti ora si mostrano solo quando appropriato.',
 			'releaseNotes.releaseNotes_4_8_0' => 'Nuova icona dell\'app. Ottimizzato lo sfondo del cielo stellato.',
 			'releaseNotes.releaseNotes_4_9_0' => 'Aggiornati termini e condizioni e informativa sulla privacy. Risolto un problema di registrazione con email e password. Il tema natale viene ora generato automaticamente dopo la registrazione.',
+			'releaseNotes.releaseNotes_5_0_0' => 'Su iPhone e Mac puoi accedere con Apple e abbonarti tramite l\'App Store. Cambia email o password dalle impostazioni, o aggiungi una password a un account Google o Apple. Le letture seguono il genere che scegli, o restano neutre se preferisci non dirlo. I tuoi temi natali sono visibili solo a te e le letture non inviano più i tuoi nomi all\'IA. Dopo l\'aggiornamento accedi di nuovo. Le foto profilo e i temi creati senza account non ci sono più.',
 			'releaseNotes.version' => ({required Object version}) => 'Versione ${version}',
 			'ui.about' => 'Informazioni',
 			'ui.account' => 'Account',
 			'ui.accountDeleted' => 'Account eliminato con successo',
-			'ui.activeSubscriptionDeleteWarning' => 'Hai un abbonamento attivo. Per eliminare il tuo account, il tuo abbonamento verrà prima annullato.\n\nQuesta azione non può essere annullata. Tutti i tuoi dati, analisi salvate e immagini del profilo saranno eliminati permanentemente.',
+			'ui.activeSubscriptionDeleteWarning' => 'Hai un abbonamento attivo. Per eliminare il tuo account, il tuo abbonamento verrà prima annullato.\n\nQuesta azione non può essere annullata. Tutti i tuoi dati e le analisi salvate saranno eliminati per sempre.',
+			'ui.addEmail' => 'Aggiungi email',
 			'ui.addNewsletter' => 'Aggiungi oroscopo via email',
 			'ui.allNewsletters' => 'Tutte le newsletter',
+			'ui.allPremiumFeatures' => 'Tutte le funzioni Premium',
 			'ui.alreadyHaveAccount' => 'Hai già un account?',
 			'ui.analyzing' => 'ANALIZZANDO...',
 			'ui.annual' => 'Annuale',
 			'ui.anticipateYourDayWithTransits' => 'Anticipa la tua giornata con l\'analisi dei transiti',
 			'ui.anticipateYourMonthWithTransits' => 'Anticipa il tuo mese con l\'analisi dei transiti',
+			'ui.appleAutoRenewNotice' => 'L\'abbonamento si rinnova automaticamente al prezzo indicato, a meno che tu non lo disdica almeno 24 ore prima della fine del periodo in corso. Il pagamento viene addebitato sul tuo account Apple. Puoi gestirlo o disdirlo dalle impostazioni del tuo account App Store.',
+			'ui.appleSubscriptionDeleteWarning' => 'Eliminare l\'account non disdice l\'abbonamento App Store. Per fermare i rinnovi, disdicilo dalle impostazioni del tuo account App Store.\n\nQuesta azione non può essere annullata. Tutti i tuoi dati e le analisi salvate saranno eliminati per sempre.',
 			'ui.appTitle' => 'AstroGods',
 			'ui.appVersion' => 'Versione App',
 			'ui.at' => 'alle',
@@ -1910,15 +1912,16 @@ extension on TranslationsIt {
 			'ui.birthChartsCountSingular' => '1 tema natale salvato',
 			'ui.birthChartsFilter' => 'Temi natali',
 			'ui.birthChartsMustBeDifferent' => 'I due temi natali devono essere diversi',
-			'ui.birthDate' => 'data di nascita',
+			'ui.birthDate' => 'Data di nascita',
 			'ui.birthInfo' => 'Informazioni di Nascita',
 			'ui.birthInformation' => 'Informazioni di Nascita',
 			'ui.birthPlace' => 'Luogo di nascita',
-			'ui.birthTime' => 'ora di nascita',
+			'ui.birthTime' => 'Ora di nascita',
 			'ui.birthTimeRequired' => 'Inserisci ora o spunta ora sconosciuta',
 			'ui.cancel' => 'Annulla',
 			'ui.cancelSubscriptionAndDelete' => 'Annulla abbonamento ed elimina account',
 			'ui.cancellingSubscription' => 'Cancellazione in corso...',
+			'ui.changePassword' => 'Cambia password',
 			'ui.changePlan' => 'Cambia piano',
 			'ui.chartNotAvailable' => 'Grafico non disponibile.',
 			'ui.chartOnlyMode' => 'Solo grafico, senza lettura',
@@ -1937,6 +1940,7 @@ extension on TranslationsIt {
 			'ui.confirmingSubscription' => 'Conferma dell\'abbonamento in corso...',
 			'ui.connectionError' => 'Connessione non riuscita. Controlla la rete e riprova.',
 			'ui.connectionTimeout' => 'La richiesta ha impiegato troppo tempo. Riprova.',
+			'ui.continueWithApple' => 'Continua con Apple',
 			'ui.continueWithGoogle' => 'Continua con Google',
 			'ui.couplesChartReadings' => 'Letture del tema di coppia',
 			'ui.create' => 'Crea',
@@ -1947,6 +1951,7 @@ extension on TranslationsIt {
 			'ui.createSynastry' => 'Crea sinastria',
 			'ui.creating' => 'Creazione in corso...',
 			'ui.currentLocation' => 'Posizione attuale',
+			'ui.currentPassword' => 'Password attuale',
 			'ui.currentPlan' => 'Piano attuale',
 			'ui.daily' => 'Giornaliere',
 			'ui.dailyMonthlyTransits' => 'Transiti giornalieri e mensili',
@@ -1960,7 +1965,6 @@ extension on TranslationsIt {
 			'ui.dailyTransitsCountSingular' => '1 transito giornaliero salvato',
 			'ui.dailyTransitsFilter' => 'Transiti giornalieri',
 			'ui.darkMode' => 'Scuro',
-			'ui.dataCollectedByMatomo' => 'Dati raccolti da Matomo:',
 			'ui.dateOfBirth' => 'Data di Nascita',
 			'ui.dayCount' => ({required Object day}) => 'Giorno ${day}',
 			'ui.dayNumber' => ({required Object number}) => 'giorno ${number}',
@@ -1968,7 +1972,7 @@ extension on TranslationsIt {
 			'ui.deleteAccount' => 'Elimina Account',
 			'ui.deleteAccountConfirmation' => 'Sei assolutamente sicuro di voler eliminare il tuo account?',
 			'ui.deleteAccountTitle' => 'Elimina Account',
-			'ui.deleteAccountWarning' => 'Questa azione non può essere annullata. Tutti i tuoi dati, analisi salvate e immagini del profilo saranno eliminati permanentemente.',
+			'ui.deleteAccountWarning' => 'Questa azione non può essere annullata. Tutti i tuoi dati e le analisi salvate saranno eliminati per sempre.',
 			'ui.deleteConfirmationWord' => 'ELIMINA',
 			'ui.deleteFreeReadingTitle' => 'Eliminare l\'unica lettura?',
 			'ui.deleteFreeReadingWarning' => 'Questa è la tua unica lettura salvata. Per generare nuove letture è necessario un abbonamento attivo.',
@@ -1976,6 +1980,10 @@ extension on TranslationsIt {
 			'ui.discoverHeartOfRelationship' => 'Scopri il cuore di una relazione attraverso la sua sinastria',
 			'ui.dontHaveAccount' => 'Non hai un account?',
 			'ui.dontKnowBirthTime' => 'Non conosco l\'ora di nascita',
+			'ui.emailAddressCopied' => ({required Object email}) => 'Nessuna app email disponibile. Indirizzo copiato negli appunti: ${email}',
+			'ui.noPurchasesToRestore' => 'Nessun abbonamento App Store da ripristinare',
+			'ui.passwordChanged' => 'Password cambiata',
+			'ui.passwordSetupLinkSent' => ({required Object email}) => 'Link inviato a ${email}',
 			'ui.repeatedTimeFirst' => 'La prima volta, durante l\'ora legale',
 			'ui.repeatedTimeSecond' => 'La seconda volta, durante l\'ora solare',
 			'ui.downgrade' => 'Passa a Standard',
@@ -1984,7 +1992,7 @@ extension on TranslationsIt {
 			'ui.editBirthChart' => 'Modifica tema natale',
 			'ui.editDaily' => 'Modifica newsletter giornaliera',
 			'ui.editMonthly' => 'Modifica newsletter mensile',
-			'ui.email' => 'email',
+			'ui.email' => 'Email',
 			'ui.emailAlreadyExists' => 'Questo indirizzo email è già registrato',
 			'ui.emailNotifications' => 'Oroscopo via email',
 			'ui.emailSentSuccessfully' => 'Email inviata con successo',
@@ -2006,7 +2014,11 @@ extension on TranslationsIt {
 			'ui.forgotPassword' => 'Password dimenticata?',
 			'ui.fourMonthsFree' => '4 mesi GRATIS',
 			'ui.fullMoon' => 'Luna piena',
-			'ui.gender' => 'sesso',
+			'ui.gender' => 'Genere',
+			'ui.genderMan' => 'Uomo',
+			'ui.genderNonBinary' => 'Non binario',
+			'ui.genderPreferNotToSay' => 'Preferisco non dirlo',
+			'ui.genderWoman' => 'Donna',
 			'ui.generateAnalysis' => 'Genera Analisi',
 			'ui.generateDailyTransit' => 'Genera Transito Giornaliero',
 			'ui.generateDetailedCompatibilityAnalysis' => ({required Object relationshipTitle}) => 'Genera un\'analisi dettagliata della compatibilità tra ${relationshipTitle}',
@@ -2023,6 +2035,12 @@ extension on TranslationsIt {
 			'ui.goHome' => 'Vai alla Home',
 			'ui.goToHome' => 'Vai alla Home',
 			'ui.goToLogin' => 'Accedi',
+			'ui.appleSignInError' => ({required Object error}) => 'Errore accesso Apple: ${error}',
+			'ui.appleSignUpError' => ({required Object error}) => 'Errore registrazione Apple: ${error}',
+			'ui.changeEmail' => 'Modifica email',
+			'ui.confirmingEmail' => 'Conferma dell\'email in corso',
+			'ui.emailChangeConfirmed' => 'Email aggiornata',
+			'ui.emailChangeLinkSent' => ({required Object email}) => 'Abbiamo inviato un link di conferma a ${email}. Aprilo per completare la modifica',
 			'ui.googleSignInError' => ({required Object error}) => 'Errore accesso Google: ${error}',
 			'ui.googleSignInSuccessful' => 'Accesso con Google completato con successo',
 			'ui.googleSignUpError' => ({required Object error}) => 'Errore registrazione Google: ${error}',
@@ -2062,10 +2080,12 @@ extension on TranslationsIt {
 			'ui.monthlyTransitsCountPlural' => ({required Object count}) => '${count} transiti mensili salvati',
 			'ui.monthlyTransitsCountSingular' => '1 transito mensile salvato',
 			'ui.monthlyTransitsFilter' => 'Transiti mensili',
-			'ui.name' => 'nome',
+			'ui.name' => 'Nome',
 			'ui.needBirthChartForPredictions' => 'Per le previsioni ti serve prima un tema natale',
 			'ui.needTwoBirthChartsForSynastry' => 'Per creare una sinastria hai bisogno di almeno due temi natali salvati.',
 			'ui.networkErrorOccurred' => 'Si è verificato un errore di rete',
+			'ui.newEmail' => 'Nuova email',
+			'ui.newsletterNeedsEmail' => 'Aggiungi un\'email al tuo profilo per ricevere l\'oroscopo via email.',
 			'ui.newImprovedVersion' => 'Nuova versione migliorata',
 			'ui.newMoon' => 'Luna nuova',
 			'ui.newPassword' => 'Nuova password',
@@ -2091,7 +2111,7 @@ extension on TranslationsIt {
 			'ui.oneMonthFree' => '1 mese GRATIS',
 			'ui.oneMoreChartNeeded' => 'Hai già un tema. Creane un secondo per la sinastria',
 			'ui.or' => 'OPPURE',
-			'ui.password' => 'password',
+			'ui.password' => 'Password',
 			'ui.passwordResetSuccessful' => 'Password reimpostata con successo',
 			'ui.passwordTooShort' => 'La password deve essere lunga almeno 8 caratteri',
 			'ui.passwordsDoNotMatch' => 'Le password non corrispondono',
@@ -2132,7 +2152,6 @@ extension on TranslationsIt {
 			'ui.previous' => 'Indietro',
 			'ui.processingUnsubscribeRequest' => 'Elaborazione richiesta di disiscrizione...',
 			'ui.profile' => 'Profilo',
-			'ui.profilePhoto' => 'foto profilo',
 			'ui.profileTitle' => 'Profilo',
 			'ui.profileUpdatedSuccessfully' => 'Profilo aggiornato con successo',
 			'ui.reactivateSubscription' => 'Riattiva',
@@ -2154,6 +2173,7 @@ extension on TranslationsIt {
 			'ui.resetLinkSent' => ({required Object email}) => 'Abbiamo inviato un link per reimpostare la password a ${email}',
 			'ui.resetPassword' => 'Reimposta password',
 			'ui.resetPasswordTitle' => 'Reimposta la tua password',
+			'ui.restorePurchases' => 'Ripristina acquisti',
 			'ui.retry' => 'Riprova',
 			'ui.save' => 'Salva',
 			'ui.save20Percent' => 'Risparmia 20%',
@@ -2161,6 +2181,7 @@ extension on TranslationsIt {
 			'ui.save40Percent' => 'Risparmia 40%',
 			'ui.saveAmount' => ({required Object amount}) => 'RISPARMI ${amount}/ANNO',
 			'ui.saveChanges' => 'Salva modifiche',
+			'ui.savePassword' => 'Salva password',
 			'ui.savePdfDialogTitle' => 'Salva PDF',
 			'ui.savedChartsTitle' => 'Analisi salvate',
 			'ui.searchBirthCharts' => 'Cerca temi natali...',
@@ -2170,22 +2191,25 @@ extension on TranslationsIt {
 			'ui.searchInProgress' => 'Ricerca in corso...',
 			'ui.searchMonthlyTransits' => 'Cerca transiti mensili...',
 			'ui.searchSynastries' => 'Cerca sinastrie...',
-			'ui.searching' => 'Cercando...',
 			'ui.selectChart' => 'Seleziona tema',
 			'ui.selectDate' => 'Seleziona data',
-			'ui.selectFirstBirthChart' => 'Seleziona il primo tema natale',
 			'ui.selectLocation' => 'Seleziona località',
 			'ui.selectMonth' => 'Seleziona mese',
-			'ui.selectSecondBirthChart' => 'Seleziona il secondo tema natale',
 			'ui.semiannual' => 'Semestrale',
+			'ui.sendConfirmationLink' => 'Invia link di conferma',
+			'ui.sendLink' => 'Invia link',
 			'ui.sendResetLink' => 'Invia link di reset',
 			'ui.serverUnavailable' => 'Stiamo facendo qualche miglioria. Torniamo tra un attimo!',
 			'ui.setAsPersonal' => 'È il mio tema',
+			'ui.setPassword' => 'Imposta password',
+			'ui.setPasswordDescription' => ({required Object email}) => 'Ti invieremo un link a ${email} per scegliere una password. Poi potrai accedere anche con la tua email.',
+			'ui.setPasswordNeedsEmail' => 'Aggiungi prima un\'email al tuo account, così potremo inviarti il link per scegliere una password.',
 			'ui.settingsTitle' => 'Impostazioni',
 			'ui.sevenDaysFreeTrial' => '7 giorni di prova gratuita',
 			'ui.sharePdf' => 'Condividi PDF',
 			'ui.signIn' => 'Accedi',
 			'ui.signUp' => 'Registrati',
+			'ui.sixMonthsPeriod' => '6 mesi',
 			'ui.standardAnnual' => 'Standard - annuale',
 			'ui.standardMonthly' => 'Standard - mensile',
 			'ui.standardSemiannual' => 'Standard - semestrale',
@@ -2199,10 +2223,17 @@ extension on TranslationsIt {
 			'ui.subscriptionAmount' => 'Importo',
 			'ui.subscriptionCancelledSuccessfully' => 'Abbonamento annullato con successo',
 			'ui.subscriptionCancelsOn' => 'Termina il',
-			'ui.subscriptionConfirmationFailed' => 'Impossibile confermare l\'abbonamento. Contatta l\'assistenza.',
+			'ui.subscriptionConfirmationFailed' => 'Impossibile confermare l\'abbonamento. Contatta l\'assistenza',
 			'ui.subscriptionEndDate' => 'Si rinnova il',
 			'ui.subscriptionIncomplete' => 'Pagamento Incompleto',
+			'ui.subscriptionManagedElsewhere' => 'Questo abbonamento è stato acquistato fuori dall\'App Store: puoi gestirlo dal sito',
+			_ => null,
+		} ?? switch (path) {
 			'ui.subscriptionPastDue' => 'Pagamento Scaduto',
+			'ui.subscriptionPurchasedOnAndroid' => 'Questo abbonamento è stato acquistato nell\'app per Android: puoi gestirlo da lì o dal sito',
+			'ui.subscriptionPurchasedOnLinux' => 'Questo abbonamento è stato acquistato nell\'app per Linux: puoi gestirlo da lì o dal sito',
+			'ui.subscriptionPurchasedOnWeb' => 'Questo abbonamento è stato acquistato sul sito: puoi gestirlo da lì',
+			'ui.subscriptionPurchasedOnWindows' => 'Questo abbonamento è stato acquistato nell\'app per Windows: puoi gestirlo da lì o dal sito',
 			'ui.subscriptionRequiredForRegeneration' => 'Per rigenerare questa lettura in un\'altra lingua è necessario un abbonamento (va bene anche lo standard)',
 			'ui.subscriptionStartDate' => 'Iniziato il',
 			'ui.subscriptionSuccessGoHome' => 'Vai alla home',
@@ -2212,12 +2243,10 @@ extension on TranslationsIt {
 			'ui.subscriptionSuccessTrialInfo' => 'Il tuo periodo di prova di 7 giorni è iniziato',
 			'ui.subscriptionTrialing' => 'Prova',
 			'ui.subscriptionUnpaid' => 'Pagamento Fallito',
-			_ => null,
-		} ?? switch (path) {
 			'ui.subtitlePart1' => 'Allineati',
 			'ui.subtitlePart2' => 'al tuo',
 			'ui.subtitlePart3' => 'cielo',
-			'ui.surname' => 'cognome',
+			'ui.surname' => 'Cognome',
 			'ui.swipeToView' => 'Scorri per visualizzare',
 			'ui.synastriesCountPlural' => ({required Object count}) => '${count} sinastrie salvate',
 			'ui.synastriesCountSingular' => '1 sinastria salvata',
@@ -2231,7 +2260,7 @@ extension on TranslationsIt {
 			'ui.systemMode' => 'Sistema',
 			'ui.termsOfService' => 'Termini di Servizio',
 			'ui.theme' => 'Tema',
-			'ui.thenPricePerMonth' => ({required Object price}) => 'Poi ${price}/mese',
+			'ui.thenPrice' => ({required Object price, required Object period}) => 'Poi ${price}/${period}',
 			'ui.timeOfBirth' => 'Ora di Nascita',
 			'ui.transitDate' => 'Data del transito',
 			'ui.transitDescription' => 'I transiti sono i movimenti dei pianeti che, passando sulle posizioni del cielo natale, attivano influenze astrologiche temporanee.',
@@ -2268,6 +2297,7 @@ extension on TranslationsIt {
 			'ui.waxingGibbous' => 'Gibbosa crescente',
 			'ui.welcomeBack' => 'Bentornato!',
 			'ui.withoutBirthTimeWarning' => 'Senza l\'ora di nascita la lettura non prenderà in considerazione l\'Ascendente',
+			'ui.yearPeriod' => 'anno',
 			_ => null,
 		};
 	}

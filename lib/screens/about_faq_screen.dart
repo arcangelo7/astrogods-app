@@ -1,8 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../i18n/translations.g.dart';
+import '../utils/email_utils.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
 
@@ -505,7 +505,7 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
                   alignment: PlaceholderAlignment.baseline,
                   baseline: TextBaseline.alphabetic,
                   child: GestureDetector(
-                    onTap: () => _launchEmail('contact@astrogods.it'),
+                    onTap: () => openEmail(context, 'contact@astrogods.it'),
                     child: Text(
                       'contact@astrogods.it',
                       style: AppTextStyles.getBodyStyle(context).copyWith(
@@ -526,13 +526,6 @@ class _AboutFaqScreenState extends State<AboutFaqScreen> {
         ],
       ),
     );
-  }
-
-  Future<void> _launchEmail(String email) async {
-    final uri = Uri.parse('mailto:$email');
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    }
   }
 
   Widget _buildFaqItem(BuildContext context, String question, String answer) {

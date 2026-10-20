@@ -181,33 +181,36 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         offset: Offset(0, _titleAnimation.value),
                         child: Opacity(
                           opacity: _titleOpacityAnimation.value,
-                          child: Text(
-                            'ASTROGODS',
-                            style:
-                                (isLandscape && isMobile
-                                        ? AppTextStyles.getH3Style(context)
-                                              .copyWith(fontSize: 36)
-                                        : isMobile
-                                        ? AppTextStyles.getH2Style(context)
-                                        : AppTextStyles.getHeroStyle(context))
-                                    .copyWith(
-                                      letterSpacing:
-                                          _titleLetterSpacingAnimation.value,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      shadows: [
-                                        Shadow(
-                                          offset: const Offset(2, 2),
-                                          blurRadius: 4,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .shadow
-                                              .withValues(alpha: 0.5),
-                                        ),
-                                      ],
-                                    ),
-                            textAlign: TextAlign.center,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'ASTROGODS',
+                              style:
+                                  (isLandscape && isMobile
+                                          ? AppTextStyles.getH3Style(context)
+                                                .copyWith(fontSize: 36)
+                                          : isMobile
+                                          ? AppTextStyles.getH2Style(context)
+                                          : AppTextStyles.getHeroStyle(context))
+                                      .copyWith(
+                                        letterSpacing:
+                                            _titleLetterSpacingAnimation.value,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                        shadows: [
+                                          Shadow(
+                                            offset: const Offset(2, 2),
+                                            blurRadius: 4,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .shadow
+                                                .withValues(alpha: 0.5),
+                                          ),
+                                        ],
+                                      ),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       );

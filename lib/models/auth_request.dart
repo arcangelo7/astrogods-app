@@ -40,6 +40,7 @@ class RegisterRequest {
   final bool? unknownTime;
   @JsonKey(name: 'birth_time_fold')
   final int? birthTimeFold;
+  final String? gender;
 
   const RegisterRequest({
     required this.email,
@@ -54,6 +55,7 @@ class RegisterRequest {
     this.birthPlaceId,
     this.unknownTime,
     this.birthTimeFold,
+    this.gender,
   });
 
   factory RegisterRequest.fromJson(Map<String, dynamic> json) =>
@@ -70,6 +72,8 @@ class AuthResponse {
   final String? token;
   @JsonKey(name: 'error_key')
   final String? errorKey;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final bool created;
 
   const AuthResponse({
     required this.success,
@@ -77,6 +81,7 @@ class AuthResponse {
     this.user,
     this.token,
     this.errorKey,
+    this.created = false,
   });
 
   factory AuthResponse.fromJson(Map<String, dynamic> json) =>

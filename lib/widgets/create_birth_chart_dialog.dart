@@ -32,7 +32,7 @@ class _CreateBirthChartDialogState extends State<CreateBirthChartDialog> {
   @override
   void initState() {
     super.initState();
-    _birthChartService = BirthChartService(context: context);
+    _birthChartService = BirthChartService();
     _formWidget = BirthChartFormWidget(key: _formStateKey, isEditMode: false);
   }
 
@@ -64,6 +64,7 @@ class _CreateBirthChartDialogState extends State<CreateBirthChartDialog> {
       final birthChart = await _birthChartService.createBirthChart(
         givenName: formState.givenName,
         familyName: formState.familyName,
+        gender: formState.gender,
         date: formState.birthDateTime,
         placeId: formState.selectedLocation!.placeId,
         place: formState.selectedLocation!.formattedAddress,

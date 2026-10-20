@@ -5,6 +5,7 @@ part 'subscription.g.dart';
 @JsonSerializable()
 class Subscription {
   final String id;
+  final String source;
   final String status;
   @JsonKey(name: 'current_period_start')
   final int? currentPeriodStart;
@@ -12,25 +13,27 @@ class Subscription {
   final int? currentPeriodEnd;
   @JsonKey(name: 'cancel_at_period_end')
   final bool cancelAtPeriodEnd;
-  @JsonKey(name: 'customer_id')
-  final String customerId;
-  @JsonKey(name: 'plan_name')
-  final String planName;
-  final int amount;
-  final String currency;
-  final String interval;
+  final String tier;
+  final String period;
+  final int? amount;
+  final String? currency;
+
+  /// Where a Stripe subscription was bought; null for Apple subscriptions and
+  /// for Stripe subscriptions created before the app reported it.
+  final String? platform;
 
   Subscription({
     required this.id,
+    required this.source,
     required this.status,
     this.currentPeriodStart,
     this.currentPeriodEnd,
     required this.cancelAtPeriodEnd,
-    required this.customerId,
-    required this.planName,
-    required this.amount,
-    required this.currency,
-    required this.interval,
+    required this.tier,
+    required this.period,
+    this.amount,
+    this.currency,
+    this.platform,
   });
 
   factory Subscription.fromJson(Map<String, dynamic> json) =>
@@ -38,7 +41,10 @@ class Subscription {
 
   Map<String, dynamic> toJson() => _$SubscriptionToJson(this);
 
-  // Helper getters for formatted display
+  bool get isApple => source == 'apple';
+
+  bool get isPremium => tier == 'premium';
+
   DateTime? get currentPeriodStartDate => currentPeriodStart != null
       ? DateTime.fromMillisecondsSinceEpoch(currentPeriodStart! * 1000)
       : null;
@@ -46,22 +52,6 @@ class Subscription {
   DateTime? get currentPeriodEndDate => currentPeriodEnd != null
       ? DateTime.fromMillisecondsSinceEpoch(currentPeriodEnd! * 1000)
       : null;
-
-  String get formattedAmount {
-    final amountInCurrency = amount / 100;
-    return '${amountInCurrency.toStringAsFixed(2)} €';
-  }
-
-  String get formattedInterval {
-    switch (interval) {
-      case 'month':
-        return 'mensile';
-      case 'year':
-        return 'annuale';
-      default:
-        return interval;
-    }
-  }
 
   bool get isFailedPayment {
     return status == 'past_due' ||
@@ -99,9 +89,6 @@ class SubscriptionStatusResponse {
 
   bool get isExpired => hasSubscription && !isActive && !isFailedPayment;
 
-  bool get hasPremiumSubscription {
-    if (!hasActiveSubscription || subscription == null) return false;
-    final planName = subscription!.planName.toLowerCase();
-    return planName.contains('premium');
-  }
+  bool get hasPremiumSubscription =>
+      hasActiveSubscription && subscription!.isPremium;
 }

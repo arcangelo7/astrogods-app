@@ -30,7 +30,7 @@ class _LunarPhaseDisplayState extends State<LunarPhaseDisplay> {
   }
 
   Future<void> _loadLunarPhase() async {
-    final service = BirthChartService(context: context);
+    final service = BirthChartService();
     final data = await service.getLunarPhase(widget.birthChartId);
     ReadingStateService().cacheLunarPhase(widget.birthChartId, data);
     if (mounted) {

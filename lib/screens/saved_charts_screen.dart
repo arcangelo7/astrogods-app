@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/accent_icon.dart';
+import '../widgets/choice_chip_group.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
 import '../i18n/translations.g.dart';
@@ -47,9 +48,9 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
   @override
   void initState() {
     super.initState();
-    _birthChartService = BirthChartService(context: context);
-    _synastryService = SynastryService(context: context);
-    _transitService = TransitService(context: context);
+    _birthChartService = BirthChartService();
+    _synastryService = SynastryService();
+    _transitService = TransitService();
     _readingStateService = ReadingStateService();
     _subscriptionService = SubscriptionService(context: context);
     _readingStateService.readingCompletedNotifier.addListener(
@@ -78,6 +79,23 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
   void _debouncedFilter() {
     _debounceTimer?.cancel();
     _debounceTimer = Timer(const Duration(milliseconds: 300), _applyFilters);
+  }
+
+  // The backend also deletes the synastries and transits built on a deleted
+  // birth chart.
+  bool _isRemovedWith(AnalysisItem item, AnalysisItem deleted) {
+    if (item.id == deleted.id && item.type == deleted.type) return true;
+    if (deleted is! BirthChartAnalysisItem) return false;
+    return switch (item) {
+      SynastryAnalysisItem(:final synastry) =>
+        synastry.birthChartAId == deleted.id ||
+            synastry.birthChartBId == deleted.id,
+      DailyTransitAnalysisItem(:final transit) =>
+        transit.birthChartId == deleted.id,
+      MonthlyTransitAnalysisItem(:final transit) =>
+        transit.birthChartId == deleted.id,
+      _ => false,
+    };
   }
 
   Future<void> _loadSavedAnalyses() async {
@@ -175,12 +193,8 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
       if (mounted) {
         setState(() {
           _deletingItems.remove(itemKey);
-          _savedAnalyses.removeWhere(
-            (a) => a.id == analysis.id && a.type == analysis.type,
-          );
-          _filteredAnalyses.removeWhere(
-            (a) => a.id == analysis.id && a.type == analysis.type,
-          );
+          _savedAnalyses.removeWhere((a) => _isRemovedWith(a, analysis));
+          _filteredAnalyses.removeWhere((a) => _isRemovedWith(a, analysis));
         });
         String successMessage;
         if (analysis is BirthChartAnalysisItem) {
@@ -204,10 +218,7 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
             (message) => SnackbarUtils.showError(context, message),
           );
         } else {
-          SnackbarUtils.showError(
-            context,
-            'Errore durante la rimozione dell\'analisi',
-          );
+          SnackbarUtils.showError(context, t.ui.unknownErrorOccurred);
         }
       }
     }
@@ -487,41 +498,37 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
     }
   }
 
-  Widget _buildFilterChip(String label, AnalysisType type) {
-    return FilterChip(
-      label: Text(label),
-      selected: _selectedFilter == type,
-      onSelected: (selected) {
-        if (selected) {
-          setState(() {
-            _selectedFilter = type;
-          });
-          _applyFilters();
-        }
-      },
-    );
-  }
-
   Widget _buildSearchSection(Translations t, bool isDark) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _buildFilterChip(t.ui.birthChartsFilter, AnalysisType.birthChart),
-              _buildFilterChip(t.ui.synastriesFilter, AnalysisType.synastry),
-              _buildFilterChip(
-                t.ui.dailyTransitsFilter,
-                AnalysisType.dailyTransit,
+          ChoiceChipGroup<AnalysisType>(
+            options: [
+              ChoiceChipOption(
+                value: AnalysisType.birthChart,
+                label: t.ui.birthChartsFilter,
               ),
-              _buildFilterChip(
-                t.ui.monthlyTransitsFilter,
-                AnalysisType.monthlyTransit,
+              ChoiceChipOption(
+                value: AnalysisType.synastry,
+                label: t.ui.synastriesFilter,
+              ),
+              ChoiceChipOption(
+                value: AnalysisType.dailyTransit,
+                label: t.ui.dailyTransitsFilter,
+              ),
+              ChoiceChipOption(
+                value: AnalysisType.monthlyTransit,
+                label: t.ui.monthlyTransitsFilter,
               ),
             ],
+            selected: _selectedFilter,
+            onSelected: (type) {
+              setState(() {
+                _selectedFilter = type;
+              });
+              _applyFilters();
+            },
           ),
           const SizedBox(height: 16),
 
@@ -740,11 +747,13 @@ class _SavedChartsScreenState extends State<SavedChartsScreen> {
                             t.ui.savedChartsTitle,
                             style: AppTextStyles.getH4Style(context),
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            _getSubtitleText(t, _filteredAnalyses.length),
-                            style: AppTextStyles.getCaptionStyle(context),
-                          ),
+                          if (!_isLoading) ...[
+                            const SizedBox(height: 4),
+                            Text(
+                              _getSubtitleText(t, _filteredAnalyses.length),
+                              style: AppTextStyles.getCaptionStyle(context),
+                            ),
+                          ],
                         ],
                       ),
                     ),

@@ -40,8 +40,8 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
   @override
   void initState() {
     super.initState();
-    _synastryService = synastry.SynastryService(context: context);
-    _birthChartService = BirthChartService(context: context);
+    _synastryService = synastry.SynastryService();
+    _birthChartService = BirthChartService();
     _loadSavedCharts();
   }
 
@@ -253,16 +253,8 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
       key: _formKey,
       child: Column(
         children: [
-          // Persona A selector
-          Text(
-            Translations.of(context).ui.personA,
-            style: AppTextStyles.getBodyStyle(context)
-                .copyWith(fontWeight: FontWeight.w600),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
           BirthChartSelector(
-            labelText: Translations.of(context).ui.selectFirstBirthChart,
+            labelText: Translations.of(context).ui.personA,
             selectedChart: _selectedChartA,
             excludeChartIds: _selectedChartB != null
                 ? [_selectedChartB!.id]
@@ -287,16 +279,8 @@ class _RelationshipsScreenState extends State<RelationshipsScreen> {
 
           const SizedBox(height: 24),
 
-          // Persona B selector
-          Text(
-            Translations.of(context).ui.personB,
-            style: AppTextStyles.getBodyStyle(context)
-                .copyWith(fontWeight: FontWeight.w600),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
           BirthChartSelector(
-            labelText: Translations.of(context).ui.selectSecondBirthChart,
+            labelText: Translations.of(context).ui.personB,
             selectedChart: _selectedChartB,
             excludeChartIds: _selectedChartA != null
                 ? [_selectedChartA!.id]

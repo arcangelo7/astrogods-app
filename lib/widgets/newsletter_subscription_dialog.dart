@@ -3,6 +3,7 @@ import 'package:material_ui/material_ui.dart';
 import '../i18n/translations.g.dart';
 import '../constants/text_styles.dart';
 import '../models/birth_chart.dart';
+import '../services/api_client.dart';
 import '../services/newsletter_service.dart';
 import '../utils/snackbar_utils.dart';
 import '../widgets/birth_chart_selector.dart';
@@ -186,7 +187,7 @@ class _NewsletterSubscriptionDialogState
     });
 
     try {
-      final newsletterService = NewsletterService(context: context);
+      final newsletterService = NewsletterService();
 
       if (_selectedType == 'daily') {
         await newsletterService.subscribeDailyNewsletter(
@@ -214,7 +215,12 @@ class _NewsletterSubscriptionDialogState
         setState(() {
           _isLoading = false;
         });
-        SnackbarUtils.showError(context, e.toString());
+        SnackbarUtils.showError(
+          context,
+          e is ApiException
+              ? e.message
+              : Translations.of(context).ui.unknownErrorOccurred,
+        );
       }
     }
   }

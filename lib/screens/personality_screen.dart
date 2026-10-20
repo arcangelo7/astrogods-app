@@ -6,6 +6,7 @@ import '../i18n/translations.g.dart';
 import '../constants/text_styles.dart';
 import '../widgets/starry_night_background.dart';
 import '../widgets/gradient_button.dart';
+import '../widgets/gender_selector.dart';
 import '../widgets/location_search_field.dart';
 import '../widgets/mystical_text_field.dart';
 import '../widgets/date_picker_field.dart';
@@ -38,6 +39,7 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
   final _birthDateController = TextEditingController();
   final _birthTimeController = TextEditingController();
   bool _dontKnowBirthTime = false;
+  String? _gender;
   bool _isLoading = false;
   bool _chartOnly = false;
 
@@ -50,7 +52,7 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
   @override
   void initState() {
     super.initState();
-    _birthChartService = BirthChartService(context: context);
+    _birthChartService = BirthChartService();
     _birthTime = BirthTimeController(
       widget.prefillData?['birthTimeFold'] as int?,
     );
@@ -67,10 +69,9 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
     if (prefillData['familyName'] != null) {
       _lastNameController.text = prefillData['familyName'] as String;
     }
+    _gender = prefillData['gender'] as String?;
     if (prefillData['birthDate'] != null) {
       _selectedDate = DateTime.parse(prefillData['birthDate'] as String);
-      _birthDateController.text =
-          '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
     }
     if (prefillData['birthTimeHour'] != null &&
         prefillData['birthTimeMinute'] != null) {
@@ -92,6 +93,17 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
     }
     if (prefillData['unknownTime'] == true) {
       _dontKnowBirthTime = true;
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_selectedDate != null) {
+      _birthDateController.text = app_date_utils.DateUtils.formatDate(
+        context,
+        _selectedDate!,
+      );
     }
   }
 
@@ -132,6 +144,7 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
       final birthChart = await _birthChartService.createBirthChart(
         givenName: _firstNameController.text.trim(),
         familyName: _lastNameController.text.trim(),
+        gender: _gender,
         date: app_date_utils.DateUtils.toBirthDateTimeIso(
           _selectedDate!,
           _dontKnowBirthTime
@@ -230,7 +243,7 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
                                       .ui
                                       .firstName,
                                   validator: (value) {
-                                    if (value == null || value.isEmpty) {
+                                    if (value == null || value.trim().isEmpty) {
                                       return Translations.of(context)
                                           .ui
                                           .pleaseEnterFirstName;
@@ -245,7 +258,7 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
                                       .ui
                                       .lastName,
                                   validator: (value) {
-                                    if (value == null || value.isEmpty) {
+                                    if (value == null || value.trim().isEmpty) {
                                       return Translations.of(context)
                                           .ui
                                           .pleaseEnterLastName;
@@ -264,7 +277,8 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
                                         .ui
                                         .firstName,
                                     validator: (value) {
-                                      if (value == null || value.isEmpty) {
+                                      if (value == null ||
+                                          value.trim().isEmpty) {
                                         return Translations.of(context)
                                             .ui
                                             .pleaseEnterFirstName;
@@ -281,7 +295,8 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
                                         .ui
                                         .lastName,
                                     validator: (value) {
-                                      if (value == null || value.isEmpty) {
+                                      if (value == null ||
+                                          value.trim().isEmpty) {
                                         return Translations.of(context)
                                             .ui
                                             .pleaseEnterLastName;
@@ -295,24 +310,9 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
 
                       const SizedBox(height: 20),
 
-                      LocationSearchField(
-                        controller: _birthPlaceController,
-                        labelText: Translations.of(context).ui.birthPlace,
-                        language: Localizations.localeOf(context).languageCode,
-                        validator: (value) {
-                          if (_selectedLocation == null) {
-                            return Translations.of(context)
-                                .ui
-                                .pleaseSelectBirthPlace;
-                          }
-                          return null;
-                        },
-                        onLocationSelected: (PlaceDetails? location) {
-                          setState(() {
-                            _selectedLocation = location;
-                          });
-                          _birthTime.reset();
-                        },
+                      GenderSelector(
+                        value: _gender,
+                        onChanged: (gender) => setState(() => _gender = gender),
                       ),
 
                       const SizedBox(height: 20),
@@ -437,6 +437,28 @@ class _PersonalityScreenState extends State<PersonalityScreen> {
                             if (_dontKnowBirthTime) {
                               _birthTimeController.clear();
                             }
+                          });
+                          _birthTime.reset();
+                        },
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      LocationSearchField(
+                        controller: _birthPlaceController,
+                        labelText: Translations.of(context).ui.birthPlace,
+                        language: Localizations.localeOf(context).languageCode,
+                        validator: (value) {
+                          if (_selectedLocation == null) {
+                            return Translations.of(context)
+                                .ui
+                                .pleaseSelectBirthPlace;
+                          }
+                          return null;
+                        },
+                        onLocationSelected: (PlaceDetails? location) {
+                          setState(() {
+                            _selectedLocation = location;
                           });
                           _birthTime.reset();
                         },

@@ -89,7 +89,7 @@ class _TransitReadingScreenState extends State<TransitReadingScreen>
   @override
   void initState() {
     super.initState();
-    _service = transit.TransitService(context: context);
+    _service = transit.TransitService();
     _readingStateService = ReadingStateService();
 
     if (widget.chartOnly) return;

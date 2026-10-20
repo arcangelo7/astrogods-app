@@ -1,12 +1,27 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../models/subscription.dart';
 import '../i18n/translations.g.dart';
 import '../constants/text_styles.dart';
 import '../utils/date_utils.dart' as app_date_utils;
+import '../services/apple_store_service.dart';
 import '../services/subscription_service.dart';
 import '../utils/snackbar_utils.dart';
+
+/// Tells iPhone and Mac users where to manage a subscription bought outside the
+/// App Store.
+String managedElsewhereMessage(Translations t, Subscription subscription) {
+  return switch (subscription.platform) {
+    null => t.ui.subscriptionManagedElsewhere,
+    'web' => t.ui.subscriptionPurchasedOnWeb,
+    'android' => t.ui.subscriptionPurchasedOnAndroid,
+    'windows' => t.ui.subscriptionPurchasedOnWindows,
+    'linux' => t.ui.subscriptionPurchasedOnLinux,
+    final platform => throw StateError('Unknown purchase platform $platform'),
+  };
+}
 
 class SubscriptionCard extends StatelessWidget {
   final Subscription subscription;
@@ -55,9 +70,39 @@ class SubscriptionCard extends StatelessWidget {
     }
   }
 
+  String _planTitle(Translations t) {
+    final isPremium = subscription.isPremium;
+    return switch (subscription.period) {
+      'monthly' => isPremium ? t.ui.premiumMonthly : t.ui.standardMonthly,
+      'semiannual' =>
+        isPremium ? t.ui.premiumSemiannual : t.ui.standardSemiannual,
+      'annual' => isPremium ? t.ui.premiumAnnual : t.ui.standardAnnual,
+      _ => throw StateError('Unknown period ${subscription.period}'),
+    };
+  }
+
+  String _periodLabel(Translations t) {
+    return switch (subscription.period) {
+      'monthly' => t.ui.monthPeriod,
+      'semiannual' => t.ui.sixMonthsPeriod,
+      'annual' => t.ui.yearPeriod,
+      _ => throw StateError('Unknown period ${subscription.period}'),
+    };
+  }
+
+  String _formattedAmount(BuildContext context) {
+    final formatter = NumberFormat.simpleCurrency(
+      locale: Localizations.localeOf(context).toString(),
+      name: subscription.currency!.toUpperCase(),
+    );
+    return formatter.format(subscription.amount! / 100);
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
+    final managedElsewhere =
+        AppleStoreService.isAvailable && !subscription.isApple;
 
     return Card(
       color: Theme.of(context).colorScheme.surface,
@@ -72,7 +117,7 @@ class SubscriptionCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    subscription.planName,
+                    _planTitle(t),
                     style: AppTextStyles.getH5Style(context),
                   ),
                 ),
@@ -101,13 +146,14 @@ class SubscriptionCard extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Subscription details
-            _buildDetailRow(
-              context,
-              t.ui.subscriptionAmount,
-              '${subscription.formattedAmount}/${subscription.formattedInterval}',
-            ),
-            const SizedBox(height: 8),
+            if (subscription.amount != null) ...[
+              _buildDetailRow(
+                context,
+                t.ui.subscriptionAmount,
+                '${_formattedAmount(context)}/${_periodLabel(t)}',
+              ),
+              const SizedBox(height: 8),
+            ],
             if (subscription.currentPeriodStartDate != null) ...[
               _buildDetailRow(
                 context,
@@ -150,6 +196,11 @@ class SubscriptionCard extends StatelessWidget {
                     foregroundColor: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
+              ),
+            ] else if (managedElsewhere) ...[
+              Text(
+                managedElsewhereMessage(t, subscription),
+                style: AppTextStyles.getCaptionStyle(context),
               ),
             ]
             // Failed payment warning and actions
@@ -291,8 +342,12 @@ class _ManageSubscriptionButtonState extends State<_ManageSubscriptionButton> {
     });
 
     try {
-      final subscriptionService = SubscriptionService(context: context);
-      await subscriptionService.openCustomerPortal();
+      if (widget.subscription.isApple) {
+        await AppleStoreService.instance.openManageSubscriptions();
+      } else {
+        final subscriptionService = SubscriptionService(context: context);
+        await subscriptionService.openCustomerPortal();
+      }
 
       // Portal closed - trigger refresh callback
       if (mounted && widget.onPortalClosed != null) {
