@@ -590,62 +590,6 @@
     {
         "type": "archive",
         "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/file_selector_linux-0.9.4+1.tar.gz",
-        "sha256": "da76400e7872ce7637ffdce12749ec24169c25f6195c28372208e65a24bcd2ab",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/file_selector_linux-0.9.4+1"
-    },
-    {
-        "type": "inline",
-        "contents": "da76400e7872ce7637ffdce12749ec24169c25f6195c28372208e65a24bcd2ab",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "file_selector_linux-0.9.4+1.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/file_selector_macos-0.9.5+1.tar.gz",
-        "sha256": "d57c62362766b5e7ae739448650b66c6aab7a68ba7ecc65e04018652645ae0f4",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/file_selector_macos-0.9.5+1"
-    },
-    {
-        "type": "inline",
-        "contents": "d57c62362766b5e7ae739448650b66c6aab7a68ba7ecc65e04018652645ae0f4",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "file_selector_macos-0.9.5+1.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/file_selector_platform_interface-2.7.0.tar.gz",
-        "sha256": "35e0bd61ebcdb91a3505813b055b09b79dfdc7d0aee9c09a7ba59ae4bb13dc85",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/file_selector_platform_interface-2.7.0"
-    },
-    {
-        "type": "inline",
-        "contents": "35e0bd61ebcdb91a3505813b055b09b79dfdc7d0aee9c09a7ba59ae4bb13dc85",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "file_selector_platform_interface-2.7.0.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/file_selector_windows-0.9.3+6.tar.gz",
-        "sha256": "fbefc5fb92c6d3cbe8d284a2cd971b593bb07d2cd6da8557b81a862250b4acec",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/file_selector_windows-0.9.3+6"
-    },
-    {
-        "type": "inline",
-        "contents": "fbefc5fb92c6d3cbe8d284a2cd971b593bb07d2cd6da8557b81a862250b4acec",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "file_selector_windows-0.9.3+6.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
         "url": "https://pub.dev/api/archives/fixnum-1.1.1.tar.gz",
         "sha256": "b6dc7065e46c974bc7c5f143080a6764ec7a4be6da1285ececdc37be96de53be",
         "strip-components": 0,
@@ -698,20 +642,6 @@
         "contents": "3105dc8492f6183fb076ccf1f351ac3d60564bff92e20bfc4af9cc1651f4e7e1",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
         "dest-filename": "flutter_lints-6.0.0.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/flutter_plugin_android_lifecycle-2.0.35.tar.gz",
-        "sha256": "3854fe5e3bff0b113c658f260b90c95dea17c92db0f2addeac2e343dd9969785",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.35"
-    },
-    {
-        "type": "inline",
-        "contents": "3854fe5e3bff0b113c658f260b90c95dea17c92db0f2addeac2e343dd9969785",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "flutter_plugin_android_lifecycle-2.0.35.sha256"
     },
     {
         "type": "archive",
@@ -824,20 +754,6 @@
         "contents": "b385e20726ef5315d302c5933bfb728103116c5be2d3d17094b01a82da538c1f",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
         "dest-filename": "google_cloud-0.5.0.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/google_fonts-9.0.0.tar.gz",
-        "sha256": "fdbbfbbb1a62f376ab29fa9627561d389751fb984da0b630ce3326e272911c8a",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/google_fonts-9.0.0"
-    },
-    {
-        "type": "inline",
-        "contents": "fdbbfbbb1a62f376ab29fa9627561d389751fb984da0b630ce3326e272911c8a",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "google_fonts-9.0.0.sha256"
     },
     {
         "type": "archive",
@@ -1136,114 +1052,58 @@
     {
         "type": "archive",
         "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/image_picker-1.2.4.tar.gz",
-        "sha256": "e71b1bd9e40124041128d60fc3034c7b1598e1bba4e570bba0c70301c817013a",
+        "url": "https://pub.dev/api/archives/in_app_purchase-3.3.1.tar.gz",
+        "sha256": "d8317ec2ed6fe33199957d67ee67e08a4fd4871ef93b91d7611d8ee560892afc",
         "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/image_picker-1.2.4"
+        "dest": ".pub-cache/hosted/pub.dev/in_app_purchase-3.3.1"
     },
     {
         "type": "inline",
-        "contents": "e71b1bd9e40124041128d60fc3034c7b1598e1bba4e570bba0c70301c817013a",
+        "contents": "d8317ec2ed6fe33199957d67ee67e08a4fd4871ef93b91d7611d8ee560892afc",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "image_picker-1.2.4.sha256"
+        "dest-filename": "in_app_purchase-3.3.1.sha256"
     },
     {
         "type": "archive",
         "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/image_picker_android-0.8.13+25.tar.gz",
-        "sha256": "8a7823d5d3e884f7780829d85d92110d072bdcd9ed48e2be158d2abe91a912d4",
+        "url": "https://pub.dev/api/archives/in_app_purchase_android-0.5.4.tar.gz",
+        "sha256": "eac857f7408769a68194be99ceb233ad4e3599e55ccd6422afaf0c7fd5066738",
         "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/image_picker_android-0.8.13+25"
+        "dest": ".pub-cache/hosted/pub.dev/in_app_purchase_android-0.5.4"
     },
     {
         "type": "inline",
-        "contents": "8a7823d5d3e884f7780829d85d92110d072bdcd9ed48e2be158d2abe91a912d4",
+        "contents": "eac857f7408769a68194be99ceb233ad4e3599e55ccd6422afaf0c7fd5066738",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "image_picker_android-0.8.13+25.sha256"
+        "dest-filename": "in_app_purchase_android-0.5.4.sha256"
     },
     {
         "type": "archive",
         "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/image_picker_for_web-3.1.1.tar.gz",
-        "sha256": "66257a3191ab360d23a55c8241c91a6e329d31e94efa7be9cf7a212e65850214",
+        "url": "https://pub.dev/api/archives/in_app_purchase_platform_interface-1.4.1.tar.gz",
+        "sha256": "0b0076cac8ce4fa7048f01e76af8b123aeb6a7c4e0dea2a5206d6664454f3e36",
         "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/image_picker_for_web-3.1.1"
+        "dest": ".pub-cache/hosted/pub.dev/in_app_purchase_platform_interface-1.4.1"
     },
     {
         "type": "inline",
-        "contents": "66257a3191ab360d23a55c8241c91a6e329d31e94efa7be9cf7a212e65850214",
+        "contents": "0b0076cac8ce4fa7048f01e76af8b123aeb6a7c4e0dea2a5206d6664454f3e36",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "image_picker_for_web-3.1.1.sha256"
+        "dest-filename": "in_app_purchase_platform_interface-1.4.1.sha256"
     },
     {
         "type": "archive",
         "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/image_picker_ios-0.8.13+12.tar.gz",
-        "sha256": "592e5cfed81d73c2784bcaa04db9d06b19371faf036f2afa7f650452025db180",
+        "url": "https://pub.dev/api/archives/in_app_purchase_storekit-0.4.14.tar.gz",
+        "sha256": "0d7506466d3865a2a5a3d414b90fb373f6b8908dbb6654dcb59e665e8a5b1105",
         "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/image_picker_ios-0.8.13+12"
+        "dest": ".pub-cache/hosted/pub.dev/in_app_purchase_storekit-0.4.14"
     },
     {
         "type": "inline",
-        "contents": "592e5cfed81d73c2784bcaa04db9d06b19371faf036f2afa7f650452025db180",
+        "contents": "0d7506466d3865a2a5a3d414b90fb373f6b8908dbb6654dcb59e665e8a5b1105",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "image_picker_ios-0.8.13+12.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/image_picker_linux-0.2.2.tar.gz",
-        "sha256": "1f81c5f2046b9ab724f85523e4af65be1d47b038160a8c8deed909762c308ed4",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/image_picker_linux-0.2.2"
-    },
-    {
-        "type": "inline",
-        "contents": "1f81c5f2046b9ab724f85523e4af65be1d47b038160a8c8deed909762c308ed4",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "image_picker_linux-0.2.2.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/image_picker_macos-0.2.2+1.tar.gz",
-        "sha256": "86f0f15a309de7e1a552c12df9ce5b59fe927e71385329355aec4776c6a8ec91",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/image_picker_macos-0.2.2+1"
-    },
-    {
-        "type": "inline",
-        "contents": "86f0f15a309de7e1a552c12df9ce5b59fe927e71385329355aec4776c6a8ec91",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "image_picker_macos-0.2.2+1.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/image_picker_platform_interface-2.11.2.tar.gz",
-        "sha256": "2dee4b4e3be429db71472c9c559c981498070a61af1ba82e0e4986fc5dadc042",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/image_picker_platform_interface-2.11.2"
-    },
-    {
-        "type": "inline",
-        "contents": "2dee4b4e3be429db71472c9c559c981498070a61af1ba82e0e4986fc5dadc042",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "image_picker_platform_interface-2.11.2.sha256"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
-        "url": "https://pub.dev/api/archives/image_picker_windows-0.2.2.tar.gz",
-        "sha256": "d248c86554a72b5495a31c56f060cf73a41c7ff541689327b1a7dbccc33adfae",
-        "strip-components": 0,
-        "dest": ".pub-cache/hosted/pub.dev/image_picker_windows-0.2.2"
-    },
-    {
-        "type": "inline",
-        "contents": "d248c86554a72b5495a31c56f060cf73a41c7ff541689327b1a7dbccc33adfae",
-        "dest": ".pub-cache/hosted-hashes/pub.dev",
-        "dest-filename": "image_picker_windows-0.2.2.sha256"
+        "dest-filename": "in_app_purchase_storekit-0.4.14.sha256"
     },
     {
         "type": "archive",
@@ -2126,6 +1986,48 @@
         "contents": "537f5dd0e18ef4503c48a3309cfd888bc4a72b275286ac6c5aaf9b91bc2522ca",
         "dest": ".pub-cache/hosted-hashes/pub.dev",
         "dest-filename": "sign_in_button-5.0.0.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/sign_in_with_apple-8.2.0.tar.gz",
+        "sha256": "6d205ad2b30f95b231812d61f19b4a8df836f16ba9cde28735b3ac8ece9113f7",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/sign_in_with_apple-8.2.0"
+    },
+    {
+        "type": "inline",
+        "contents": "6d205ad2b30f95b231812d61f19b4a8df836f16ba9cde28735b3ac8ece9113f7",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "sign_in_with_apple-8.2.0.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/sign_in_with_apple_platform_interface-2.0.0.tar.gz",
+        "sha256": "981bca52cf3bb9c3ad7ef44aace2d543e5c468bb713fd8dda4275ff76dfa6659",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/sign_in_with_apple_platform_interface-2.0.0"
+    },
+    {
+        "type": "inline",
+        "contents": "981bca52cf3bb9c3ad7ef44aace2d543e5c468bb713fd8dda4275ff76dfa6659",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "sign_in_with_apple_platform_interface-2.0.0.sha256"
+    },
+    {
+        "type": "archive",
+        "archive-type": "tar-gzip",
+        "url": "https://pub.dev/api/archives/sign_in_with_apple_web-3.0.0.tar.gz",
+        "sha256": "f316400827f52cafcf50d00e1a2e8a0abc534ca1264e856a81c5f06bd5b10fed",
+        "strip-components": 0,
+        "dest": ".pub-cache/hosted/pub.dev/sign_in_with_apple_web-3.0.0"
+    },
+    {
+        "type": "inline",
+        "contents": "f316400827f52cafcf50d00e1a2e8a0abc534ca1264e856a81c5f06bd5b10fed",
+        "dest": ".pub-cache/hosted-hashes/pub.dev",
+        "dest-filename": "sign_in_with_apple_web-3.0.0.sha256"
     },
     {
         "type": "archive",
