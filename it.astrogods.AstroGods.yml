@@ -49,8 +49,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/arcangelo7/astrogods-app.git
-        tag: 5.0.0
-        commit: 3b5724de0a6bc376ec1d5fc0c4ae667da1fec254
+        tag: 5.0.1
+        commit: e4972d00749444120961b52b93ec77159c909e17
       - generated/sources/pubspec.json
     modules:
       - generated/modules/flutter-sdk-3.47.7.json
