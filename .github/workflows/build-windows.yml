@@ -5,9 +5,6 @@
 name: Build Windows
 
 on:
-  push:
-    tags:
-      - '*.*.*'
   workflow_dispatch:
 
 jobs:

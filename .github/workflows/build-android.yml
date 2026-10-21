@@ -5,9 +5,6 @@
 name: Build Android
 
 on:
-  push:
-    tags:
-      - '*.*.*'
   workflow_dispatch:
 
 jobs:

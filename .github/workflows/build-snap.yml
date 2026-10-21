@@ -5,9 +5,6 @@
 name: Build Snap
 
 on:
-  push:
-    tags:
-      - '*.*.*'
   workflow_dispatch:
 
 jobs:

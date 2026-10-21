@@ -5,18 +5,20 @@
 name: Publish Apple
 
 on:
-  push:
-    tags:
-      - '*.*.*'
   workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Apple platform to build and submit'
+        required: true
+        type: choice
+        options:
+          - ios
+          - macos
 
 jobs:
   publish:
     runs-on: macos-26
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [ios, macos]
+    timeout-minutes: 60
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -58,7 +60,7 @@ jobs:
         run: echo "$API_KEY_JSON" > "$RUNNER_TEMP/app-store-connect.json"
 
       - name: Build, upload and submit for review
-        working-directory: ${{ matrix.platform }}
+        working-directory: ${{ inputs.platform }}
         env:
           APP_STORE_CONNECT_API_KEY_PATH: ${{ runner.temp }}/app-store-connect.json
           LC_ALL: en_US.UTF-8
