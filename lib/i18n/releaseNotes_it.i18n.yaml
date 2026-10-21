@@ -25,4 +25,5 @@ releaseNotes_4_8_0: Nuova icona dell'app. Ottimizzato lo sfondo del cielo stella
 releaseNotes_4_9_0: Aggiornati termini e condizioni e informativa sulla privacy. Risolto un problema di registrazione con email e password. Il tema natale viene ora generato automaticamente dopo la registrazione.
 releaseNotes_5_0_0: 'Su iPhone e Mac puoi accedere con Apple e abbonarti tramite l''App Store. Cambia email o password dalle impostazioni, o aggiungi una password a un account Google o Apple. Le letture seguono il genere che scegli, o restano neutre se preferisci non dirlo. I tuoi temi natali sono visibili solo a te e le letture non inviano più i tuoi nomi all''IA. Dopo l''aggiornamento accedi di nuovo. Le foto profilo e i temi creati senza account non ci sono più.'
 releaseNotes_5_0_1: 'Piccole correzioni per rendere l''app più stabile.'
+releaseNotes_5_0_2: 'Piccole correzioni per rendere l''app più stabile.'
 version: Versione ${version}

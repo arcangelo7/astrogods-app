@@ -758,6 +758,7 @@ class _Translations$releaseNotes$it implements Translations$releaseNotes$en {
 	@override String get releaseNotes_4_9_0 => 'Aggiornati termini e condizioni e informativa sulla privacy. Risolto un problema di registrazione con email e password. Il tema natale viene ora generato automaticamente dopo la registrazione.';
 	@override String get releaseNotes_5_0_0 => 'Su iPhone e Mac puoi accedere con Apple e abbonarti tramite l\'App Store. Cambia email o password dalle impostazioni, o aggiungi una password a un account Google o Apple. Le letture seguono il genere che scegli, o restano neutre se preferisci non dirlo. I tuoi temi natali sono visibili solo a te e le letture non inviano più i tuoi nomi all\'IA. Dopo l\'aggiornamento accedi di nuovo. Le foto profilo e i temi creati senza account non ci sono più.';
 	@override String get releaseNotes_5_0_1 => 'Piccole correzioni per rendere l\'app più stabile.';
+	@override String get releaseNotes_5_0_2 => 'Piccole correzioni per rendere l\'app più stabile.';
 	@override String version({required Object version}) => 'Versione ${version}';
 }
 
@@ -1873,6 +1874,7 @@ extension on TranslationsIt {
 			'releaseNotes.releaseNotes_4_9_0' => 'Aggiornati termini e condizioni e informativa sulla privacy. Risolto un problema di registrazione con email e password. Il tema natale viene ora generato automaticamente dopo la registrazione.',
 			'releaseNotes.releaseNotes_5_0_0' => 'Su iPhone e Mac puoi accedere con Apple e abbonarti tramite l\'App Store. Cambia email o password dalle impostazioni, o aggiungi una password a un account Google o Apple. Le letture seguono il genere che scegli, o restano neutre se preferisci non dirlo. I tuoi temi natali sono visibili solo a te e le letture non inviano più i tuoi nomi all\'IA. Dopo l\'aggiornamento accedi di nuovo. Le foto profilo e i temi creati senza account non ci sono più.',
 			'releaseNotes.releaseNotes_5_0_1' => 'Piccole correzioni per rendere l\'app più stabile.',
+			'releaseNotes.releaseNotes_5_0_2' => 'Piccole correzioni per rendere l\'app più stabile.',
 			'releaseNotes.version' => ({required Object version}) => 'Versione ${version}',
 			'ui.about' => 'Informazioni',
 			'ui.account' => 'Account',
@@ -2227,9 +2229,9 @@ extension on TranslationsIt {
 			'ui.subscriptionCancelsOn' => 'Termina il',
 			'ui.subscriptionConfirmationFailed' => 'Impossibile confermare l\'abbonamento. Contatta l\'assistenza',
 			'ui.subscriptionEndDate' => 'Si rinnova il',
-			'ui.subscriptionIncomplete' => 'Pagamento Incompleto',
 			_ => null,
 		} ?? switch (path) {
+			'ui.subscriptionIncomplete' => 'Pagamento Incompleto',
 			'ui.subscriptionManagedElsewhere' => 'Questo abbonamento è stato acquistato fuori dall\'App Store: puoi gestirlo dal sito',
 			'ui.subscriptionPastDue' => 'Pagamento Scaduto',
 			'ui.subscriptionPurchasedOnAndroid' => 'Questo abbonamento è stato acquistato nell\'app per Android: puoi gestirlo da lì o dal sito',

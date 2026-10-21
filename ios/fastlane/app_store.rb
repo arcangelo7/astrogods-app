@@ -46,7 +46,7 @@ def cancel_rejected_submission(platform)
   rejected = connect_app.get_review_submissions(filter: { state: states::UNRESOLVED_ISSUES, platform: platform }).first
   return if rejected.nil?
 
-  UI.message("Cancelling the rejected review submission #{rejected.id}")
+  FastlaneCore::UI.message("Cancelling the rejected review submission #{rejected.id}")
   rejected.cancel_submission
   sleep(10) while Spaceship::ConnectAPI::ReviewSubmission.get(review_submission_id: rejected.id).state == states::CANCELING
 end
