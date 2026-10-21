@@ -5,7 +5,7 @@ PKG_DIR = File.join(REPO_ROOT, "build/macos/pkg")
 default_platform(:mac)
 
 platform :mac do
-  desc "Upload the Mac screenshots in fastlane/screenshots, replacing the ones on App Store Connect"
+  desc "Sync App Store Connect with the Mac screenshots in fastlane/screenshots, uploading only the changed ones"
   lane :upload_screenshots do
     deliver(
       platform: "osx",
@@ -13,7 +13,7 @@ platform :mac do
       skip_binary_upload: true,
       skip_metadata: true,
       skip_app_version_update: true,
-      overwrite_screenshots: true,
+      sync_screenshots: true,
       run_precheck_before_submit: false,
       force: true
     )
@@ -67,6 +67,7 @@ platform :mac do
 
   desc "Upload the built pkg with its listing and screenshots, then submit the version for review"
   lane :release do
+    cancel_rejected_submission(Spaceship::ConnectAPI::Platform::MAC_OS)
     deliver(
       platform: "osx",
       api_key_path: ENV.fetch("APP_STORE_CONNECT_API_KEY_PATH"),

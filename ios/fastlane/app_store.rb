@@ -7,6 +7,7 @@ ANDROID_METADATA = File.join(REPO_ROOT, "android/fastlane/metadata/android")
 WINDOWS_LISTINGS = JSON.parse(File.read(File.join(REPO_ROOT, "windows/metadata.json"), encoding: "UTF-8"))["Listings"]
 VERSION, BUILD_NUMBER = File.read(File.join(REPO_ROOT, "pubspec.yaml"), encoding: "UTF-8")
                             .match(/^version: (\d+\.\d+\.\d+)\+(\d+)$/).captures
+ENV["FASTLANE_ENABLE_BETA_DELIVER_SYNC_SCREENSHOTS"] = "1"
 LOCALES = [
   { apple: "en-US", android: "en-US", windows: "en-us" },
   { apple: "it", android: "it-IT", windows: "it" }
@@ -30,9 +31,24 @@ def app_store_listing
   }
 end
 
-def released_on_app_store?(platform)
+def connect_app
   Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from_json_file(ENV.fetch("APP_STORE_CONNECT_API_KEY_PATH"))
-  !Spaceship::ConnectAPI::App.find(APP_IDENTIFIER).get_live_app_store_version(platform: platform).nil?
+  Spaceship::ConnectAPI::App.find(APP_IDENTIFIER)
+end
+
+def released_on_app_store?(platform)
+  !connect_app.get_live_app_store_version(platform: platform).nil?
+end
+
+# A rejected submission stays open and blocks deliver from submitting the new build.
+def cancel_rejected_submission(platform)
+  states = Spaceship::ConnectAPI::ReviewSubmission::ReviewSubmissionState
+  rejected = connect_app.get_review_submissions(filter: { state: states::UNRESOLVED_ISSUES, platform: platform }).first
+  return if rejected.nil?
+
+  UI.message("Cancelling the rejected review submission #{rejected.id}")
+  rejected.cancel_submission
+  sleep(10) while Spaceship::ConnectAPI::ReviewSubmission.get(review_submission_id: rejected.id).state == states::CANCELING
 end
 
 # App Store rejects release notes on the first version of an app.
@@ -40,7 +56,7 @@ def app_store_release(platform)
   options = {
     **app_store_listing,
     app_version: VERSION,
-    overwrite_screenshots: true,
+    sync_screenshots: true,
     submit_for_review: true,
     automatic_release: true,
     submission_information: {

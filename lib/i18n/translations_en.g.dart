@@ -2097,6 +2097,9 @@ class Translations$releaseNotes$en {
 	/// en: 'On iPhone and Mac you can sign in with Apple and subscribe through the App Store. Change your email or password from settings, or add a password to a Google or Apple account. Readings follow the gender you choose, or stay neutral if you prefer not to say. Your birth charts are visible only to you, and readings no longer send your names to the AI. Please log in again after updating. Profile pictures and charts created without an account are gone.'
 	String get releaseNotes_5_0_0 => 'On iPhone and Mac you can sign in with Apple and subscribe through the App Store. Change your email or password from settings, or add a password to a Google or Apple account. Readings follow the gender you choose, or stay neutral if you prefer not to say. Your birth charts are visible only to you, and readings no longer send your names to the AI. Please log in again after updating. Profile pictures and charts created without an account are gone.';
 
+	/// en: 'Small fixes to keep the app running smoothly.'
+	String get releaseNotes_5_0_1 => 'Small fixes to keep the app running smoothly.';
+
 	/// en: 'Version ${version}'
 	String version({required Object version}) => 'Version ${version}';
 }
@@ -4060,6 +4063,7 @@ extension on Translations {
 			'releaseNotes.releaseNotes_4_8_0' => 'New app icon. Optimized starry night background.',
 			'releaseNotes.releaseNotes_4_9_0' => 'Updated terms and conditions and privacy policy. Fixed a registration issue with email and password. Birth chart is now automatically generated after registration.',
 			'releaseNotes.releaseNotes_5_0_0' => 'On iPhone and Mac you can sign in with Apple and subscribe through the App Store. Change your email or password from settings, or add a password to a Google or Apple account. Readings follow the gender you choose, or stay neutral if you prefer not to say. Your birth charts are visible only to you, and readings no longer send your names to the AI. Please log in again after updating. Profile pictures and charts created without an account are gone.',
+			'releaseNotes.releaseNotes_5_0_1' => 'Small fixes to keep the app running smoothly.',
 			'releaseNotes.version' => ({required Object version}) => 'Version ${version}',
 			'ui.about' => 'About',
 			'ui.account' => 'Account',
@@ -4415,9 +4419,9 @@ extension on Translations {
 			'ui.subscriptionConfirmationFailed' => 'Failed to confirm subscription. Please contact support',
 			'ui.subscriptionEndDate' => 'Renews on',
 			'ui.subscriptionIncomplete' => 'Payment Incomplete',
-			'ui.subscriptionManagedElsewhere' => 'This subscription was purchased outside the App Store: you can manage it on the website',
 			_ => null,
 		} ?? switch (path) {
+			'ui.subscriptionManagedElsewhere' => 'This subscription was purchased outside the App Store: you can manage it on the website',
 			'ui.subscriptionPastDue' => 'Payment Overdue',
 			'ui.subscriptionPurchasedOnAndroid' => 'This subscription was purchased in the Android app: you can manage it there or on the website',
 			'ui.subscriptionPurchasedOnLinux' => 'This subscription was purchased in the Linux app: you can manage it there or on the website',
