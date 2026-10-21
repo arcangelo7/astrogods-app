@@ -84,7 +84,13 @@ class AppleStoreService {
 
   Future<void> restore() => InAppPurchase.instance.restorePurchases();
 
+  // The in-app sheet also lists sandbox subscriptions, which App Review buys;
+  // StoreKit offers it only on iOS.
   Future<void> openManageSubscriptions() async {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      await AppStore().showManageSubscriptions();
+      return;
+    }
     await launchUrl(
       manageSubscriptionsUrl,
       mode: LaunchMode.externalApplication,

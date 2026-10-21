@@ -192,13 +192,9 @@ class AppTheme {
       backgroundColor: scheme.primary.withValues(alpha: backgroundAlpha),
       selectedColor: scheme.primary,
       showCheckmark: false,
-      labelStyle: TextStyle(
-        color: WidgetStateColor.resolveWith(
-          (states) => states.contains(WidgetState.selected)
-              ? scheme.onPrimary
-              : scheme.onSurface,
-        ),
-      ),
+      // Theme animations lerp a WidgetStateColor into a plain color, so the
+      // selected label color is set by ChoiceChipGroup.
+      labelStyle: TextStyle(color: scheme.onSurface),
     );
   }
 

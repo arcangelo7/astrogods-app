@@ -759,6 +759,7 @@ class _Translations$releaseNotes$it implements Translations$releaseNotes$en {
 	@override String get releaseNotes_5_0_0 => 'Su iPhone e Mac puoi accedere con Apple e abbonarti tramite l\'App Store. Cambia email o password dalle impostazioni, o aggiungi una password a un account Google o Apple. Le letture seguono il genere che scegli, o restano neutre se preferisci non dirlo. I tuoi temi natali sono visibili solo a te e le letture non inviano più i tuoi nomi all\'IA. Dopo l\'aggiornamento accedi di nuovo. Le foto profilo e i temi creati senza account non ci sono più.';
 	@override String get releaseNotes_5_0_1 => 'Piccole correzioni per rendere l\'app più stabile.';
 	@override String get releaseNotes_5_0_2 => 'Piccole correzioni per rendere l\'app più stabile.';
+	@override String get releaseNotes_5_0_3 => 'Su iPhone e iPad, la gestione dell\'abbonamento ora apre la schermata degli abbonamenti di Apple. Le opzioni selezionate ora mantengono il colore di evidenziazione.';
 	@override String version({required Object version}) => 'Versione ${version}';
 }
 
@@ -1875,6 +1876,7 @@ extension on TranslationsIt {
 			'releaseNotes.releaseNotes_5_0_0' => 'Su iPhone e Mac puoi accedere con Apple e abbonarti tramite l\'App Store. Cambia email o password dalle impostazioni, o aggiungi una password a un account Google o Apple. Le letture seguono il genere che scegli, o restano neutre se preferisci non dirlo. I tuoi temi natali sono visibili solo a te e le letture non inviano più i tuoi nomi all\'IA. Dopo l\'aggiornamento accedi di nuovo. Le foto profilo e i temi creati senza account non ci sono più.',
 			'releaseNotes.releaseNotes_5_0_1' => 'Piccole correzioni per rendere l\'app più stabile.',
 			'releaseNotes.releaseNotes_5_0_2' => 'Piccole correzioni per rendere l\'app più stabile.',
+			'releaseNotes.releaseNotes_5_0_3' => 'Su iPhone e iPad, la gestione dell\'abbonamento ora apre la schermata degli abbonamenti di Apple. Le opzioni selezionate ora mantengono il colore di evidenziazione.',
 			'releaseNotes.version' => ({required Object version}) => 'Versione ${version}',
 			'ui.about' => 'Informazioni',
 			'ui.account' => 'Account',
@@ -2228,9 +2230,9 @@ extension on TranslationsIt {
 			'ui.subscriptionCancelledSuccessfully' => 'Abbonamento annullato con successo',
 			'ui.subscriptionCancelsOn' => 'Termina il',
 			'ui.subscriptionConfirmationFailed' => 'Impossibile confermare l\'abbonamento. Contatta l\'assistenza',
-			'ui.subscriptionEndDate' => 'Si rinnova il',
 			_ => null,
 		} ?? switch (path) {
+			'ui.subscriptionEndDate' => 'Si rinnova il',
 			'ui.subscriptionIncomplete' => 'Pagamento Incompleto',
 			'ui.subscriptionManagedElsewhere' => 'Questo abbonamento è stato acquistato fuori dall\'App Store: puoi gestirlo dal sito',
 			'ui.subscriptionPastDue' => 'Pagamento Scaduto',

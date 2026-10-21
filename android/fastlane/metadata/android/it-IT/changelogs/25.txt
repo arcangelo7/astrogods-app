@@ -1,0 +1,2 @@
+- Su iPhone e iPad, la gestione dell'abbonamento ora apre la schermata degli abbonamenti di Apple.
+- Le opzioni selezionate ora mantengono il colore di evidenziazione.

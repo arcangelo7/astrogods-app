@@ -65,7 +65,7 @@ platform :mac do
     )
   end
 
-  desc "Upload the built pkg with its listing and screenshots, then submit the version for review"
+  desc "Upload the built pkg with its listing and screenshots; the version is submitted for review by hand"
   lane :release do
     cancel_rejected_submission(Spaceship::ConnectAPI::Platform::MAC_OS)
     deliver(

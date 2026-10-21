@@ -40,7 +40,7 @@ def released_on_app_store?(platform)
   !connect_app.get_live_app_store_version(platform: platform).nil?
 end
 
-# A rejected submission stays open and blocks deliver from submitting the new build.
+# A rejected submission stays open and blocks a new submission of the version.
 def cancel_rejected_submission(platform)
   states = Spaceship::ConnectAPI::ReviewSubmission::ReviewSubmissionState
   rejected = connect_app.get_review_submissions(filter: { state: states::UNRESOLVED_ISSUES, platform: platform }).first
@@ -57,13 +57,8 @@ def app_store_release(platform)
     **app_store_listing,
     app_version: VERSION,
     sync_screenshots: true,
-    submit_for_review: true,
-    automatic_release: true,
-    submission_information: {
-      export_compliance_uses_encryption: false,
-      add_id_info_uses_idfa: false,
-      content_rights_contains_third_party_content: false
-    }
+    submit_for_review: false,
+    automatic_release: true
   }
   options[:release_notes] = android_text("changelogs/#{BUILD_NUMBER}.txt") if released_on_app_store?(platform)
   options

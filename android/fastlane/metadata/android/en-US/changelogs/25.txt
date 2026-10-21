@@ -1,0 +1,2 @@
+- On iPhone and iPad, managing your subscription now opens the Apple subscription sheet.
+- Selected options now keep their highlight color.

@@ -40,6 +40,9 @@ class ChoiceChipGroup<T> extends StatelessWidget {
                     child: option.avatar!,
                   ),
             label: Text(option.label),
+            labelStyle: option.value == selected
+                ? TextStyle(color: onPrimary)
+                : null,
             selected: option.value == selected,
             onSelected: (_) => onSelected(option.value),
           ),
