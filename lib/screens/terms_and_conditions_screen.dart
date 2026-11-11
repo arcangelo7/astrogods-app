@@ -8,6 +8,8 @@ import '../widgets/linked_text.dart';
 import '../widgets/starry_night_background.dart';
 import '../constants/text_styles.dart';
 
+const _ownerPhone = '+39 334 280 5123';
+
 class TermsAndConditionsScreen extends StatefulWidget {
   const TermsAndConditionsScreen({super.key});
 
@@ -615,18 +617,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
             style: AppTextStyles.getBodyStyle(context),
           ),
           const SizedBox(height: 16),
-          Text(
-            t.legal.termsAcceptanceRequired,
-            style: AppTextStyles.getBodyStyle(context)
-                .copyWith(fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 16),
           const Divider(),
-          const SizedBox(height: 16),
-          Text(
-            t.legal.appleThirdPartyBeneficiary,
-            style: AppTextStyles.getBodyStyle(context),
-          ),
           const SizedBox(height: 16),
           Text(
             t.legal.astroGodsServiceOf,
@@ -634,6 +625,21 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           ),
           const SizedBox(height: 8),
           Text(t.legal.ownerName, style: AppTextStyles.getBodyStyle(context)),
+          Text(
+            t.legal.ownerAddress,
+            style: AppTextStyles.getBodyStyle(context),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            children: [
+              Text(
+                "${t.legal.ownerPhone} ",
+                style: AppTextStyles.getBodyStyle(context)
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+              Text(_ownerPhone, style: AppTextStyles.getBodyStyle(context)),
+            ],
+          ),
           const SizedBox(height: 8),
           Wrap(
             children: [
@@ -1356,6 +1362,26 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           _buildBulletPoint(context, t.legal.indirectLossExclusion),
           const SizedBox(height: 8),
           _buildBulletPoint(context, t.legal.nonDirectLossExclusion),
+
+          const SizedBox(height: 24),
+
+          _buildSubSectionTitle(context, t.legal.storeDistribution),
+          Text(
+            t.legal.storeDistributionIntro,
+            style: AppTextStyles.getBodyStyle(context),
+          ),
+          const SizedBox(height: 12),
+          for (final clause in [
+            t.legal.storeContractParties,
+            t.legal.storeLicenseScope,
+            t.legal.storeSupport,
+            t.legal.storeWarranty,
+            t.legal.storeProductClaims,
+            t.legal.storeIntellectualProperty,
+            t.legal.storeThirdPartyTerms,
+            t.legal.storeThirdPartyBeneficiary,
+          ])
+            _buildBulletPoint(context, clause),
         ],
       ),
     );
@@ -2168,7 +2194,26 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
               style: AppTextStyles.getCaptionStyle(context),
               textAlign: TextAlign.center,
             ),
+            Text(
+              t.legal.ownerAddress,
+              style: AppTextStyles.getCaptionStyle(context),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 4),
+            Wrap(
+              alignment: WrapAlignment.center,
+              children: [
+                Text(
+                  "${t.legal.ownerPhone} ",
+                  style: AppTextStyles.getCaptionStyle(context)
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  _ownerPhone,
+                  style: AppTextStyles.getCaptionStyle(context),
+                ),
+              ],
+            ),
             Wrap(
               alignment: WrapAlignment.center,
               children: [

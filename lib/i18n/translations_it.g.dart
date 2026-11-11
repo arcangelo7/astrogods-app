@@ -369,7 +369,6 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get appleAccountSubscriptions => 'Gli Utenti possono concludere l\'abbonamento ad un Prodotto utilizzando l\'Apple Account associato al loro account Apple App Store tramite la relativa procedura su AstroGods. Nel fare ciò, gli Utenti riconoscono ed accettano che:';
 	@override String get appleAccountSubscriptionsTitle => 'Abbonamenti gestiti tramite Apple Account';
 	@override String get appleTermsPrecedence => 'Quanto sopra prevale su qualsiasi disposizione contrastante o divergente dei Termini.';
-	@override String get appleThirdPartyBeneficiary => 'Nonostante il rapporto contrattuale relativo all\'acquisto di tali Prodotti sia concluso esclusivamente tra Titolare e Utenti, gli Utenti riconoscono e accettano che, qualora la fornitura di AstroGods sia avvenuta tramite l\'Apple App Store o Google Play Store, il rispettivo fornitore della piattaforma potrebbe esercitare diritti derivanti da questi Termini in qualità di terzo beneficiario.';
 	@override String get applicableLaw => 'Legge applicabile';
 	@override String get assignmentTermsApplication => 'Si applicano le disposizioni relative alla modifica di questi Termini.';
 	@override String get astroGodsDefinition => 'La struttura che consente la fornitura del Servizio.';
@@ -438,7 +437,7 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get cookiesAndTrackingTitle => 'Cookie';
 	@override String get dataControllerEmail => 'contact@astrogods.it';
 	@override String get dataControllerEmailLabel => 'Indirizzo email del Titolare: ';
-	@override String get dataControllerName => 'Arcangelo Massari - Bologna (Italia)';
+	@override String get dataControllerName => 'Arcangelo Massari, Via Ugo La Malfa 7, 40064 Ozzano dell\'Emilia (BO), Italia';
 	@override String get dataControllerSection => 'Titolare del Trattamento dei Dati';
 	@override String get dataTypesDetailedContent => 'Dettagli completi su ciascuna tipologia di Dati Personali raccolti sono forniti nelle sezioni dedicate di questa privacy policy o mediante specifici testi informativi visualizzati prima della raccolta dei Dati stessi.\n\nI Dati Personali possono essere liberamente forniti dall\'Utente o, nel caso di Dati di Utilizzo, raccolti automaticamente durante l\'uso di AstroGods.\n\nSe non diversamente specificato, tutti i Dati richiesti da AstroGods sono obbligatori. Se l\'Utente rifiuta di comunicarli, potrebbe essere impossibile per AstroGods fornire il Servizio. Nei casi in cui AstroGods indichi alcuni Dati come facoltativi, gli Utenti sono liberi di astenersi dal comunicare tali Dati, senza che ciò abbia alcuna conseguenza sulla disponibilità del Servizio o sulla sua operatività.\n\nGli Utenti che dovessero avere dubbi su quali Dati siano obbligatori sono incoraggiati a contattare il Titolare.\n\nAstroGods usa i Cookie solo per fornire il Servizio richiesto dall\'Utente, come descritto nella [Cookie Policy](/cookie-policy).\n\nL\'Utente si assume la responsabilità dei Dati Personali di terzi ottenuti, pubblicati o condivisi mediante AstroGods.';
 	@override String get dataTypesIntro => 'Fra i Dati Personali raccolti da AstroGods, in modo autonomo o tramite terze parti, ci sono:';
@@ -514,8 +513,8 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get ireland => 'Irlanda';
 	@override String get italy => 'Italia';
 	@override String get judicialRightsPreservation => 'Per quanto resti impregiudicato il diritto degli Utenti di promuovere un\'azione in giudizio, in caso di controversie inerenti all\'uso di AstroGods o al Servizio, gli Utenti sono pregati di contattare il Titolare ai [recapiti indicati in questo documento](mailto:contact@astrogods.it).';
-	@override String get lastModified => 'Ultima modifica: 20 ottobre 2026';
-	@override String get lastModifiedTerms => 'Ultima modifica: 19 ottobre 2026';
+	@override String get lastModified => 'Ultima modifica: 11 novembre 2026';
+	@override String get lastModifiedTerms => 'Ultima modifica: 11 novembre 2026';
 	@override String get legalRelationship => 'qualsiasi altro Accordo o rapporto giuridico con il Titolare';
 	@override String get liabilityAndIndemnification => 'Limitazione di responsabilità e manleva';
 	@override String get liabilityExceptions => 'Quanto precede non limita la responsabilità del Titolare per morte, danno alla persona o all\'integrità fisica o mentale, danni derivanti dalla violazione di obblighi contrattuali essenziali, quali gli obblighi strettamente necessari al raggiungimento della causa del contratto, e/o ai danni provocati con dolo o colpa grave, a condizione che l\'utilizzo di AstroGods da parte dell\'Utente sia stato idoneo e corretto.';
@@ -545,10 +544,12 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get orderSubmission => 'Invio dell\'ordine';
 	@override String get orderSubmissionConsequences => 'L\'invio dell\'ordine comporta quanto segue:';
 	@override String get orderSubmissionRequirement => 'Per inoltrare l\'ordine, gli Utenti sono tenuti ad accettare i presenti Termini e ad utilizzare il rispettivo pulsante o meccanismo su AstroGods, in tal modo, impegnandosi a pagare il prezzo concordato.';
+	@override String get ownerAddress => 'Via Ugo La Malfa 7, 40064 Ozzano dell\'Emilia (BO), Italia';
 	@override String get ownerDefinition => 'Indica la persona fisica o giuridica che fornisce AstroGods e/o offre il Servizio agli Utenti.';
 	@override String get ownerDefinitionTitle => 'Titolare (o Noi)';
 	@override String get ownerEmail => 'Indirizzo email del Titolare:';
-	@override String get ownerName => 'Arcangelo Massari - Bologna (Italia)';
+	@override String get ownerName => 'Arcangelo Massari';
+	@override String get ownerPhone => 'Numero di telefono del Titolare:';
 	@override String get ownerProtectiveRights => 'Pertanto, il Titolare si riserva il diritto di adottare ogni misura idonea a proteggere i propri interessi legittimi, ed in particolare di negare all\'Utente l\'accesso a AstroGods o al Servizio, risolvere contratti, denunciare ogni attività censurabile svolta tramite AstroGods o il Servizio alle autorità competenti – p. es. l\'autorità giudiziaria o amministrativa – ogniqualvolta l\'Utente ponga in essere o vi sia il sospetto che ponga in essere:';
 	@override String get ownershipReservation => 'Fino alla ricezione del pagamento del prezzo integrale di acquisto da parte del Titolare, l\'Utente non acquista la proprietà dei Prodotti ordinati.';
 	@override String get ownershipReservationTitle => 'Riserva di proprietà';
@@ -635,6 +636,16 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get severabilityClause => 'Clausola di salvaguardia';
 	@override String get severabilityLimitations => 'Fermo restando quanto sopra, la nullità, invalidità o inefficacia di una specifica disposizione di questi Termini non comporta nullità dell\'intero Accordo, a meno che le disposizioni nulle, invalidi o inefficaci nel quadro dell\'Accordo siano essenziali o di tale importanza, che le parti non avrebbero concluso il contratto se avessero saputo che la disposizione sarebbe stata invalida, ovvero in casi in cui le disposizioni residue comporterebbero un onere eccessivo ed inaccettabile per una delle parti.';
 	@override String get signInWithAppleDescription => 'Accedi con Apple è un servizio di autenticazione fornito da Apple. Se l\'Utente sceglie di nascondere la propria email, AstroGods riceve un indirizzo di inoltro creato da Apple.';
+	@override String get storeContractParties => 'I presenti Termini sono conclusi esclusivamente tra il Titolare e l\'Utente, non con lo store. L\'unico responsabile di AstroGods e dei suoi contenuti è il Titolare, non lo store.';
+	@override String get storeDistribution => 'App scaricate da uno store';
+	@override String get storeDistributionIntro => 'Le disposizioni seguenti si applicano quando l\'Utente scarica AstroGods da uno store di app, come l\'Apple App Store, Google Play o il Microsoft Store (lo "store").';
+	@override String get storeIntellectualProperty => 'Se un terzo sostiene che AstroGods, o il suo possesso e uso da parte dell\'Utente, viola i propri diritti di proprietà intellettuale, l\'unico responsabile dell\'indagine, della difesa, della transazione e della definizione della pretesa è il Titolare, non lo store.';
+	@override String get storeLicenseScope => 'Il Titolare concede all\'Utente una licenza non trasferibile per usare la copia di AstroGods scaricata dallo store sui dispositivi che l\'Utente possiede o controlla, nei limiti delle regole d\'uso di quello store, compresa l\'eventuale condivisione in famiglia. Questa licenza non limita i diritti che la licenza AGPL-3.0 concede sul codice sorgente pubblicato.';
+	@override String get storeProductClaims => 'Spetta al Titolare, non allo store, rispondere a qualsiasi pretesa dell\'Utente o di terzi relativa ad AstroGods o al suo possesso e uso. Rientrano tra queste le pretese per responsabilità da prodotto, quelle secondo cui AstroGods non rispetta un requisito di legge o regolamentare e quelle fondate sulle norme a tutela dei consumatori, sulla privacy o su norme simili. I presenti Termini non limitano la responsabilità del Titolare verso l\'Utente oltre quanto consentito dalla legge.';
+	@override String get storeSupport => 'La manutenzione e l\'assistenza di AstroGods spettano solo al Titolare, come descritto nei presenti Termini o come richiesto dalla legge. Lo store non ha alcun obbligo di fornire manutenzione o assistenza.';
+	@override String get storeThirdPartyBeneficiary => 'Sebbene i presenti Termini siano conclusi solo tra il Titolare e l\'Utente, l\'Utente riconosce e accetta che il gestore dello store da cui ha scaricato AstroGods e le sue società controllate sono terzi beneficiari dei presenti Termini. Una volta che l\'Utente li ha accettati, il gestore dello store ha il diritto di farli valere nei suoi confronti.';
+	@override String get storeThirdPartyTerms => 'Nell\'usare AstroGods, l\'Utente deve rispettare i termini dei terzi coinvolti, come lo store e il proprio fornitore di connessione internet o di traffico dati mobile.';
+	@override String get storeWarranty => 'Il Titolare è l\'unico responsabile delle garanzie su AstroGods, espresse o previste dalla legge, nella misura in cui non siano validamente escluse. Se AstroGods non è conforme a una garanzia applicabile, l\'Utente può segnalarlo allo store, che gli rimborserà il prezzo d\'acquisto secondo le proprie procedure. Nei limiti massimi consentiti dalla legge, lo store non ha altri obblighi di garanzia: ogni altra pretesa, perdita, responsabilità, danno, costo o spesa dovuti alla mancata conformità a una garanzia è a carico esclusivo del Titolare.';
 	@override String get stripeBillingAddress => 'All\'interno dell\'area di checkout di Stripe, potrebbe essere richiesto agli Utenti di specificare anche il loro indirizzo di fatturazione e di spedizione.';
 	@override String get stripeCheckoutAccess => 'Cliccando sul pulsante di checkout, gli Utenti accedono all\'area di checkout di Stripe dove verrà richiesto loro di indicare i propri recapiti e un mezzo di pagamento a loro scelta.';
 	@override String get stripeCustomerPortal => 'Gli utenti possono accedere al Portale Clienti Stripe per visualizzare la cronologia di fatturazione, scaricare fatture, aggiornare i metodi di pagamento e gestire le impostazioni degli abbonamenti. Questo portale è fornito direttamente da Stripe e garantisce l\'accesso sicuro alle informazioni di pagamento e fatturazione.';
@@ -709,7 +720,7 @@ class _Translations$legal$it implements Translations$legal$en {
 	@override String get withdrawalDeadlineQuestion => 'Quando scade il termine di recesso?';
 	@override String get withdrawalEffects => 'Il Titolare rimborsa tutti i pagamenti ricevuti compresi, se effettuati, quelli relativi alle spese di consegna agli Utenti che abbiano correttamente esercitato il diritto di recesso.';
 	@override String get withdrawalExercise => 'Per esercitare il diritto di recesso l\'Utente deve inviare al Titolare una comunicazione inequivocabile della propria intenzione di recedere dal contratto.';
-	@override String get withdrawalFormAddress => 'Arcangelo Massari - Bologna (Italia)\ncontact@astrogods.it';
+	@override String get withdrawalFormAddress => 'Arcangelo Massari\nVia Ugo La Malfa 7, 40064 Ozzano dell\'Emilia (BO), Italia\ncontact@astrogods.it';
 	@override String get withdrawalFormConsumerAddress => 'Indirizzo del/dei consumatore/i:_____________________________________________';
 	@override String get withdrawalFormConsumerName => 'Nome del/dei consumatore/i:_____________________________________________';
 	@override String get withdrawalFormDate => 'Data: _____________________________________________';
@@ -759,7 +770,8 @@ class _Translations$releaseNotes$it implements Translations$releaseNotes$en {
 	@override String get releaseNotes_5_0_0 => 'Su iPhone e Mac puoi accedere con Apple e abbonarti tramite l\'App Store. Cambia email o password dalle impostazioni, o aggiungi una password a un account Google o Apple. Le letture seguono il genere che scegli, o restano neutre se preferisci non dirlo. I tuoi temi natali sono visibili solo a te e le letture non inviano più i tuoi nomi all\'IA. Dopo l\'aggiornamento accedi di nuovo. Le foto profilo e i temi creati senza account non ci sono più.';
 	@override String get releaseNotes_5_0_1 => 'Piccole correzioni per rendere l\'app più stabile.';
 	@override String get releaseNotes_5_0_2 => 'Piccole correzioni per rendere l\'app più stabile.';
-	@override String get releaseNotes_5_0_3 => 'Su iPhone e iPad, la gestione dell\'abbonamento ora apre la schermata degli abbonamenti di Apple. Le opzioni selezionate ora mantengono il colore di evidenziazione.';
+	@override String get releaseNotes_5_0_3 => 'Le opzioni selezionate ora mantengono il colore di evidenziazione.';
+	@override String get releaseNotes_5_0_4 => 'I Termini d\'uso ora includono le clausole degli store e l\'indirizzo e il numero di telefono del Titolare.';
 	@override String version({required Object version}) => 'Versione ${version}';
 }
 
@@ -1493,7 +1505,6 @@ extension on TranslationsIt {
 			'legal.appleAccountSubscriptions' => 'Gli Utenti possono concludere l\'abbonamento ad un Prodotto utilizzando l\'Apple Account associato al loro account Apple App Store tramite la relativa procedura su AstroGods. Nel fare ciò, gli Utenti riconoscono ed accettano che:',
 			'legal.appleAccountSubscriptionsTitle' => 'Abbonamenti gestiti tramite Apple Account',
 			'legal.appleTermsPrecedence' => 'Quanto sopra prevale su qualsiasi disposizione contrastante o divergente dei Termini.',
-			'legal.appleThirdPartyBeneficiary' => 'Nonostante il rapporto contrattuale relativo all\'acquisto di tali Prodotti sia concluso esclusivamente tra Titolare e Utenti, gli Utenti riconoscono e accettano che, qualora la fornitura di AstroGods sia avvenuta tramite l\'Apple App Store o Google Play Store, il rispettivo fornitore della piattaforma potrebbe esercitare diritti derivanti da questi Termini in qualità di terzo beneficiario.',
 			'legal.applicableLaw' => 'Legge applicabile',
 			'legal.assignmentTermsApplication' => 'Si applicano le disposizioni relative alla modifica di questi Termini.',
 			'legal.astroGodsDefinition' => 'La struttura che consente la fornitura del Servizio.',
@@ -1562,7 +1573,7 @@ extension on TranslationsIt {
 			'legal.cookiesAndTrackingTitle' => 'Cookie',
 			'legal.dataControllerEmail' => 'contact@astrogods.it',
 			'legal.dataControllerEmailLabel' => 'Indirizzo email del Titolare: ',
-			'legal.dataControllerName' => 'Arcangelo Massari - Bologna (Italia)',
+			'legal.dataControllerName' => 'Arcangelo Massari, Via Ugo La Malfa 7, 40064 Ozzano dell\'Emilia (BO), Italia',
 			'legal.dataControllerSection' => 'Titolare del Trattamento dei Dati',
 			'legal.dataTypesDetailedContent' => 'Dettagli completi su ciascuna tipologia di Dati Personali raccolti sono forniti nelle sezioni dedicate di questa privacy policy o mediante specifici testi informativi visualizzati prima della raccolta dei Dati stessi.\n\nI Dati Personali possono essere liberamente forniti dall\'Utente o, nel caso di Dati di Utilizzo, raccolti automaticamente durante l\'uso di AstroGods.\n\nSe non diversamente specificato, tutti i Dati richiesti da AstroGods sono obbligatori. Se l\'Utente rifiuta di comunicarli, potrebbe essere impossibile per AstroGods fornire il Servizio. Nei casi in cui AstroGods indichi alcuni Dati come facoltativi, gli Utenti sono liberi di astenersi dal comunicare tali Dati, senza che ciò abbia alcuna conseguenza sulla disponibilità del Servizio o sulla sua operatività.\n\nGli Utenti che dovessero avere dubbi su quali Dati siano obbligatori sono incoraggiati a contattare il Titolare.\n\nAstroGods usa i Cookie solo per fornire il Servizio richiesto dall\'Utente, come descritto nella [Cookie Policy](/cookie-policy).\n\nL\'Utente si assume la responsabilità dei Dati Personali di terzi ottenuti, pubblicati o condivisi mediante AstroGods.',
 			'legal.dataTypesIntro' => 'Fra i Dati Personali raccolti da AstroGods, in modo autonomo o tramite terze parti, ci sono:',
@@ -1638,8 +1649,8 @@ extension on TranslationsIt {
 			'legal.ireland' => 'Irlanda',
 			'legal.italy' => 'Italia',
 			'legal.judicialRightsPreservation' => 'Per quanto resti impregiudicato il diritto degli Utenti di promuovere un\'azione in giudizio, in caso di controversie inerenti all\'uso di AstroGods o al Servizio, gli Utenti sono pregati di contattare il Titolare ai [recapiti indicati in questo documento](mailto:contact@astrogods.it).',
-			'legal.lastModified' => 'Ultima modifica: 20 ottobre 2026',
-			'legal.lastModifiedTerms' => 'Ultima modifica: 19 ottobre 2026',
+			'legal.lastModified' => 'Ultima modifica: 11 novembre 2026',
+			'legal.lastModifiedTerms' => 'Ultima modifica: 11 novembre 2026',
 			'legal.legalRelationship' => 'qualsiasi altro Accordo o rapporto giuridico con il Titolare',
 			'legal.liabilityAndIndemnification' => 'Limitazione di responsabilità e manleva',
 			'legal.liabilityExceptions' => 'Quanto precede non limita la responsabilità del Titolare per morte, danno alla persona o all\'integrità fisica o mentale, danni derivanti dalla violazione di obblighi contrattuali essenziali, quali gli obblighi strettamente necessari al raggiungimento della causa del contratto, e/o ai danni provocati con dolo o colpa grave, a condizione che l\'utilizzo di AstroGods da parte dell\'Utente sia stato idoneo e corretto.',
@@ -1669,10 +1680,12 @@ extension on TranslationsIt {
 			'legal.orderSubmission' => 'Invio dell\'ordine',
 			'legal.orderSubmissionConsequences' => 'L\'invio dell\'ordine comporta quanto segue:',
 			'legal.orderSubmissionRequirement' => 'Per inoltrare l\'ordine, gli Utenti sono tenuti ad accettare i presenti Termini e ad utilizzare il rispettivo pulsante o meccanismo su AstroGods, in tal modo, impegnandosi a pagare il prezzo concordato.',
+			'legal.ownerAddress' => 'Via Ugo La Malfa 7, 40064 Ozzano dell\'Emilia (BO), Italia',
 			'legal.ownerDefinition' => 'Indica la persona fisica o giuridica che fornisce AstroGods e/o offre il Servizio agli Utenti.',
 			'legal.ownerDefinitionTitle' => 'Titolare (o Noi)',
 			'legal.ownerEmail' => 'Indirizzo email del Titolare:',
-			'legal.ownerName' => 'Arcangelo Massari - Bologna (Italia)',
+			'legal.ownerName' => 'Arcangelo Massari',
+			'legal.ownerPhone' => 'Numero di telefono del Titolare:',
 			'legal.ownerProtectiveRights' => 'Pertanto, il Titolare si riserva il diritto di adottare ogni misura idonea a proteggere i propri interessi legittimi, ed in particolare di negare all\'Utente l\'accesso a AstroGods o al Servizio, risolvere contratti, denunciare ogni attività censurabile svolta tramite AstroGods o il Servizio alle autorità competenti – p. es. l\'autorità giudiziaria o amministrativa – ogniqualvolta l\'Utente ponga in essere o vi sia il sospetto che ponga in essere:',
 			'legal.ownershipReservation' => 'Fino alla ricezione del pagamento del prezzo integrale di acquisto da parte del Titolare, l\'Utente non acquista la proprietà dei Prodotti ordinati.',
 			'legal.ownershipReservationTitle' => 'Riserva di proprietà',
@@ -1715,9 +1728,9 @@ extension on TranslationsIt {
 			'legal.processingMethodsTitle' => 'Modalità e luogo del trattamento dei Dati raccolti',
 			'legal.productCharacteristicsSpecified' => 'Le caratteristiche del Prodotto selezionato saranno specificate durante la procedura d\'acquisto.',
 			'legal.productDefinition' => 'Un bene o servizio disponibile tramite AstroGods, inclusi specificatamente: interpretazioni astrologiche, analisi del tema natale, previsioni e pronostici astrologici, rapporti di compatibilità, contenuti educativi astrologici e qualsiasi altro servizio astrologico o contenuto digitale definito separatamente nel presente documento.',
-			'legal.productDefinitionTitle' => 'Prodotto',
 			_ => null,
 		} ?? switch (path) {
+			'legal.productDefinitionTitle' => 'Prodotto',
 			'legal.productDescription' => 'Descrizione del prodotto',
 			'legal.productDescriptionInfo' => 'Prezzi, descrizioni e disponibilità dei Prodotti astrologici (incluse letture del tema natale, analisi di compatibilità, previsioni giornaliere e mensili e approfondimenti sulle relazioni) sono specificati nelle rispettive sezioni di AstroGods e sono soggetti a modifica senza preavviso.',
 			'legal.productRepresentationDisclaimer' => 'Sebbene i Prodotti su AstroGods siano presentati con la massima accuratezza tecnicamente possibile, la rappresentazione su AstroGods tramite qualsiasi mezzo (inclusi, a seconda dei casi, materiali grafici, immagini, colori, suoni) è da intendersi come mero riferimento e non implica alcuna garanzia in merito alle caratteristiche del Prodotto acquistato.',
@@ -1761,6 +1774,16 @@ extension on TranslationsIt {
 			'legal.severabilityClause' => 'Clausola di salvaguardia',
 			'legal.severabilityLimitations' => 'Fermo restando quanto sopra, la nullità, invalidità o inefficacia di una specifica disposizione di questi Termini non comporta nullità dell\'intero Accordo, a meno che le disposizioni nulle, invalidi o inefficaci nel quadro dell\'Accordo siano essenziali o di tale importanza, che le parti non avrebbero concluso il contratto se avessero saputo che la disposizione sarebbe stata invalida, ovvero in casi in cui le disposizioni residue comporterebbero un onere eccessivo ed inaccettabile per una delle parti.',
 			'legal.signInWithAppleDescription' => 'Accedi con Apple è un servizio di autenticazione fornito da Apple. Se l\'Utente sceglie di nascondere la propria email, AstroGods riceve un indirizzo di inoltro creato da Apple.',
+			'legal.storeContractParties' => 'I presenti Termini sono conclusi esclusivamente tra il Titolare e l\'Utente, non con lo store. L\'unico responsabile di AstroGods e dei suoi contenuti è il Titolare, non lo store.',
+			'legal.storeDistribution' => 'App scaricate da uno store',
+			'legal.storeDistributionIntro' => 'Le disposizioni seguenti si applicano quando l\'Utente scarica AstroGods da uno store di app, come l\'Apple App Store, Google Play o il Microsoft Store (lo "store").',
+			'legal.storeIntellectualProperty' => 'Se un terzo sostiene che AstroGods, o il suo possesso e uso da parte dell\'Utente, viola i propri diritti di proprietà intellettuale, l\'unico responsabile dell\'indagine, della difesa, della transazione e della definizione della pretesa è il Titolare, non lo store.',
+			'legal.storeLicenseScope' => 'Il Titolare concede all\'Utente una licenza non trasferibile per usare la copia di AstroGods scaricata dallo store sui dispositivi che l\'Utente possiede o controlla, nei limiti delle regole d\'uso di quello store, compresa l\'eventuale condivisione in famiglia. Questa licenza non limita i diritti che la licenza AGPL-3.0 concede sul codice sorgente pubblicato.',
+			'legal.storeProductClaims' => 'Spetta al Titolare, non allo store, rispondere a qualsiasi pretesa dell\'Utente o di terzi relativa ad AstroGods o al suo possesso e uso. Rientrano tra queste le pretese per responsabilità da prodotto, quelle secondo cui AstroGods non rispetta un requisito di legge o regolamentare e quelle fondate sulle norme a tutela dei consumatori, sulla privacy o su norme simili. I presenti Termini non limitano la responsabilità del Titolare verso l\'Utente oltre quanto consentito dalla legge.',
+			'legal.storeSupport' => 'La manutenzione e l\'assistenza di AstroGods spettano solo al Titolare, come descritto nei presenti Termini o come richiesto dalla legge. Lo store non ha alcun obbligo di fornire manutenzione o assistenza.',
+			'legal.storeThirdPartyBeneficiary' => 'Sebbene i presenti Termini siano conclusi solo tra il Titolare e l\'Utente, l\'Utente riconosce e accetta che il gestore dello store da cui ha scaricato AstroGods e le sue società controllate sono terzi beneficiari dei presenti Termini. Una volta che l\'Utente li ha accettati, il gestore dello store ha il diritto di farli valere nei suoi confronti.',
+			'legal.storeThirdPartyTerms' => 'Nell\'usare AstroGods, l\'Utente deve rispettare i termini dei terzi coinvolti, come lo store e il proprio fornitore di connessione internet o di traffico dati mobile.',
+			'legal.storeWarranty' => 'Il Titolare è l\'unico responsabile delle garanzie su AstroGods, espresse o previste dalla legge, nella misura in cui non siano validamente escluse. Se AstroGods non è conforme a una garanzia applicabile, l\'Utente può segnalarlo allo store, che gli rimborserà il prezzo d\'acquisto secondo le proprie procedure. Nei limiti massimi consentiti dalla legge, lo store non ha altri obblighi di garanzia: ogni altra pretesa, perdita, responsabilità, danno, costo o spesa dovuti alla mancata conformità a una garanzia è a carico esclusivo del Titolare.',
 			'legal.stripeBillingAddress' => 'All\'interno dell\'area di checkout di Stripe, potrebbe essere richiesto agli Utenti di specificare anche il loro indirizzo di fatturazione e di spedizione.',
 			'legal.stripeCheckoutAccess' => 'Cliccando sul pulsante di checkout, gli Utenti accedono all\'area di checkout di Stripe dove verrà richiesto loro di indicare i propri recapiti e un mezzo di pagamento a loro scelta.',
 			'legal.stripeCustomerPortal' => 'Gli utenti possono accedere al Portale Clienti Stripe per visualizzare la cronologia di fatturazione, scaricare fatture, aggiornare i metodi di pagamento e gestire le impostazioni degli abbonamenti. Questo portale è fornito direttamente da Stripe e garantisce l\'accesso sicuro alle informazioni di pagamento e fatturazione.',
@@ -1835,7 +1858,7 @@ extension on TranslationsIt {
 			'legal.withdrawalDeadlineQuestion' => 'Quando scade il termine di recesso?',
 			'legal.withdrawalEffects' => 'Il Titolare rimborsa tutti i pagamenti ricevuti compresi, se effettuati, quelli relativi alle spese di consegna agli Utenti che abbiano correttamente esercitato il diritto di recesso.',
 			'legal.withdrawalExercise' => 'Per esercitare il diritto di recesso l\'Utente deve inviare al Titolare una comunicazione inequivocabile della propria intenzione di recedere dal contratto.',
-			'legal.withdrawalFormAddress' => 'Arcangelo Massari - Bologna (Italia)\ncontact@astrogods.it',
+			'legal.withdrawalFormAddress' => 'Arcangelo Massari\nVia Ugo La Malfa 7, 40064 Ozzano dell\'Emilia (BO), Italia\ncontact@astrogods.it',
 			'legal.withdrawalFormConsumerAddress' => 'Indirizzo del/dei consumatore/i:_____________________________________________',
 			'legal.withdrawalFormConsumerName' => 'Nome del/dei consumatore/i:_____________________________________________',
 			'legal.withdrawalFormDate' => 'Data: _____________________________________________',
@@ -1876,7 +1899,8 @@ extension on TranslationsIt {
 			'releaseNotes.releaseNotes_5_0_0' => 'Su iPhone e Mac puoi accedere con Apple e abbonarti tramite l\'App Store. Cambia email o password dalle impostazioni, o aggiungi una password a un account Google o Apple. Le letture seguono il genere che scegli, o restano neutre se preferisci non dirlo. I tuoi temi natali sono visibili solo a te e le letture non inviano più i tuoi nomi all\'IA. Dopo l\'aggiornamento accedi di nuovo. Le foto profilo e i temi creati senza account non ci sono più.',
 			'releaseNotes.releaseNotes_5_0_1' => 'Piccole correzioni per rendere l\'app più stabile.',
 			'releaseNotes.releaseNotes_5_0_2' => 'Piccole correzioni per rendere l\'app più stabile.',
-			'releaseNotes.releaseNotes_5_0_3' => 'Su iPhone e iPad, la gestione dell\'abbonamento ora apre la schermata degli abbonamenti di Apple. Le opzioni selezionate ora mantengono il colore di evidenziazione.',
+			'releaseNotes.releaseNotes_5_0_3' => 'Le opzioni selezionate ora mantengono il colore di evidenziazione.',
+			'releaseNotes.releaseNotes_5_0_4' => 'I Termini d\'uso ora includono le clausole degli store e l\'indirizzo e il numero di telefono del Titolare.',
 			'releaseNotes.version' => ({required Object version}) => 'Versione ${version}',
 			'ui.about' => 'Informazioni',
 			'ui.account' => 'Account',
@@ -2218,6 +2242,8 @@ extension on TranslationsIt {
 			'ui.sixMonthsPeriod' => '6 mesi',
 			'ui.standardAnnual' => 'Standard - annuale',
 			'ui.standardMonthly' => 'Standard - mensile',
+			_ => null,
+		} ?? switch (path) {
 			'ui.standardSemiannual' => 'Standard - semestrale',
 			'ui.startFreeSevenDays' => 'INIZIA GRATIS - 7 GIORNI',
 			'ui.startNow' => 'Inizia ora',
@@ -2230,8 +2256,6 @@ extension on TranslationsIt {
 			'ui.subscriptionCancelledSuccessfully' => 'Abbonamento annullato con successo',
 			'ui.subscriptionCancelsOn' => 'Termina il',
 			'ui.subscriptionConfirmationFailed' => 'Impossibile confermare l\'abbonamento. Contatta l\'assistenza',
-			_ => null,
-		} ?? switch (path) {
 			'ui.subscriptionEndDate' => 'Si rinnova il',
 			'ui.subscriptionIncomplete' => 'Pagamento Incompleto',
 			'ui.subscriptionManagedElsewhere' => 'Questo abbonamento è stato acquistato fuori dall\'App Store: puoi gestirlo dal sito',

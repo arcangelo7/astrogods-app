@@ -99,6 +99,11 @@
   </screenshots>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="5.0.4" date="2026-11-11">
+      <description>
+        <p>The terms of use now include the app store clauses and the owner's address and phone number.</p>
+      </description>
+    </release>
     <release version="5.0.3" date="2026-10-21">
       <description>
         <p>On iPhone and iPad, managing your subscription now opens the Apple subscription sheet. Selected options now keep their highlight color.</p>
